@@ -4,7 +4,15 @@
     <body>
         <p id="titulo">Orçamentos<p>
 
-        <table id="tabela">
+        <div class="container">
+            <div class="pesquisa-ctn">
+                <label for="" class="label-pesquisar">Filtrar: </label>
+                <input type="date" class="pesquisar">
+                <button class="btn">Submit</button>
+            </div>
+            
+
+            <table id="tabela">
                 <tr>
                     <th>ID </th>
                     <th>Valor</th>
@@ -12,6 +20,7 @@
                     <th>Estado</th>
                     <th>Ação</th>
                 </tr>
+
                 <tr>
                     <td>001</td>
                     <td>R$22,99</td>
@@ -44,5 +53,7 @@
                 </tr>
 
         </table>
+        </div>
+        
 </body>
 </html>
