@@ -82,4 +82,8 @@ export class PedidoComponent {
       this.total += this.carrinho[x].subtotal;
     }
   }
+  limparItens() {
+    this.carrinho = [];
+    this.total = 0;
+  }
 }

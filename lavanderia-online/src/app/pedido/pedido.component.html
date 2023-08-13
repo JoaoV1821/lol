@@ -6,24 +6,33 @@
         <app-categoria (addClick)="addItem($event)" categoria="Camisas" [items]="lista_de_items"></app-categoria>
         <app-categoria (addClick)="addItem($event)" categoria="Casacos" [items]="lista_de_items"></app-categoria>
     </div>
-    <div id="carrinho">
-        <div id="titulo">Seu carrinho:</div>
-        <div id="total">R${{total}}</div>
-        <table id="itemTable">
-            <tr>
-                <th>Item</th>
-                <th>QT</th>
-                <th>Subtotal</th>
-            </tr>
-            <tr *ngFor="let item of carrinho;let i = index">
-                <td>{{item.tipo}}</td>
-                <td>
-                    <button (click)="changeItemValue(i,'down')">&#8722;</button>
-                    {{item.qt}}
-                    <button (click)="changeItemValue(i,'up')">&#43;</button>
-                </td>
-                <td>{{item.subtotal}}</td>
-            </tr>
-        </table>
+    <div id="carrinho-container">
+        <div id="carrinho">
+            <div id="titulo">Seu carrinho:</div>
+            <div id="total">R${{total}}</div>
+            <table id="itemTable">
+                <tr>
+                    <th>Item</th>
+                    <th>QT</th>
+                    <th>Subtotal</th>
+                </tr>
+                <tr *ngFor="let item of carrinho;let i = index">
+                    <td>{{item.tipo}}</td>
+                    <td>
+                        <button (click)="changeItemValue(i,'down')">&#8722;</button>
+                        {{item.qt}}
+                        <button (click)="changeItemValue(i,'up')">&#43;</button>
+                    </td>
+                    <td>{{item.subtotal}}</td>
+                </tr>
+            </table>
+        </div>
+        <div id="button-area">
+            <button (click)="limparItens()">Limpar</button>
+            <button>Continuar</button>
+        </div>
+
     </div>
+
+
 </div>

@@ -3,7 +3,10 @@
     display: flex;
     flex-direction: row;
     justify-content: space-around;
+    height: 100%;
+    width: 100%;
 }
+
 
 #categoria-container {
     margin-top: 50px;
@@ -25,7 +28,6 @@
     display: flex;
     flex-direction: column;
     background-color: rgb(250, 252, 254);
-
 }
 
 #carrinho #titulo {
@@ -40,6 +42,21 @@
     padding-top: 40px;
     padding-bottom: 40px;
     color: rgb(60, 60, 151);
+}
+
+#carrinho-container #button-area {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+
+#carrinho-container #button-area button {
+    height: 50px;
+    width: 200px;
+    border-radius: 70px;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 #itemTable tr td {
