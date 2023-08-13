@@ -1,0 +1,32 @@
+#container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border: 1px solid black;
+    width: 100%;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 6px;
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 5px;
+}
+
+.row #texto-item {
+    font-size: 1em;
+}
+
+#container div {
+    font-weight: bold;
+    font-size: 1.2em;
+    color: rgb(60, 60, 151);
+}
+
+#container button {
+    border-radius: 10px;
+    font-size: 15px;
+}
