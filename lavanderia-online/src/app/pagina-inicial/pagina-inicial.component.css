@@ -1,0 +1,48 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+body{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flexbox;
+    background-color: #fafafa;
+    color: #1a1a1a;
+}
+.corpo{
+    padding: 20px;
+}
+.lista{
+    margin: 30px;
+}
+#table{
+    width: 100%;
+    border-collapse: collapse;
+}
+td, th{
+    border: 1px solid #aaa;
+    text-align: center;
+    padding: 8px;
+}
+tr:nth-child(even){
+    background-color: #dddddd;
+}
+tr:hover:not(#table-header){
+    background-color: #bbb;
+    text-decoration: underline;
+    cursor: pointer;
+}
+header{
+    display: flex;
+    justify-content:space-between;
+    padding:15px;
+    border-bottom: 1px solid #777;
+    box-shadow: 0px 10px 10px rgba(0,0,0,0.1);
+}
+.usuario{
+    padding-right: 10px;
+    text-align: end;
+}
+#sair-usuario:hover{
+    text-decoration: underline;
+    cursor: pointer;
+}
