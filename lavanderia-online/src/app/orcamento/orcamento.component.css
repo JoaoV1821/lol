@@ -2,6 +2,21 @@ body {
 	font-family: helvetica;
 }
 
+.container {
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	padding: 20px;
+}
+.pesquisar {
+	width: 150px;
+	border-radius: 5px;
+}
+
+.btn {
+	background:#3498db ; /* fallback for old browsers */
+}
+
 #titulo{
 	font-size: 40px;
 }
