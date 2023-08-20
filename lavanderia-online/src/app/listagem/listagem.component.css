@@ -1,0 +1,68 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+body{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flexbox;
+    background-color: #fafafa;
+    color: #1a1a1a;
+}
+.corpo{
+    padding: 20px;
+}
+.lista{
+    margin: 30px;
+}
+#table{
+    width: 100%;
+    border-collapse: collapse;
+}
+td, th{
+    border: 1px solid #aaa;
+    text-align: center;
+    padding: 8px;
+}
+tr:nth-child(even){
+    background-color: #dddddd;
+}
+tr:hover:not(#table-header){
+    background-color: #bbb;
+    cursor: pointer;
+}
+header{
+    display: flex;
+    justify-content:space-between;
+    padding:15px;
+    border-bottom: 1px solid #777;
+    box-shadow: 0px 10px 10px rgba(0,0,0,0.1);
+}
+.usuario{
+    padding-right: 10px;
+    text-align: end;
+}
+#sair-usuario:hover{
+    text-decoration: underline;
+    cursor: pointer;
+}
+.filtro{
+    width: 180px;
+    height: 20px;
+    margin-top: 30px;
+    margin-left: 30px;
+}
+.lista input {
+    width: 30px;
+    height: 30px;
+    display: block;
+    margin: 0 auto;     
+    border: 0;
+}
+.lista input:hover { 
+    background-color:aqua; 
+}
+.detalhes{
+    background-image: url(./assets/img/icone-detalhes.png);
+    background-size:contain;
+    background-position: center;
+}
