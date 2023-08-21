@@ -1,83 +1,149 @@
+<!DOCTYPE html>
 <html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Listagem de Pedidos</title>
+</head>
 <body>
-    <header>
-        <div class="titulo">
-            <h1>LOL</h1>
-            <!-- <h2>Lavanderia On-Line</h2> -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom mb-3">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <img src="../../assets/logoLol.png" alt="Logo LOL" width="100">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="col-md-1" id="sair">Sair</div>
         </div>
-        <div class="usuario">
-                <h4 id="nome-usuario" style="margin-bottom: 0;">Usuário</h4>
-                <p id="sair-usuario" style="margin-top: 0;">Sair</p>
+    </nav>
+    
+    <div class="container">
+        <div class="row">
+            <div class="col mb-3">
+                <h1 id="titulo">Seus Pedidos</h1>
+            </div>
         </div>
-    </header>
-    <br>
-    <div class="corpo">
-        <div class="titulo">
-            <h1 id="titulo">Seus Pedidos</h1>
+        <div class="row">
+            <h4 class="col-sm-1">Filtrar: </h4>
+            <div class="col-sm-3 mb-3">
+                <select class="form-select filtro">
+                    <option disabled selected>Estado do pedido</option>
+                    <option>Aguardando Pagamento</option>
+                    <option>Enviado</option>
+                    <option>Pendente</option>
+                    <option>Cancelado</option>
+                </select>
+            </div>
         </div>
-        <div>
-            <select class="filtro">
-                <option disabled selected>Estado do pedido</option>
-                <option>Aguardando Pagamento</option>
-                <option>Enviado</option>
-                <option>Pendente</option>
-                <option>Cancelado</option>
-            </select>
-        </div>
-        <div class="lista">
-            <table id="table">
-                <tr id="table-header">
-                    <th>Nº Pedido</th>
-                    <th>Valor</th>
-                    <th>Data</th>
-                    <th>Prazo</th>
-                    <th>Status</th>
-                    <th>Detalhes</th>
-                    <th>Ações</th>
-                </tr>
-                <tr id="000001">
-                    <td>000001</td>
-                    <td>R$ 60,00</td>
-                    <td>12/08/2023</td>
-                    <td>16/08/2023</td>
-                    <td>Pendente</td>
-                    <td>
-                        <input type="button" class="detalhes" value="">
-                    </td>
-                    <td class="td-button">
-                        <button style="color: green; font-weight: 500; ">Pagar</button>
-                        <button style="color: red; font-weight: 500;">Cancelar</button>
-                    </td>
-                </tr>
-                <tr id="000002">
-                    <td>000002</td>
-                    <td>R$ 60,00</td>
-                    <td>12/08/2023</td>
-                    <td>16/08/2023</td>
-                    <td>Em Aberto</td>
-                    <td>
-                        <input type="button" class="detalhes" value="">
-                    </td>
-                    <td class="td-button">
-                        <button style="color: green; font-weight: 500; ">Pagar</button>
-                        <button style="color: red; font-weight: 500;">Cancelar</button>
-                    </td>
-                </tr>
-                <tr id="000003">
-                    <td>000003</td>
-                    <td>R$ 60,00</td>
-                    <td>12/08/2023</td>
-                    <td>16/08/2023</td>
-                    <td>Em Aberto</td>
-                    <td>
-                        <input type="button" class="detalhes" value="">
-                    </td>
-                    <td class="td-button">
-                        <button style="color: green; font-weight: 500; ">Pagar</button>
-                        <button style="color: red; font-weight: 500;">Cancelar</button>
-                    </td>
-                </tr>
-            </table>
+        <div class="row">
+            <div class="col">
+                <table class="table" id="table">
+                    <thead>
+                        <tr>
+                            <th>Nº Pedido</th>
+                            <th>Valor</th>
+                            <th>Data</th>
+                            <th>Prazo</th>
+                            <th>Status</th>
+                            <th>Pagar</th>
+                            <th>Cancelar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr id="000003">
+                            <td>000003</td>
+                            <td>R$ 60,00</td>
+                            <td>12/08/2023</td>
+                            <td>16/08/2023</td>
+                            <td class="td-button">
+                                <button class="btn btn-aberto">EM ABERTO</button>
+                            </td>
+                            <td class="td-button">
+                                <button class="btn btn-success">Pagar</button>
+                            </td>
+                            <td class="td-button">
+                                <button class="btn btn-danger">Cancelar</button>
+                            </td>
+                        </tr>
+                        <tr id="000005">
+                            <td>000005</td>
+                            <td>R$ 85,00</td>
+                            <td>11/08/2023</td>
+                            <td>15/08/2023</td>
+                            <td class="td-button">
+                                <button class="btn btn-recolhido">RECOLHIDO</button>
+                            </td>
+                            <td class="td-button">
+                                <button class="btn btn-success">Pagar</button>
+                            </td>
+                            <td class="td-button">
+                                <button class="btn disabled">Cancelar</button>
+                            </td>
+                        </tr>
+                        <tr id="000001">
+                            <td>000001</td>
+                            <td>R$ 60,00</td>
+                            <td>12/08/2023</td>
+                            <td>16/08/2023</td>
+                            <td class="td-button">
+                                <button class="btn btn-aguardando">AGUARDANDO PAGAMENTO</button>
+                            </td>
+                            <td class="td-button">
+                                <button class="btn btn-success">Pagar</button>
+                            </td>
+                            <td class="td-button">
+                                <button class="btn disabled">Cancelar</button>
+                            </td>
+                        </tr>
+                        <tr id="000002">
+                            <td>000002</td>
+                            <td>R$ 60,00</td>
+                            <td>12/08/2023</td>
+                            <td>16/08/2023</td>
+                            <td class="td-button">
+                                <button class="btn btn-pago">PAGO</button>
+                            </td>
+                            <td class="td-button">
+                                <button class="btn disabled">Pagar</button>
+                            </td>
+                            <td class="td-button">
+                                <button class="btn disabled">Cancelar</button>
+                            </td>
+                        </tr>
+                        <tr id="000004">
+                            <td>000004</td>
+                            <td>R$ 40,00</td>
+                            <td>12/08/2023</td>
+                            <td>16/08/2023</td>
+                            <td class="td-button">
+                                <button class="btn btn-cancelado">CANCELADO</button>
+                            </td>
+                            <td class="td-button">
+                                <button class="btn disabled">Pagar</button>
+                            </td>
+                            <td class="td-button">
+                                <button class="btn disabled">Cancelar</button>
+                            </td>
+                        </tr>
+                        <tr id="000006">
+                            <td>000006</td>
+                            <td>R$ 75,00</td>
+                            <td>10/08/2023</td>
+                            <td>13/08/2023</td>
+                            <td class="td-button">
+                                <button class="btn btn-finalizado">FINALIZADO</button>
+                            </td>
+                            <td class="td-button">
+                                <button class="btn disabled">Pagar</button>
+                            </td>
+                            <td class="td-button">
+                                <button class="btn disabled">Cancelar</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </body>
