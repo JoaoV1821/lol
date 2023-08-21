@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Listagem de Pedidos</title>
 </head>
+
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom mb-3">
         <div class="container">
@@ -17,7 +19,7 @@
             <div class="col-md-1" id="sair">Sair</div>
         </div>
     </nav>
-    
+
     <div class="container">
         <div class="row">
             <div class="col mb-3">
@@ -27,12 +29,16 @@
         <div class="row">
             <h4 class="col-sm-1">Filtrar: </h4>
             <div class="col-sm-3 mb-3">
-                <select class="form-select filtro">
+                <select class="form-select filtro" (change)="mudarEstadoPedido($event)">
                     <option disabled selected>Estado do pedido</option>
                     <option>Aguardando Pagamento</option>
-                    <option>Enviado</option>
+                    <option>Finalizado</option>
+                    <option>Em Aberto</option>
+                    <option>Recolhido</option>
+                    <option>Pago</option>
                     <option>Pendente</option>
                     <option>Cancelado</option>
+                    <option>Todos</option>
                 </select>
             </div>
         </div>
@@ -51,6 +57,39 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <ng-container *ngFor="let pedido of dados">
+                            <tr class="fadeIn" *ngIf="filtrarEstadoPedido(pedido.status)" [id]="pedido.pedido">
+                                <td>{{pedido.pedido}}</td>
+                                <td>R$ {{pedido.valor.toFixed(2).replace('.',',')}}</td>
+                                <td>{{pedido.data}}</td>
+                                <td>{{pedido.prazo}}</td>
+                                <td class="td-button" [ngSwitch]="pedido.status">
+                                    <button *ngSwitchCase="'EM ABERTO'"
+                                        class="btn btn-aberto">{{pedido.status}}</button>
+                                    <button *ngSwitchCase="'RECOLHIDO'"
+                                        class="btn btn-recolhido">{{pedido.status}}</button>
+                                    <button *ngSwitchCase="'AGUARDANDO PAGAMENTO'"
+                                        class="btn btn-aguardando">{{pedido.status}}</button>
+                                    <button *ngSwitchCase="'PAGO'" class="btn btn-pago">{{pedido.status}}</button>
+                                    <button *ngSwitchCase="'CANCELADO'"
+                                        class="btn btn-cancelado">{{pedido.status}}</button>
+                                    <button *ngSwitchCase="'FINALIZADO'"
+                                        class="btn btn-finalizado">{{pedido.status}}</button>
+                                </td>
+                                <td class="td-button">
+                                    <button *ngIf="pedido.status == 'AGUARDANDO PAGAMENTO'"
+                                        class="btn btn-success">Pagar</button>
+                                    <button *ngIf="pedido.status != 'AGUARDANDO PAGAMENTO'"
+                                        class="btn disabled">Pagar</button>
+                                </td>
+                                <td class="td-button">
+                                    <button *ngIf="pedido.status == 'EM ABERTO'"
+                                        class="btn btn-danger">Cancelar</button>
+                                    <button *ngIf="pedido.status != 'EM ABERTO'" class="btn disabled">Cancelar</button>
+                                </td>
+                            </tr>
+                        </ng-container>
+                        <!--
                         <tr id="000003">
                             <td>000003</td>
                             <td>R$ 60,00</td>
@@ -141,10 +180,12 @@
                                 <button class="btn disabled">Cancelar</button>
                             </td>
                         </tr>
+                        -->
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
 </body>
+
 </html>
