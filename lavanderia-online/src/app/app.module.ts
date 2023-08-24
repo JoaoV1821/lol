@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppComponent } from './app.component';
 import { AutocadastroComponent } from './autocadastro/autocadastro.component';
 import { LoginComponent } from './login/login.component';
@@ -9,6 +8,7 @@ import { PedidoComponent } from './pedido/pedido.component';
 import { OrcamentoComponent } from './orcamento/orcamento.component';
 import { HeaderComponent } from './pedido/header/header.component';
 import { CategoriaComponent } from './pedido/categoria/categoria.component';
+import { PagamentoComponent } from './pagamento/pagamento/pagamento.component';
 import { ListagemComponent } from './listagem/listagem.component';
 
 /* Aonde está escrito o nome do componente no import é para substituir com o nome do componente que vc criou 
@@ -25,10 +25,12 @@ import { ListagemComponent } from './listagem/listagem.component';
     OrcamentoComponent,
     HeaderComponent,
     CategoriaComponent,
+    PagamentoComponent,
     ListagemComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+
   ],
   providers: [],
   bootstrap: [AppComponent]
