@@ -8,7 +8,18 @@ body{
     background-color: #fafafa;
     color: #1a1a1a;
 }
-.corpo{
+
+.td-button {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.td-button > button {
+    width: 70px;
+}
+
+.corpo {
     padding: 20px;
 }
 .lista{
