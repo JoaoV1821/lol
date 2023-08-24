@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consulta Pedido</title>
+    <link rel="stylesheet" href="consulta-pedido.component.css">
+</head>
+<body>
+    <div class="bloco">
+        <div class="col-md-6 col-md-6-offset-6">
+            <form>
+                <div class="form-group row">
+                    <label for="consulta" class="col-md-6 col-form-label">
+                        <p>Deseja acompanhar seu pedido?<br/>
+                            Digite seu <strong>CPF</strong> ou <strong>Número do pedido</strong></p>            
+                    </label>
+                    <div class="col-sm-4">
+                        <input id="consulta" class="form-control" placeholder="CPF ou Número do Pedido" #consulta type="text">
+                    </div>
+                </div>
+                <div class="botao-pesquisar">
+                    <button type="button" class="btn btn-primary">
+                        <a href="#"> Pesquisar</a>
+                    </button>
+                </div>
+
+                <div class="form-group row">
+                    <label for="resultado" class="col-sm-2 col-form-label">
+                        Informações do Pedido:
+                    </label>
+                    <div class="col-sm-4">
+                        <p>AQUI FICA O RESULTADO DA PESQUISA:<br>
+                            SE EXISTE MOSTRA DADOS PEDIDO (CLIENTE, DATA-ENTRADA, STATUS, ITENS, VALORES POR ITEM, TOTAL)<br>
+                            SE NAO EXISTE MOSTRA MENSAGEM DE CODIGO OU CPF INVALIDO</p>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
