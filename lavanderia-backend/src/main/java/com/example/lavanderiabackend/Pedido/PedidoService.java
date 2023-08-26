@@ -3,21 +3,26 @@ package com.example.lavanderiabackend.Pedido;
 import java.util.List;
 import java.util.ArrayList;
 
-import org.springframework.beans.BeanUtils;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.lavanderiabackend.Pedido.DTO.PedidoBodyModelo;
 import com.example.lavanderiabackend.Pedido.DTO.PedidoModelo;
 
+import jakarta.transaction.Transactional;
+
 @Service
 public class PedidoService {
 
     PedidoRepository pedidoRepository;
 
+    ModelMapper modelMapper;
+
     @Autowired
-    PedidoService(PedidoRepository pedidoRepository) {
+    PedidoService(PedidoRepository pedidoRepository, ModelMapper modelMapper) {
         this.pedidoRepository = pedidoRepository;
+        this.modelMapper = modelMapper;
     }
 
     public List<PedidoModelo> getPedidoList() {
@@ -30,17 +35,25 @@ public class PedidoService {
 
     public PedidoModelo getPedido(Long numero_pedido) {
         Pedido pedido = pedidoRepository.findByNumero(numero_pedido);
-        return new PedidoModelo(pedido);
+        if (pedido != null) {
+            return new PedidoModelo(pedido);
+        }
+        return null;
     }
 
+    @Transactional
     public void deletePedido(Long numero_pedido) {
         pedidoRepository.deleteByNumero(numero_pedido);
+        Pedido pedido = pedidoRepository.findByNumero(numero_pedido);
+        if (pedido != null) {
+            pedidoRepository.delete(pedido);
+        }
     }
 
     public void updatePedido(Long numero_pedido, PedidoBodyModelo body) {
         Pedido pedido = pedidoRepository.findByNumero(numero_pedido);
         if (pedido != null) {
-            BeanUtils.copyProperties(body, pedido);
+            pedido = modelMapper.map(body, pedido.getClass());
             pedidoRepository.save(pedido);
         }
     }
@@ -55,7 +68,7 @@ public class PedidoService {
 
     public void addPedido(PedidoModelo modelo) {
         Pedido pedido = new Pedido();
-        BeanUtils.copyProperties(modelo, pedido);
+        pedido = modelMapper.map(modelo, pedido.getClass());
         pedidoRepository.save(pedido);
     }
 }

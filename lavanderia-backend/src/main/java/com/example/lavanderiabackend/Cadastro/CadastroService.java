@@ -3,9 +3,7 @@ package com.example.lavanderiabackend.Cadastro;
 import java.util.Random;
 import java.util.ArrayList;
 import java.util.List;
-
-import org.json.JSONObject;
-import org.springframework.beans.BeanUtils;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,9 +14,12 @@ public class CadastroService {
 
     public CadastroRepository cadastroRepository;
 
+    public ModelMapper modelMapper;
+
     @Autowired
-    CadastroService(CadastroRepository cadastroRepository) {
+    CadastroService(CadastroRepository cadastroRepository, ModelMapper modelMapper) {
         this.cadastroRepository = cadastroRepository;
+        this.modelMapper = modelMapper;
     }
 
     public void saveCadastro(CadastroModelo modelo) {
@@ -32,7 +33,7 @@ public class CadastroService {
     public void updateCadastro(CadastroModelo modelo) {
         Cadastro cadastro = cadastroRepository.findByCpf(modelo.cpf);
         if (cadastro != null) {
-            BeanUtils.copyProperties(modelo, cadastro);
+            cadastro = modelMapper.map(modelo, cadastro.getClass());
             cadastroRepository.save(cadastro);
         }
     }
@@ -49,19 +50,18 @@ public class CadastroService {
         List<Cadastro> cadastros = cadastroRepository.findAll();
         for (Cadastro cadastro : cadastros) {
             CadastroModelo modelo = new CadastroModelo();
-            BeanUtils.copyProperties(cadastro, modelo);
+            modelo = modelMapper.map(cadastro, modelo.getClass());
             modelos.add(modelo);
         }
+
         return modelos;
     }
 
     public CadastroModelo getCadastro(String cpf) {
-        JSONObject jsonObject = new JSONObject(cpf);
-        cpf = jsonObject.get("cpf").toString();
         Cadastro cadastro = cadastroRepository.findByCpf(cpf);
         CadastroModelo modelo = new CadastroModelo();
         if (cadastro != null) {
-            BeanUtils.copyProperties(cadastro, modelo);
+            modelo = modelMapper.map(cadastro, modelo.getClass());
         }
         return modelo;
     }

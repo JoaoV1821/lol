@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.lavanderiabackend.Cadastro.DTO.CadastroModelo;
 
+import lombok.Getter;
+import lombok.Setter;
+
 @RestController
 @RequestMapping("/cadastro")
 @CrossOrigin(originPatterns = "*")
@@ -24,8 +27,8 @@ public class CadastroController {
     }
 
     @PostMapping("/get/cadastro")
-    public CadastroModelo getCadastro(@RequestBody String cpf) {
-        return cadastroService.getCadastro(cpf);
+    public CadastroModelo getCadastro(@RequestBody CpfWrapper cpf) {
+        return cadastroService.getCadastro(cpf.getCpf());
     }
 
     @GetMapping("/get/cadastros")
@@ -51,4 +54,10 @@ public class CadastroController {
         return ResponseEntity.ok(200);
     }
 
+}
+
+@Getter
+@Setter
+class CpfWrapper {
+    public String cpf;
 }
