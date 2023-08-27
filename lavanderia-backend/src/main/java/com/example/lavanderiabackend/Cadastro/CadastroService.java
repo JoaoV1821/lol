@@ -32,8 +32,12 @@ public class CadastroService {
 
     public void updateCadastro(CadastroModelo modelo) {
         Cadastro cadastro = cadastroRepository.findByCpf(modelo.cpf);
+        Long id = cadastro.cadastroId;
+        String senha = cadastro.senha;
         if (cadastro != null) {
             cadastro = modelMapper.map(modelo, cadastro.getClass());
+            cadastro.cadastroId = id;
+            cadastro.senha = senha;
             cadastroRepository.save(cadastro);
         }
     }

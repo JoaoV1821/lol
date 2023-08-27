@@ -1,10 +1,15 @@
 package com.example.lavanderiabackend.Pedido;
 
 import java.time.LocalDate;
+import java.util.List;
+
+import com.example.lavanderiabackend.Carrinho.Carrinho;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.SequenceGenerator;
 import lombok.Getter;
 import lombok.Setter;
@@ -22,4 +27,6 @@ public class Pedido {
     public LocalDate prazo;
     public double total;
     public String status;
+    @OneToMany(mappedBy = "pedido")
+    public List<Carrinho> carrinhos;
 }
