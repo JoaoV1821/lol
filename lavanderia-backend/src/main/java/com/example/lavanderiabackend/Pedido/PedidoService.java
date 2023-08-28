@@ -1,6 +1,7 @@
 package com.example.lavanderiabackend.Pedido;
 
 import java.util.List;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import org.modelmapper.ModelMapper;
@@ -25,10 +26,18 @@ public class PedidoService {
         this.modelMapper = modelMapper;
     }
 
-    public List<PedidoModelo> getPedidoList() {
+    public List<PedidoModelo> getPedidoList(String dataInicial, String dataPrazo) {
         List<PedidoModelo> modelos = new ArrayList<PedidoModelo>();
-        for (Pedido pedido : pedidoRepository.findAll()) {
-            modelos.add(new PedidoModelo(pedido));
+        if (dataInicial == null || dataPrazo == null) {
+            for (Pedido pedido : pedidoRepository.findAll()) {
+                modelos.add(new PedidoModelo(pedido));
+            }
+        } else {
+            LocalDate ini = LocalDate.parse(dataInicial);
+            LocalDate prazo = LocalDate.parse(dataPrazo);
+            for (Pedido pedido : pedidoRepository.findAllByDate(ini, prazo)) {
+                modelos.add(new PedidoModelo(pedido));
+            }
         }
         return modelos;
     }

@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.lavanderiabackend.Pedido.DTO.PedidoBodyModelo;
@@ -29,8 +30,10 @@ public class PedidoController {
     }
 
     @GetMapping("/get/pedidos")
-    public List<PedidoModelo> getPedidos() {
-        return pedidoService.getPedidoList();
+    public List<PedidoModelo> getPedidos(@RequestParam(required = false) String dataInicial,
+            @RequestParam(required = false) String dataPrazo) {
+        return pedidoService.getPedidoList(dataInicial, dataPrazo);
+
     }
 
     @PostMapping("/get/pedido")

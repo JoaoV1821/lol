@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.json.JSONArray;
 
 @Service
@@ -28,6 +29,7 @@ public class ApisService {
     }
 
     public List<String> findGetEndpoints() {
+        int RequestParamAnnotationCount = 0;
         List<String> pathList = new ArrayList<String>();
         AnnotatedTypeScanner scanner = new AnnotatedTypeScanner(true,
                 RequestMapping.class, Controller.class);
@@ -48,6 +50,35 @@ public class ApisService {
                         String getPathList[] = metodos[i].getAnnotation(GetMapping.class).value();
                         if (getPathList.length > 0) {
                             path = getPathList[0];
+                        }
+                        Class<?> tipos[] = metodos[i].getParameterTypes();
+                        Parameter parametros[] = metodos[i].getParameters();
+                        Annotation annotations[][] = metodos[i].getParameterAnnotations();
+                        if (annotations.length > 0) {
+                            for (int x = 0; x < annotations.length; x++) {
+                                for (Annotation a : annotations[x]) {
+                                    if (a instanceof RequestParam) {
+                                        if (RequestParamAnnotationCount == 0) {
+                                            path = path + "?";
+                                        }
+                                        if (RequestParamAnnotationCount > 0) {
+                                            path = path + "&";
+                                        }
+                                        if (isPrimitive(tipos[x])) {
+                                            path = path + parametros[x].getName() + "=" + tipos[x].getSimpleName();
+                                        } else {
+                                            path = path + "{";
+                                            Field fields[] = tipos[x].getFields();
+                                            for (Field field : fields) {
+                                                path = path + field.getName() + "=" + field.getType().getSimpleName()
+                                                        + ",";
+                                            }
+                                        }
+
+                                        RequestParamAnnotationCount++;
+                                    }
+                                }
+                            }
                         }
                         pathList.add(basePath + path);
                     }
@@ -73,6 +104,7 @@ public class ApisService {
             }
             Method metodos[] = classe.getMethods();
             for (int i = 0; i < metodos.length; i++) {
+
                 if (metodos[i].isAnnotationPresent(PostMapping.class)) {
                     JSONObject endpoint = new JSONObject();
                     String path = "";
