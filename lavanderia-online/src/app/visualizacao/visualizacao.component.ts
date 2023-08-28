@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { getConnection } from '../host';
+
 
 interface pedido {
   numero: string,
@@ -19,24 +20,19 @@ export class VisualizacaoComponent {
     this.hostname = await getConnection();
     this.pedidos.sort(this.sortFunction);
   }
+  @ViewChild("checkboxDiv", { read: ElementRef }) checkboxDiv!: ElementRef<HTMLElement>;
+  @ViewChild("checkBoxLabel", { read: ElementRef }) checkboxLabel!: ElementRef<HTMLElement>;
+  @ViewChild("dateInput2", { read: ElementRef }) dateInput2!: ElementRef<HTMLElement>;
+  @ViewChild("dateInput1", { read: ElementRef }) dateInput1!: ElementRef<HTMLElement>;
   hostname = "";
   isChecked: boolean = false;
   dataInicial: string = ""
   dataPrazo: string = ""
   estado_pedido: string | null = null;
-  /*pedidos: pedido[] = [
-    { numero: '000003', total: 60, data: '12/08/2023', prazo: '16/08/2023', status: 'EM ABERTO' },
-    { numero: '000005', total: 85, data: '11/08/2023', prazo: '16/08/2023', status: 'RECOLHIDO' },
-    { numero: '000001', total: 55, data: '12/08/2023', prazo: '16/08/2023', status: 'AGUARDANDO PAGAMENTO' },
-    { numero: '000002', total: 70, data: '12/08/2023', prazo: '16/08/2023', status: 'PAGO' },
-    { numero: '000004', total: 40, data: '12/08/2023', prazo: '16/08/2023', status: 'CANCELADO' },
-    { numero: '000006', total: 75, data: '10/08/2023', prazo: '13/08/2023', status: 'FINALIZADO' }
-  ]*/
   pedidos: pedido[] = []
   mudarEstadoPedido(estado: Event) {
     const target = estado.target as HTMLSelectElement;
     this.estado_pedido = target.value.toUpperCase();
-    console.log(this.estado_pedido);
   }
   filtrarEstadoPedido(estadoPedido: string): boolean {
     if (this.estado_pedido == null || this.estado_pedido == 'TODOS') {
@@ -56,42 +52,80 @@ export class VisualizacaoComponent {
     }
     return 0;
   }
-  async getPedidos(isChecked: boolean, event: Event, data_inicial?: string | null, data_final?: string | null) {
-    let fetchBody: RequestInit = {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json",
-      },
-    }
+  async getPedidos(isChecked: boolean, data_inicial?: string | null, data_final?: string | null) {
+
     let dataInicial: Date;
-    let dataFinal: Date;
     let response;
     let data;
     if (data_inicial == undefined || data_final == undefined) {
       if (isChecked) {
-        dataInicial = new Date();
+        dataInicial = new Date()
+        dataInicial = new Date(dataInicial.getTime() - dataInicial.getTimezoneOffset() * 60 * 1000);
         let stringDate: string = dataInicial.getUTCFullYear().toString() + "-" +
           (dataInicial.getUTCMonth() + 1).toString().padStart(2, '0') + "-" + dataInicial.getUTCDate().toString().padStart(2, '0');
-        fetchBody.body = JSON.stringify({ 'dataInicial': stringDate, "dataPrazo": stringDate })
-        response = await fetch(this.hostname + "/pedido/get/pedidos?dataInicial=" + "2023-08-28" + "&dataPrazo=" + "2023-08-28");
-        console.log("/pedido/get/pedidos?dataInicial=" + "2023-08-28" + "&dataPrazo=" + "2023-08-28")
+        response = await fetch(this.hostname + "/pedido/get/pedidos?dataInicial=" + stringDate);
         data = await response.json();
-        this.pedidos = data;
+        this.pedidos = this.formatPedidos(data);
+      } else {
+        response = await fetch(this.hostname + "/pedido/get/pedidos");
+        data = await response.json();
+        this.pedidos = this.formatPedidos(data);
       }
     } else {
       if (isChecked) {
-        console.log("Desativa ae")
+        this.checkboxDiv.nativeElement.classList.add("shake");
+        this.checkboxLabel.nativeElement.classList.remove("btn-outline-primary");
+        this.checkboxLabel.nativeElement.classList.add("btn-outline-danger");
+        setTimeout(() => {
+          this.checkboxDiv.nativeElement.classList.remove("shake");
+          this.checkboxLabel.nativeElement.classList.remove("btn-outline-danger");
+          this.checkboxLabel.nativeElement.classList.add("btn-outline-primary");
+        }, 1000)
+
       }
-      else if (data_inicial == "" || data_final == "") {
-        console.log("Veja a daa ai")
-      } else if (this.checkDates(data_inicial, data_final)) {
-        console.log("DATA errada mane")
+      else if (data_inicial == "" && data_final == "") {
+        response = await fetch(this.hostname + "/pedido/get/pedidos");
+        data = await response.json();
+        this.pedidos = this.formatPedidos(data);
+      } else if (data_inicial == "" && data_final != "") {
+        this.dateInput1.nativeElement.classList.add("shake")
+        setTimeout(() => { this.dateInput1.nativeElement.classList.remove("shake") }, 1000)
+      } else if ((data_inicial != "" && data_final == "") || this.checkDates(data_inicial, data_final)) {
+        this.dateInput2.nativeElement.classList.add("shake");
+        setTimeout(() => {
+          this.dateInput2.nativeElement.classList.remove("shake");
+        }, 1000)
       } else {
-        fetchBody.body = JSON.stringify({ "dataInicial": data_inicial, "dataPrazo": data_final })
+        response = await fetch(this.hostname + '/pedido/get/pedidos?dataInicial=' + data_inicial + "&dataPrazo=" + data_final);
+        data = await response.json();
+        this.pedidos = this.formatPedidos(data);
       }
     }
   }
 
+  formatPedidos(pedidos: pedido[]) {
+    pedidos.forEach((pedido, index, arr) => {
+      arr[index].numero = this.pad(pedido.numero.toString(), 7);
+      arr[index].data = this.reformatDate(pedido.data);
+      arr[index].prazo = this.reformatDate(pedido.prazo);
+    })
+    return pedidos;
+  }
+  pad(value: string, amount: number) {
+    let s: string = value;
+    while (s.length < amount) {
+      s = "0" + s;
+    }
+    return s;
+  }
+
+  reformatDate(date: string): string {
+
+    let ano = date.substring(0, 4);
+    let mes = date.substring(5, 7);
+    let dia = date.substring(8, 10);
+    return [dia, mes, ano].join('/');
+  }
   checkDates(data_inicial: string, data_final: string) {
     let d1 = Date.parse(data_inicial);
     let d2 = Date.parse(data_final);
@@ -99,5 +133,41 @@ export class VisualizacaoComponent {
       return true;
     }
     return false;
+  }
+  async changePedidoStatus(event: Event, pedido: pedido) {
+    let buttonComponent = event.target as HTMLButtonElement;
+    let newStatus = "";
+    if (buttonComponent.textContent != null) {
+      switch (buttonComponent.textContent.toUpperCase()) {
+        case "RECOLHER":
+          newStatus = "RECOLHIDO"
+          break;
+        case "LAVAGEM":
+          newStatus = "AGUARDANDO PAGAMENTO"
+          break;
+        case "FINALIZAR":
+          newStatus = "FINALIZADO"
+          break;
+      }
+      if (newStatus != "") {
+
+
+        let requestBody: RequestInit = {
+          method: "POST",
+          headers: {
+            "Content-type": "application/json",
+          },
+          body: JSON.stringify({ "numero": pedido.numero, "status": newStatus })
+        }
+        let response = await fetch(this.hostname + "/pedido/update/status", requestBody);
+        if (response.status == 200) {
+          console.log("Tudo ok")
+          this.getPedidos(false, undefined, undefined);
+        } else {
+          console.log("Erro ao atualizar!");
+        }
+      }
+    }
+
   }
 }

@@ -41,22 +41,22 @@
                     <option>Todos</option>
                 </select>
             </div>
-            <div class="col-sm-2 pl-2">
-                <input [(ngModel)]="isChecked" (change)="getPedidos(isChecked,$event)" type="checkbox" class="btn-check"
+            <div class="col-sm-2 pl-2" #checkboxDiv>
+                <input [(ngModel)]="isChecked" (change)="getPedidos(isChecked)" type="checkbox" class="btn-check"
                     id="btn-check-outlined" autocomplete="off">
-                <label class="btn btn-outline-primary" for="btn-check-outlined">Pedidos de
+                <label #checkBoxLabel class="btn btn-outline-primary" for="btn-check-outlined">Pedidos de
                     Hoje</label><br>
             </div>
             <div class="col-sm-2">
-                <input [(ngModel)]="dataInicial" type="date" id="input1" />
+                <input #dateInput1 [(ngModel)]="dataInicial" type="date" id="input1" />
             </div>
 
             <div class="col-sm-2">
-                <input [(ngModel)]="dataPrazo" type="date" id="input2" />
+                <input #dateInput2 [(ngModel)]="dataPrazo" type="date" id="input2" />
             </div>
 
             <div class="col-sm-2">
-                <button type="button" (click)="getPedidos(isChecked,$event,dataInicial,dataPrazo)"
+                <button type="button" (click)="getPedidos(isChecked,dataInicial,dataPrazo)"
                     class="btn btn-primary">Filtrar por Data</button>
             </div>
         </div>
@@ -70,12 +70,13 @@
                             <th>Data</th>
                             <th>Prazo</th>
                             <th>Status</th>
-                            <th>Pagar</th>
-                            <th>Cancelar</th>
+                            <th>Recolher</th>
+                            <th>Lavagem</th>
+                            <th>Finalizar</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <ng-container *ngFor="let pedido of pedidos">
+                        <ng-container *ngFor="let pedido of pedidos;">
                             <tr class="fadeIn" *ngIf="filtrarEstadoPedido(pedido.status)" [id]="pedido.numero">
                                 <td>{{pedido.numero}}</td>
                                 <td>R$ {{pedido.total.toFixed(2).replace('.',',')}}</td>
@@ -93,17 +94,27 @@
                                         class="btn btn-cancelado">{{pedido.status}}</button>
                                     <button *ngSwitchCase="'FINALIZADO'"
                                         class="btn btn-finalizado">{{pedido.status}}</button>
+
                                 </td>
                                 <td class="td-button">
-                                    <button *ngIf="pedido.status == 'AGUARDANDO PAGAMENTO'"
-                                        class="btn btn-success">Pagar</button>
-                                    <button *ngIf="pedido.status != 'AGUARDANDO PAGAMENTO'"
-                                        class="btn disabled">Pagar</button>
+                                    <button *ngIf="pedido.status == 'EM ABERTO'" class="btn btn-success"
+                                        (click)="changePedidoStatus($event,pedido)">Recolher</button>
+                                    <button *ngIf="pedido.status != 'EM ABERTO'" class="btn disabled"
+                                        (click)="changePedidoStatus($event,pedido)">Recolher</button>
                                 </td>
                                 <td class="td-button">
-                                    <button *ngIf="pedido.status == 'EM ABERTO'"
-                                        class="btn btn-danger">Cancelar</button>
-                                    <button *ngIf="pedido.status != 'EM ABERTO'" class="btn disabled">Cancelar</button>
+                                    <button *ngIf="pedido.status == 'RECOLHIDO'"
+                                        (click)="changePedidoStatus($event,pedido)"
+                                        class="btn btn-danger">Lavagem</button>
+                                    <button *ngIf="pedido.status != 'RECOLHIDO'"
+                                        (click)="changePedidoStatus($event,pedido)"
+                                        class="btn disabled">Lavagem</button>
+                                </td>
+                                <td class="td-button">
+                                    <button *ngIf="pedido.status == 'PAGO'" (click)="changePedidoStatus($event,pedido)"
+                                        class="btn btn-info">Finalizar</button>
+                                    <button *ngIf="pedido.status != 'PAGO'" (click)="changePedidoStatus($event,pedido)"
+                                        class="btn disabled">Finalizar</button>
                                 </td>
                             </tr>
                         </ng-container>

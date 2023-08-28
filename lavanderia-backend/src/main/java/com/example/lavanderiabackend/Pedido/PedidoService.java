@@ -28,11 +28,16 @@ public class PedidoService {
 
     public List<PedidoModelo> getPedidoList(String dataInicial, String dataPrazo) {
         List<PedidoModelo> modelos = new ArrayList<PedidoModelo>();
-        if (dataInicial == null || dataPrazo == null) {
+        if (dataInicial == null && dataPrazo == null) {
             for (Pedido pedido : pedidoRepository.findAll()) {
                 modelos.add(new PedidoModelo(pedido));
             }
-        } else {
+        } else if (dataInicial != null && dataPrazo == null) {
+            LocalDate ini = LocalDate.parse(dataInicial);
+            for (Pedido pedido : pedidoRepository.findAllByInitialDate(ini)) {
+                modelos.add(new PedidoModelo(pedido));
+            }
+        } else if (dataPrazo != null || dataInicial != null) {
             LocalDate ini = LocalDate.parse(dataInicial);
             LocalDate prazo = LocalDate.parse(dataPrazo);
             for (Pedido pedido : pedidoRepository.findAllByDate(ini, prazo)) {
