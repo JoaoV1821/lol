@@ -23,7 +23,7 @@
     <div class="container">
         <div class="row">
             <div class="col mb-3">
-                <h1 id="titulo">Seus Pedidos</h1>
+                <h1 id="titulo">Visualização de Pedidos</h1>
             </div>
         </div>
         <div class="row">
@@ -41,6 +41,24 @@
                     <option>Todos</option>
                 </select>
             </div>
+            <div class="col-sm-2 pl-2">
+                <input [(ngModel)]="isChecked" (change)="getPedidos(isChecked,$event)" type="checkbox" class="btn-check"
+                    id="btn-check-outlined" autocomplete="off">
+                <label class="btn btn-outline-primary" for="btn-check-outlined">Pedidos de
+                    Hoje</label><br>
+            </div>
+            <div class="col-sm-2">
+                <input [(ngModel)]="dataInicial" type="date" id="input1" />
+            </div>
+
+            <div class="col-sm-2">
+                <input [(ngModel)]="dataPrazo" type="date" id="input2" />
+            </div>
+
+            <div class="col-sm-2">
+                <button type="button" (click)="getPedidos(isChecked,$event,dataInicial,dataPrazo)"
+                    class="btn btn-primary">Filtrar por Data</button>
+            </div>
         </div>
         <div class="row">
             <div class="col">
@@ -57,10 +75,10 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <ng-container *ngFor="let pedido of dados">
-                            <tr class="fadeIn" *ngIf="filtrarEstadoPedido(pedido.status)" [id]="pedido.pedido">
-                                <td>{{pedido.pedido}}</td>
-                                <td>R$ {{pedido.valor.toFixed(2).replace('.',',')}}</td>
+                        <ng-container *ngFor="let pedido of pedidos">
+                            <tr class="fadeIn" *ngIf="filtrarEstadoPedido(pedido.status)" [id]="pedido.numero">
+                                <td>{{pedido.numero}}</td>
+                                <td>R$ {{pedido.total.toFixed(2).replace('.',',')}}</td>
                                 <td>{{pedido.data}}</td>
                                 <td>{{pedido.prazo}}</td>
                                 <td class="td-button" [ngSwitch]="pedido.status">
