@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ConsultaPedidoComponent } from './consulta-pedido';
+
 import { ConsultaPedidoService } from './services';
+import { ConsultaPedidoComponent } from './consulta-pedido/consulta-pedido.component';
 
 
 
@@ -12,10 +13,7 @@ import { ConsultaPedidoService } from './services';
   imports: [
     CommonModule
   ],
-  exports: [
-    ConsultaPedidoComponent
-  ],
-  providers: [ 
+  providers: [
     ConsultaPedidoService
   ]
 })
