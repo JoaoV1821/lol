@@ -26,5 +26,4 @@ export class Rf012Component implements OnInit{
     order.status = "Recolhido";
     order.recolhido = true;
   }
-  
 }
