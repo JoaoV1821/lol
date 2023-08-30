@@ -21,7 +21,7 @@
 
 #header img {
     flex: 1;
-    height: 90%;
+    height: 60%;
     width: 100%;
     padding-left: 5px;
 
@@ -48,6 +48,11 @@
 }
 
 #wrapper span:hover {
+    color: rgb(37, 137, 137);
+    cursor: pointer;
+}
+
+#textDiv {
     color: rgb(37, 137, 137);
     cursor: pointer;
 }
