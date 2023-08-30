@@ -12,6 +12,9 @@ import { PagamentoComponent } from './pagamento/pagamento/pagamento.component';
 import { ListagemComponent } from './listagem/listagem.component';
 import { VisualizacaoComponent } from './visualizacao/visualizacao.component';
 import { FormsModule } from '@angular/forms';
+import { PrototiposModule } from './prototipos/prototipos.module';
+import { Modalrf012Component } from './modalrf012/modalrf012.component';
+
 
 /* Aonde está escrito o nome do componente no import é para substituir com o nome do componente que vc criou 
   Exemplo: Se vc criou o componente esta com o login é para substituir o "LoginComponent" pelo nome do componente que vc criou. 
@@ -28,13 +31,16 @@ import { FormsModule } from '@angular/forms';
     HeaderComponent,
     CategoriaComponent,
     PagamentoComponent,
-    ListagemComponent,
+    ListagemComponent
     VisualizacaoComponent
   ],
   imports: [
     BrowserModule,
     FormsModule
+    Modalrf012Component,
+    PrototiposModule
   ],
+
   providers: [],
   bootstrap: [AppComponent]
 })
