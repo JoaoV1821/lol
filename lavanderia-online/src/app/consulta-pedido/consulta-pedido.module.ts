@@ -2,9 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { ConsultaPedidoService } from './services';
-import { ConsultaPedidoComponent } from './consulta-pedido/consulta-pedido.component';
-
-
+import { ConsultaPedidoComponent } from './consulta-pedido';
 
 @NgModule({
   declarations: [
@@ -12,6 +10,9 @@ import { ConsultaPedidoComponent } from './consulta-pedido/consulta-pedido.compo
   ],
   imports: [
     CommonModule
+  ],
+  exports: [
+    ConsultaPedidoComponent
   ],
   providers: [
     ConsultaPedidoService

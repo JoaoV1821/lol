@@ -1,0 +1,21 @@
+<div id="container">
+
+    <div class="itemRow">
+
+        <div>{{categoria}}</div>
+        <button *ngIf="ativo==false" (click)="switch()">&#x2193;</button>
+        <button *ngIf="ativo==true" (click)="switch()">&#x2191;</button>
+
+    </div>
+    <ng-container *ngFor="let item of items;let i = index;">
+        <div *ngIf="item.categoria == categoria && ativo==true" class="itemRow">
+            <div id="texto-item">
+                {{item.tipo}}
+                {{item.valor_un.toFixed(2)}}
+            </div>
+            <div>
+                <button (click)="adicionar(item.tipo,item.valor_un)">&#43;</button>
+            </div>
+        </div>
+    </ng-container>
+</div>
