@@ -9,7 +9,9 @@ import { PagamentoComponent } from './pagamento';
 import { PaginaInicialComponent } from './pagina-inicial';
 import { ListarPedidosAbertosComponent } from './pagina-inicial-funcionario';
 import { PedidoComponent } from './pedido';
-
+import { ListarRoupasComponent } from './crud-roupas/listar-roupas';
+import { InserirRoupaComponent } from './crud-roupas/inserir-roupa';
+import { EditarRoupaComponent } from './crud-roupas/editar-roupa';
 
 const routes: Routes = [
   { path: '',
@@ -54,7 +56,13 @@ const routes: Routes = [
   { path: 'pedido',
     redirectTo: 'pedido/pedido'},
   { path: 'pedido/pedido',
-    component: PedidoComponent }
+    component: PedidoComponent },
+  
+    //CRUD Roupas
+  { path: 'roupas', redirectTo: 'roupas/listar-roupas'},
+  { path: 'roupas/listar-roupas', component: ListarRoupasComponent},
+  { path: 'roupas/novo', component: InserirRoupaComponent},
+  { path: 'roupas/editar/:id', component: EditarRoupaComponent}
 
 ];
 
