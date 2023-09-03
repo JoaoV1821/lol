@@ -1,42 +1,82 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Consulta Pedido</title>
-    <link rel="stylesheet" href="consulta-pedido.component.css">
-</head>
-<body>
-    <div class="bloco">
-        <div class="col-md-6 col-md-6-offset-6">
-            <form>
-                <div class="form-group row">
-                    <label for="consulta" class="col-md-6 col-form-label">
-                        <p>Deseja acompanhar seu pedido?<br/>
-                            Digite seu <strong>CPF</strong> ou <strong>Número do pedido</strong></p>            
-                    </label>
-                    <div class="col-sm-4">
-                        <input id="consulta" class="form-control" placeholder="CPF ou Número do Pedido" #consulta type="text">
-                    </div>
-                </div>
-                <div class="botao-pesquisar">
-                    <button type="button" class="btn btn-primary">
-                        <a href="#"> Pesquisar</a>
-                    </button>
-                </div>
+<h1>Consultar Pedidos - Usuário</h1>
 
-                <div class="form-group row">
-                    <label for="resultado" class="col-sm-2 col-form-label">
-                        Informações do Pedido:
-                    </label>
-                    <div class="col-sm-4">
-                        <p>AQUI FICA O RESULTADO DA PESQUISA:<br>
-                            SE EXISTE MOSTRA DADOS PEDIDO (CLIENTE, DATA-ENTRADA, STATUS, ITENS, VALORES POR ITEM, TOTAL)<br>
-                            SE NAO EXISTE MOSTRA MENSAGEM DE CODIGO OU CPF INVALIDO</p>
-                    </div>
+<div class="container">
+    <form>
+        <div class="form-group row">
+            <label for="numeroPedido" class="col-sm-3 col-form-label">Informe o número do pedido:</label>
+            <div class="col-sm-2">
+                <input
+                    id="numeroPedido"
+                    class="form-control"
+                    placeholder="Número do pedido"
+                    #numeroPedido
+                    type="text"/>
                 </div>
-            </form>
+                <a href="#" title="Pesquisar" alt="Pesquisar" class="col-sm-2 btn btn-primary">
+                    <i class="fa fa-search" aria-hidden="true"></i> Pesquisar
+                </a>
         </div>
-    </div>
-</body>
-</html>
+        <!--
+            <button type="button" class="btn btn-secondary"
+        
+                (click)="buscarPorPedido(numeroPedido.value)">
+                Pesquisar</button>
+        -->
+    </form>
+</div>
+
+
+<div class="container">
+
+    <table class="table table-striped table-bordered table-hover">
+        <tbody>
+            <tr>
+                <th class="col-2">QUANTIDADE</th>
+                <th scope="col-4">ITEM</th>
+                <th scope="col-2">PREÇO UNITÁRIO</th>
+                <!--
+                    <th class="text-center">
+                        <a href="#" title="Recolhido" alt="Recolhido" class="btn btn-xs btn-success">
+                            <i class="fa fa-plus" aria-hidden="true"></i> Recolhindo
+                        </a>
+                    </th>
+                -->
+            </tr>
+
+            <tr *ngFor="let pedido of pedidos">
+                <td class="col-2">{{pedido.quantidade}}</td>
+                <td class="col-4">{{pedido.item}}</td>
+                <td class="col-2">{{pedido.valor}}</td>
+            </tr>
+            
+        </tbody>
+    </table>
+    
+    <form>
+        <div *ngIf="pedidos.length !=0" class="form-group row">
+            <div class="row-sm-4">
+                <label class="col-sm-2 col-form-label"> <strong>PRAZO PARA ENTREGA:</strong></label>
+                <label class="col-sm-2 col-form-label">AQUI DATA</label>
+            </div>
+            <div class="row-sm-4">
+                <label class="col-sm-2 col-form-label"><strong>TOTAL:</strong></label>
+                <label class="col-sm-2 col-form-label">AQUI TOTAL</label>
+            </div>
+        </div>
+        <p *ngIf="pedidos.length == 0">Nenhum pedido encontrado</p>
+    </form>
+    <!--
+        
+    <table class="table table-striped table-bordered table-hover">
+        <tbody>
+            <tr>
+                <th>PRAZO PARA ENTREGA</th>
+                <th>AQUI DATA</th>
+                <th>TOTAL</th>
+                <th>AQUI VALOR</th>
+            </tr>
+        </tbody>
+    </table>
+-->
+
+</div>
