@@ -1,14 +1,16 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
-import { AutocadastroComponent } from './autocadastro/autocadastro.component';
-import { LoginComponent } from './login/login.component';
-import { PaginaInicialComponent } from './pagina-inicial/pagina-inicial.component';
-import { PedidoComponent } from './pedido/pedido.component';
-import { OrcamentoComponent } from './orcamento/orcamento.component';
-import { HeaderComponent } from './pedido/header/header.component';
-import { CategoriaComponent } from './pedido/categoria/categoria.component';
+
+import { AutocadastroModule } from './autocadastro';
+import { ConsultaPedidoModule } from './consulta-pedido';
+import { LoginModule } from './login/login.module';
+import { OrcamentoModule } from './orcamento';
+import { PagamentoModule } from './pagamento';
+import { PaginaInicialModule } from './pagina-inicial';
+import { PedidoModule } from './pedido';
 
 /* Aonde está escrito o nome do componente no import é para substituir com o nome do componente que vc criou 
   Exemplo: Se vc criou o componente esta com o login é para substituir o "LoginComponent" pelo nome do componente que vc criou. 
@@ -17,16 +19,19 @@ import { CategoriaComponent } from './pedido/categoria/categoria.component';
 @NgModule({
   declarations: [
     AppComponent,
-    AutocadastroComponent,
-    LoginComponent,
-    PaginaInicialComponent,
-    PedidoComponent,
-    OrcamentoComponent,
-    HeaderComponent,
-    CategoriaComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    AppRoutingModule,
+    
+    LoginModule,
+    AutocadastroModule,
+    ConsultaPedidoModule,
+    OrcamentoModule,
+    PagamentoModule,
+    PaginaInicialModule,
+    PedidoModule
+
   ],
   providers: [],
   bootstrap: [AppComponent]

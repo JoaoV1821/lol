@@ -10,12 +10,13 @@
     background-color: white;
 }
 
-.row {
+.itemRow {
     display: flex;
-    flex-direction: row;
     justify-content: space-between;
     padding: 5px;
 }
+
+
 
 .row #texto-item {
     font-size: 1em;
