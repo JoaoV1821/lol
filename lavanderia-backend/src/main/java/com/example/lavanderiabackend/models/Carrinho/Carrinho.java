@@ -1,7 +1,7 @@
-package com.example.lavanderiabackend.Carrinho;
+package com.example.lavanderiabackend.models.Carrinho;
 
-import com.example.lavanderiabackend.Pedido.Pedido;
-import com.example.lavanderiabackend.Roupa.Roupa;
+import com.example.lavanderiabackend.models.Pedido.Pedido;
+import com.example.lavanderiabackend.models.Roupa.Roupa;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -24,6 +24,5 @@ public class Carrinho {
     public Roupa roupa;
 
     public Double quantidade;
-    public Double subTotal;
 
 }

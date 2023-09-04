@@ -1,4 +1,6 @@
-package com.example.lavanderiabackend.Cadastro.DTO;
+package com.example.lavanderiabackend.models.Cadastro.DTO;
+
+import com.example.lavanderiabackend.models.Endereco.DTO.EnderecoModelo;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,11 +15,8 @@ public class CadastroModelo {
 
     public String cpf;
     public String nome;
+    public String sobrenome;
     public String email;
-    public String endereço;
-    public String numero;
-    public String complemento;
-    public String cidade;
-    public String cep;
+    public EnderecoModelo endereco;
     public String telefone;
 }

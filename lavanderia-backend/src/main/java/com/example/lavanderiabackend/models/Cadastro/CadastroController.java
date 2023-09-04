@@ -1,4 +1,4 @@
-package com.example.lavanderiabackend.Cadastro;
+package com.example.lavanderiabackend.models.Cadastro;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.lavanderiabackend.Cadastro.DTO.CadastroModelo;
+import com.example.lavanderiabackend.models.Cadastro.DTO.CadastroModelo;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -34,6 +34,7 @@ public class CadastroController {
     @GetMapping("/get/cadastros")
     public List<CadastroModelo> getCadastros() {
         return cadastroService.getCadastroList();
+
     }
 
     @PostMapping("/add/cadastro")
@@ -49,8 +50,8 @@ public class CadastroController {
     }
 
     @PostMapping("/delete/cadastro")
-    public ResponseEntity<Integer> deleteCadastro(@RequestBody CadastroModelo cadastroModelo) {
-        cadastroService.deleteCadastro(cadastroModelo);
+    public ResponseEntity<Integer> deleteCadastro(@RequestBody CpfWrapper cpf) {
+        cadastroService.deleteCadastro(cpf.getCpf());
         return ResponseEntity.ok(200);
     }
 

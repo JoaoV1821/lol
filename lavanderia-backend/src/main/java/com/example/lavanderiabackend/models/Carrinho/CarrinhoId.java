@@ -1,4 +1,4 @@
-package com.example.lavanderiabackend.Carrinho;
+package com.example.lavanderiabackend.models.Carrinho;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -9,6 +9,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class CarrinhoId implements Serializable {
+
     public Long roupa;
     public Long pedido;
 

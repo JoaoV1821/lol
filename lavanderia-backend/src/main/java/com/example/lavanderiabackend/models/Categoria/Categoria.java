@@ -1,9 +1,9 @@
-package com.example.lavanderiabackend.Categoria;
+package com.example.lavanderiabackend.models.Categoria;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.example.lavanderiabackend.Roupa.Roupa;
+import com.example.lavanderiabackend.models.Roupa.Roupa;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -23,7 +23,8 @@ public class Categoria {
     @SequenceGenerator(name = "categoria_sequence", sequenceName = "categoria_sequence", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "categoria_sequence")
     public Long id;
+    public String numero;
     public String nomeCategoria;
-    @OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL, orphanRemoval = false)
+    @OneToMany(mappedBy = "categoria", cascade = CascadeType.PERSIST, orphanRemoval = false)
     public List<Roupa> roupas = new ArrayList<Roupa>();
 }

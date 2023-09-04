@@ -1,4 +1,4 @@
-package com.example.lavanderiabackend.Pedido;
+package com.example.lavanderiabackend.models.Pedido;
 
 import java.time.LocalDate;
 import java.util.List;
