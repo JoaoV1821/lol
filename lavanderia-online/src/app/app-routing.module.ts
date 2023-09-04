@@ -9,6 +9,7 @@ import { PagamentoComponent } from './pagamento';
 import { PaginaInicialComponent } from './pagina-inicial';
 import { ListarPedidosAbertosComponent } from './pagina-inicial-funcionario';
 import { PedidoComponent } from './pedido';
+import { ListagemComponent } from './listagem/listagem.component';
 
 
 const routes: Routes = [
@@ -35,6 +36,11 @@ const routes: Routes = [
     redirectTo: 'orcamento/orcamento'},
   { path: 'orcamento/orcamento',
     component: OrcamentoComponent },
+
+  { path: 'listagem',
+    redirectTo: 'listagem/listagem'},
+  { path: 'listagem/listagem',
+    component: ListagemComponent },
 
   { path: 'pagamento',
     redirectTo: 'pagamento/pagamento'},

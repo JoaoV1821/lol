@@ -1,7 +1,31 @@
 <div>
-    <nav>
-        <p>AQUI É A NAVBAR</p>
     
-    </nav>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container">
+        <a class="navbar-brand" href="#"><img src="../assets/logoLol.png" width="100" alt="Logo" ></a>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link mx-3" href="#">Início</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link mx-3" href="listagem">Lista de Pedidos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link mx-3" href="pedido">Realizar Pedido</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link mx-3" href="#">Consulta de Pedido</a>
+                </li>
+            </ul>
+        </div>
+        <div class="navbar-text text-right">
+            <div class="d-flex flex-column text-right">
+                <span>Usuário</span>
+                <button class="btn btn-link btn-sm">Sair</button>
+            </div>
+        </div>
+    </div>
+</nav>
     <router-outlet></router-outlet>
 </div>

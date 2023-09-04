@@ -7,16 +7,33 @@
     <link rel="stylesheet" href="pagina-inicial.component.css">
 </head>
 <body>
-    <header>
-        <div class="titulo">
-            <h1>LOL</h1>
-            <!-- <h2>Lavanderia On-Line</h2> -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <a class="navbar-brand" href="#"><img src="../assets/logoLol.png" width="100" alt="Logo" ></a>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link mx-3" href="#">Início</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link mx-3" href="listagem">Lista de Pedidos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link mx-3" href="pedido">Realizar Pedido</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link mx-3" href="#">Consulta de Pedido</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-text text-right">
+                <div class="d-flex flex-column text-right">
+                    <span>Usuário</span>
+                    <button class="btn btn-link btn-sm">Sair</button>
+                </div>
+            </div>
         </div>
-        <div class="usuario">
-                <h4 id="nome-usuario" style="margin-bottom: 0;">Usuário</h4>
-                <p id="sair-usuario" style="margin-top: 0;">Sair</p>
-        </div>
-    </header>
+    </nav>
     <br>
     <div class="corpo">
         <div class="titulo">

@@ -2,19 +2,23 @@
 
     <div class="itemRow">
 
-        <div>{{categoria}}</div>
-        <button *ngIf="ativo==false" (click)="switch()">&#x2193;</button>
-        <button *ngIf="ativo==true" (click)="switch()">&#x2191;</button>
+        <div>
+            <h3 style="color: #5a57ff">{{categoria}}</h3>
+        </div>
+        <button *ngIf="ativo==false" class="btn btn-primary" (click)="switch()">&#x2193;</button>
+        <button *ngIf="ativo==true" class="btn btn-primary" (click)="switch()">&#x2191;</button>
 
     </div>
     <ng-container *ngFor="let item of items;let i = index;">
         <div *ngIf="item.categoria == categoria && ativo==true" class="itemRow">
             <div id="texto-item">
-                {{item.tipo}}
-                {{item.valor_un.toFixed(2)}}
+                <h5 style="color: #5a57ff">
+                    {{item.tipo}}
+                    {{item.valor_un.toFixed(2)}}
+                </h5>
             </div>
             <div>
-                <button (click)="adicionar(item.tipo,item.valor_un)">&#43;</button>
+                <button class="btn btn-secondary" (click)="adicionar(item.tipo,item.valor_un)">+</button>
             </div>
         </div>
     </ng-container>
