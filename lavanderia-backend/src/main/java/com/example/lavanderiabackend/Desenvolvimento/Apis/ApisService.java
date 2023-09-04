@@ -4,6 +4,9 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
+import java.lang.reflect.ParameterizedType;
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -21,11 +24,12 @@ import org.json.JSONArray;
 @Service
 public class ApisService {
 
-    public Boolean isPrimitive(Class<?> type) {
+    public static Boolean isPrimitive(Class<?> type) {
         return type == Double.class || type == Float.class
                 || type == Long.class || type == Integer.class || type == Short.class
                 || type == Character.class || type == Byte.class || type == Boolean.class
-                || type == String.class;
+                || type == String.class || type == Object.class || type == Class.class || type == LocalDate.class
+                || type == Date.class || type == double.class || type == long.class;
     }
 
     public List<String> findGetEndpoints() {
@@ -106,6 +110,8 @@ public class ApisService {
             for (int i = 0; i < metodos.length; i++) {
 
                 if (metodos[i].isAnnotationPresent(PostMapping.class)) {
+                    // System.out.println(metodos[i].getName() + "
+                    // :--------------------------------------");
                     JSONObject endpoint = new JSONObject();
                     String path = "";
                     String getPathList[] = metodos[i].getAnnotation(PostMapping.class).value();
@@ -127,10 +133,12 @@ public class ApisService {
                                         fieldsAsJson.put(parametros[x].getName(), tipos[x].getSimpleName());
 
                                     } else {
-                                        Field fields[] = tipos[x].getFields();
-                                        for (Field field : fields) {
-                                            fieldsAsJson.put(field.getName(), field.getType().getSimpleName());
-                                        }
+                                        String[] corpo = new String[1];
+                                        corpo[0] = "";
+                                        findAllFields(tipos[x], null, corpo);
+                                        // System.out.println(corpo[0]);
+                                        fieldsAsJson = new JSONObject(corpo[0]);
+
                                     }
                                 }
                             }
@@ -143,5 +151,52 @@ public class ApisService {
 
         }
         return postEndpoints;
+    }
+
+    public static void findAllFields(Class<?> tipo, Class<?> tipoPai, String[] body) {
+        if (isPrimitive(tipo) || (tipo == tipoPai) || tipo.getFields().length == 0) {
+            body[0] += '"' + tipo.getSimpleName() + '"';
+            // System.out.println(tipo.getSimpleName());
+        } else {
+            // System.out.println("{");
+            body[0] += "{";
+            Field fields[] = tipo.getFields();
+            int x = 0;
+            for (Field field : fields) {
+
+                // System.out.println(field.getName() + "----------;;;;;");
+                if (field.getType() != tipoPai && field.getType() != tipo) {
+                    // System.out.println("Tipo : " + field.getType());
+                    // System.out.println("Tipo pai : " + tipoPai);
+                    // System.out.println("Tipo atual : " + tipo);
+                    body[0] += '"' + field.getName() + '"' + ":";
+                    if (Iterable.class.isAssignableFrom(field.getType())) {
+                        body[0] += "[";
+                        // System.out.println("[");
+                        Class<?> genericTypeCLass = (Class<?>) ((ParameterizedType) field.getGenericType())
+                                .getActualTypeArguments()[0];
+                        if (genericTypeCLass != tipoPai && genericTypeCLass != tipo) {
+                            System.out.println(genericTypeCLass.getName());
+                            System.out.println("Tipo api : " + tipoPai);
+                            System.out.println("Tipo atual : " + tipo);
+                            findAllFields(genericTypeCLass, tipo, body);
+                        }
+                        body[0] += "]";
+                        // System.out.println("]");
+                    } else {
+                        findAllFields(field.getType(), tipo, body);
+
+                    }
+
+                    if (x != fields.length - 1) {
+                        body[0] += ",";
+                    }
+                    x++;
+                }
+            }
+            body[0] += "}";
+            // System.out.println("}");
+
+        }
     }
 }

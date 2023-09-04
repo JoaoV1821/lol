@@ -19,10 +19,25 @@
             <tr *ngFor="let pedidosEmAberto of pedidosEmAberto">
                 <td>{{pedidosEmAberto.numeroPedido}}</td>
                 <td>{{pedidosEmAberto.resumo}}</td>
-                <td class="text-center" style="width: 300px">
-                    <a href="#" title="Recolhido" alt="Recolhido" class="btn btn-secondary">
-                        <i class="fa fa-check" aria-hidden="true"></i> Recolhido
-                    </a>
+                <td class="text-center" style="width: 450px">
+                    <div class="d-flex flex-row">
+                        <a href="#" title="Recolhido" alt="Recolhido" class="btn btn-secondary">
+                            <i class="fa fa-check" aria-hidden="true"></i> Recolhido
+                        </a>
+    
+                        <div class="d-flex justify-content-around">
+                            <a href="#" title="Recolhido" alt="Recolhido" class="btn btn-primary" style="width: 30%">
+                                <i class="fa fa-check" aria-hidden="true"></i>Confirmar Lavagem
+                            </a>
+        
+                            <a href="#" title="Recolhido" alt="Recolhido" class="btn btn-primary" style="width: 30%">
+                                <i class="fa fa-check" aria-hidden="true"></i>Finalizar pedido
+                            </a>
+                        </div>
+                    </div>
+                   
+                  
+
                 </td>
             </tr>
         </tbody>

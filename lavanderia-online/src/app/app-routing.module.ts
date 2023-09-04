@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-
+import { ListagemComponent } from './listagem/listagem.component';
 import { AutocadastroComponent } from './autocadastro';
 import { ConsultaPedidoComponent } from './consulta-pedido';
 import { LoginComponent } from './login';
@@ -9,7 +9,9 @@ import { PagamentoComponent } from './pagamento';
 import { PaginaInicialComponent } from './pagina-inicial';
 import { ListarPedidosAbertosComponent } from './pagina-inicial-funcionario';
 import { PedidoComponent } from './pedido';
-import { ListagemComponent } from './listagem/listagem.component';
+import { ListarRoupasComponent } from './crud-roupas/listar-roupas';
+import { InserirRoupaComponent } from './crud-roupas/inserir-roupa';
+import { EditarRoupaComponent } from './crud-roupas/editar-roupa';
 
 
 const routes: Routes = [
@@ -60,7 +62,14 @@ const routes: Routes = [
   { path: 'pedido',
     redirectTo: 'pedido/pedido'},
   { path: 'pedido/pedido',
-    component: PedidoComponent }
+   
+    component: PedidoComponent },
+  
+    //CRUD Roupas
+  { path: 'roupas', redirectTo: 'roupas/listar-roupas'},
+  { path: 'roupas/listar-roupas', component: ListarRoupasComponent},
+  { path: 'roupas/novo', component: InserirRoupaComponent},
+  { path: 'roupas/editar/:id', component: EditarRoupaComponent}
 
 ];
 

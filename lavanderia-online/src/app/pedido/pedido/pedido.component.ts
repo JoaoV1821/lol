@@ -21,6 +21,7 @@ interface itemList {
   styleUrls: ['./pedido.component.css']
 })
 
+
 export class PedidoComponent implements OnInit{
 
   //carrinho: itemCarrinho[] = [
@@ -29,6 +30,7 @@ export class PedidoComponent implements OnInit{
   // { tipo: 'Jeans', qt: 4, valor_un: 20, subtotal: 80 },
   //  { tipo: 'Sapato', qt: 4, valor_un: 20, subtotal: 80 }
   //]
+
   carrinho: itemCarrinho[] = [];
   lista_de_items: itemList[] = [
     { tipo: "Batina", valor_un: 10, categoria: "Blusas" },
@@ -83,7 +85,7 @@ export class PedidoComponent implements OnInit{
     })
     this.updateTotal();
   }
-  
+
   updateTotal() {
     this.total = 0;
     for (let x = 0; x < this.carrinho.length; x++) {
@@ -97,6 +99,6 @@ export class PedidoComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    
+
   }
 }
