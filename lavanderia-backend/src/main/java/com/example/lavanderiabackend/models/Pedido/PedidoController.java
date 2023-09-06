@@ -1,4 +1,4 @@
-package com.example.lavanderiabackend.Pedido;
+package com.example.lavanderiabackend.models.Pedido;
 
 import java.util.List;
 
@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.lavanderiabackend.Pedido.DTO.PedidoBodyModelo;
-import com.example.lavanderiabackend.Pedido.DTO.PedidoModelo;
+import com.example.lavanderiabackend.models.Pedido.DTO.PedidoBody;
+import com.example.lavanderiabackend.models.Pedido.DTO.PedidoInfo;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -31,15 +31,26 @@ public class PedidoController {
     }
 
     @GetMapping("/get/pedidos")
-    public List<PedidoModelo> getPedidos(@RequestParam(required = false) String dataInicial,
+    public List<PedidoBody> getPedidos(@RequestParam(required = false) String dataInicial,
             @RequestParam(required = false) String dataPrazo) {
         return pedidoService.getPedidoList(dataInicial, dataPrazo);
-
     }
 
     @PostMapping("/get/pedido")
-    public PedidoModelo getPedido(@RequestBody NumeroPedidoWrapper numero_pedido) {
+    public PedidoBody getPedido(@RequestBody NumeroPedidoWrapper numero_pedido) {
         return pedidoService.getPedido(numero_pedido.getNumero());
+    }
+
+    @GetMapping("/get/pedidosInfo")
+    public List<PedidoInfo> getPedidosInfo(@RequestParam(required = false) String dataInicial,
+            @RequestParam(required = false) String dataPrazo) {
+        return pedidoService.getPedidoInfoList(dataInicial, dataPrazo);
+
+    }
+
+    @PostMapping("/get/pedidoInfo")
+    public PedidoInfo getPedidoInfo(@RequestBody NumeroPedidoWrapper numero_pedido) {
+        return pedidoService.getPedidoInfo(numero_pedido.getNumero());
     }
 
     @PostMapping("/delete/pedido")
@@ -49,13 +60,13 @@ public class PedidoController {
     }
 
     @PostMapping("/update/pedido")
-    public ResponseEntity<Integer> updatePedido(@RequestBody PedidoModelo pedido) {
-        pedidoService.updatePedido(pedido.numero, new PedidoBodyModelo(pedido));
+    public ResponseEntity<Integer> updatePedido(@RequestBody PedidoBody pedido) {
+        pedidoService.updatePedido(pedido.numero, pedido);
         return ResponseEntity.ok(200);
     }
 
     @PostMapping("/add/pedido")
-    public ResponseEntity<Integer> addPedido(@RequestBody PedidoModelo modelo) {
+    public ResponseEntity<Integer> addPedido(@RequestBody PedidoBody modelo) {
         pedidoService.addPedido(modelo);
         return ResponseEntity.ok(200);
     }

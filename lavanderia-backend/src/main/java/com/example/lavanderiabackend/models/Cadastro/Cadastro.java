@@ -1,12 +1,15 @@
-package com.example.lavanderiabackend.Cadastro;
+package com.example.lavanderiabackend.models.Cadastro;
 
-import com.example.lavanderiabackend.Cadastro.DTO.CadastroModelo;
+import com.example.lavanderiabackend.models.Cadastro.DTO.CadastroModelo;
+import com.example.lavanderiabackend.models.Endereco.Endereco;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.SequenceGenerator;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -27,26 +30,21 @@ public class Cadastro {
     public String cpf;
     @Column(nullable = false)
     public String nome;
+    public String sobrenome;
     @Column(unique = true, nullable = false)
     public String email;
     @Column(nullable = false)
     public String senha;
-    public String cep;
-    public String endereço;
-    public String numero;
-    public String complemento;
-    public String cidade;
+    @ManyToOne
+    @JoinColumn(name = "endereco_id", nullable = false)
+    public Endereco endereco;
     public String telefone;
 
     public Cadastro(CadastroModelo modelo) {
         this.cpf = modelo.cpf;
-        this.cep = modelo.cep;
-        this.cidade = modelo.cidade;
-        this.complemento = modelo.complemento;
         this.email = modelo.email;
-        this.numero = modelo.numero;
         this.telefone = modelo.telefone;
         this.nome = modelo.nome;
-        this.endereço = modelo.endereço;
+        this.sobrenome = modelo.sobrenome;
     }
 }

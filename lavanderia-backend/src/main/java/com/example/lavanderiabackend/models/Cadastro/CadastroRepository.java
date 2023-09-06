@@ -1,4 +1,4 @@
-package com.example.lavanderiabackend.Cadastro;
+package com.example.lavanderiabackend.models.Cadastro;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

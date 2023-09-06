@@ -14,11 +14,14 @@ import { PedidoService } from './services';
     CategoriaComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
   ],
   exports: [
     PedidoComponent,
     HeaderComponent,
+    CategoriaComponent,
+  ],
+  providers: [
     CategoriaComponent
   ],
   providers:[

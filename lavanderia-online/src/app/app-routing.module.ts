@@ -13,6 +13,7 @@ import { ListarRoupasComponent } from './crud-roupas/listar-roupas';
 import { InserirRoupaComponent } from './crud-roupas/inserir-roupa';
 import { EditarRoupaComponent } from './crud-roupas/editar-roupa';
 
+
 const routes: Routes = [
   { path: '',
     redirectTo: '',
@@ -56,6 +57,7 @@ const routes: Routes = [
   { path: 'pedido',
     redirectTo: 'pedido/pedido'},
   { path: 'pedido/pedido',
+   
     component: PedidoComponent },
   
     //CRUD Roupas

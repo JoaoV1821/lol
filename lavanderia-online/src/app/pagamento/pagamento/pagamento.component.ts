@@ -9,6 +9,8 @@ import { PagamentoService } from '../service';
 })
 export class PagamentoComponent implements OnInit {
   ativo = false;
+  total = 185;
+
   
   total = 185;
   
@@ -20,6 +22,12 @@ export class PagamentoComponent implements OnInit {
   ]
 
   constructor() {
+
+  }
+
+  ngOnInit(): void {
+
+=======
     
   }
 
