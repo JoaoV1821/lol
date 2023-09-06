@@ -9,9 +9,11 @@ import { PagamentoService } from '../service';
 })
 export class PagamentoComponent implements OnInit {
   ativo = false;
-
   total = 185;
 
+  
+  total = 185;
+  
   carrinho: any = [
     { tipo: 'Bermuda', qt: 2, valor_un: 20, subtotal: 40 },
     { tipo: 'Short', qt: 2, valor_un: 25, subtotal: 50 },
@@ -25,6 +27,12 @@ export class PagamentoComponent implements OnInit {
 
   ngOnInit(): void {
 
+=======
+    
+  }
+
+  ngOnInit(): void {
+    
   }
 
   mostrarItens() {

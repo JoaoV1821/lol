@@ -8,8 +8,9 @@ import { PedidoService } from '../services';
   styleUrls: ['./header.component.css']
 })
 
-export class HeaderComponent implements OnInit {
 
+export class HeaderComponent implements OnInit{
+  
   constructor() {
 
   }

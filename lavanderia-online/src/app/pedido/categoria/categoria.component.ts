@@ -7,6 +7,7 @@ interface itemList {
   valor_un: number,
   categoria: string
 }
+
 @Component({
   selector: 'app-categoria',
   templateUrl: './categoria.component.html',

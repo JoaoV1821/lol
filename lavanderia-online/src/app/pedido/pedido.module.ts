@@ -22,6 +22,9 @@ import { PedidoService } from './services';
     CategoriaComponent,
   ],
   providers: [
+    CategoriaComponent
+  ],
+  providers:[
     PedidoService
   ]
 })

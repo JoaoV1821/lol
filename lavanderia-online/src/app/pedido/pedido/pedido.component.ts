@@ -21,8 +21,15 @@ interface itemList {
   styleUrls: ['./pedido.component.css']
 })
 
-export class PedidoComponent implements OnInit {
 
+export class PedidoComponent implements OnInit{
+
+  //carrinho: itemCarrinho[] = [
+  // { tipo: 'Bermuda', qt: 4, valor_un: 20, subtotal: 80 },
+  // { tipo: 'Short', qt: 4, valor_un: 20, subtotal: 80 },
+  // { tipo: 'Jeans', qt: 4, valor_un: 20, subtotal: 80 },
+  //  { tipo: 'Sapato', qt: 4, valor_un: 20, subtotal: 80 }
+  //]
 
   carrinho: itemCarrinho[] = [];
   lista_de_items: itemList[] = [
