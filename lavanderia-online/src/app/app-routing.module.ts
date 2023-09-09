@@ -12,6 +12,7 @@ import { PedidoComponent } from './pedido';
 import { ListarRoupasComponent } from './crud-roupas/listar-roupas';
 import { InserirRoupaComponent } from './crud-roupas/inserir-roupa';
 import { EditarRoupaComponent } from './crud-roupas/editar-roupa';
+import { RelatoriosComponent } from './relatorios';
 
 
 const routes: Routes = [
@@ -64,8 +65,10 @@ const routes: Routes = [
   { path: 'roupas', redirectTo: 'roupas/listar-roupas'},
   { path: 'roupas/listar-roupas', component: ListarRoupasComponent},
   { path: 'roupas/novo', component: InserirRoupaComponent},
-  { path: 'roupas/editar/:id', component: EditarRoupaComponent}
+  { path: 'roupas/editar/:id', component: EditarRoupaComponent},
 
+  //Relatorios, Pagina-Funcionario
+  { path: 'relatorios', component: RelatoriosComponent}
 ];
 
 @NgModule({
