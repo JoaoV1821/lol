@@ -10,7 +10,7 @@
     <div class="container">
         <div class="row">
             <div class="col mb-3">
-                <h1 id="titulo">Seus Pedidos</h1>
+                <h1 id="titulo">Pedidos</h1>
             </div>
         </div>
         <div class="row">
@@ -39,8 +39,7 @@
                             <th>Data</th>
                             <th>Prazo</th>
                             <th>Status</th>
-                            <th>Pagar</th>
-                            <th>Cancelar</th>
+                            <th>Ação</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -50,8 +49,8 @@
                                 <td>R$ {{pedido.valor.toFixed(2).replace('.',',')}}</td>
                                 <td>{{pedido.data}}</td>
                                 <td>{{pedido.prazo}}</td>
-                                <!-- <td class="td-button" [ngSwitch]="pedido.status"> -->
-                                <td class="td-button">
+                                <td class="td-button" [ngSwitch]="pedido.status">
+                                <!-- <td class="td-button"> -->
                                     <button *ngSwitchCase="'EM ABERTO'"
                                         class="btn btn-aberto">{{pedido.status}}</button>
                                     <button *ngSwitchCase="'RECOLHIDO'"
@@ -65,15 +64,10 @@
                                         class="btn btn-finalizado">{{pedido.status}}</button>
                                 </td>
                                 <td class="td-button">
-                                    <button *ngIf="pedido.status == 'AGUARDANDO PAGAMENTO'"
-                                        class="btn btn-success">Pagar</button>
-                                    <button *ngIf="pedido.status != 'AGUARDANDO PAGAMENTO'"
-                                        class="btn disabled">Pagar</button>
-                                </td>
-                                <td class="td-button">
+                                    <button *ngIf="pedido.status == 'RECOLHIDO'"
+                                        class="btn btn-success">Confirmar Lavagem</button>
                                     <button *ngIf="pedido.status == 'EM ABERTO'"
                                         class="btn btn-danger">Cancelar</button>
-                                    <button *ngIf="pedido.status != 'EM ABERTO'" class="btn disabled">Cancelar</button>
                                 </td>
                             </tr>
                         </ng-container>

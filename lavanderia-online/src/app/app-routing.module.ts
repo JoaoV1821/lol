@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ListagemComponent } from './listagem/listagem.component';
+import { ListagemComponent } from './listagem/listagem/listagem.component';
 import { AutocadastroComponent } from './autocadastro';
 import { ConsultaPedidoComponent } from './consulta-pedido';
 import { LoginComponent } from './login';
@@ -12,7 +12,8 @@ import { PedidoComponent } from './pedido';
 import { ListarRoupasComponent } from './crud-roupas/listar-roupas';
 import { InserirRoupaComponent } from './crud-roupas/inserir-roupa';
 import { EditarRoupaComponent } from './crud-roupas/editar-roupa';
-
+import { Rf012Component } from './prototipos/rf012/rf012.component';
+import { ListagemFComponent } from './listagemF';
 
 const routes: Routes = [
   { path: '',
@@ -62,14 +63,19 @@ const routes: Routes = [
   { path: 'pedido',
     redirectTo: 'pedido/pedido'},
   { path: 'pedido/pedido',
-   
     component: PedidoComponent },
   
     //CRUD Roupas
   { path: 'roupas', redirectTo: 'roupas/listar-roupas'},
   { path: 'roupas/listar-roupas', component: ListarRoupasComponent},
   { path: 'roupas/novo', component: InserirRoupaComponent},
-  { path: 'roupas/editar/:id', component: EditarRoupaComponent}
+  { path: 'roupas/editar/:id', component: EditarRoupaComponent},
+  
+  { path: 'prop', redirectTo: 'prototipos/rf012'},
+  { path: 'prototipos/rf012', component: Rf012Component},
+
+  { path: 'listagemF', redirectTo: 'listagemF/listagemF'},
+  { path: 'listagemF', component: ListagemFComponent}
 
 ];
 

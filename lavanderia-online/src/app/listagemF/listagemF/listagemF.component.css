@@ -2,6 +2,11 @@
 
 h1 {
     color: #5a57ff;
+    margin-top: 10px;
+}
+
+option{
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 #sair:hover {
@@ -10,7 +15,7 @@ h1 {
 }
 
 .fadeIn {
-    animation: fadeIn 0.77s linear 0s;
+    animation: fadeIn 0.7s linear 0s;
 }
 
 @keyframes fadeIn {
