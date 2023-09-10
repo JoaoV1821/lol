@@ -42,17 +42,17 @@
                 </select>
             </div>
             <div class="col-sm-2 pl-2" #checkboxDiv>
-                <input [(ngModel)]="isChecked" (change)="getPedidos(isChecked)" type="checkbox" class="btn-check"
+                <input (ngModel)="isChecked" (change)="getPedidos(isChecked)" type="checkbox" class="btn-check"
                     id="btn-check-outlined" autocomplete="off">
                 <label #checkBoxLabel class="btn btn-outline-primary" for="btn-check-outlined">Pedidos de
                     Hoje</label><br>
             </div>
             <div class="col-sm-2">
-                <input #dateInput1 [(ngModel)]="dataInicial" type="date" id="input1" />
+                <input #dateInput1 (ngModel)="dataInicial" type="date" id="input1" />
             </div>
 
             <div class="col-sm-2">
-                <input #dateInput2 [(ngModel)]="dataPrazo" type="date" id="input2" />
+                <input #dateInput2 (ngModel)="dataPrazo" type="date" id="input2" />
             </div>
 
             <div class="col-sm-2">
@@ -82,7 +82,7 @@
                                 <td>R$ {{pedido.total.toFixed(2).replace('.',',')}}</td>
                                 <td>{{pedido.data}}</td>
                                 <td>{{pedido.prazo}}</td>
-                                <td class="td-button" [ngSwitch]="pedido.status">
+                                <td class="td-button" (ngSwitch)="pedido.status">
                                     <button *ngSwitchCase="'EM ABERTO'"
                                         class="btn btn-aberto">{{pedido.status}}</button>
                                     <button *ngSwitchCase="'RECOLHIDO'"

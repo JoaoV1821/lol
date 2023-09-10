@@ -22,7 +22,10 @@ export class PagamentoComponent implements OnInit {
 
   }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 94b1539c6925eb08930d6b1d2bb4b29e33af739e
   ngOnInit(): void {
     
   }
