@@ -9,7 +9,6 @@ import { PagamentoService } from '../service';
 })
 export class PagamentoComponent implements OnInit {
   ativo = false;
-  
   total = 185;
   
   carrinho: any = [
@@ -20,7 +19,7 @@ export class PagamentoComponent implements OnInit {
   ]
 
   constructor() {
-    
+
   }
 
   ngOnInit(): void {

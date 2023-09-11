@@ -11,6 +11,7 @@ import { PaginaInicialModule } from './pagina-inicial';
 import { PedidoModule } from './pedido';
 import { CrudRoupasModule } from './crud-roupas';
 import { FuncionarioModule } from './funcionario';
+import { RelatoriosModule } from './relatorios';
 
 
 /* Aonde está escrito o nome do componente no import é para substituir com o nome do componente que vc criou 
@@ -19,7 +20,7 @@ import { FuncionarioModule } from './funcionario';
 
 @NgModule({
   declarations: [
-    AppComponent,
+    AppComponent
   ],
   imports: [
     BrowserModule,
@@ -34,6 +35,7 @@ import { FuncionarioModule } from './funcionario';
     PedidoModule,
     CrudRoupasModule,
     FuncionarioModule
+    RelatoriosModule,
   ],
 
   providers: [],

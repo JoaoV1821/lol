@@ -15,7 +15,7 @@ interface itemList {
 })
 
 export class CategoriaComponent implements OnInit {
-  
+
   @Input() categoria = '';
   @Input() items: itemList[] = [];
   @Output() addClick = new EventEmitter();

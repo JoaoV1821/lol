@@ -15,7 +15,7 @@ import { EditarRoupaComponent } from './crud-roupas/editar-roupa';
 import { ListarFuncionarioComponent } from './funcionario';
 import { InserirFuncionarioComponent } from './funcionario';
 import { EditarFuncionarioComponent } from './funcionario';
-
+import { RelatoriosComponent } from './relatorios';
 
 const routes: Routes = [
   { path: '', redirectTo: '', pathMatch: 'full'},
@@ -36,7 +36,12 @@ const routes: Routes = [
 
   { path: 'pedido', component: PedidoComponent },
   
-  //CRUD Roupas
+  { path: 'pedido',
+    redirectTo: 'pedido/pedido'},
+  { path: 'pedido/pedido',
+   
+    component: PedidoComponent },
+  
   { path: 'roupas', redirectTo: 'roupas/listar-roupas'},
   { path: 'roupas/listar-roupas', component: ListarRoupasComponent},
   { path: 'roupas/novo', component: InserirRoupaComponent},
@@ -48,6 +53,8 @@ const routes: Routes = [
   { path: 'funcionarios/novo', component: InserirFuncionarioComponent },
   { path: 'funcionarios/editar/:cpf', component: EditarFuncionarioComponent},
 
+  //Relatorios, Pagina-Funcionario
+  { path: 'relatorios', component: RelatoriosComponent}
 ];
 
 @NgModule({
