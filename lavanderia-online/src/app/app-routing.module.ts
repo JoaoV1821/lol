@@ -14,6 +14,8 @@ import { InserirRoupaComponent } from './crud-roupas/inserir-roupa';
 import { EditarRoupaComponent } from './crud-roupas/editar-roupa';
 import { Rf012Component } from './prototipos/rf012/rf012.component';
 import { ListagemFComponent } from './listagemF';
+import { RelatoriosComponent } from './relatorios';
+import { EditarFuncionarioComponent, InserirFuncionarioComponent, ListarFuncionarioComponent } from './funcionario';
 
 const routes: Routes = [
   { path: '',
@@ -71,11 +73,20 @@ const routes: Routes = [
   { path: 'roupas/novo', component: InserirRoupaComponent},
   { path: 'roupas/editar/:id', component: EditarRoupaComponent},
   
+  { path: 'funcionarios', redirectTo: 'funcionario/listar-funcionario'},
+  { path: 'funcionario/listar-funcionario', component: ListarFuncionarioComponent},
+  { path: 'funcionario/inserir-funcionario', component: InserirFuncionarioComponent},
+  { path: 'funcionario/editar-funcionario', component: EditarFuncionarioComponent},
+  
   { path: 'prop', redirectTo: 'prototipos/rf012'},
   { path: 'prototipos/rf012', component: Rf012Component},
 
   { path: 'listagemF', redirectTo: 'listagemF/listagemF'},
-  { path: 'listagemF', component: ListagemFComponent}
+  { path: 'listagemF', component: ListagemFComponent},
+  
+  { path: 'relatorios', redirectTo: 'relatorios/relatorios'},
+  { path: 'relatorios', component: RelatoriosComponent}
+  
 
 ];
 

@@ -12,6 +12,8 @@ import { PedidoModule } from './pedido';
 import { CrudRoupasModule } from './crud-roupas';
 import { ListagemModule } from './listagem';
 import { CommonModule } from '@angular/common';
+import { FuncionarioModule } from './funcionario';
+import { RelatoriosModule } from './relatorios';
 import { FormsModule } from '@angular/forms';
 import { ListagemFModule } from './listagemF';
 
@@ -38,8 +40,10 @@ import { ListagemFModule } from './listagemF';
     PedidoModule,
     CrudRoupasModule,
     ListagemModule,
+    ListagemFModule,
     FormsModule,
-    ListagemFModule
+    FuncionarioModule,
+    RelatoriosModule
   ],
 
   providers: [],
