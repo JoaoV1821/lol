@@ -33,7 +33,7 @@ import { RelatoriosModule } from './relatorios';
     PedidoModule,
     PedidoModule,
     CrudRoupasModule,
-    RelatoriosModule
+    RelatoriosModule,
   ],
 
   providers: [],
