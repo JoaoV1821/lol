@@ -8,37 +8,29 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.lavanderiabackend.models.Cadastro.DTO.CadastroModelo;
-import com.example.lavanderiabackend.models.Endereco.Endereco;
-import com.example.lavanderiabackend.models.Endereco.EnderecoRepository;
-import com.example.lavanderiabackend.models.Endereco.DTO.EnderecoModelo;
+import com.example.lavanderiabackend.models.Endereco.EnderecoService;
 
 @Service
 public class CadastroService {
 
     public CadastroRepository cadastroRepository;
-    public EnderecoRepository enderecoRepository;
     public ModelMapper modelMapper;
+    public EnderecoService enderecoService;
 
     @Autowired
     CadastroService(CadastroRepository cadastroRepository, ModelMapper modelMapper,
-            EnderecoRepository enderecoRepository) {
+            EnderecoService enderecoService) {
         this.cadastroRepository = cadastroRepository;
         this.modelMapper = modelMapper;
-        this.enderecoRepository = enderecoRepository;
+        this.enderecoService = enderecoService;
     }
 
     public void saveCadastro(CadastroModelo modelo) {
-
         Cadastro cadastro = new Cadastro(modelo);
-        Endereco endereco = checkIfEnderecoExists(modelo.endereco);
         Random random = new Random();
-
         String idRandom = String.format("%04d", random.nextInt(10000));
-
-        cadastro.endereco = endereco;
         cadastro.setSenha(cadastro.getEmail() + idRandom);
-
-        cadastroRepository.save(cadastro);
+        enderecoService.addCadastros(modelo.endereco, List.of(cadastro));
     }
 
     public void updateCadastro(CadastroModelo modelo) {
@@ -49,7 +41,7 @@ public class CadastroService {
             cadastro = modelMapper.map(modelo, cadastro.getClass());
             cadastro.setCadastroId(id);
             cadastro.setSenha(senha);
-            cadastro.setEndereco(checkIfEnderecoExists(modelo.endereco));
+            cadastro.setEndereco(enderecoService.getEndereco(modelo.endereco));
             cadastroRepository.save(cadastro);
         }
     }
@@ -80,20 +72,6 @@ public class CadastroService {
             return modelo;
         }
         return null;
-    }
-
-    private Endereco checkIfEnderecoExists(EnderecoModelo enderecoModelo) {
-        Endereco endereco = modelMapper.map(enderecoModelo, Endereco.class);
-        Endereco resultado = enderecoRepository.findUniqueEndereco(endereco.cep, endereco.logradouro,
-                endereco.complemento,
-                endereco.numero, endereco.cidade);
-
-        if (resultado == null) {
-            endereco = enderecoRepository.save(endereco);
-        } else {
-            endereco = resultado;
-        }
-        return endereco;
     }
 
 }

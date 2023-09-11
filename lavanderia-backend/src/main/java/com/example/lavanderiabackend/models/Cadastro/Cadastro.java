@@ -30,15 +30,17 @@ public class Cadastro {
     public String cpf;
     @Column(nullable = false)
     public String nome;
+    @Column(nullable = true)
     public String sobrenome;
     @Column(unique = true, nullable = false)
     public String email;
     @Column(nullable = false)
     public String senha;
+    @Column(nullable = false)
+    public String telefone;
     @ManyToOne
     @JoinColumn(name = "endereco_id", nullable = false)
     public Endereco endereco;
-    public String telefone;
 
     public Cadastro(CadastroModelo modelo) {
         this.cpf = modelo.cpf;
