@@ -72,8 +72,9 @@ public class ApisService {
                                             path = path + parametros[x].getName() + "=" + tipos[x].getSimpleName();
                                         } else {
                                             path = path + "{";
-                                            Field fields[] = tipos[x].getFields();
+                                            Field fields[] = tipos[x].getDeclaredFields();
                                             for (Field field : fields) {
+                                                field.setAccessible(true);
                                                 path = path + field.getName() + "=" + field.getType().getSimpleName()
                                                         + ",";
                                             }
@@ -110,8 +111,6 @@ public class ApisService {
             for (int i = 0; i < metodos.length; i++) {
 
                 if (metodos[i].isAnnotationPresent(PostMapping.class)) {
-                    // System.out.println(metodos[i].getName() + "
-                    // :--------------------------------------");
                     JSONObject endpoint = new JSONObject();
                     String path = "";
                     String getPathList[] = metodos[i].getAnnotation(PostMapping.class).value();
@@ -136,9 +135,7 @@ public class ApisService {
                                         String[] corpo = new String[1];
                                         corpo[0] = "";
                                         findAllFields(tipos[x], null, corpo);
-                                        // System.out.println(corpo[0]);
                                         fieldsAsJson = new JSONObject(corpo[0]);
-
                                     }
                                 }
                             }
@@ -154,38 +151,26 @@ public class ApisService {
     }
 
     public static void findAllFields(Class<?> tipo, Class<?> tipoPai, String[] body) {
-        if (isPrimitive(tipo) || (tipo == tipoPai) || tipo.getFields().length == 0) {
+        if (isPrimitive(tipo) || (tipo == tipoPai) || tipo.getDeclaredFields().length == 0) {
             body[0] += '"' + tipo.getSimpleName() + '"';
-            // System.out.println(tipo.getSimpleName());
         } else {
-            // System.out.println("{");
             body[0] += "{";
-            Field fields[] = tipo.getFields();
+            Field fields[] = tipo.getDeclaredFields();
             int x = 0;
             for (Field field : fields) {
-
-                // System.out.println(field.getName() + "----------;;;;;");
+                field.setAccessible(true);
                 if (field.getType() != tipoPai && field.getType() != tipo) {
-                    // System.out.println("Tipo : " + field.getType());
-                    // System.out.println("Tipo pai : " + tipoPai);
-                    // System.out.println("Tipo atual : " + tipo);
                     body[0] += '"' + field.getName() + '"' + ":";
                     if (Iterable.class.isAssignableFrom(field.getType())) {
                         body[0] += "[";
-                        // System.out.println("[");
                         Class<?> genericTypeCLass = (Class<?>) ((ParameterizedType) field.getGenericType())
                                 .getActualTypeArguments()[0];
                         if (genericTypeCLass != tipoPai && genericTypeCLass != tipo) {
-                            System.out.println(genericTypeCLass.getName());
-                            System.out.println("Tipo api : " + tipoPai);
-                            System.out.println("Tipo atual : " + tipo);
                             findAllFields(genericTypeCLass, tipo, body);
                         }
                         body[0] += "]";
-                        // System.out.println("]");
                     } else {
                         findAllFields(field.getType(), tipo, body);
-
                     }
 
                     if (x != fields.length - 1) {
@@ -195,8 +180,6 @@ public class ApisService {
                 }
             }
             body[0] += "}";
-            // System.out.println("}");
-
         }
     }
 }

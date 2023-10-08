@@ -22,9 +22,9 @@ public class Categoria {
     @Id
     @SequenceGenerator(name = "categoria_sequence", sequenceName = "categoria_sequence", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "categoria_sequence")
-    public Long id;
-    public String numero;
-    public String nomeCategoria;
+    private Long id;
+    private String numero;
+    private String nomeCategoria;
     @OneToMany(mappedBy = "categoria", cascade = CascadeType.PERSIST, orphanRemoval = false)
-    public List<Roupa> roupas = new ArrayList<Roupa>();
+    private List<Roupa> roupas = new ArrayList<Roupa>();
 }

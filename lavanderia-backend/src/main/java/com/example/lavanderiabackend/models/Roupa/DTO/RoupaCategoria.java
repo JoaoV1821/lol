@@ -19,6 +19,6 @@ public class RoupaCategoria {
         this.numero = roupa.numero;
         this.descricao = roupa.descricao;
         this.valor = roupa.valor;
-        this.nomeCategoria = roupa.categoria.nomeCategoria;
+        this.nomeCategoria = roupa.categoria.getNomeCategoria();
     }
 }

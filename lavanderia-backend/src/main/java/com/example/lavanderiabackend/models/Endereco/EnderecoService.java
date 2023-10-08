@@ -26,7 +26,7 @@ public class EnderecoService {
         for (Cadastro cadastro : cadastros) {
             endereco.addCadastro(cadastro);
         }
-        endereco.cadastros.get(0).endereco = endereco;
+        endereco.cadastros.get(0).setEndereco(endereco);
         enderecoRepository.save(endereco);
     }
 

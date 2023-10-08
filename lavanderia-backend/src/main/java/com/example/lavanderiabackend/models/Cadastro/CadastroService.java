@@ -30,18 +30,18 @@ public class CadastroService {
         Random random = new Random();
         String idRandom = String.format("%04d", random.nextInt(10000));
         cadastro.setSenha(cadastro.getEmail() + idRandom);
-        enderecoService.addCadastros(modelo.endereco, List.of(cadastro));
+        enderecoService.addCadastros(modelo.getEndereco(), List.of(cadastro));
     }
 
     public void updateCadastro(CadastroModelo modelo) {
-        Cadastro cadastro = cadastroRepository.findByCpf(modelo.cpf);
-        Long id = cadastro.cadastroId;
-        String senha = cadastro.senha;
+        Cadastro cadastro = cadastroRepository.findByCpf(modelo.getCpf());
+        Long id = cadastro.getCadastroId();
+        String senha = cadastro.getSenha();
         if (cadastro != null) {
             cadastro = modelMapper.map(modelo, cadastro.getClass());
             cadastro.setCadastroId(id);
             cadastro.setSenha(senha);
-            cadastro.setEndereco(enderecoService.getEndereco(modelo.endereco));
+            cadastro.setEndereco(enderecoService.getEndereco(modelo.getEndereco()));
             cadastroRepository.save(cadastro);
         }
     }

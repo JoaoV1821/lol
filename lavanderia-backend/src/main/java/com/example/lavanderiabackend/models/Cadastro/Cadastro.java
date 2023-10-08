@@ -25,28 +25,28 @@ public class Cadastro {
     @Id
     @SequenceGenerator(name = "cadastro_sequence", sequenceName = "cadastro_sequence", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "cadastro_sequence")
-    public Long cadastroId;
+    private Long cadastroId;
     @Column(unique = true, nullable = false)
-    public String cpf;
+    private String cpf;
     @Column(nullable = false)
-    public String nome;
+    private String nome;
     @Column(nullable = true)
-    public String sobrenome;
+    private String sobrenome;
     @Column(unique = true, nullable = false)
-    public String email;
+    private String email;
     @Column(nullable = false)
-    public String senha;
+    private String senha;
     @Column(nullable = false)
-    public String telefone;
+    private String telefone;
     @ManyToOne
     @JoinColumn(name = "endereco_id", nullable = false)
-    public Endereco endereco;
+    private Endereco endereco;
 
     public Cadastro(CadastroModelo modelo) {
-        this.cpf = modelo.cpf;
-        this.email = modelo.email;
-        this.telefone = modelo.telefone;
-        this.nome = modelo.nome;
-        this.sobrenome = modelo.sobrenome;
+        this.cpf = modelo.getCpf();
+        this.email = modelo.getEmail();
+        this.telefone = modelo.getTelefone();
+        this.nome = modelo.getNome();
+        this.sobrenome = modelo.getSobrenome();
     }
 }

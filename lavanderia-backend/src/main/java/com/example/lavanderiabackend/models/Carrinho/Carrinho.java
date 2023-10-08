@@ -8,21 +8,25 @@ import jakarta.persistence.Id;
 import jakarta.persistence.IdClass;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
+@Setter
+@Getter
 @IdClass(CarrinhoId.class)
 public class Carrinho {
 
     @Id
     @ManyToOne
     @JoinColumn(name = "pedido_id")
-    public Pedido pedido;
+    private Pedido pedido;
 
     @Id
     @ManyToOne
     @JoinColumn(name = "roupa_id")
-    public Roupa roupa;
+    private Roupa roupa;
 
-    public Double quantidade;
+    private Double quantidade;
 
 }
