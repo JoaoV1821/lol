@@ -21,99 +21,172 @@
                             <form class="mx-3 mt-3">
                                 <div class="row align-items-start">
                                     <div class="col">
-                                        <div>
-                                            <label class="form-label mt-2" for="nome">Nome:</label>
 
-                                            <input type="text" class="form-control inputlol text-left" id="nome"
-                                                name="nome" required>
-                                            <input type="text" class="form-control inputlol text-left" id="nome" name="nome" required>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-sm-6">
-                                                <label class="form-label mt-2" for="cpf">CPF:</label>
-
-                                                <input type="text" title="Digite seu CPF"
-                                                    class="form-control inputlol text-left" id="CPF"
-                                                    pattern="(\d{3}\.?\d{3}\.?\d{3}-?\d{2})" required>
+                                        <form #formPessoa="ngForm">
+                                            
+                                            <div>
+                                                <label class="form-label mt-2" for="nome">Nome:</label>
+                                                <input type="text" class="form-control inputlol text-left" id="nome" name="nome" 
+                                                    [(ngModel)]="pessoa.nome"
+                                                    #nome="ngModel"
+                                                    minlength="5" maxlength="60" required>
+                                                    <div *ngIf="nome.errors && (nome.dirty || nome.touched)" class="alert alert-danger">
+                                                        <div [hidden]="!nome.errors['required']">Nome completo obrigatório.</div>
+                                                        <div [hidden]="!nome.errors['minlength']">O nome deve conter no mínimo 5 caracteres.</div>
+                                                    </div>
                                             </div>
-                                            <div class="col-sm-6">
-                                                <label class="form-label mt-2" for="telefone">Telefone:</label>
-                                                <input type="tel" class="form-control inputlol text-left" id="telefone"
-                                                    name="telefone">
-                                                <input type="text" title="Digite seu CPF" class="form-control inputlol text-left" id="CPF" pattern="(\d{3}\.?\d{3}\.?\d{3}-?\d{2})" required>
+                                            
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <label class="form-label mt-2" for="cpf">CPF:</label>
+                                                    <input type="text" class="form-control inputlol text-left" id="CPF" name="cpf" title="Digite seu CPF"
+                                                        pattern="(\d{3}\.?\d{3}\.?\d{3}-?\d{2})"
+                                                        [(ngModel)]="pessoa.cpf"
+                                                        #cpf="ngModel"
+                                                        minlength="11" maxlength="11" required>
+                                                    <div *ngIf="cpf.errors && (cpf.dirty || cpf.touched)" class="alert alert-danger">
+                                                        <div [hidden]="!cpf.errors['required']">CPF obrigatório.</div>
+                                                        <div [hidden]="!cpf.errors['minlength']">O CPF deve conter no mínimo 11 caracteres.</div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <label class="form-label mt-2" for="contato">Telefone:</label>
+                                                    <input type="tel" class="form-control inputlol text-left" id="contato" name="contato"
+                                                        [(ngModel)]="pessoa.contato"
+                                                        #contato="ngModel"
+                                                        minlength="10" maxlength="11" numerico required>
+                                                    <div *ngIf="contato.errors && (contato.dirty || contato.touched)" class="alert alert-danger">
+                                                        <div [hidden]="!contato.errors['required']">Contato obrigatório.</div>
+                                                        <div [hidden]="!contato.errors['minlength']">Deve conter no mínimo 10 caracteres.</div>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div class="col-sm-6">
-                                                <label class="form-label mt-2" for="telefone">Telefone:</label>
-                                                <input type="tel" class="form-control inputlol text-left" id="telefone" name="telefone">
+
+                                            <div class="col">
+                                                <div class="row">
+        
+                                                    <div class="col-sm-4">
+                                                        <label class="form-label mt-2" for="cep">CEP:</label>
+                                                        <input type="text" class="form-control inputlol text-left" id="cep" name="cep"
+                                                            [(ngModel)]="pessoa.cep"
+                                                            #cep="ngModel"
+                                                            minlength="8" maxlength="8" numerico required>
+                                                        <div *ngIf="cep.errors && (cep.dirty || cep.touched)" class="alert alert-danger">
+                                                            <div [hidden]="!cep.errors['required']">CEP completo obrigatório.</div>
+                                                            <div [hidden]="!cep.errors['minlength']">O CEP deve conter no mínimo 8 caracteres.</div>
+                                                        </div>
+                                                    </div>
+        
+                                                    <div class="col-sm-8">
+                                                        <label class="form-label mt-2" for="cidade">Cidade:</label>
+                                                        <input type="text" class="form-control inputlol text-left" id="cidade" name="cidade"
+                                                            [(ngModel)]="pessoa.cidade"
+                                                            #cidade="ngModel"
+                                                            minlength="2" maxlength="60" required>
+                                                        <div *ngIf="cidade.errors && (cidade.dirty || cidade.touched)" class="alert alert-danger">
+                                                            <div [hidden]="!cidade.errors['required']">Cidade obrigatório.</div>
+                                                            <div [hidden]="!cidade.errors['minlength']">O nome da cidade deve conter no mínimo 2 caracteres.</div>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                </div>
+
+                                                <div>
+                                                    <label class="form-label mt-2" for="bairro">Bairro:</label>
+                                                    <input type="text" class="form-control inputlol text-left" id="bairro" name="bairro"
+                                                        [(ngModel)]="pessoa.bairro"
+                                                        #bairro="ngModel"
+                                                        minlength="2" maxlength="60" required>
+                                                    <div *ngIf="bairro.errors && (bairro.dirty || bairro.touched)" class="alert alert-danger">
+                                                        <div [hidden]="!bairro.errors['required']">Bairro obrigatório.</div>
+                                                        <div [hidden]="!bairro.errors['minlength']">O nome do bairro deve conter no mínimo 2 caracteres.</div>
+                                                    </div>
+                                                </div>
+
+                                                <div>
+                                                    <label class="form-label mt-2" for="estado">Estado:</label>
+                                                    <input type="text" class="form-control inputlol text-left" id="estado" name="estado"
+                                                        [(ngModel)]="pessoa.estado"
+                                                        #estado="ngModel"
+                                                        minlength="2" maxlength="60" required>
+                                                    <div *ngIf="estado.errors && (estado.dirty || estado.touched)" class="alert alert-danger">
+                                                        <div [hidden]="!estado.errors['required']">Estado obrigatório.</div>
+                                                        <div [hidden]="!estado.errors['minlength']">O nome do estado deve conter no mínimo 2 caracteres.</div>
+                                                    </div>
+                                                </div>
+
+                                                <div>
+                                                    <label class="form-label mt-2" for="logradouro">Endereço:</label>
+                                                    <input type="text" class="form-control inputlol text-left" id="logradouro" name="logradouro"
+                                                        [(ngModel)]="pessoa.logradouro"
+                                                        #logradouro="ngModel"
+                                                        minlength="2" maxlength="60" required>
+                                                    <div *ngIf="logradouro.errors && (logradouro.dirty || logradouro.touched)" class="alert alert-danger">
+                                                        <div [hidden]="!logradouro.errors['required']">Endereço obrigatório.</div>
+                                                        <div [hidden]="!logradouro.errors['minlength']">O nome do logradouro deve conter no mínimo 2 caracteres.</div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-sm-4">
+                                                        <label class="form-label mt-2" for="logNumero">Número:</label>
+                                                        <input type="text" class="form-control inputlol text-left" id="logNumero" name="logNumero"
+                                                            [(ngModel)]="pessoa.logNumero"
+                                                            #logNumero="ngModel"
+                                                            numerico required>
+                                                        <div *ngIf="logNumero.errors && (logNumero.dirty || logNumero.touched)" class="alert alert-danger">
+                                                            <div [hidden]="!logNumero.errors['required']">Caso não possuir número, preencha com "0".</div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-sm-8">
+                                                        <label class="form-label mt-2" for="complemento">Complemento:</label>
+                                                        <input type="text" class="form-control inputlol text-left" id="complemento" name="complemento"
+                                                            [(ngModel)]="pessoa.complemento"
+                                                            #complemento="ngModel">
+                                                    </div>
+
+                                                    <div>
+                                                        <label class="form-label mt-2" for="email">E-mail:</label>
+                                                        <input type="email" class="form-control inputlol text-left" id="email" name="email"
+                                                            [(ngModel)]="pessoa.email"
+                                                            #email="ngModel"
+                                                            maxlength="60" required>
+                                                        <div *ngIf="email.errors && (email.dirty || email.touched)" class="alert alert-danger">
+                                                            <div [hidden]="!email.errors['required']">Email obrigatório.</div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div>
+                                                        <label class="form-label mt-2" for="senha">Senha:</label>
+                                                        <input type="string" class="form-control inputlol text-left" id="senha" name="senha"
+                                                            [(ngModel)]="pessoa.senha"
+                                                            #senha="ngModel"
+                                                            minlength="4" maxlength="4" numerico required>
+                                                        <div *ngIf="senha.errors && (senha.dirty || senha.touched)" class="alert alert-danger">
+                                                            <div [hidden]="!senha.errors['required']">Senha obrigatória.</div>
+                                                            <div [hidden]="!senha.errors['minlength']">A senha 4 caracteres.</div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+        
                                             </div>
-                                        </div>
-                                        <div>
-                                            <label class="form-label mt-2" for="email">E-mail:</label>
 
-                                            <input type="email" class="form-control inputlol text-left" id="email"
-                                                name="email" required>
-
-                                            <input type="email" class="form-control inputlol text-left" id="email" name="email" required>
-                                        </div>
+                                        </form>
+                                        
                                     </div>
-                                    <div class="col">
-                                        <div class="row">
-                                            <div class="col-sm-4">
-                                                <label class="form-label mt-2" for="nome">CEP:</label>
-                                                <input type="text" class="form-control inputlol text-left" id="cep"
-                                                    required>
-                                            </div>
-                                            <div class="col-sm-8">
-                                                <label class="form-label mt-2" for="nome">Cidade:</label>
-                                                <input type="text" class="form-control inputlol text-left" id="cidade"
-                                                    required>
-                                                <input type="text" class="form-control inputlol text-left" id="cep" required>
-                                            </div>
-                                            <div class="col-sm-8">
-                                                <label class="form-label mt-2" for="nome">Cidade:</label>
-                                                <input type="text" class="form-control inputlol text-left" id="cidade" required>
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <label class="form-label mt-2" for="nome">Endereço:</label>
 
-                                            <input type="text" class="form-control inputlol text-left" id="endereco"
-                                                required>
-                                            <input type="text" class="form-control inputlol text-left" id="endereco" required>
-
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-sm-4">
-                                                <label class="form-label mt-2" for="nome">Número:</label>
-
-                                                <input type="text" class="form-control inputlol text-left" id="numero"
-                                                    required>
-                                            </div>
-                                            <div class="col-sm-8">
-                                                <label class="form-label mt-2" for="nome">Complemento:</label>
-                                                <input type="text" class="form-control inputlol text-left"
-                                                    id="complemento">
-
-                                                <input type="text" class="form-control inputlol text-left" id="numero" required>
-                                            </div>
-                                            <div class="col-sm-8">
-                                                <label class="form-label mt-2" for="nome">Complemento:</label>
-                                                <input type="text" class="form-control inputlol text-left" id="complemento">
-
-                                            </div>
-                                        </div>
-
-                                    </div>
                                     <div class="mt-3 mb-1 text-center">
-                                        <button type="submit" class="btn btn-primary btn-lg fs-4">Cadastrar</button>
+                                        <button type="submit" class="btn btn-primary btn-lg fs-4"
+                                            (click)="inserirPessoaComponent()"
+                                            [disabled]="!formPessoa.form.valid">
+                                            Cadastrar
+                                        </button>
                                     </div>
                                     <div class="text-center fs-6">
                                         <p class="mb-0 mt-2">Já possui conta? <br>
-
-                                            <a href="#" class="mb-2" id="logue">Entre aqui.</a>
-
-                                        <a href="#" class="mb-2" id="logue">Entre aqui.</a>
-
+                                        <a href="login" class="mb-2" id="logue">Entre aqui.</a>
                                         </p>
                                     </div>
                                 </div>
@@ -124,311 +197,3 @@
             </div>
         </div>
 
-    
-        <link rel="stylesheet" href="autocadastro.component.css">
-        <div class="corpo-pagina">
-
-            <div class="compartimento-ilustracao">
-                <img src="./imagem-logo.png" alt="Logo lol">
-            </div>
-
-            <div class="compartimento-formulario">
-                <form action="#">
-
-                    <div class="titulo-cabecalho">
-
-                        <div class="titulo">
-                            <h1>Cadastro</h1>
-                        </div>
-
-                        <div class="botao-login">
-                            <button><a href="#">Entrar</a></button>
-                        </div>
-
-                    </div>
-
-                    <div class="grupo-dados-essenciais">
-
-                        <div class="atributo-entrada">
-                            <label for="primeironome">Nome</label>
-                            <input type="text" name="primeironome" id="primeironome" placeholder="Digite seu nome"
-                                required>
-                        </div>
-
-                        <div class="atributo-entrada">
-                            <label for="sobrenome">Sobrenome</label>
-                            <input type="text" name="sobrenome" id="sobrenome" placeholder="Digite seu sobrenome"
-                                required>
-                        </div>
-
-                        <div class="atributo-entrada">
-                            <label for="cpf">CPF</label>
-                            <input type="text" name="cpf" id="cpf" placeholder="000.000.000-00" required>
-                        </div>
-
-                        <div class="atributo-entrada">
-                            <label for="email">Email</label>
-                            <input type="email" name="email" id="email" placeholder="Digite seu email" required>
-                        </div>
-
-                        <div class="atributo-entrada">
-                            <label for="contato">Contato</label>
-                            <input type="tel" name="contato" id="contato" placeholder="(00) 000 000 000" required>
-                        </div>
-
-                        <div class="atributo-entrada">
-                            <label for="senha">Senha</label>
-                            <input type="password" name="senha" id="senha" placeholder="Digite sua senha" required>
-                        </div>
-
-                        <div class="atributo-entrada">
-                            <label for="confirma-senha">Confirme sua senha</label>
-                            <input type="password" name="confirma-senha" id="confirma-senha"
-                                placeholder="Confirme sua senha" required>
-                        </div>
-
-                    </div>
-
-                    <div class="grupo-genero">
-
-                        <div class="titulo-genero">
-                            <h6>Gênero</h6>
-                        </div>
-
-                        <div class="entrada-genero">
-
-                            <div class="atributo-genero">
-                                <input type="radio" name="genero" id="feminino">
-                                <label for="feminino">Feminino</label>
-                            </div>
-
-                            <div class="atributo-genero">
-                                <input type="radio" name="genero" id="masculino">
-                                <label for="masculino">Masculino</label>
-                            </div>
-
-                            <div class="atributo-genero">
-                                <input type="radio" name="genero" id="outros">
-                                <label for="outros">Outros</label>
-                            </div>
-
-                            <div class="atributo-genero">
-                                <input type="radio" name="genero" id="nao-informar">
-                                <label for="nao-informar">Não informar</label>
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                    <div class="grupo-dados-endereco">
-
-                        <div class="titulo-endereco">
-                            <h6>Endereço</h6>
-                        </div>
-
-                        <div class="entrada-endereco">
-
-                            <div class="atributo-endereco">
-                                <label for="cep">CEP</label>
-                                <input type="text" name="cep" id="cep" placeholder="00.000-00" required>
-                            </div>
-
-                            <div class="atributo-endereco">
-                                <label for="logradouro">Logradouro</label>
-                                <input type="text" name="logradouro" id="logradouro" required>
-                            </div>
-
-                            <div class="atributo-endereco">
-                                <label for="numero">Número</label>
-                                <input type="numero" name="numero" id="numero" placeholder="Digite o número" required>
-                            </div>
-
-                            <div class="atributo-endereco">
-                                <label for="complemento">Complemento</label>
-                                <input type="text" name="complemento" id="complemento">
-                            </div>
-
-                            <div class="atributo-endereco">
-                                <label for="bairro">Bairro</label>
-                                <input type="text" name="bairro" id="bairro" required>
-                            </div>
-
-                            <div class="atributo-endereco">
-                                <label for="cidade">Cidade</label>
-                                <input type="text" name="cidade" id="cidade" required>
-                            </div>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="botao-continuar">
-                        <button><a href="#">Continuar</a></button>
-
-                    </div>
-
-                </form>
-            </div>
-
-
-        </div>
-    </div>
-</body>
-
-</html>
-=======
-
-    <link rel="stylesheet" href="autocadastro.component.css">
-<!--
-
-    <body>
-        <div class="corpo-pagina">
-            
-            <div class="compartimento-ilustracao">
-                <img src="./imagem-logo.png" alt="Logo lol">
-            </div>
-            
-            <div class="compartimento-formulario">
-                <form action="#">
-                    
-                    <div class="titulo-cabecalho">
-                    
-                    <div class="titulo">
-                        <h1>Cadastro</h1>
-                    </div>
-                    
-                    <div class="botao-login">
-                        <button><a href="#">Entrar</a></button>
-                    </div>
-                    
-                </div>
-                
-                <div class="grupo-dados-essenciais">
-                    
-                    <div class="atributo-entrada">
-                        <label for="primeironome">Nome</label>
-                        <input type="text" name="primeironome" id="primeironome" placeholder="Digite seu nome" required>
-                    </div>
-                    
-                    <div class="atributo-entrada">
-                        <label for="sobrenome">Sobrenome</label>
-                        <input type="text" name="sobrenome" id="sobrenome" placeholder="Digite seu sobrenome" required>
-                    </div>
-
-                    <div class="atributo-entrada">
-                        <label for="cpf">CPF</label>
-                        <input type="text" name="cpf" id="cpf" placeholder="000.000.000-00" required>
-                    </div>
-                    
-                    <div class="atributo-entrada">
-                        <label for="email">Email</label>
-                        <input type="email" name="email" id="email" placeholder="Digite seu email" required>
-                    </div>
-                    
-                    <div class="atributo-entrada">
-                        <label for="contato">Contato</label>
-                        <input type="tel" name="contato" id="contato" placeholder="(00) 000 000 000" required>
-                    </div>
-                    
-                    <div class="atributo-entrada">
-                        <label for="senha">Senha</label>
-                        <input type="password" name="senha" id="senha" placeholder="Digite sua senha" required>
-                    </div>
-                    
-                    <div class="atributo-entrada">
-                        <label for="confirma-senha">Confirme sua senha</label>
-                        <input type="password" name="confirma-senha" id="confirma-senha" placeholder="Confirme sua senha" required>
-                    </div>
-                    
-                </div>
-                
-                <div class="grupo-genero">
-                    
-                    <div class="titulo-genero">
-                        <h6>Gênero</h6>
-                    </div>
-                    
-                    <div class="entrada-genero">
-                        
-                        <div class="atributo-genero">
-                            <input type="radio" name="genero" id="feminino">
-                            <label for="feminino">Feminino</label>
-                        </div>
-
-                        <div class="atributo-genero">
-                            <input type="radio" name="genero" id="masculino">
-                            <label for="masculino">Masculino</label>
-                        </div>
-                        
-                        <div class="atributo-genero">
-                            <input type="radio" name="genero" id="outros">
-                            <label for="outros">Outros</label>
-                        </div>
-                        
-                        <div class="atributo-genero">
-                            <input type="radio" name="genero" id="nao-informar">
-                            <label for="nao-informar">Não informar</label>
-                        </div>
-                        
-                    </div>
-                    
-                </div>
-                
-                <div class="grupo-dados-endereco">
-                    
-                    <div class="titulo-endereco">
-                        <h6>Endereço</h6>
-                    </div>
-                    
-                    <div class="entrada-endereco">
-                        
-                        <div class="atributo-endereco">
-                            <label for="cep">CEP</label>
-                            <input type="text" name="cep" id="cep" placeholder="00.000-00" required>
-                        </div>
-                        
-                        <div class="atributo-endereco">
-                            <label for="logradouro">Logradouro</label>
-                            <input type="text" name="logradouro" id="logradouro" required>
-                        </div>
-                        
-                        <div class="atributo-endereco">
-                            <label for="numero">Número</label>
-                            <input type="numero" name="numero" id="numero" placeholder="Digite o número" required>
-                        </div>
-                        
-                        <div class="atributo-endereco">
-                            <label for="complemento">Complemento</label>
-                            <input type="text" name="complemento" id="complemento">
-                        </div>
-                        
-                        <div class="atributo-endereco">
-                            <label for="bairro">Bairro</label>
-                            <input type="text" name="bairro" id="bairro" required>
-                        </div>
-                        
-                        <div class="atributo-endereco">
-                            <label for="cidade">Cidade</label>
-                            <input type="text" name="cidade" id="cidade" required>
-                        </div>
-                        
-                    </div>
-                    
-                </div>
-                
-                
-                <div class="botao-continuar">
-                    <button><a href="#">Continuar</a></button>
-                    
-                </div>
-                
-            </form>
-        </div>
-        
-        
-    </div>
-</body>
-
--->

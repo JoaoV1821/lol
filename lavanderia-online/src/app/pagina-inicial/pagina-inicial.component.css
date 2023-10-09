@@ -1,12 +1,12 @@
+@import "/src/styles.css";
+
+h1 {
+    color: #5a57ff;
+}
+
 *{
     margin: 0;
     padding: 0;
-}
-body{
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    display: flexbox;
-    background-color: #fafafa;
-    color: #1a1a1a;
 }
 .corpo{
     padding: 20px;

@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -8,22 +7,10 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom mb-3">
-        <div class="container">
-            <a class="navbar-brand" href="#">
-                <img src="../../assets/logoLol.png" alt="Logo LOL" width="100">
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="col-md-1" id="sair">Sair</div>
-        </div>
-    </nav>
-
     <div class="container">
         <div class="row">
             <div class="col mb-3">
-                <h1 id="titulo">Seus Pedidos</h1>
+                <h1 id="titulo">Pedidos</h1>
             </div>
         </div>
         <div class="row">
@@ -52,8 +39,7 @@
                             <th>Data</th>
                             <th>Prazo</th>
                             <th>Status</th>
-                            <th>Pagar</th>
-                            <th>Cancelar</th>
+                            <th>Ação</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -64,6 +50,7 @@
                                 <td>{{pedido.data}}</td>
                                 <td>{{pedido.prazo}}</td>
                                 <td class="td-button" [ngSwitch]="pedido.status">
+                                <!-- <td class="td-button"> -->
                                     <button *ngSwitchCase="'EM ABERTO'"
                                         class="btn btn-aberto">{{pedido.status}}</button>
                                     <button *ngSwitchCase="'RECOLHIDO'"
@@ -77,19 +64,13 @@
                                         class="btn btn-finalizado">{{pedido.status}}</button>
                                 </td>
                                 <td class="td-button">
-                                    <button *ngIf="pedido.status == 'AGUARDANDO PAGAMENTO'"
-                                        class="btn btn-success">Pagar</button>
-                                    <button *ngIf="pedido.status != 'AGUARDANDO PAGAMENTO'"
-                                        class="btn disabled">Pagar</button>
-                                </td>
-                                <td class="td-button">
+                                    <button *ngIf="pedido.status == 'RECOLHIDO'"
+                                        class="btn btn-success">Confirmar Lavagem</button>
                                     <button *ngIf="pedido.status == 'EM ABERTO'"
                                         class="btn btn-danger">Cancelar</button>
-                                    <button *ngIf="pedido.status != 'EM ABERTO'" class="btn disabled">Cancelar</button>
                                 </td>
                             </tr>
                         </ng-container>
-
                     </tbody>
                 </table>
             </div>
