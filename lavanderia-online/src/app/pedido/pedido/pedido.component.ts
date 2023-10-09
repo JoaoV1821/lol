@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ModalPedidoComponent } from '../modal-pedido/modal-pedido.component';
 import { PedidoService } from '../services';
 
 interface itemCarrinho {
@@ -7,12 +8,14 @@ interface itemCarrinho {
   qt: number,
   valor_un: number,
   subtotal: number,
+  prazo: number
 }
 
 interface itemList {
   tipo: string,
   valor_un: number,
-  categoria: string
+  categoria: string,
+  prazo: number
 }
 
 @Component({
@@ -33,22 +36,30 @@ export class PedidoComponent implements OnInit{
 
   carrinho: itemCarrinho[] = [];
   lista_de_items: itemList[] = [
-    { tipo: "Batina", valor_un: 10, categoria: "Blusas" },
-    { tipo: "Blusa Regata", valor_un: 15, categoria: "Blusas" },
-    { tipo: "Blusa Cropped", valor_un: 12, categoria: "Blusas" },
-    { tipo: "Blusa Comum ", valor_un: 10, categoria: "Blusas" },
-    { tipo: "Calça Jeans", valor_un: 14, categoria: "Calças" },
-    { tipo: "Calça Social", valor_un: 16, categoria: "Calças" },
-    { tipo: "Camisa Social", valor_un: 14, categoria: "Camisas" },
-    { tipo: "Camiseta manga longa", valor_un: 15, categoria: "Camisas" },
-    { tipo: "Camiseta manga curta ", valor_un: 13, categoria: "Camisas" },
-    { tipo: "Casaco Simples", valor_un: 30, categoria: "Casacos" },
-    { tipo: "Casaco Longo", valor_un: 35, categoria: "Casacos" },
-    { tipo: "Jaqueta Simples", valor_un: 40, categoria: "Casacos" }
+    { tipo: "Batina", valor_un: 10, categoria: "Blusas", prazo: 10 },
+    { tipo: "Blusa Regata", valor_un: 15, categoria: "Blusas", prazo: 12 },
+    { tipo: "Blusa Cropped", valor_un: 12, categoria: "Blusas", prazo: 13 },
+    { tipo: "Blusa Comum ", valor_un: 10, categoria: "Blusas", prazo: 14 },
+    { tipo: "Calça Jeans", valor_un: 14, categoria: "Calças", prazo: 15 },
+    { tipo: "Calça Social", valor_un: 16, categoria: "Calças", prazo: 11 },
+    { tipo: "Camisa Social", valor_un: 14, categoria: "Camisas", prazo: 10 },
+    { tipo: "Camiseta manga longa", valor_un: 15, categoria: "Camisas", prazo: 9 },
+    { tipo: "Camiseta manga curta ", valor_un: 13, categoria: "Camisas", prazo: 8 },
+    { tipo: "Casaco Simples", valor_un: 30, categoria: "Casacos", prazo: 7 },
+    { tipo: "Casaco Longo", valor_un: 35, categoria: "Casacos", prazo: 12 },
+    { tipo: "Jaqueta Simples", valor_un: 40, categoria: "Casacos", prazo: 15 }
   ]
   total: number = 0;
+  prazoMax : number = 0;
 
-  constructor() {
+  constructor(private modalService : NgbModal) {
+  }
+
+  orcamento() {
+    const modalRef = this.modalService.open(ModalPedidoComponent);
+    modalRef.componentInstance.orcamento = this.total;
+    modalRef.componentInstance.listaRoupasPedido = this.carrinho;    
+    modalRef.componentInstance.prazoMax = this.prazoMax;
   }
 
   changeItemValue(index: number, operation: string) {
@@ -68,9 +79,9 @@ export class PedidoComponent implements OnInit{
     }
   }
 
-  addItem(itens: any) {
+  addItem(item: itemList ) {
     for (let x = 0; x < this.carrinho.length; x++) {
-      if (this.carrinho[x].tipo == itens.tipo) {
+      if (this.carrinho[x].tipo == item.tipo) {
         this.carrinho[x].qt += 1;
         this.carrinho[x].subtotal += this.carrinho[x].valor_un;
         this.updateTotal();
@@ -78,12 +89,14 @@ export class PedidoComponent implements OnInit{
       }
     }
     this.carrinho.push({
-      tipo: itens.tipo,
+      tipo: item.tipo,
       qt: 1,
-      valor_un: itens.valor_un,
-      subtotal: 1 * itens.valor_un
+      valor_un: item.valor_un,
+      subtotal: 1 * item.valor_un,
+      prazo: item.prazo
     })
     this.updateTotal();
+    this.prazo();
   }
 
   updateTotal() {
@@ -92,6 +105,16 @@ export class PedidoComponent implements OnInit{
       this.total += this.carrinho[x].subtotal;
     }
   }
+
+    prazo() {
+      console.log(this.carrinho);
+      for (let x = 0; x < this.carrinho.length; x++) {
+        if(this.carrinho[x].prazo > this.prazoMax){
+          this.prazoMax = this.carrinho[x].prazo;
+        }
+      }
+      console.log(this.prazoMax);
+    }
 
   limparItens() {
     this.carrinho = [];

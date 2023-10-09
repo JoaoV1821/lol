@@ -11,6 +11,7 @@ import { PaginaInicialModule } from './pagina-inicial';
 import { PedidoModule } from './pedido';
 import { CrudRoupasModule } from './crud-roupas';
 import { RelatoriosModule } from './relatorios';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 /* Aonde está escrito o nome do componente no import é para substituir com o nome do componente que vc criou 
@@ -33,7 +34,8 @@ import { RelatoriosModule } from './relatorios';
     PedidoModule,
     PedidoModule,
     CrudRoupasModule,
-    RelatoriosModule
+    RelatoriosModule,
+    NgbModule
   ],
 
   providers: [],

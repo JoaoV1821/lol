@@ -5,7 +5,8 @@ import { PedidoService } from '../services';
 interface itemList {
   tipo: string,
   valor_un: number,
-  categoria: string
+  categoria: string,
+  prazo: number
 }
 
 @Component({
@@ -18,7 +19,7 @@ export class CategoriaComponent implements OnInit {
 
   @Input() categoria = '';
   @Input() items: itemList[] = [];
-  @Output() addClick = new EventEmitter();
+  @Output() addClick = new EventEmitter<itemList>(); // Agora emitirá um objeto itemList
   ativo = false;
 
   constructor() {
@@ -31,7 +32,7 @@ export class CategoriaComponent implements OnInit {
     this.ativo = !this.ativo;
   }
 
-  adicionar(tipo: string, valor: number) {
-    this.addClick.emit({ tipo: tipo, valor_un: valor });
+  adicionar(item: itemList) {
+    this.addClick.emit(item); // Emita o objeto itemList completo
   }
 }
