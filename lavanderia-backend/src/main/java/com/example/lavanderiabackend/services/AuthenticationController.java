@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,8 +21,11 @@ import com.example.lavanderiabackend.models.Cadastro.DTO.AuthenticationDTO;
 import com.example.lavanderiabackend.models.Cadastro.DTO.CadastroModelo;
 import com.example.lavanderiabackend.models.Endereco.EnderecoService;
 
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
+
 @RestController
-@RequestMapping("auth")
+@RequestMapping("/auth")
 public class AuthenticationController {
 
     @Autowired
@@ -33,12 +37,19 @@ public class AuthenticationController {
     @Autowired
     private EnderecoService enderecoService;
 
+    @Autowired
+    private TokenService tokenService;
+
     @PostMapping("/login")
-    public ResponseEntity<Object> login(@RequestBody AuthenticationDTO data){
+    public ResponseEntity<LoginResponseDTO> login(@RequestBody AuthenticationDTO data,HttpServletResponse response){
         UsernamePasswordAuthenticationToken  usernamePassword = 
         new UsernamePasswordAuthenticationToken(data.getLogin(), data.getPassword());
-        this.authenticationManager.authenticate(usernamePassword);
-        return ResponseEntity.ok().build();
+        Authentication auth = this.authenticationManager.authenticate(usernamePassword);
+        String token = tokenService.generateToken((Cadastro)auth.getPrincipal());
+        token = "Bearer: " + token; 
+        Cookie cookie = new Cookie("Authorization",token);
+        response.addCookie(cookie);
+        return ResponseEntity.ok(new LoginResponseDTO(token));
     }
 
     @PostMapping("/register")
