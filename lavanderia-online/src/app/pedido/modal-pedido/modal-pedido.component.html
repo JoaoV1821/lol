@@ -1,0 +1,29 @@
+<div class="modal-header" >
+    <h4 class="modal-title" style="color:red;" *ngIf="aprovado">N° {{this.numPedido}}</h4>
+    <h4 class="modal-title" style="color:green;" *ngIf="aprovado">Aprovado!</h4>    
+
+    <h4 class="modal-title" style="color:red;" *ngIf="rejeitado">Rejeitado</h4>
+
+    <h4 class="modal-title" id="modalLabel" *ngIf="!aprovado && !rejeitado">Detalhes do Pedido</h4>
+</div>
+<div class="modal-body">
+    <h5>Orçamento: R$ {{ orcamento }}</h5>
+    <h5>Prazo: {{ this.prazoMax }} dias</h5>
+    <h5>Lista de Roupas:</h5>
+    <ul>
+        <li *ngFor="let roupa of listaRoupasPedido">{{ roupa.tipo }} ({{ roupa.qt }})</li>
+    </ul>
+</div>
+<div class="modal-footer">
+    <div *ngIf="!aprovado && !rejeitado">
+        <button type="button" class="btn btn-success" (click)="aprovar()"> 
+            <a type="button" class="btn btn-success"> Aprovar</a>
+        </button>
+        <button type="button" class="btn btn-danger" (click)="rejeitar()"> Rejeitar</button>
+    </div>
+    <div *ngIf="aprovado || rejeitado">
+        <button type="button" class="btn btn-outline-dark" (click)="sair()" >
+            Ir para página inicial
+        </button>
+    </div>
+</div>
