@@ -13,6 +13,11 @@ export class AppComponent {
   sh: any;
   title = 'lavanderia-online';
   constructor(public router: Router){}
+
+  ngOnInit() {
+    console.log(this.router); // ActivatedRoute
+  }
+
 }
 export class AppModule { }
 

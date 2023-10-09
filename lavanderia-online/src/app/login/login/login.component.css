@@ -20,3 +20,17 @@
     border-color: #5a57ff;
     box-shadow: 0 0 10px 0.25rem #d9d8ff;
 }
+
+#logue{
+    text-decoration: none; 
+    color: #fff; 
+    background-color: #5a57ff;
+    transition: all 0.7s;
+}
+
+#logue:hover{
+    text-decoration: none; 
+    color: #5a57ff; 
+    background-color: #fff;
+    box-shadow: 0 0 12px 7px #bcb9ff;
+}

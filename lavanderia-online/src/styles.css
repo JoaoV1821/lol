@@ -2,10 +2,14 @@
     border-color: #cccbff;
     color: #ffffff;
     background-color: #5a57ff !important;
+    /* -webkit-transition: all 1s ease-out;
+    -moz-transition: all 1s ease-out;
+    -o-transition: all 1s ease-out;
+    transition: all 1s ease-out; */
 }
 .btn-primary:hover{
     border-color: #5a57ff;
-    color: #5a57ff;
+    color: #5a57ff !important;
     background-color: #cccbff !important;
 }
 .btn-secondary{
@@ -26,7 +30,7 @@
 .btn-aberto:hover{
     border-color: #f3c111;
     color: #F3C111;
-    background-color: #fff9df;
+    background-color: #fcf1c3;
 }
 .btn-cancelado{
     border-color: #ffd1d1;
@@ -46,17 +50,17 @@
 .btn-recolhido:hover{
     border-color: #868686;
     color: #868686;
-    background-color: #ffffff;
+    background-color: #dadada;
 }
 .btn-aguardando{
     border-color: #b5c5ff;
     color: #fff;
-    background-color: #2b50d2;
+    background-color: #0093f5;
 }
 .btn-aguardando:hover{
-    border-color: #2b50d2;
-    color: #2b50d2;
-    background-color: #b5c5ff;
+    border-color: #0093f5;
+    color: #0093f5;
+    background-color: #c0ddf0;
 }
 .btn-pago{
     border-color: #ffd1b0;

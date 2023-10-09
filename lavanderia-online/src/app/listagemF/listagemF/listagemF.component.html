@@ -65,9 +65,13 @@
                                 </td>
                                 <td class="td-button">
                                     <button *ngIf="pedido.status == 'RECOLHIDO'"
-                                        class="btn btn-success">Confirmar Lavagem</button>
+                                        class="btn btn-primary">Confirmar Lavagem</button>
                                     <button *ngIf="pedido.status == 'EM ABERTO'"
-                                        class="btn btn-danger">Cancelar</button>
+                                        class="btn btn-primary">Confirmar Recolhimento</button>
+                                    <button *ngIf="pedido.status == 'EM ABERTO'"
+                                        class="btn btn-cancelado">Cancelar</button>
+                                    <button *ngIf="pedido.status == 'PAGO'"
+                                        class="btn btn-success">Finalizar</button>
                                 </td>
                             </tr>
                         </ng-container>
@@ -79,3 +83,4 @@
 </body>
 
 </html>
+

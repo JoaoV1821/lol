@@ -1,46 +1,58 @@
-<h1 class="mx-5">Página Inicial - Funcionário</h1>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Pagina Inicial Funcionário</title>
+</head>
 
-<div class="container">
-    <table *ngIf="pedidosEmAberto.length != 0" class="table table-striped table-bordered table-hover">
-        <tbody>
-            <tr>
-                <th>Número do Pedido</th>
-                <!--
-                    <th class="text-center">
-                        <a href="#" title="Recolhido" alt="Recolhido" class="btn btn-xs btn-success">
-                            <i class="fa fa-plus" aria-hidden="true"></i> Recolhindo
-                        </a>
-                    </th>
-                -->
-                <th>Resumo do pedido</th>
-                <th></th>
-            </tr>
-    
-            <tr *ngFor="let pedidosEmAberto of pedidosEmAberto">
-                <td>{{pedidosEmAberto.numeroPedido}}</td>
-                <td>{{pedidosEmAberto.resumo}}</td>
-                <td class="text-center" style="width: 450px">
-                    <div class="d-flex flex-row">
-                        <a href="pagina-inicial-funcionario" title="Recolhido" alt="Recolhido" class="btn btn-secondary">
-                             Recolhido
-                        </a>
-    
-                        <div class="d-flex justify-content-around mx-2">
-                            <a href="pagina-inicial-funcionario" title="Recolhido" alt="Recolhido" class="btn btn-primary mx-2">
-                                Confirmar Lavagem
-                            </a>
-        
-                            <a href="pagina-inicial-funcionario" title="Recolhido" alt="Recolhido" class="btn btn-success mx-2">
-                                Finalizar pedido
-                            </a>
-                        </div>
-                    </div>
-                   
-                  
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col mb-3">
+                <h1>Página Inicial - Funcionário</h1>
+            </div>
+        </div>
+        <div class="row">
+            <table *ngIf="pedidosEmAberto.length != 0" class="table table-striped table-bordered table-hover">
+                <tbody>
+                    <tr>
+                        <th>Número do Pedido</th>
+                        <!--
+                            <th class="text-center">
+                                <a href="#" title="Recolhido" alt="Recolhido" class="btn btn-xs btn-success">
+                                    <i class="fa fa-plus" aria-hidden="true"></i> Recolhindo
+                                </a>
+                            </th>
+                        -->
+                        <th>Resumo do pedido</th>
+                        <th></th>
+                    </tr>
+            
+                    <tr *ngFor="let pedidosEmAberto of pedidosEmAberto">
+                        <td>{{pedidosEmAberto.numeroPedido}}</td>
+                        <td>{{pedidosEmAberto.resumo}}</td>
+                        <td class="text-center" style="width: 450px">
+                            <div class="d-flex flex-row">
+                                <div class="d-flex justify-content-around mx-2">
+                                    <a href="pagina-inicial-funcionario" title="Recolhido" alt="Recolhido" class="btn btn-primary mx-2">
+                                        Confirmar Recolhimento
+                                    </a>
+                                </div>
+                            </div>
+                           
+                          
+            
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <p *ngIf="pedidosEmAberto.length == 0">Nenhum pedido em aberto</p>
+        </div>
+    </div>
+</body>
 
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <p *ngIf="pedidosEmAberto.length == 0">Nenhum pedido em aberto</p>
-</div>
+</html>
+
+
+
