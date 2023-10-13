@@ -12,6 +12,11 @@ import { PedidoModule } from './pedido';
 import { CrudRoupasModule } from './crud-roupas';
 import { RelatoriosModule } from './relatorios';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ListagemModule } from './listagem';
+import { CommonModule } from '@angular/common';
+import { FuncionarioModule } from './funcionario';
+import { FormsModule } from '@angular/forms';
+import { ListagemFModule } from './listagemF';
 
 
 /* Aonde está escrito o nome do componente no import é para substituir com o nome do componente que vc criou 
@@ -24,6 +29,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
   ],
   imports: [
     BrowserModule,
+    CommonModule,
     AppRoutingModule,
     LoginModule,
     AutocadastroModule,
@@ -35,7 +41,12 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     PedidoModule,
     CrudRoupasModule,
     RelatoriosModule,
-    NgbModule
+    NgbModule,
+    ListagemModule,
+    ListagemFModule,
+    FormsModule,
+    FuncionarioModule,
+    RelatoriosModule
   ],
 
   providers: [],

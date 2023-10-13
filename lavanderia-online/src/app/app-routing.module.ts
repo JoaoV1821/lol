@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-
+import { ListagemComponent } from './listagem/listagem/listagem.component';
 import { AutocadastroComponent } from './autocadastro';
 import { ConsultaPedidoComponent } from './consulta-pedido';
 import { LoginComponent } from './login';
@@ -14,6 +14,9 @@ import { InserirRoupaComponent } from './crud-roupas/inserir-roupa';
 import { EditarRoupaComponent } from './crud-roupas/editar-roupa';
 import { RelatoriosComponent } from './relatorios';
 
+import { Rf012Component } from './prototipos/rf012/rf012.component';
+import { ListagemFComponent } from './listagemF';
+import { EditarFuncionarioComponent, InserirFuncionarioComponent, ListarFuncionarioComponent } from './funcionario';
 
 const routes: Routes = [
   { path: '',
@@ -40,6 +43,11 @@ const routes: Routes = [
   { path: 'orcamento/orcamento',
     component: OrcamentoComponent },
 
+  { path: 'listagem',
+    redirectTo: 'listagem/listagem'},
+  { path: 'listagem/listagem',
+    component: ListagemComponent },
+
   { path: 'pagamento',
     redirectTo: 'pagamento/pagamento'},
   { path: 'pagamento/pagamento',
@@ -58,7 +66,6 @@ const routes: Routes = [
   { path: 'pedido',
     redirectTo: 'pedido/pedido'},
   { path: 'pedido/pedido',
-   
     component: PedidoComponent },
   
     //CRUD Roupas
@@ -66,6 +73,21 @@ const routes: Routes = [
   { path: 'roupas/listar-roupas', component: ListarRoupasComponent},
   { path: 'roupas/novo', component: InserirRoupaComponent},
   { path: 'roupas/editar/:id', component: EditarRoupaComponent},
+  
+  { path: 'funcionarios', redirectTo: 'funcionario/listar-funcionario'},
+  { path: 'funcionario/listar-funcionario', component: ListarFuncionarioComponent},
+  { path: 'funcionario/inserir-funcionario', component: InserirFuncionarioComponent},
+  { path: 'funcionario/editar-funcionario', component: EditarFuncionarioComponent},
+  
+  { path: 'prop', redirectTo: 'prototipos/rf012'},
+  { path: 'prototipos/rf012', component: Rf012Component},
+
+  { path: 'listagemF', redirectTo: 'listagemF/listagemF'},
+  { path: 'listagemF', component: ListagemFComponent},
+  
+  { path: 'relatorios', redirectTo: 'relatorios/relatorios'},
+  { path: 'relatorios', component: RelatoriosComponent},
+  
 
   //Relatorios, Pagina-Funcionario
   { path: 'relatorios', component: RelatoriosComponent}

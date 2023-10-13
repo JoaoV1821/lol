@@ -1,38 +1,75 @@
-<app-header></app-header>
-<div id="mainBody">
-    <div id="categoria-container">
-        <app-categoria (addClick)="addItem($event)" categoria="Blusas" [items]="lista_de_items"></app-categoria>
-        <app-categoria (addClick)="addItem($event)" categoria="Calças" [items]="lista_de_items"></app-categoria>
-        <app-categoria (addClick)="addItem($event)" categoria="Camisas" [items]="lista_de_items"></app-categoria>
-        <app-categoria (addClick)="addItem($event)" categoria="Casacos" [items]="lista_de_items"></app-categoria>
-    </div>
-    <div id="carrinho-container">
-        <div id="carrinho">
-            <div id="titulo">Seu carrinho:</div>
-            <div id="total">R${{total}}</div>
-            <table id="itemTable">
-                <tr>
-                    <th>Item</th>
-                    <th>QT</th>
-                    <th>Subtotal</th>
-                </tr>
-                <tr *ngFor="let item of carrinho;let i = index">
-                    <td>{{item.tipo}}</td>
-                    <td>
-                        <button (click)="changeItemValue(i,'down')">&#8722;</button>
-                        {{item.qt}}
-                        <button (click)="changeItemValue(i,'up')">&#43;</button>
-                    </td>
-                    <td>{{item.subtotal}}</td>
-                </tr>
-            </table>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Realizar Pedido</title>
+    <!-- Inclua os links para os arquivos CSS e JavaScript do Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.5.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <h1>Realizar Pedido</h1>
+    <div id="mainBody" class="container">
+        <div class="row">
+            <div id="categoria-container" class="col mx-3">
+                <div class="col">
+                    <app-categoria (addClick)="addItem($event)" categoria="Blusas" [items]="lista_de_items"></app-categoria>
+                </div>
+                <div class="col">
+                    <app-categoria (addClick)="addItem($event)" categoria="Calças" [items]="lista_de_items"></app-categoria>
+                </div>
+                <div class="col">
+                    <app-categoria (addClick)="addItem($event)" categoria="Camisas" [items]="lista_de_items"></app-categoria>
+                </div>
+                <div class="col">
+                    <app-categoria (addClick)="addItem($event)" categoria="Casacos" [items]="lista_de_items"></app-categoria>
+                </div>
+            </div>
+            <div id="carrinho-container" class="col mx-3">
+                <div id="carrinho" class="row">
+                    <div id="titulo">Seu carrinho:</div>
+                    <div id="total">R${{total}}</div>
+                    <table id="itemTable" class="table">
+                        <thead>
+                            <tr>
+                                <th>Item</th>
+                                <th>QT</th>
+                                <th>Subtotal</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of carrinho;let i = index">
+                                <td>{{item.tipo}}</td>
+                                <td>
+                                    <button (click)="changeItemValue(i,'down')" class="btn btn-primary">&#8722;</button>
+                                    {{item.qt}}
+                                    <button (click)="changeItemValue(i,'up')" class="btn btn-primary">&#43;</button>
+                                </td>
+                                <td>{{item.subtotal}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col">
+                    <div class="row w-25 m-3">
+                        <button (click)="limparItens()" class="btn btn-danger">Limpar</button>
+                    </div>
+                    <div class="row w-25 m-3">
+                        <button class="btn btn-primary">Continuar</button>
+                    </div>
+                </div>
+            </div>
         </div>
+<<<<<<< HEAD
         <div id="button-area">
             <button (click)="limparItens()">Limpar</button>
             <button [disabled]="this.total == 0" (click)="orcamento()">Continuar</button>
         </div>
 
+=======
+>>>>>>> 3256bfe2683e9957db4b9433b1d5d9902b79e43a
     </div>
-
-
-</div>
+    <!-- Inclua o link para o arquivo JavaScript do Bootstrap (opcional) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.5.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
