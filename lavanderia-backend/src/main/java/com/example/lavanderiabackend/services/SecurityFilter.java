@@ -8,11 +8,13 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
+import org.springframework.web.util.WebUtils;
 
 import com.example.lavanderiabackend.models.Cadastro.CadastroRepository;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
@@ -28,7 +30,6 @@ public class SecurityFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
                 String token = recoverToken(request);
-                
                 if(token != null){
                     String subject = tokenService.validateToken(token);
                     UserDetails userDetails = cadastroRepository.findByEmail(subject);
@@ -41,8 +42,10 @@ public class SecurityFilter extends OncePerRequestFilter {
             }
     
     private String recoverToken(HttpServletRequest request){
-        String authHeader = request.getHeader("Authorization");
-        if(authHeader == null) return null;
-        return authHeader.replace("Bearer " ,"");
+        //String authHeader = request.getHeader("Authorization");
+       // if(authHeader == null) return null;
+       // return authHeader.replace("Bearer " ,"");
+        Cookie cookie = WebUtils.getCookie(request, "AuthCookie");
+        return cookie != null ? cookie.getValue() : null;
     }
 }

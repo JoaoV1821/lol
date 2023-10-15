@@ -21,7 +21,6 @@ import com.example.lavanderiabackend.models.Cadastro.DTO.AuthenticationDTO;
 import com.example.lavanderiabackend.models.Cadastro.DTO.CadastroModelo;
 import com.example.lavanderiabackend.models.Endereco.EnderecoService;
 
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 
 @RestController
@@ -40,16 +39,17 @@ public class AuthenticationController {
     @Autowired
     private TokenService tokenService;
 
+    @Autowired
+    private CookieService cookieService;
+
     @PostMapping("/login")
-    public ResponseEntity<LoginResponseDTO> login(@RequestBody AuthenticationDTO data,HttpServletResponse response){
+    public ResponseEntity<Object> login(@RequestBody AuthenticationDTO data,HttpServletResponse response){
         UsernamePasswordAuthenticationToken  usernamePassword = 
         new UsernamePasswordAuthenticationToken(data.getLogin(), data.getPassword());
         Authentication auth = this.authenticationManager.authenticate(usernamePassword);
         String token = tokenService.generateToken((Cadastro)auth.getPrincipal());
-        token = "Bearer: " + token; 
-        Cookie cookie = new Cookie("Authorization",token);
-        response.addCookie(cookie);
-        return ResponseEntity.ok(new LoginResponseDTO(token));
+        cookieService.create(response, "AuthCookie", token, false, -1, "localhost");
+        return ResponseEntity.ok().build();
     }
 
     @PostMapping("/register")
@@ -66,6 +66,12 @@ public class AuthenticationController {
         cadastro.setPapel(Papeis.USER);
         enderecoService.addCadastros(data.getEndereco(), List.of(cadastro));
         System.out.println("Senha : " + password + idRandom);
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/logout")
+    public ResponseEntity<Object> logout(HttpServletResponse response){
+        cookieService.clear(response,"AuthCookie");
         return ResponseEntity.ok().build();
     }
 }
