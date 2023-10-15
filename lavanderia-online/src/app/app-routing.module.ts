@@ -23,8 +23,8 @@ const routes: Routes = [
     pathMatch: 'full'},
     
   { path: 'autocadastro',
-    redirectTo: 'autocadastro/autocadastro'},
-  { path: 'autocadastro/autocadastro',
+    redirectTo: 'autocadastro/novo'},
+  { path: 'autocadastro/novo',
     component: AutocadastroComponent },
 
   { path: 'clientes',
