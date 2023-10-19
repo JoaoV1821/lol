@@ -1,4 +1,4 @@
-package com.example.lavanderiabackend.services;
+package com.example.lavanderiabackend.services.Authorization;
 
 import java.util.List;
 import java.util.Random;
@@ -9,6 +9,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,6 +25,7 @@ import com.example.lavanderiabackend.models.Endereco.EnderecoService;
 import jakarta.servlet.http.HttpServletResponse;
 
 @RestController
+@CrossOrigin(originPatterns = "*")
 @RequestMapping("/auth")
 public class AuthenticationController {
 
@@ -43,17 +45,25 @@ public class AuthenticationController {
     private CookieService cookieService;
 
     @PostMapping("/login")
-    public ResponseEntity<Object> login(@RequestBody AuthenticationDTO data,HttpServletResponse response){
+    public ResponseEntity<LoginResponseDTO> login(@RequestBody AuthenticationDTO data,HttpServletResponse response){
+        
+        // data.getLogin() // email como string
+        
         UsernamePasswordAuthenticationToken  usernamePassword = 
         new UsernamePasswordAuthenticationToken(data.getLogin(), data.getPassword());
+        Cadastro cadastro = (Cadastro) cadastroRepository.findByEmail(data.getLogin());
+        LoginResponseDTO responseDTO = new LoginResponseDTO(cadastro);
         Authentication auth = this.authenticationManager.authenticate(usernamePassword);
         String token = tokenService.generateToken((Cadastro)auth.getPrincipal());
         cookieService.create(response, "AuthCookie", token, false, -1, "localhost");
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok().body(responseDTO);
     }
 
     @PostMapping("/register")
     public ResponseEntity<Object> register(@RequestBody CadastroModelo data){
+
+        //return ResponseEntity.badRequest().build();
+
         if(this.cadastroRepository.findByEmail(data.getEmail())!=null) return 
             ResponseEntity.badRequest().build();
         Cadastro cadastro = new Cadastro(data);

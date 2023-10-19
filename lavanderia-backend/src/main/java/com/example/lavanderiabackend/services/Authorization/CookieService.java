@@ -1,4 +1,4 @@
-package com.example.lavanderiabackend.services;
+package com.example.lavanderiabackend.services.Authorization;
 
 import org.springframework.stereotype.Service;
 

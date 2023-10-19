@@ -1,9 +1,8 @@
-package com.example.lavanderiabackend.services;
+package com.example.lavanderiabackend.services.Authorization;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
-
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import com.example.lavanderiabackend.models.Cadastro.Cadastro;

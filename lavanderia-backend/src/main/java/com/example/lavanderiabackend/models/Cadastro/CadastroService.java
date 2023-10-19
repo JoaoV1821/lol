@@ -30,6 +30,7 @@ public class CadastroService {
         Random random = new Random();
         String idRandom = String.format("%04d", random.nextInt(10000));
         cadastro.setSenha(cadastro.getEmail() + idRandom);
+        cadastro.setPapel(Papeis.USER);
         enderecoService.addCadastros(modelo.getEndereco(), List.of(cadastro));
     }
 
