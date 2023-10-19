@@ -47,6 +47,8 @@ public class AuthenticationController {
     @PostMapping("/login")
     public ResponseEntity<LoginResponseDTO> login(@RequestBody AuthenticationDTO data,HttpServletResponse response){
         
+        data.getLogin(); // 
+        
         // data.getLogin() // email como string
         
         UsernamePasswordAuthenticationToken  usernamePassword = 
@@ -57,12 +59,12 @@ public class AuthenticationController {
         String token = tokenService.generateToken((Cadastro)auth.getPrincipal());
         cookieService.create(response, "AuthCookie", token, false, -1, "localhost");
         return ResponseEntity.ok().body(responseDTO);
-    }
+    }   
 
     @PostMapping("/register")
     public ResponseEntity<Object> register(@RequestBody CadastroModelo data){
-
-        //return ResponseEntity.badRequest().build();
+        
+        //return ResponseEntity.badRequest().build(); 
 
         if(this.cadastroRepository.findByEmail(data.getEmail())!=null) return 
             ResponseEntity.badRequest().build();
@@ -76,7 +78,7 @@ public class AuthenticationController {
         cadastro.setPapel(Papeis.USER);
         enderecoService.addCadastros(data.getEndereco(), List.of(cadastro));
         System.out.println("Senha : " + password + idRandom);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok().build(); // 200 Ok 
     }
 
     @PostMapping("/logout")

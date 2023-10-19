@@ -13,10 +13,10 @@ import lombok.Setter;
 @Setter
 public class CadastroModelo {
 
-    private String cpf;
+    private String cpf; // tamanho , cpf vaildo
     private String nome;
     private String sobrenome;
-    private String email;
+    private String email; // login 
     private EnderecoModelo endereco;
     private String telefone;
 }
