@@ -126,9 +126,9 @@ public class PedidoService {
             Roupa resultado = roupaRepository.findByNumero(roupaModelo.numero);
             if (resultado != null) {
                 Carrinho carrinho = new Carrinho();
-                carrinho.pedido = pedido;
-                carrinho.quantidade = roupaModelo.quantidade;
-                carrinho.roupa = resultado;
+                carrinho.setPedido(pedido);
+                carrinho.setQuantidade(roupaModelo.quantidade);
+                carrinho.setRoupa(resultado);
                 carrinhoRepository.save(carrinho);
             }
         }

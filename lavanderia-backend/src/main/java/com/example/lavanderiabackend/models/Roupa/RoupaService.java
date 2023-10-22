@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import com.example.lavanderiabackend.models.Categoria.Categoria;
 import com.example.lavanderiabackend.models.Categoria.CategoriaRepository;
-import com.example.lavanderiabackend.models.Roupa.DTO.RoupaCarrinho;
 import com.example.lavanderiabackend.models.Roupa.DTO.RoupaCategoria;
 import com.example.lavanderiabackend.models.Roupa.DTO.RoupaModelo;
 

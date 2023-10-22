@@ -27,7 +27,9 @@ public class CadastroController {
     }
 
     @PostMapping("/get/cadastro")
-    public CadastroModelo getCadastro(@RequestBody CpfWrapper cpf) {
+    public CadastroModelo getCadastro(@RequestBody CpfWrapper cpf) { // tamanho // cpf é vi
+    
+        //return null
         return cadastroService.getCadastro(cpf.getCpf());
     }
 
@@ -39,6 +41,8 @@ public class CadastroController {
 
     @PostMapping("/add/cadastro")
     public ResponseEntity<Integer> addCadastro(@RequestBody CadastroModelo cadastroModelo) {
+        // return ResponseEntity.badRequest().build();
+        // cadastroModelo.getCpf() // string cpf
         cadastroService.saveCadastro(cadastroModelo);
         return ResponseEntity.ok(200);
     }
