@@ -1,6 +1,6 @@
 <div class="container text-center">
-    <ul class="list-group list-group-horizontal-xxl">
-      <li class="list-group-item list-group-item-info">
+    <ul class="list-group list-group-horizontal-xxl m-3">
+      <li class="list-group-item list-group-item-info m-3">
         <label for="client-list">Lista de clientes </label>
         <button class="btn btn-info" (click)="gerarRelatorioPDF()">
           <svg
@@ -18,7 +18,7 @@
           </svg>
         </button>
       </li>
-      <li class="list-group-item list-group-item-warning" >
+      <li class="list-group-item list-group-item-warning m-3" >
         <label for="top-clientes">Top clientes </label>
         <button class="btn btn-warning" (click)="gerarRelatorioClientesPDF()">
           <svg
@@ -36,7 +36,7 @@
           </svg>
         </button>
       </li>
-      <li class="list-group-item list-group-item-danger d-flex justify-content-evenly">
+      <li class="list-group-item list-group-item-danger d-flex justify-content-evenly m-3">
         <label for="receita">Receita </label>
       
           <button class="btn btn-danger" (click)="gerarRelatorioReceita()">
@@ -58,19 +58,19 @@
           <input  #dateInput1 (ngModel)='dataIni' type="date">
           <label for="">Data Fim</label>
           <input  #dateInput2 (ngModel)='dataFi'type="date">
-          <h1>{{dateInput1.value}}</h1>
+          <!-- <h1>{{dateInput1.value}}</h1> -->
         
         </li>
        
        
     </ul>
   </div>
+
   <div class="container">
-    <table
-      *ngIf="mostrarListaClientes"
+
+  <div *ngIf="" class="container">
       #content
-      class="table table-striped table-bordered"
-    >
+    <table>
       <thead>
         <tr>
           <th>ID</th>

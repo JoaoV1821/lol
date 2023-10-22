@@ -10,7 +10,12 @@ import { PagamentoModule } from './pagamento';
 import { PaginaInicialModule } from './pagina-inicial';
 import { PedidoModule } from './pedido';
 import { CrudRoupasModule } from './crud-roupas';
+import { ListagemModule } from './listagem';
+import { CommonModule } from '@angular/common';
+import { FuncionarioModule } from './funcionario';
 import { RelatoriosModule } from './relatorios';
+import { FormsModule } from '@angular/forms';
+import { ListagemFModule } from './listagemF';
 
 
 /* Aonde está escrito o nome do componente no import é para substituir com o nome do componente que vc criou 
@@ -23,6 +28,7 @@ import { RelatoriosModule } from './relatorios';
   ],
   imports: [
     BrowserModule,
+    CommonModule,
     AppRoutingModule,
     LoginModule,
     AutocadastroModule,
@@ -33,7 +39,10 @@ import { RelatoriosModule } from './relatorios';
     PedidoModule,
     PedidoModule,
     CrudRoupasModule,
-    RelatoriosModule,
+    ListagemModule,
+    FormsModule,
+    FuncionarioModule,
+    RelatoriosModule
   ],
 
   providers: [],

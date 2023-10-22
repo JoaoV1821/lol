@@ -13,7 +13,7 @@
                 <th>Data de Nascimento</th>
                 <th>Cargo</th>
                 <th class="text-center">
-                    <a [routerLink]="['/funcionarios/novo']" href="#" title="Novo" alt="Novo" class="btn btn-xn btn-success">
+                    <a [routerLink]="['/funcionario/inserir-funcionario']" href="#" title="Novo" alt="Novo" class="btn btn-xn btn-success">
                         <i class="fa fa-plus" aria-hidden="true"></i>
                         Novo
                     </a>
@@ -27,7 +27,7 @@
                 <td>{{funcionario.dataNasc}}</td>
                 <td>{{funcionario.tipo}}</td>
                 <td class="text-center" style="width: 300px">
-                    <a [routerLink]="['/funcionarios/editar', funcionario.cpf]" href="#" title="Editar" alt="Editar" class="btn btn-xn btn-info">
+                    <a [routerLink]="['/funcionario/editar-funcionario', funcionario.cpf]" href="#" title="Editar" alt="Editar" class="btn btn-xn btn-info">
                         <i class="fa fa-edit" aria-hidden="true"></i>
                         Editar
                     </a>
