@@ -1,4 +1,4 @@
-package com.example.lavanderiabackend.services.Authorization;
+package com.example.lavanderiabackend.services.Authentication;
 
 
 import org.springframework.beans.factory.annotation.Autowired;

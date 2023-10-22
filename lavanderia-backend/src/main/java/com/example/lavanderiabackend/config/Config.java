@@ -1,4 +1,4 @@
-package com.example.lavanderiabackend;
+package com.example.lavanderiabackend.config;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;

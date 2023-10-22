@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import com.example.lavanderiabackend.models.Cadastro.DTO.CadastroModelo;
@@ -30,7 +33,7 @@ public class CadastroService {
         Random random = new Random();
         String idRandom = String.format("%04d", random.nextInt(10000));
         cadastro.setSenha(cadastro.getEmail() + idRandom);
-        cadastro.setPapel(Papeis.USER);
+        cadastro.setPapel(Papel.USER);
         enderecoService.addCadastros(modelo.getEndereco(), List.of(cadastro));
     }
 
@@ -72,6 +75,13 @@ public class CadastroService {
             modelo = modelMapper.map(cadastro, modelo.getClass());
             return modelo;
         }
+        return null;
+    }
+
+    public CadastroModelo getUsuarioLogado(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        System.out.println(userDetails.getUsername());
         return null;
     }
 

@@ -1,4 +1,4 @@
-package com.example.lavanderiabackend.services.Authorization;
+package com.example.lavanderiabackend.services.Authentication.DTO;
 
 import com.example.lavanderiabackend.models.Cadastro.Cadastro;
 
@@ -14,13 +14,15 @@ import lombok.Setter;
 public class LoginResponseDTO {
 
     private Long id;
-    private String email;
+    private String nome;
+    private String login;
     private String senha;
     private String perfil;
     
     public LoginResponseDTO(Cadastro cadastro){
         this.id = cadastro.getCadastroId();
-        this.email = cadastro.getEmail();
+        this.nome = cadastro.getNome() + cadastro.getSobrenome();
+        this.login = cadastro.getEmail();
         this.senha = cadastro.getSenha();
         this.perfil = cadastro.getPapel().getPapel();
     }

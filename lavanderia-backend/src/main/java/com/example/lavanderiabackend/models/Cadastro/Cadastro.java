@@ -49,7 +49,7 @@ public class Cadastro implements UserDetails {
     @Column(nullable = false)
     private String telefone;
     @Column(nullable=false)
-    private Papeis papel;
+    private Papel papel;
     @ManyToOne
     @JoinColumn(name = "endereco_id", nullable = false)
     private Endereco endereco;
@@ -66,7 +66,7 @@ public class Cadastro implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        if(this.papel == Papeis.ADMIN) return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"),new SimpleGrantedAuthority("ROLE_USER"));
+        if(this.papel == Papel.ADMIN) return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"),new SimpleGrantedAuthority("ROLE_USER"));
         else return List.of(new SimpleGrantedAuthority("ROLE_USER"));
         
     }

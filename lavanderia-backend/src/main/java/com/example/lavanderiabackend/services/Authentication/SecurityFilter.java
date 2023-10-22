@@ -1,4 +1,4 @@
-package com.example.lavanderiabackend.services.Authorization;
+package com.example.lavanderiabackend.services.Authentication;
 
 import java.io.IOException;
 
@@ -42,9 +42,6 @@ public class SecurityFilter extends OncePerRequestFilter {
             }
     
     private String recoverToken(HttpServletRequest request){
-        //String authHeader = request.getHeader("Authorization");
-       // if(authHeader == null) return null;
-       // return authHeader.replace("Bearer " ,"");
         Cookie cookie = WebUtils.getCookie(request, "AuthCookie");
         return cookie != null ? cookie.getValue() : null;
     }

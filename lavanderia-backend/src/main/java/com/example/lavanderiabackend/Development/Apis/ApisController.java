@@ -1,4 +1,4 @@
-package com.example.lavanderiabackend.Desenvolvimento.Apis;
+package com.example.lavanderiabackend.Development.Apis;
 
 import java.util.List;
 

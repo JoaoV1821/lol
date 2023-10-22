@@ -1,7 +1,8 @@
-package com.example.lavanderiabackend.services.Authorization;
+package com.example.lavanderiabackend.services.Authentication;
 
 import java.util.List;
 import java.util.Random;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,15 +18,17 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.lavanderiabackend.models.Cadastro.Cadastro;
 import com.example.lavanderiabackend.models.Cadastro.CadastroRepository;
-import com.example.lavanderiabackend.models.Cadastro.Papeis;
+import com.example.lavanderiabackend.models.Cadastro.Papel;
 import com.example.lavanderiabackend.models.Cadastro.DTO.AuthenticationDTO;
 import com.example.lavanderiabackend.models.Cadastro.DTO.CadastroModelo;
 import com.example.lavanderiabackend.models.Endereco.EnderecoService;
+import com.example.lavanderiabackend.services.Authentication.DTO.LoginResponseDTO;
+import com.example.lavanderiabackend.services.Cookie.CookieService;
 
 import jakarta.servlet.http.HttpServletResponse;
 
 @RestController
-@CrossOrigin(originPatterns = "*")
+@CrossOrigin("http://localhost:4200")
 @RequestMapping("/auth")
 public class AuthenticationController {
 
@@ -47,13 +50,11 @@ public class AuthenticationController {
     @PostMapping("/login")
     public ResponseEntity<LoginResponseDTO> login(@RequestBody AuthenticationDTO data,HttpServletResponse response){
         
-        data.getLogin(); // 
-        
-        // data.getLogin() // email como string
-        
         UsernamePasswordAuthenticationToken  usernamePassword = 
         new UsernamePasswordAuthenticationToken(data.getLogin(), data.getPassword());
-        Cadastro cadastro = (Cadastro) cadastroRepository.findByEmail(data.getLogin());
+        Cadastro cadastro = cadastroRepository.findByEmail(data.getLogin());
+        if(cadastro == null)
+            return ResponseEntity.notFound().build();
         LoginResponseDTO responseDTO = new LoginResponseDTO(cadastro);
         Authentication auth = this.authenticationManager.authenticate(usernamePassword);
         String token = tokenService.generateToken((Cadastro)auth.getPrincipal());
@@ -63,11 +64,8 @@ public class AuthenticationController {
 
     @PostMapping("/register")
     public ResponseEntity<Object> register(@RequestBody CadastroModelo data){
-        
-        //return ResponseEntity.badRequest().build(); 
-
-        if(this.cadastroRepository.findByEmail(data.getEmail())!=null) return 
-            ResponseEntity.badRequest().build();
+        if(this.cadastroRepository.findByEmail(data.getEmail())!=null) 
+            return ResponseEntity.badRequest().build();
         Cadastro cadastro = new Cadastro(data);
         String password = cadastro.getEmail();
         Random random = new Random();
@@ -75,7 +73,7 @@ public class AuthenticationController {
         password += idRandom;
         String encryptedPassword = new BCryptPasswordEncoder().encode(password);
         cadastro.setSenha(encryptedPassword);
-        cadastro.setPapel(Papeis.USER);
+        cadastro.setPapel(Papel.USER);
         enderecoService.addCadastros(data.getEndereco(), List.of(cadastro));
         System.out.println("Senha : " + password + idRandom);
         return ResponseEntity.ok().build(); // 200 Ok 

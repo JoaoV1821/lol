@@ -14,7 +14,7 @@ public interface CadastroRepository extends JpaRepository<Cadastro, Long> {
     @Nullable
     UserDetails findFirstByEmailAndSenha(String email, String senha);
 
-    UserDetails findByEmail(String nome);
+    Cadastro findByEmail(String nome);
 
     @Nullable
     Cadastro findByCpf(String cpf);

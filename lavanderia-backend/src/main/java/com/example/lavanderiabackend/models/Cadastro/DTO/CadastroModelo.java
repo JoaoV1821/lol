@@ -1,5 +1,6 @@
 package com.example.lavanderiabackend.models.Cadastro.DTO;
 
+import com.example.lavanderiabackend.models.Cadastro.Papel;
 import com.example.lavanderiabackend.models.Endereco.DTO.EnderecoModelo;
 
 import lombok.AllArgsConstructor;
@@ -13,10 +14,11 @@ import lombok.Setter;
 @Setter
 public class CadastroModelo {
 
-    private String cpf; // tamanho , cpf vaildo
+    private String cpf; 
     private String nome;
     private String sobrenome;
-    private String email; // login 
+    private String email;
     private EnderecoModelo endereco;
     private String telefone;
+    private Papel papel;
 }

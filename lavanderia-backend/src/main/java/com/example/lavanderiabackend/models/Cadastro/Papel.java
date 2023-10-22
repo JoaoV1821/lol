@@ -1,12 +1,12 @@
 package com.example.lavanderiabackend.models.Cadastro;
 
-public enum Papeis  {
+public enum Papel  {
     ADMIN("admin"),
     USER("user");
     
     private String papel;
 
-    Papeis(String papel){
+    Papel(String papel){
         this.papel = papel;
     }
     public String getPapel(){
