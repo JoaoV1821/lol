@@ -24,31 +24,37 @@ public class CadastroController {
     }
 
     @PostMapping("/get/cadastro")
-    public CadastroDTO getCadastro(@RequestBody CpfWrapper cpf) {
-        return cadastroService.getCadastro(cpf.getCpf());
+    public ResponseEntity<CadastroDTO> getCadastro(@RequestBody CpfWrapper cpf) {
+        CadastroDTO cadastroDTO = cadastroService.getCadastro(cpf.getCpf());
+        if(cadastroDTO == null)
+            return ResponseEntity.notFound().build();
+        return ResponseEntity.ok().body(cadastroDTO);
     }
 
     @GetMapping("/get/cadastros")
-    public List<CadastroDTO> getCadastros() {
-        return cadastroService.getCadastroList();
+    public ResponseEntity<List<CadastroDTO>> getCadastros() {
+        List<CadastroDTO> cadastros = cadastroService.getCadastroList();
+        if(cadastros == null)
+            return ResponseEntity.notFound().build();
+        return ResponseEntity.ok().body(cadastros);
     }
 
     @PostMapping("/add/cadastro")
-    public ResponseEntity<Integer> addCadastro(@RequestBody CadastroDTO cadastroModelo) {
+    public ResponseEntity<Object> addCadastro(@RequestBody CadastroDTO cadastroModelo) {
         cadastroService.saveCadastro(cadastroModelo);
-        return ResponseEntity.ok(200);
+        return ResponseEntity.noContent().build();
     }
 
     @PostMapping("/update/cadastro")
-    public ResponseEntity<Integer> updateCadastro(@RequestBody CadastroDTO cadastroModelo) {
+    public ResponseEntity<Object> updateCadastro(@RequestBody CadastroDTO cadastroModelo) {
         cadastroService.updateCadastro(cadastroModelo);
-        return ResponseEntity.ok(200);
+        return ResponseEntity.noContent().build();
     }
 
     @PostMapping("/delete/cadastro")
-    public ResponseEntity<Integer> deleteCadastro(@RequestBody CpfWrapper cpf) {
+    public ResponseEntity<Object> deleteCadastro(@RequestBody CpfWrapper cpf) {
         cadastroService.deleteCadastro(cpf.getCpf());
-        return ResponseEntity.ok(200);
+        return ResponseEntity.noContent().build();
     }
 
 }

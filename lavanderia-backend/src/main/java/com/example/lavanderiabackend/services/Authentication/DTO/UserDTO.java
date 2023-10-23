@@ -1,6 +1,6 @@
-package com.example.lavanderiabackend.models.Cadastro.DTO;
+package com.example.lavanderiabackend.services.Authentication.DTO;
 
-import com.example.lavanderiabackend.models.Cadastro.Papel;
+
 import com.example.lavanderiabackend.models.Endereco.DTO.EnderecoModelo;
 
 import lombok.AllArgsConstructor;
@@ -12,13 +12,11 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class CadastroDTO {
+public class UserDTO {
 
-    private String cpf; 
     private String nome;
-    private String email;
-    private String senha;
-    private EnderecoModelo endereco;
+    private String cpf; 
     private String telefone;
-    private Papel papel;
+    private String email;
+    private EnderecoModelo endereco;
 }

@@ -48,6 +48,7 @@ public class SecurityConfigurations    {
                             "/*.css",
                             "/*.html",
                             "/*.ico").permitAll()
+                            .requestMatchers("/cadastro/*").hasRole("admin")
                             .anyRequest().authenticated()
                     ).addFilterBefore(securityFilter,UsernamePasswordAuthenticationFilter.class)
                     .build();

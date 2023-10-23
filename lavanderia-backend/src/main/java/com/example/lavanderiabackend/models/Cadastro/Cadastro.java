@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import com.example.lavanderiabackend.models.Cadastro.DTO.CadastroDTO;
 import com.example.lavanderiabackend.models.Endereco.Endereco;
 import com.example.lavanderiabackend.models.Pedido.Pedido;
+import com.example.lavanderiabackend.services.Authentication.DTO.UserDTO;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -53,20 +54,30 @@ public class Cadastro implements UserDetails {
     @ManyToOne
     @JoinColumn(name = "endereco_id", nullable = false)
     private Endereco endereco;
-    @OneToMany(mappedBy = "pedido", cascade = CascadeType.PERSIST, orphanRemoval = true)
+    @OneToMany(mappedBy = "cadastro", cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<Pedido> pedidos;
     
 
     public Cadastro(CadastroDTO modelo) {
+        
+        String listaNomes[] = modelo.getNome().split(" ");
+        this.nome = listaNomes[0];
+        this.sobrenome =  String.join("",listaNomes);
         this.cpf = modelo.getCpf();
         this.email = modelo.getEmail();
         this.telefone = modelo.getTelefone();
-        this.nome = modelo.getNome();
-        this.sobrenome = modelo.getSobrenome();
         this.papel = modelo.getPapel();
     }
 
-
+    public Cadastro(UserDTO user){
+        String listaNomes[] = user.getNome().split(" ");
+        this.cpf = user.getCpf();
+        this.email =user.getEmail();
+        this.nome = listaNomes[0];
+        listaNomes[0] = "";
+        this.sobrenome = String.join("",listaNomes);
+        this.telefone = user.getTelefone();
+    }
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         if(this.papel == Papel.ADMIN) return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"),new SimpleGrantedAuthority("ROLE_USER"));

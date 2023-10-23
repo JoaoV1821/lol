@@ -3,6 +3,7 @@ package com.example.lavanderiabackend.models.Pedido;
 import java.time.LocalDate;
 import java.util.List;
 
+import com.example.lavanderiabackend.models.Cadastro.Cadastro;
 import com.example.lavanderiabackend.models.Carrinho.Carrinho;
 import com.example.lavanderiabackend.models.Pedido.DTO.PedidoBody;
 
@@ -10,6 +11,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.SequenceGenerator;
 import lombok.Getter;
@@ -32,6 +35,9 @@ public class Pedido {
     public String status;
     @OneToMany(mappedBy = "pedido")
     public List<Carrinho> carrinhos;
+    @ManyToOne
+    @JoinColumn(name = "cadastro_id", nullable = false)
+    public Cadastro cadastro;
 
     public Pedido(PedidoBody pedidoBody) {
         this.numero = pedidoBody.numero;

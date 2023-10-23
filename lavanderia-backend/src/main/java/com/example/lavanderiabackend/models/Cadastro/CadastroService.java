@@ -1,7 +1,8 @@
 package com.example.lavanderiabackend.models.Cadastro;
 
-import java.util.ArrayList;
+
 import java.util.List;
+import java.util.ArrayList;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -67,6 +68,8 @@ public class CadastroService {
             modelo = modelMapper.map(cadastro, modelo.getClass());
             modelos.add(modelo);
         }
+        if(modelos.isEmpty())
+            return null;
         return modelos;
     }
 

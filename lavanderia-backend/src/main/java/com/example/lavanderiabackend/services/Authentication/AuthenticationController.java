@@ -20,9 +20,9 @@ import com.example.lavanderiabackend.models.Cadastro.Cadastro;
 import com.example.lavanderiabackend.models.Cadastro.CadastroRepository;
 import com.example.lavanderiabackend.models.Cadastro.Papel;
 import com.example.lavanderiabackend.models.Cadastro.DTO.AuthenticationDTO;
-import com.example.lavanderiabackend.models.Cadastro.DTO.CadastroDTO;
 import com.example.lavanderiabackend.models.Endereco.EnderecoService;
 import com.example.lavanderiabackend.services.Authentication.DTO.LoginResponseDTO;
+import com.example.lavanderiabackend.services.Authentication.DTO.UserDTO;
 import com.example.lavanderiabackend.services.Cookie.CookieService;
 
 import jakarta.servlet.http.HttpServletResponse;
@@ -63,7 +63,7 @@ public class AuthenticationController {
     }   
 
     @PostMapping("/register")
-    public ResponseEntity<Object> register(@RequestBody CadastroDTO data){
+    public ResponseEntity<Object> register(@RequestBody UserDTO data){
         if(this.cadastroRepository.findByEmail(data.getEmail())!=null) 
             return ResponseEntity.badRequest().build();
         Cadastro cadastro = new Cadastro(data);

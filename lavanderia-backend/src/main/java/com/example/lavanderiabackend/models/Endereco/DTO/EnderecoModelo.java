@@ -11,7 +11,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class EnderecoModelo {
     public String cep;
-    public String logradouro;
+    public String endereco;
     public String complemento;
     public String numero;
     public String cidade;
