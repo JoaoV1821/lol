@@ -1,0 +1,29 @@
+@import "/src/styles.css";
+
+h1 {
+    color: #5a57ff;
+    margin-top: 10px;
+}
+
+option{
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+#sair:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.fadeIn {
+    animation: fadeIn 0.77s linear 0s;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0.0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}

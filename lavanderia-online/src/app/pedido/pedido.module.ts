@@ -24,6 +24,7 @@ import { PedidoService } from './services';
   providers: [
     CategoriaComponent,
     PedidoService
+
   ]
 })
 export class PedidoModule { }

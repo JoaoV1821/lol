@@ -12,3 +12,11 @@
  #cadastre-se{
     color: #5a57ff;
  }
+
+ .inputlol{
+    border-color: #b8b7ff;
+}
+.inputlol:focus{
+    border-color: #5a57ff;
+    box-shadow: 0 0 10px 0.25rem #d9d8ff;
+}

@@ -4,55 +4,55 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Página Inicial</title>
-    <link rel="stylesheet" href="pagina-inicial.component.css">
 </head>
 <body>
-    <header>
-        <div class="titulo">
-            <h1>LOL</h1>
-            <!-- <h2>Lavanderia On-Line</h2> -->
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h1>Lista de pedidos</h1>
+            </div>
         </div>
-        <div class="usuario">
-                <h4 id="nome-usuario" style="margin-bottom: 0;">Usuário</h4>
-                <p id="sair-usuario" style="margin-top: 0;">Sair</p>
-        </div>
-    </header>
-    <br>
-    <div class="corpo">
-        <div class="titulo">
-            <h1 id="titulo">Lista de pedidos</h1>
-        </div>
-        <div class="lista">
-            <table id="table">
-                <tr id="table-header">
-                    <th>Nº Pedido</th>
-                    <th>Valor</th>
-                    <th>Data</th>
-                    <th>Prazo</th>
-                    <th>Status</th>
-                </tr>
-                <tr id="000001">
-                    <td>000001</td>
-                    <td>R$ 60,00</td>
-                    <td>12/08/2023</td>
-                    <td>16/08/2023</td>
-                    <td>Enviado</td>
-                </tr>
-                <tr id="000002">
-                    <td>000002</td>
-                    <td>R$ 60,00</td>
-                    <td>12/08/2023</td>
-                    <td>16/08/2023</td>
-                    <td>Enviado</td>
-                </tr>
-                <tr id="000003">
-                    <td>000003</td>
-                    <td>R$ 60,00</td>
-                    <td>12/08/2023</td>
-                    <td>16/08/2023</td>
-                    <td>Enviado</td>
-                </tr>
-            </table>
+        <div class="row">
+            <div class="col">
+                <table class="table fadeIn">
+                    <thead>
+                        <tr>
+                            <th scope="col">Nº Pedido</th>
+                            <th scope="col">Valor</th>
+                            <th scope="col">Data</th>
+                            <th scope="col">Prazo</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Ação</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">000001</th>
+                            <td>R$ 60,00</td>
+                            <td>11/08/2023</td>
+                            <td>17/08/2023</td>
+                            <td class="btn btn-aberto">Em aberto</td>
+                            <td><button class="btn btn-danger">Cancelar</button></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">000002</th>
+                            <td>R$ 70,00</td>
+                            <td>13/08/2023</td>
+                            <td>17/08/2023</td>
+                            <td class="btn btn-aberto">Em aberto</td>
+                            <td><button class="btn btn-danger">Cancelar</button></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">000003</th>
+                            <td>R$ 45,00</td>
+                            <td>12/08/2023</td>
+                            <td>16/08/2023</td>
+                            <td class="btn btn-aberto">Em aberto</td>
+                            <td><button class="btn btn-danger">Cancelar</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </body>
