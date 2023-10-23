@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.lavanderiabackend.models.Cadastro.DTO.CadastroModelo;
+import com.example.lavanderiabackend.models.Validacao.CPFValidator;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -27,9 +28,10 @@ public class CadastroController {
     }
 
     @PostMapping("/get/cadastro")
-    public CadastroModelo getCadastro(@RequestBody CpfWrapper cpf) { // tamanho // cpf é vi
-    
-        //return null
+    public CadastroModelo getCadastro(@RequestBody CpfWrapper cpf) {
+        if(!CPFValidator.isCpfValid(cpf.getCpf())){
+            return null;
+        }
         return cadastroService.getCadastro(cpf.getCpf());
     }
 
@@ -43,6 +45,9 @@ public class CadastroController {
     public ResponseEntity<Integer> addCadastro(@RequestBody CadastroModelo cadastroModelo) {
         // return ResponseEntity.badRequest().build();
         // cadastroModelo.getCpf() // string cpf
+        if(!CPFValidator.isCpfValid(cadastroModelo.getCpf())){
+            return ResponseEntity.badRequest().build();
+        }
         cadastroService.saveCadastro(cadastroModelo);
         return ResponseEntity.ok(200);
     }
@@ -59,7 +64,7 @@ public class CadastroController {
         return ResponseEntity.ok(200);
     }
 
-}
+    }
 
 @Getter
 @Setter
