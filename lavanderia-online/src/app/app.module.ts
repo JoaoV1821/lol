@@ -17,6 +17,7 @@ import { CommonModule } from '@angular/common';
 import { FuncionarioModule } from './funcionario';
 import { FormsModule } from '@angular/forms';
 import { ListagemFModule } from './listagemF';
+import { SharedModule } from './shared';
 
 
 /* Aonde está escrito o nome do componente no import é para substituir com o nome do componente que vc criou 
@@ -46,7 +47,8 @@ import { ListagemFModule } from './listagemF';
     ListagemFModule,
     FormsModule,
     FuncionarioModule,
-    RelatoriosModule
+    RelatoriosModule,
+    SharedModule
   ],
 
   providers: [],

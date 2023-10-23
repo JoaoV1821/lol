@@ -3,13 +3,16 @@ import { CommonModule } from '@angular/common';
 
 import { AutocadastroComponent } from './autocadastro/autocadastro.component';
 import { AutocadastroService } from './services';
+import { SharedModule } from '../shared';
+
 
 @NgModule({
   declarations: [
     AutocadastroComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    SharedModule
   ],
   exports: [
     AutocadastroComponent

@@ -8,6 +8,7 @@ import { EditarRoupaComponent } from './editar-roupa/editar-roupa.component';
 
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { SharedModule } from '../shared';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { FormsModule } from '@angular/forms';
   imports: [
     CommonModule,
     RouterModule,
-    FormsModule
+    FormsModule,
+    SharedModule
   ],
   providers:[
     CrudRoupasService

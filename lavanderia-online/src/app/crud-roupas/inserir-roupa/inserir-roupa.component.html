@@ -10,7 +10,8 @@
           id="nome"
           name="nome"
           minlength="2"
-          required
+          obrigatorio
+          stringOnly
           [(ngModel)]="roupa.nome"
           #nome="ngModel"
         />
@@ -18,7 +19,7 @@
           class="alert alert-danger"
           *ngIf="nome.errors && (nome.dirty || nome.touched)"
         >
-          <div [hidden]="!nome.errors['required']">Digite o nome da roupa.</div>
+          <div [hidden]="!nome.errors['obrigatorio']">Digite o nome da roupa.</div>
           <div [hidden]="!nome.errors['minlength']">
             O nome deve conter ao menos 2 caracteres.
           </div>
