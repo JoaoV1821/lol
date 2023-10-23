@@ -21,7 +21,7 @@ public class LoginResponseDTO {
     
     public LoginResponseDTO(Cadastro cadastro){
         this.id = cadastro.getCadastroId();
-        this.nome = cadastro.getNome() + cadastro.getSobrenome();
+        this.nome = cadastro.getNome() + " " +  cadastro.getSobrenome();
         this.login = cadastro.getEmail();
         this.senha = cadastro.getSenha();
         this.perfil = cadastro.getPapel().getPapel();

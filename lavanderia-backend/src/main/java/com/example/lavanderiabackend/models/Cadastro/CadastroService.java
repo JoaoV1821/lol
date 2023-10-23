@@ -1,6 +1,5 @@
 package com.example.lavanderiabackend.models.Cadastro;
 
-import java.util.Random;
 import java.util.ArrayList;
 import java.util.List;
 import org.modelmapper.ModelMapper;
@@ -8,10 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.example.lavanderiabackend.models.Cadastro.DTO.CadastroModelo;
+import com.example.lavanderiabackend.models.Cadastro.DTO.CadastroDTO;
 import com.example.lavanderiabackend.models.Endereco.EnderecoService;
+import com.example.lavanderiabackend.models.Pedido.Pedido;
 
 @Service
 public class CadastroService {
@@ -28,23 +29,24 @@ public class CadastroService {
         this.enderecoService = enderecoService;
     }
 
-    public void saveCadastro(CadastroModelo modelo) {
-        Cadastro cadastro = new Cadastro(modelo);
-        Random random = new Random();
-        String idRandom = String.format("%04d", random.nextInt(10000));
-        cadastro.setSenha(cadastro.getEmail() + idRandom);
-        cadastro.setPapel(Papel.USER);
+    public void saveCadastro(CadastroDTO modelo) {
+        Cadastro cadastro = cadastroRepository.findByCpf(modelo.getCpf());
+        if(cadastro == null){
+        cadastro = new Cadastro(modelo);
+        String encryptedPassword = new BCryptPasswordEncoder().encode(modelo.getSenha());
+        cadastro.setSenha(encryptedPassword);
         enderecoService.addCadastros(modelo.getEndereco(), List.of(cadastro));
+        }else{ 
+            System.out.println(cadastro.getCadastroId());
+        }
     }
 
-    public void updateCadastro(CadastroModelo modelo) {
+    public void updateCadastro(CadastroDTO modelo) {
         Cadastro cadastro = cadastroRepository.findByCpf(modelo.getCpf());
         Long id = cadastro.getCadastroId();
-        String senha = cadastro.getSenha();
         if (cadastro != null) {
             cadastro = modelMapper.map(modelo, cadastro.getClass());
             cadastro.setCadastroId(id);
-            cadastro.setSenha(senha);
             cadastro.setEndereco(enderecoService.getEndereco(modelo.getEndereco()));
             cadastroRepository.save(cadastro);
         }
@@ -57,20 +59,20 @@ public class CadastroService {
         }
     }
 
-    public List<CadastroModelo> getCadastroList() {
-        List<CadastroModelo> modelos = new ArrayList<CadastroModelo>();
+    public List<CadastroDTO> getCadastroList() {
+        List<CadastroDTO> modelos = new ArrayList<CadastroDTO>();
         List<Cadastro> cadastros = cadastroRepository.findAll();
         for (Cadastro cadastro : cadastros) {
-            CadastroModelo modelo = new CadastroModelo();
+            CadastroDTO modelo = new CadastroDTO();
             modelo = modelMapper.map(cadastro, modelo.getClass());
             modelos.add(modelo);
         }
         return modelos;
     }
 
-    public CadastroModelo getCadastro(String cpf) {
+    public CadastroDTO getCadastro(String cpf) {
         Cadastro cadastro = cadastroRepository.findByCpf(cpf);
-        CadastroModelo modelo = new CadastroModelo();
+        CadastroDTO modelo = new CadastroDTO();
         if (cadastro != null) {
             modelo = modelMapper.map(cadastro, modelo.getClass());
             return modelo;
@@ -78,11 +80,22 @@ public class CadastroService {
         return null;
     }
 
-    public CadastroModelo getUsuarioLogado(){
+    public CadastroDTO getUsuarioLogado(){
+        Cadastro cadastro = getLoggedUser();
+        CadastroDTO cadastroModelo = modelMapper.map(cadastro,CadastroDTO.class);
+        return cadastroModelo;
+    }
+
+    public List<Pedido> getPedidos(){
+        Cadastro cadastro = getLoggedUser();
+        return cadastro.getPedidos();
+    }
+
+    private Cadastro getLoggedUser(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        System.out.println(userDetails.getUsername());
-        return null;
+        Cadastro cadastro = cadastroRepository.findByEmail(userDetails.getUsername());
+        return cadastro;
     }
 
 }

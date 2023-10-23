@@ -12,12 +12,13 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class CadastroModelo {
+public class CadastroDTO {
 
     private String cpf; 
     private String nome;
     private String sobrenome;
     private String email;
+    private String senha;
     private EnderecoModelo endereco;
     private String telefone;
     private Papel papel;

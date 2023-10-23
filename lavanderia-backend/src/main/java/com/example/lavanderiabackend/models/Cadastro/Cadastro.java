@@ -7,9 +7,11 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.example.lavanderiabackend.models.Cadastro.DTO.CadastroModelo;
+import com.example.lavanderiabackend.models.Cadastro.DTO.CadastroDTO;
 import com.example.lavanderiabackend.models.Endereco.Endereco;
+import com.example.lavanderiabackend.models.Pedido.Pedido;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -17,16 +19,14 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.SequenceGenerator;
-import jakarta.persistence.Table;
-import jakarta.persistence.UniqueConstraint;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"nome","sobrenome"}))
 @Getter
 @Setter
 @AllArgsConstructor
@@ -53,14 +53,17 @@ public class Cadastro implements UserDetails {
     @ManyToOne
     @JoinColumn(name = "endereco_id", nullable = false)
     private Endereco endereco;
+    @OneToMany(mappedBy = "pedido", cascade = CascadeType.PERSIST, orphanRemoval = true)
+    private List<Pedido> pedidos;
     
 
-    public Cadastro(CadastroModelo modelo) {
+    public Cadastro(CadastroDTO modelo) {
         this.cpf = modelo.getCpf();
         this.email = modelo.getEmail();
         this.telefone = modelo.getTelefone();
         this.nome = modelo.getNome();
         this.sobrenome = modelo.getSobrenome();
+        this.papel = modelo.getPapel();
     }
 
 
@@ -80,7 +83,7 @@ public class Cadastro implements UserDetails {
 
     @Override
     public String getUsername() {
-        return this.getNome() + " " + this.getSobrenome();
+        return this.getEmail();
     }
 
 

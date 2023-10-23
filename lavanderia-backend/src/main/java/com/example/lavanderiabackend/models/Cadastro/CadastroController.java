@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.lavanderiabackend.models.Cadastro.DTO.CadastroModelo;
+import com.example.lavanderiabackend.models.Cadastro.DTO.CadastroDTO;
 import com.example.lavanderiabackend.models.Cadastro.Wrappers.CpfWrapper;
 
 @RestController
@@ -24,24 +24,23 @@ public class CadastroController {
     }
 
     @PostMapping("/get/cadastro")
-    public CadastroModelo getCadastro(@RequestBody CpfWrapper cpf) {
+    public CadastroDTO getCadastro(@RequestBody CpfWrapper cpf) {
         return cadastroService.getCadastro(cpf.getCpf());
     }
 
     @GetMapping("/get/cadastros")
-    public List<CadastroModelo> getCadastros() {
+    public List<CadastroDTO> getCadastros() {
         return cadastroService.getCadastroList();
-
     }
 
     @PostMapping("/add/cadastro")
-    public ResponseEntity<Integer> addCadastro(@RequestBody CadastroModelo cadastroModelo) {
+    public ResponseEntity<Integer> addCadastro(@RequestBody CadastroDTO cadastroModelo) {
         cadastroService.saveCadastro(cadastroModelo);
         return ResponseEntity.ok(200);
     }
 
     @PostMapping("/update/cadastro")
-    public ResponseEntity<Integer> updateCadastro(@RequestBody CadastroModelo cadastroModelo) {
+    public ResponseEntity<Integer> updateCadastro(@RequestBody CadastroDTO cadastroModelo) {
         cadastroService.updateCadastro(cadastroModelo);
         return ResponseEntity.ok(200);
     }
