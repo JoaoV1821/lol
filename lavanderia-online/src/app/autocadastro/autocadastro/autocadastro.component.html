@@ -18,33 +18,34 @@
                             <img src="../../assets/logoLol.png" alt="Logo" aria-hidden="true" width="200">
                         </div>
                         <div>
-                            <form class="mx-3 mt-3">
+                            <form #formulario="ngForm" (ngSubmit)="realizarCadastro(formulario)" class="mx-3 mt-3">
                                 <div class="row align-items-start">
                                     <div class="col">
                                         <div>
                                             <label class="form-label mt-2" for="nome">Nome:</label>
 
                                             <input type="text" class="form-control inputlol text-left" id="nome"
-                                                name="nome" required>
+                                                name="nome" 
+                                                ngModel required>
                                         </div>
                                         <div class="row">
                                             <div class="col-sm-6">
                                                 <label class="form-label mt-2" for="cpf">CPF:</label>
 
                                                 <input type="text" title="Digite seu CPF"
-                                                    class="form-control inputlol text-left" id="CPF"
-                                                    pattern="(\d{3}\.?\d{3}\.?\d{3}-?\d{2})" required>
+                                                    class="form-control inputlol text-left" id="CPF" name="cpf"
+                                                    pattern="(\d{3}\.?\d{3}\.?\d{3}-?\d{2})" ngModel required>
                                             </div>
                                             <div class="col-sm-6">
                                                 <label class="form-label mt-2" for="telefone">Telefone:</label>
-                                                <input type="tel" class="form-control inputlol text-left" id="telefone" name="telefone">
+                                                <input type="tel" class="form-control inputlol text-left" id="telefone" name="telefone" ngModel>
                                             </div>
                                         </div>
                                         <div>
                                             <label class="form-label mt-2" for="email">E-mail:</label>
 
                                             <input type="email" class="form-control inputlol text-left" id="email"
-                                                name="email" required>
+                                                name="email" ngModel required> 
                                         </div>
                                     </div>
                                     <div class="col">
@@ -53,31 +54,31 @@
                                                 CEP: 
                                                     <div class="input-group col-sm-5">
                                                         <button class="btn btn-outline-secondary" (click)="requestCep()" type="button" id="button-addon1">O</button>
-                                                        <input type="text" #cep class="form-control inputlol" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
+                                                        <input name="cep" type="text" #cep class="form-control inputlol" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1" ngModel>
                                                     </div>      
                                             </div>
                                             <div class="col-sm-5">
                                                 <label class="form-label mt-2" for="nome">Cidade:</label>
-                                                <input type="text" #cidade class="form-control inputlol text-left" id="cidade" required>
+                                                <input name="cidade" type="text" #cidade class="form-control inputlol text-left" id="cidade" ngModel required>
                                             </div>
                                         </div>
                                         <div>
                                             <label class="form-label mt-2" for="nome">Endereço:</label>
 
-                                            <input type="text" #endereco class="form-control inputlol text-left" id="endereco"
-                                                required>
+                                            <input name="endereco" type="text" #endereco class="form-control inputlol text-left" id="endereco"
+                                            ngModel required>
 
                                         </div>
                                         <div class="row">
                                             <div class="col-sm-4">
                                                 <label class="form-label mt-2" for="nome">Número:</label>
 
-                                                <input type="text" class="form-control inputlol text-left" id="numero"
-                                                    required>
+                                                <input name="numero" type="text" class="form-control inputlol text-left" id="numero"
+                                                ngModel required>
                                             </div>
                                             <div class="col-sm-8">
                                                 <label class="form-label mt-2" for="nome">Complemento:</label>
-                                                <input type="text" #complemento class="form-control inputlol text-left" id="complemento">
+                                                <input name="complemento" type="text" #complemento class="form-control inputlol text-left" id="complemento" ngModel>
 
                                             </div>
                                         </div>
