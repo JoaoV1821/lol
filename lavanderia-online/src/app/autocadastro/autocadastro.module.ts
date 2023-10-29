@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import { FormsModule } from '@angular/forms';
 import { AutocadastroComponent } from './autocadastro/autocadastro.component';
 import { AutocadastroService } from './services';
 
@@ -9,7 +9,8 @@ import { AutocadastroService } from './services';
     AutocadastroComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    FormsModule
   ],
   exports: [
     AutocadastroComponent

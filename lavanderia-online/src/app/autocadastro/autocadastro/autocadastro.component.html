@@ -25,19 +25,42 @@
                                             <label class="form-label mt-2" for="nome">Nome:</label>
 
                                             <input type="text" class="form-control inputlol text-left" id="nome"
+                                                [(ngModel)]="pessoa.nome" #nome="ngModel" minlength="5" maxlength="60"
                                                 name="nome" required>
+                                            <div *ngIf="nome.errors && (nome.dirty || nome.touched)"
+                                                class="alert alert-danger">
+                                                <div [hidden]="!nome.errors['required']">Nome completo obrigatório.
+                                                </div>
+                                                <div [hidden]="!nome.errors['minlength']">O nome deve conter no mínimo 5
+                                                    caracteres.</div>
+                                            </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-sm-6">
                                                 <label class="form-label mt-2" for="cpf">CPF:</label>
-
-                                                <input type="text" title="Digite seu CPF"
-                                                    class="form-control inputlol text-left" id="CPF"
-                                                    pattern="(\d{3}\.?\d{3}\.?\d{3}-?\d{2})" required>
+                                                <input type="text" class="form-control inputlol text-left" id="CPF"
+                                                    name="cpf" title="Digite seu CPF"
+                                                    pattern="(\d{3}\.?\d{3}\.?\d{3}-?\d{2})" [(ngModel)]="pessoa.cpf"
+                                                    #cpf="ngModel" minlength="11" maxlength="11" required>
+                                                <div *ngIf="cpf.errors && (cpf.dirty || cpf.touched)"
+                                                    class="alert alert-danger">
+                                                    <div [hidden]="!cpf.errors['required']">CPF obrigatório.</div>
+                                                    <div [hidden]="!cpf.errors['minlength']">O CPF deve conter no
+                                                        mínimo 11 caracteres.</div>
+                                                </div>
                                             </div>
                                             <div class="col-sm-6">
                                                 <label class="form-label mt-2" for="telefone">Telefone:</label>
-                                                <input type="tel" class="form-control inputlol text-left" id="telefone" name="telefone">
+                                                <input type="tel" class="form-control inputlol text-left" id="telefone"
+                                                    name="telefone" [(ngModel)]="pessoa.contato" #contato="ngModel"
+                                                    minlength="10" maxlength="11" numerico name="telefone">
+                                            </div>
+                                            <div *ngIf="contato.errors && (contato.dirty || contato.touched)"
+                                                class="alert alert-danger">
+                                                <div [hidden]="!contato.errors['required']">Contato obrigatório.
+                                                </div>
+                                                <div [hidden]="!contato.errors['minlength']">Deve conter no
+                                                    mínimo 10 caracteres.</div>
                                             </div>
                                         </div>
                                         <div>
@@ -57,7 +80,8 @@
                                             </div>
                                             <div class="col-sm-8">
                                                 <label class="form-label mt-2" for="nome">Cidade:</label>
-                                                <input type="text" class="form-control inputlol text-left" id="cidade" required>
+                                                <input type="text" class="form-control inputlol text-left" id="cidade"
+                                                    required>
                                             </div>
                                         </div>
                                         <div>
@@ -76,7 +100,8 @@
                                             </div>
                                             <div class="col-sm-8">
                                                 <label class="form-label mt-2" for="nome">Complemento:</label>
-                                                <input type="text" class="form-control inputlol text-left" id="complemento">
+                                                <input type="text" class="form-control inputlol text-left"
+                                                    id="complemento">
 
                                             </div>
                                         </div>
@@ -87,7 +112,7 @@
                                     </div>
                                     <div class="text-center fs-6">
                                         <p class="mb-0 mt-2">Já possui conta? <br>
-                                        <a href="login" class="mb-2" id="logue">Entre aqui.</a>
+                                            <a href="login" class="mb-2" id="logue">Entre aqui.</a>
                                         </p>
                                     </div>
                                 </div>
@@ -97,4 +122,3 @@
                 </div>
             </div>
         </div>
-
