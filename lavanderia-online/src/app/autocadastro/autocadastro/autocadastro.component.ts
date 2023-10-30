@@ -20,12 +20,15 @@ export class AutocadastroComponent implements OnInit {
   ngOnInit(): void {
     
   }
+  
   requestCep() {
     this.AutocadastroService.getCep(this.cep.nativeElement.value).then((response) => {
       
       this.cidade.nativeElement.value =  response.data.localidade;
       this.endereco.nativeElement.value =  response.data.logradouro;
       this.complemento.nativeElement.value =  response.data.complemento;
+    }).catch((error) => {
+        console.log(error.menssge);
     })
       
 

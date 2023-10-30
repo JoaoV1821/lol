@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { PedidoService } from '../services';
 import { PDFDocument, rgb, StandardFonts } from 'pdf-lib';
+import { PedidoService } from '../services/pedido.service';
 
 interface itemCarrinho {
   tipo: string,
@@ -13,6 +13,18 @@ interface itemList {
   tipo: string,
   valor_un: number,
   categoria: string
+}
+
+class Pedido {
+
+  itens : Array<itemCarrinho>;
+  total: number
+
+  constructor(itens:Array<itemCarrinho>, total:number) {
+   this.itens = itens;
+   this.total = total
+    
+}
 }
 
 @Component({
@@ -43,7 +55,7 @@ export class PedidoComponent implements OnInit{
   ]
   total: number = 0;
 
-  constructor() {
+  constructor(private PedidoService: PedidoService) {
   }
 
   async gerarPDF () {
@@ -119,5 +131,14 @@ export class PedidoComponent implements OnInit{
 
   ngOnInit(): void {
 
+  }
+
+  submitPedido(): void {
+    let pedido: Pedido = new Pedido(this.carrinho, this.total);
+      this.PedidoService.postPedido(pedido).then((response) => {
+        console.log('Pedido realizado com sucesso!');
+      }).catch((error) => {
+        console.log(error)
+      })
   }
 }
