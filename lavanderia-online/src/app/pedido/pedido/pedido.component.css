@@ -3,3 +3,8 @@ h1 {
     margin-top: 20px;
     margin-left: 70px;
 }
+
+#cad{
+    border-color: #5a57ff; border-radius: 20px;
+    box-shadow: 0 10px 15px #ccccff;
+}

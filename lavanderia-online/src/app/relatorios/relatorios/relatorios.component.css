@@ -1,6 +1,11 @@
 @import "/src/styles.css";
 
-h1 {
+h1,h4 {
     color: #5a57ff;
     margin-top: 10px;
+}
+
+#card{
+    border-color: #5a57ff; border-radius: 20px;
+    box-shadow: 0 10px 15px #ccccff;
 }

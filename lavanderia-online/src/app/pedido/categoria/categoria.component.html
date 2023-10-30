@@ -12,14 +12,14 @@
     <ng-container *ngFor="let item of items;let i = index;">
         <div *ngIf="item.categoria == categoria && ativo==true" class="itemRow">
             <div id="texto-item">
-                <h5 style="color: #5a57ff">
-                    {{item.tipo}}
-                    {{item.valor_un.toFixed(2)}}
+                <h5 style="color: #000000">
+                    {{item.tipo}}: 
+                      R$ {{item.valor_un.toFixed(2)}}
                 </h5>
             </div>
             <div>
                 <button class="btn btn-secondary" (click)="adicionar(item.tipo,item.valor_un)">+</button>
             </div>
-        </div>
+        </div>  
     </ng-container>
 </div>

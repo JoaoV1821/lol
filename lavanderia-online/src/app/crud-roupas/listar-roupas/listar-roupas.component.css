@@ -2,3 +2,8 @@ h1 {
     color: #5a57ff;
     margin-top: 10px;
 }
+
+table{
+    border: 1px solid #5a57ff;
+    border-radius: 20px;
+}

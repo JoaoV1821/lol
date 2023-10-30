@@ -10,16 +10,16 @@
     <div id="mainBody" class="container">
         <div class="row">
             <div id="categoria-container" class="col mx-3">
-                <div class="col">
+                <div class="col" id="card">
                     <app-categoria (addClick)="addItem($event)" categoria="Blusas" [items]="lista_de_items"></app-categoria>
                 </div>
-                <div class="col">
+                <div class="col" id="card">
                     <app-categoria (addClick)="addItem($event)" categoria="Calças" [items]="lista_de_items"></app-categoria>
                 </div>
-                <div class="col">
+                <div class="col" id="card">
                     <app-categoria (addClick)="addItem($event)" categoria="Camisas" [items]="lista_de_items"></app-categoria>
                 </div>
-                <div class="col">
+                <div class="col" id="card">
                     <app-categoria (addClick)="addItem($event)" categoria="Casacos" [items]="lista_de_items"></app-categoria>
                 </div>
             </div>

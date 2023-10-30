@@ -10,16 +10,15 @@
     <div class="container">
         <div class="row">
             <div class="col">
-              <h1>Relatórios</h1>
+              <h1 id="titulo">Relatórios</h1>
             </div>
         </div>
         <div class="row">
-          <div class="container text-center">
-              <ul class="list-group list-group-horizontal-xxl m-3">
-                <li class="list-group-item list-group-item-info m-3">
-                  <label for="client-list">Lista de clientes </label>
+                <div class="col w-25 m-3">
+                <div class="card p-3" id="card">
+                  <h4 class="mb-4"> Lista de Clientes </h4>
                   <button class="btn btn-info" (click)="gerarRelatorioPDF()">
-                    <svg
+                    Imprimir  <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="16"
                       height="16"
@@ -33,11 +32,13 @@
                       />
                     </svg>
                   </button>
-                </li>
-                <li class="list-group-item list-group-item-warning m-3" >
-                  <label for="top-clientes">Top clientes </label>
+                </div>
+                </div>
+                <div class="col w-25 m-3">
+                <div class="card p-3" id="card">
+                  <h4 class="mb-4">Top Clientes</h4>
                   <button class="btn btn-warning" (click)="gerarRelatorioClientesPDF()">
-                    <svg
+                    Imprimir  <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="16"
                       height="16"
@@ -51,12 +52,17 @@
                       />
                     </svg>
                   </button>
-                </li>
-                <li class="list-group-item list-group-item-danger d-flex justify-content-evenly m-3">
-                  <label for="receita">Receita </label>
-                
+                  </div>
+                </div>
+                  <div class="col w-25 m-3">
+                  <div class="card p-3" id="card">
+                  <h4 class="mb-3">Receita</h4>
+                    <label>Data Início</label>
+                    <input  class="mb-3 form-control inputlol"  #dateInput1 (ngModel)='dataIni' type="date">
+                    <label>Data Fim</label>
+                    <input  class="mb-3 form-control inputlol" #dateInput2 (ngModel)='dataFi'type="date">
                     <button class="btn btn-danger" (click)="gerarRelatorioReceita()">
-                      <svg
+                      Imprimir <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="16"
                         height="16"
@@ -70,17 +76,12 @@
                         />
                       </svg>
                     </button>
-                    <label >Data Início</label>
-                    <input  #dateInput1 (ngModel)='dataIni' type="date">
-                    <label for="">Data Fim</label>
-                    <input  #dateInput2 (ngModel)='dataFi'type="date">
-                    <!-- <h1>{{dateInput1.value}}</h1> -->
-                  
-                  </li>
-                 
-                 
-              </ul>
-            </div>
+                  </div>
+                  </div>
+
+
+
+
             <div *ngIf="" class="container">
               <table
                 *ngIf="mostrarListaClientes"
