@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { AutocadastroComponent } from './autocadastro/autocadastro.component';
 import { AutocadastroService } from './services';
 
+
 @NgModule({
   declarations: [
     AutocadastroComponent

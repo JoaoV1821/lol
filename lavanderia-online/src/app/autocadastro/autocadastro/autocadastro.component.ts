@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
+import { Pessoa } from 'src/app/shared/models/pessoa.model';
 import { AutocadastroService } from '../services/autocadastro.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -13,12 +16,22 @@ export class AutocadastroComponent implements OnInit {
   @ViewChild("cidade") cidade: any
   @ViewChild("complemento") complemento: any
   @ViewChild("endereco") endereco: any
+  @ViewChild('formPessoa') formPessoa!: NgForm;
+  pessoa!: Pessoa;
   
-  constructor(private AutocadastroService: AutocadastroService) {
+  constructor(private AutocadastroService: AutocadastroService,
+    private router: Router ) {
 
   }
   ngOnInit(): void {
     
+  }
+
+  inserirPessoaComponent(): void {
+    if (this.formPessoa.form.valid) {
+      this.AutocadastroService.inserirPessoaService(this.pessoa);
+      this.router.navigate(['/orcamento']);
+    }
   }
   
   requestCep() {
