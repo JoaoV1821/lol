@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.lavanderiabackend.Exceptions.UserNotFoundException;
 import com.example.lavanderiabackend.models.Cadastro.Cadastro;
 import com.example.lavanderiabackend.models.Cadastro.CadastroRepository;
 import com.example.lavanderiabackend.models.Cadastro.Papel;
@@ -52,9 +53,8 @@ public class AuthenticationController {
         
         UsernamePasswordAuthenticationToken  usernamePassword = 
         new UsernamePasswordAuthenticationToken(data.getLogin(), data.getPassword());
-        Cadastro cadastro = cadastroRepository.findByEmail(data.getLogin());
-        if(cadastro == null)
-            return ResponseEntity.notFound().build();
+        Cadastro cadastro = cadastroRepository.findByEmail(data.getLogin())
+        .orElseThrow(()->new UserNotFoundException("Usuario não encontrado!"));
         LoginResponseDTO responseDTO = new LoginResponseDTO(cadastro);
         Authentication auth = this.authenticationManager.authenticate(usernamePassword);
         String token = tokenService.generateToken((Cadastro)auth.getPrincipal());

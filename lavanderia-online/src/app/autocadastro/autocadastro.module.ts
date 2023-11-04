@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AutocadastroComponent } from './autocadastro/autocadastro.component';
-import { AutocadastroService } from './services';
+import { AutoCadastroService } from './services';
 
 @NgModule({
   declarations: [
@@ -16,7 +16,7 @@ import { AutocadastroService } from './services';
     AutocadastroComponent
   ],
   providers: [
-    AutocadastroService
+    AutoCadastroService
   ]
 })
 export class AutocadastroModule { }

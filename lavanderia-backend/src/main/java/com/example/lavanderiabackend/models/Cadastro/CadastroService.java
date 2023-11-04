@@ -8,12 +8,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+
+import com.example.lavanderiabackend.Exceptions.InvalidFieldException;
+import com.example.lavanderiabackend.Exceptions.UserNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-
 import com.example.lavanderiabackend.models.Cadastro.DTO.CadastroDTO;
 import com.example.lavanderiabackend.models.Endereco.EnderecoService;
 import com.example.lavanderiabackend.models.Pedido.Pedido;
+import com.example.lavanderiabackend.services.Validation.CPFValidator;
+import com.example.lavanderiabackend.services.Validation.EmailValidator;
+
 
 @Service
 public class CadastroService {
@@ -31,33 +36,31 @@ public class CadastroService {
     }
 
     public void saveCadastro(CadastroDTO modelo) {
-        Cadastro cadastro = cadastroRepository.findByCpf(modelo.getCpf());
-        if(cadastro == null){
-        cadastro = new Cadastro(modelo);
+        Cadastro cadastro = new Cadastro(modelo);
+        if(!CPFValidator.isCpfValid(modelo.getCpf())) throw new InvalidFieldException("Campo Cpf inválido!","cpf");
+        if(!EmailValidator.isEmailValid(modelo.getEmail())) throw new InvalidFieldException("Campo Email inválido!","email");
         String encryptedPassword = new BCryptPasswordEncoder().encode(modelo.getSenha());
         cadastro.setSenha(encryptedPassword);
         enderecoService.addCadastros(modelo.getEndereco(), List.of(cadastro));
-        }else{ 
-            System.out.println(cadastro.getCadastroId());
-        }
     }
 
     public void updateCadastro(CadastroDTO modelo) {
-        Cadastro cadastro = cadastroRepository.findByCpf(modelo.getCpf());
+        Cadastro cadastro = cadastroRepository.findByCpf(modelo.getCpf())
+        .orElseThrow(()->new UserNotFoundException("Usuario não encontrado :" + modelo.getNome()));
+        if(!CPFValidator.isCpfValid(modelo.getCpf())) throw new InvalidFieldException("Campo Cpf inválido!","cpf");
+        if(!EmailValidator.isEmailValid(modelo.getEmail())) throw new InvalidFieldException("Campo Email inválido!","email");
         Long id = cadastro.getCadastroId();
-        if (cadastro != null) {
-            cadastro = modelMapper.map(modelo, cadastro.getClass());
-            cadastro.setCadastroId(id);
-            cadastro.setEndereco(enderecoService.getEndereco(modelo.getEndereco()));
-            cadastroRepository.save(cadastro);
-        }
+        cadastro = modelMapper.map(modelo, cadastro.getClass());
+        cadastro.setCadastroId(id);
+        cadastro.setEndereco(enderecoService.getEndereco(modelo.getEndereco()));
+        cadastroRepository.save(cadastro);
     }
 
     public void deleteCadastro(String cpf) {
-        Cadastro cadastro = cadastroRepository.findByCpf(cpf);
-        if (cadastro != null) {
-            cadastroRepository.delete(cadastro);
-        }
+        Cadastro cadastro = cadastroRepository.findByCpf(cpf)
+        .orElseThrow(()-> new UserNotFoundException("Usuario com cpf : " + cpf + "não encontrado"));
+        if(!CPFValidator.isCpfValid(cpf)) throw new InvalidFieldException("Campo Cpf inválido!","cpf");
+        cadastroRepository.delete(cadastro);
     }
 
     public List<CadastroDTO> getCadastroList() {
@@ -68,19 +71,16 @@ public class CadastroService {
             modelo = modelMapper.map(cadastro, modelo.getClass());
             modelos.add(modelo);
         }
-        if(modelos.isEmpty())
-            return null;
         return modelos;
     }
 
     public CadastroDTO getCadastro(String cpf) {
-        Cadastro cadastro = cadastroRepository.findByCpf(cpf);
+        Cadastro cadastro = cadastroRepository.findByCpf(cpf)
+        .orElseThrow(()-> new UserNotFoundException("Usuario não encontrado"));
+        if(!CPFValidator.isCpfValid(cpf)) throw new InvalidFieldException("Campo Cpf inválido!","cpf");
         CadastroDTO modelo = new CadastroDTO();
-        if (cadastro != null) {
-            modelo = modelMapper.map(cadastro, modelo.getClass());
-            return modelo;
-        }
-        return null;
+        modelo = modelMapper.map(cadastro, modelo.getClass());
+        return modelo;
     }
 
     public CadastroDTO getUsuarioLogado(){
@@ -97,7 +97,8 @@ public class CadastroService {
     private Cadastro getLoggedUser(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        Cadastro cadastro = cadastroRepository.findByEmail(userDetails.getUsername());
+        Cadastro cadastro = cadastroRepository.findByEmail(userDetails.getUsername())
+        .orElseThrow(()-> new UserNotFoundException("Usuario não encontrado" + userDetails.getUsername()));
         return cadastro;
     }
 

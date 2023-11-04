@@ -8,6 +8,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.lavanderiabackend.Exceptions.StandardNotFoundException;
 import com.example.lavanderiabackend.models.Carrinho.Carrinho;
 import com.example.lavanderiabackend.models.Carrinho.CarrinhoRepository;
 import com.example.lavanderiabackend.models.Pedido.DTO.PedidoBody;
@@ -36,11 +37,9 @@ public class PedidoService {
     }
 
     public PedidoBody getPedido(Long numero_pedido) {
-        Pedido pedido = pedidoRepository.findByNumero(numero_pedido);
-        if (pedido != null) {
-            return new PedidoBody(pedido);
-        }
-        return null;
+        Pedido pedido = pedidoRepository.findByNumero(numero_pedido)
+        .orElseThrow(()->new StandardNotFoundException("Pedido de numero :" + numero_pedido + "não encontrado!"));
+        return new PedidoBody(pedido);
     }
 
     public List<PedidoBody> getPedidoList(String dataInicial, String dataPrazo) {
@@ -86,36 +85,31 @@ public class PedidoService {
     }
 
     public PedidoInfo getPedidoInfo(Long numero_pedido) {
-        Pedido pedido = pedidoRepository.findByNumero(numero_pedido);
-        if (pedido != null) {
-            return new PedidoInfo(pedido);
-        }
-        return null;
+        Pedido pedido = pedidoRepository.findByNumero(numero_pedido)
+        .orElseThrow(()->new StandardNotFoundException("Pedido de numero :" + numero_pedido + "não encontrado!"));
+        return new PedidoInfo(pedido);
     }
 
     @Transactional
     public void deletePedido(Long numero_pedido) {
         pedidoRepository.deleteByNumero(numero_pedido);
-        Pedido pedido = pedidoRepository.findByNumero(numero_pedido);
-        if (pedido != null) {
-            pedidoRepository.delete(pedido);
-        }
+        Pedido pedido = pedidoRepository.findByNumero(numero_pedido)
+        .orElseThrow(()->new StandardNotFoundException("Pedido de numero :" + numero_pedido + "não encontrado!"));
+        pedidoRepository.delete(pedido);
     }
 
     public void updatePedido(Long numero_pedido, PedidoBody body) {
-        Pedido pedido = pedidoRepository.findByNumero(numero_pedido);
-        if (pedido != null) {
-            pedido = modelMapper.map(body, pedido.getClass());
-            pedidoRepository.save(pedido);
-        }
+        Pedido pedido = pedidoRepository.findByNumero(numero_pedido)
+        .orElseThrow(()->new StandardNotFoundException("Pedido de numero :" + numero_pedido + "não encontrado!"));
+        pedido = modelMapper.map(body, pedido.getClass());
+        pedidoRepository.save(pedido);
     }
 
     public void updateStatus(Long numero_pedido, String status) {
-        Pedido pedido = pedidoRepository.findByNumero(numero_pedido);
-        if (pedido != null) {
-            pedido.setStatus(status);
-            pedidoRepository.save(pedido);
-        }
+        Pedido pedido = pedidoRepository.findByNumero(numero_pedido)
+        .orElseThrow(()->new StandardNotFoundException("Pedido de numero :" + numero_pedido + "não encontrado!"));
+        pedido.setStatus(status);
+        pedidoRepository.save(pedido);
     }
 
     public void addPedido(PedidoBody modelo) {

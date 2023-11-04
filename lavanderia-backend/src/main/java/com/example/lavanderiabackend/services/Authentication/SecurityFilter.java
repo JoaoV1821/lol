@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.util.WebUtils;
@@ -32,7 +33,8 @@ public class SecurityFilter extends OncePerRequestFilter {
                 String token = recoverToken(request);
                 if(token != null){
                     String subject = tokenService.validateToken(token);
-                    UserDetails userDetails = cadastroRepository.findByEmail(subject);
+                    UserDetails userDetails = cadastroRepository.findByEmail(subject)
+                    .orElseThrow(()-> new UsernameNotFoundException("Usuário não encontrado!"));
                     if(userDetails != null){
                     var authentication = new UsernamePasswordAuthenticationToken(userDetails,null,userDetails.getAuthorities());
                     SecurityContextHolder.getContext().setAuthentication(authentication);

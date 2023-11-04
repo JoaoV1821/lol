@@ -27,7 +27,7 @@ public class DataLoader implements ApplicationRunner {
     public void run(ApplicationArguments args) throws Exception {
         
         EnderecoModelo enderecoModelo = new EnderecoModelo("99999", "logradouro", "complemento", "123", "cidade");
-        CadastroDTO cadastroModelo = new CadastroDTO("99999", "nome sobrenome","admin", "admin", enderecoModelo, "999-999", Papel.ADMIN);
+        CadastroDTO cadastroModelo = new CadastroDTO("727.713.780-94", "nome sobrenome","admin@admin.com", "admin", enderecoModelo, "999-999", Papel.ADMIN);
         cadastroService.saveCadastro(cadastroModelo);
 
         

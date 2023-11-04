@@ -7,6 +7,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.lavanderiabackend.Exceptions.StandardNotFoundException;
 import com.example.lavanderiabackend.models.Categoria.Categoria;
 import com.example.lavanderiabackend.models.Categoria.CategoriaRepository;
 import com.example.lavanderiabackend.models.Roupa.DTO.RoupaCategoria;
@@ -61,7 +62,8 @@ public class RoupaService {
 
     public void updateCategoria(String numero_roupa, String numero_categoria) {
         Roupa roupa = roupaRepository.findByNumero(numero_roupa);
-        Categoria categoria = categoriaRepository.findByNumero(numero_categoria);
+        Categoria categoria = categoriaRepository.findByNumero(numero_categoria)
+        .orElseThrow(()->new StandardNotFoundException("Categoria de numero"+ numero_categoria + "não encontrado!"));
         roupa.categoria = categoria;
         roupaRepository.save(roupa);
     }
