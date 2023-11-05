@@ -17,79 +17,116 @@ import { ListagemFComponent } from './listagemF';
 import { RelatoriosComponent } from './relatorios';
 import { EditarFuncionarioComponent, InserirFuncionarioComponent, ListarFuncionarioComponent } from './funcionario';
 
-const routes: Routes = [
-  { path: '',
+export const routes: Routes = [
+  {
+    path: '',
     redirectTo: '',
-    pathMatch: 'full'},
-    
-  { path: 'autocadastro',
-    redirectTo: 'autocadastro/autocadastro'},
-  { path: 'autocadastro/autocadastro',
-    component: AutocadastroComponent },
+    pathMatch: 'full'
+  },
+  {
+    path: 'autocadastro',
+    redirectTo: 'autocadastro/autocadastro'
+  },
+  {
+    path: 'autocadastro/autocadastro',
+    component: AutocadastroComponent
+  },
 
-  { path: 'consulta-pedido',
-    redirectTo: 'consulta-pedido/consulta-pedido'},
-  { path: 'consulta-pedido/consulta-pedido',
-    component: ConsultaPedidoComponent },
+  {
+    path: 'consulta-pedido',
+    redirectTo: 'consulta-pedido/consulta-pedido'
+  },
+  {
+    path: 'consulta-pedido/consulta-pedido',
+    component: ConsultaPedidoComponent
+  },
 
-  { path: 'login',
-    redirectTo: 'login/login'},
-  { path: 'login/login',
-    component: LoginComponent },
+  {
+    path: 'login',
+    redirectTo: 'login/login'
+  },
+  {
+    path: 'login/login',
+    component: LoginComponent
+  },
 
-  { path: 'orcamento',
-    redirectTo: 'orcamento/orcamento'},
-  { path: 'orcamento/orcamento',
-    component: OrcamentoComponent },
+  {
+    path: 'orcamento',
+    redirectTo: 'orcamento/orcamento'
+  },
+  {
+    path: 'orcamento/orcamento',
+    component: OrcamentoComponent
+  },
 
-  { path: 'listagem',
-    redirectTo: 'listagem/listagem'},
-  { path: 'listagem/listagem',
-    component: ListagemComponent },
+  {
+    path: 'listagem',
+    redirectTo: 'listagem/listagem'
+  },
+  {
+    path: 'listagem/listagem',
+    component: ListagemComponent
+  },
 
-  { path: 'pagamento',
-    redirectTo: 'pagamento/pagamento'},
-  { path: 'pagamento/pagamento',
-    component: PagamentoComponent },
+  {
+    path: 'pagamento',
+    redirectTo: 'pagamento/pagamento'
+  },
+  {
+    path: 'pagamento/pagamento',
+    component: PagamentoComponent
+  },
 
-  { path: 'pagina-inicial',
-    redirectTo: 'pagina-inicial/pagina-inicial'},
-  { path: 'pagina-inicial/pagina-inicial',
-    component: PaginaInicialComponent },
+  {
+    path: 'pagina-inicial',
+    redirectTo: 'pagina-inicial/pagina-inicial'
+  },
+  {
+    path: 'pagina-inicial/pagina-inicial',
+    component: PaginaInicialComponent
+  },
 
-  { path: 'pagina-inicial-funcionario',
-    redirectTo: 'pagina-inicial-funcionario/listar-pedidos-aberto'},
-  { path: 'pagina-inicial-funcionario/listar-pedidos-aberto',
-    component: ListarPedidosAbertosComponent },
+  {
+    path: 'pagina-inicial-funcionario',
+    redirectTo: 'pagina-inicial-funcionario/listar-pedidos-aberto'
+  },
+  {
+    path: 'pagina-inicial-funcionario/listar-pedidos-aberto',
+    component: ListarPedidosAbertosComponent
+  },
 
-  { path: 'pedido',
-    redirectTo: 'pedido/pedido'},
-  { path: 'pedido/pedido',
-    component: PedidoComponent },
-  
-    //CRUD Roupas
-  { path: 'roupas', redirectTo: 'roupas/listar-roupas'},
-  { path: 'roupas/listar-roupas', component: ListarRoupasComponent},
-  { path: 'roupas/novo', component: InserirRoupaComponent},
-  { path: 'roupas/editar/:id', component: EditarRoupaComponent},
-  
-  { path: 'funcionarios', redirectTo: 'funcionario/listar-funcionario'},
-  { path: 'funcionario/listar-funcionario', component: ListarFuncionarioComponent},
-  { path: 'funcionario/inserir-funcionario', component: InserirFuncionarioComponent},
-  { path: 'funcionario/editar-funcionario', component: EditarFuncionarioComponent},
-  
-  { path: 'prop', redirectTo: 'prototipos/rf012'},
-  { path: 'prototipos/rf012', component: Rf012Component},
+  {
+    path: 'pedido',
+    redirectTo: 'pedido/pedido'
+  },
+  {
+    path: 'pedido/pedido',
+    component: PedidoComponent
+  },
 
-  { path: 'listagemF', redirectTo: 'listagemF/listagemF'},
-  { path: 'listagemF', component: ListagemFComponent},
-  
-  { path: 'relatorios', redirectTo: 'relatorios/relatorios'},
-  { path: 'relatorios', component: RelatoriosComponent}
-  
+  //CRUD Roupas
+  { path: 'roupas', redirectTo: 'roupas/listar-roupas' },
+  { path: 'roupas/listar-roupas', component: ListarRoupasComponent },
+  { path: 'roupas/novo', component: InserirRoupaComponent },
+  { path: 'roupas/editar/:id', component: EditarRoupaComponent },
+
+  { path: 'funcionarios', redirectTo: 'funcionario/listar-funcionario' },
+  { path: 'funcionario/listar-funcionario', component: ListarFuncionarioComponent },
+  { path: 'funcionario/inserir-funcionario', component: InserirFuncionarioComponent },
+  { path: 'funcionario/editar-funcionario', component: EditarFuncionarioComponent },
+
+  { path: 'prop', redirectTo: 'prototipos/rf012' },
+  { path: 'prototipos/rf012', component: Rf012Component },
+
+  { path: 'listagemF', redirectTo: 'listagemF/listagemF' },
+  { path: 'listagemF', component: ListagemFComponent },
+
+  { path: 'relatorios', redirectTo: 'relatorios/relatorios' },
+  { path: 'relatorios', component: RelatoriosComponent }
+
 
   //Relatorios, Pagina-Funcionario
-  
+
 ];
 
 @NgModule({

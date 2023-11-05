@@ -9,16 +9,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-
 import com.example.lavanderiabackend.models.Cadastro.DTO.CadastroDTO;
 import com.example.lavanderiabackend.models.Cadastro.Wrappers.CpfWrapper;
 
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/cadastro")
+@RequestMapping("/api/cadastro")
 public class CadastroController {
-    
+
     private final CadastroService cadastroService;
 
     @Autowired

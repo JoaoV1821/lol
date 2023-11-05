@@ -17,7 +17,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @RestController
-@RequestMapping("/roupa")
+@RequestMapping("/api/roupa")
 public class RoupaController {
 
     RoupaService roupaService;

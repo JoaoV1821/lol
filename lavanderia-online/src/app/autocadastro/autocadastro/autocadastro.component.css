@@ -1,21 +1,22 @@
-.inputlol{
+.inputlol {
     border-color: #b8b7ff;
 }
-.inputlol:focus{
+
+.inputlol:focus {
     border-color: #5a57ff;
     box-shadow: 0 0 10px 0.25rem #d9d8ff;
 }
 
-#logue{
+#logue {
     color: #5a57ff;
 }
 
-#card{
-    border-color: #5a57ff; border-radius: 20px;
+#card {
+    border-color: #5a57ff;
+    border-radius: 20px;
     box-shadow: 0 10px 15px #ccccff;
 }
 
-.inputCep { 
+.inputCep {
     margin-top: 15px;
 }
-

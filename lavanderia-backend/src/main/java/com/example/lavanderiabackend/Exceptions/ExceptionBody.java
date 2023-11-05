@@ -12,7 +12,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class ExceptionBody implements Serializable{
+public class ExceptionBody implements Serializable {
     private Instant timestamp;
     private Integer status;
     private String error;

@@ -18,7 +18,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @RestController
-@RequestMapping("/pedido")
+@RequestMapping("/api/pedido")
 public class PedidoController {
 
     PedidoService pedidoService;
