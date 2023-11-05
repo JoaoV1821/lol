@@ -2,6 +2,8 @@ package com.example.lavanderiabackend.models.Cadastro;
 
 import java.util.List;
 import java.util.ArrayList;
+
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -107,4 +109,24 @@ public class CadastroService {
         return cadastro;
     }
 
+    public List<Pedido> getListaPedidos(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        Cadastro cadastro = cadastroRepository.findByEmail(userDetails.getUsername())
+        .orElseThrow(()-> new UserNotFoundException("Usuario não existe!"));
+        List<Pedido> pedidos = cadastro.getPedidos();
+        return pedidos;
+    }
+
+    public void deletarPedido(String pedido){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        Cadastro cadastro = cadastroRepository.findByEmail(userDetails.getUsername())
+        .orElseThrow(()-> new UserNotFoundException("Usuario não existe!"));
+
+        
+    }
+
 }
+
+

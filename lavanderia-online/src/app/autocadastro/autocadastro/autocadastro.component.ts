@@ -54,7 +54,7 @@ export class AutocadastroComponent implements OnInit {
     let dados = formulario.value;
     let endereco = new Endereco(dados.cep, dados.cidade, dados.endereco, dados.numero, dados.complemento);
     let cadastro = new Cadastro(dados.nome, dados.cpf, dados.telefone, dados.email, endereco);
-    let result = await RequestMaker.postData("/auth/register", cadastro);
+    let result = await RequestMaker.postData<string>("/auth/register", cadastro);
     if (result.error) {
       console.log(result.error);
     } else if (result.data) {

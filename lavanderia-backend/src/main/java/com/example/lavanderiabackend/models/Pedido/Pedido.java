@@ -27,8 +27,8 @@ public class Pedido {
     @Id
     @SequenceGenerator(name = "pedido_sequence", sequenceName = "pedido_sequence", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pedido_sequence")
-    public Long codigoPedido;
-    public Long numero;
+    public Long codigoPedido;// 1,2,3,4,5,6,7,
+    public Long numero; // Cliente 1 : 001 ,002 ,003 ,0004 , Cliente2 : 001 ,002 , 007
     public LocalDate data;
     public LocalDate prazo;
     public double total;

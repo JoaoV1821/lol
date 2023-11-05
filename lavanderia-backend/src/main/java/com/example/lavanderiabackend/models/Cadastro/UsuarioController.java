@@ -18,7 +18,7 @@ public class UsuarioController {
     UsuarioController(CadastroService cadastroService) {
         this.cadastroService = cadastroService;
     }
-
+// token administrador todos os 
     @GetMapping("/get/usuario")
     public ResponseEntity<Object> getUsuario() {
         cadastroService.getUsuarioLogado();
@@ -35,4 +35,12 @@ public class UsuarioController {
         cadastroService.updateCadastro(cadastroDTO);
         return ResponseEntity.ok().build();
     }
+
+    @GetMapping("/deletar/pedido")
+    public ResponseEntity<Object> deletar(){
+        cadastroService.deletarPedido();
+        return ResponseEntity.ok().build();
+    }
+
+    
 }

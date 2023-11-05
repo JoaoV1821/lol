@@ -16,7 +16,13 @@ export class LoginService {
     if (response.error) {
       alert(response.error.message);
     } else if (response.data) {
-      this.router.navigate(["/orcamento"]);
+      if(response.data.perfil == "admin"){
+        this.router.navigate(["/pagina-inicial"])
+      }else{
+        this.router.navigate(["/orcamento"]);
+      
+       
+      }
     }
   }
 }

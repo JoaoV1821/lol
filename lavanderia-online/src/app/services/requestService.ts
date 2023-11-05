@@ -17,6 +17,7 @@ export abstract class RequestMaker {
 
     private static async baseFunction<T>(url: string, body: any, type: string): Promise<RequestResult<T>> {
         url = this.checkUrl(url);
+        console.log(this.baseUrl + url);
         if (this.baseUrl == "") {
             return await this.getCurrentUrl()
                 .then(

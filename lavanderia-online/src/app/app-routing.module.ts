@@ -20,7 +20,7 @@ import { EditarFuncionarioComponent, InserirFuncionarioComponent, ListarFunciona
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: '',
+    redirectTo: 'login/login',
     pathMatch: 'full'
   },
   {

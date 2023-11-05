@@ -36,21 +36,9 @@ public class SecurityConfigurations {
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/api/**").authenticated()
-                        .requestMatchers(HttpMethod.POST, "/api/auth/*").permitAll()
-                        .requestMatchers("/api/cadastro/*").hasRole("admin")
-                        // .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                        /*
-                         * .requestMatchers(HttpMethod.GET,
-                         * "/",
-                         * "/dev/getEndpoints",
-                         * "/dev/getPostEndpoints",
-                         * "/*.js",
-                         * "/*.css",
-                         * "/*.html",
-                         * "/*.ico")
-                         * .permitAll()
-                         */
+                        //.requestMatchers("/api/**").authenticated()
+                        //.requestMatchers(HttpMethod.POST, "/api/auth/*").permitAll()
+                        //.requestMatchers("/api/cadastro/*").hasRole("admin")
                         .anyRequest().permitAll())
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(cookieFilter, ChannelProcessingFilter.class)
