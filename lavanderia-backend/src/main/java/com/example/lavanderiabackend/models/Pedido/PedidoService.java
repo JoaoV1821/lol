@@ -9,36 +9,37 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.lavanderiabackend.Exceptions.StandardNotFoundException;
+import com.example.lavanderiabackend.models.Cadastro.Cadastro;
 import com.example.lavanderiabackend.models.Carrinho.Carrinho;
 import com.example.lavanderiabackend.models.Carrinho.CarrinhoRepository;
+import com.example.lavanderiabackend.models.Carrinho.DTOS.CarrinhoDTO;
 import com.example.lavanderiabackend.models.Pedido.DTO.PedidoBody;
 import com.example.lavanderiabackend.models.Pedido.DTO.PedidoInfo;
 import com.example.lavanderiabackend.models.Roupa.Roupa;
-import com.example.lavanderiabackend.models.Roupa.RoupaRepository;
-import com.example.lavanderiabackend.models.Roupa.DTO.RoupaCarrinho;
-
+import com.example.lavanderiabackend.models.Roupa.RoupaService;
 import jakarta.transaction.Transactional;
 
 @Service
 public class PedidoService {
 
-    PedidoRepository pedidoRepository;
-    CarrinhoRepository carrinhoRepository;
-    RoupaRepository roupaRepository;
-    ModelMapper modelMapper;
+    public final PedidoRepository pedidoRepository;
+    public final CarrinhoRepository carrinhoRepository;
+    public final RoupaService roupaService;
+    public final ModelMapper modelMapper;
 
     @Autowired
     PedidoService(PedidoRepository pedidoRepository, ModelMapper modelMapper, CarrinhoRepository carrinhoRepository,
-            RoupaRepository roupaRepository) {
+            RoupaService roupaService) {
         this.pedidoRepository = pedidoRepository;
         this.modelMapper = modelMapper;
         this.carrinhoRepository = carrinhoRepository;
-        this.roupaRepository = roupaRepository;
+        this.roupaService = roupaService;
     }
 
     public PedidoBody getPedido(Long numero_pedido) {
         Pedido pedido = pedidoRepository.findByNumero(numero_pedido)
-        .orElseThrow(()->new StandardNotFoundException("Pedido de numero :" + numero_pedido + "não encontrado!"));
+                .orElseThrow(
+                        () -> new StandardNotFoundException("Pedido de numero :" + numero_pedido + "não encontrado!"));
         return new PedidoBody(pedido);
     }
 
@@ -86,45 +87,111 @@ public class PedidoService {
 
     public PedidoInfo getPedidoInfo(Long numero_pedido) {
         Pedido pedido = pedidoRepository.findByNumero(numero_pedido)
-        .orElseThrow(()->new StandardNotFoundException("Pedido de numero :" + numero_pedido + "não encontrado!"));
+                .orElseThrow(
+                        () -> new StandardNotFoundException("Pedido de numero :" + numero_pedido + "não encontrado!"));
         return new PedidoInfo(pedido);
-    }
-
-    @Transactional
-    public void deletePedido(Long numero_pedido) {
-        pedidoRepository.deleteByNumero(numero_pedido);
-        Pedido pedido = pedidoRepository.findByNumero(numero_pedido)
-        .orElseThrow(()->new StandardNotFoundException("Pedido de numero :" + numero_pedido + "não encontrado!"));
-        pedidoRepository.delete(pedido);
     }
 
     public void updatePedido(Long numero_pedido, PedidoBody body) {
         Pedido pedido = pedidoRepository.findByNumero(numero_pedido)
-        .orElseThrow(()->new StandardNotFoundException("Pedido de numero :" + numero_pedido + "não encontrado!"));
+                .orElseThrow(
+                        () -> new StandardNotFoundException("Pedido de numero :" + numero_pedido + "não encontrado!"));
         pedido = modelMapper.map(body, pedido.getClass());
         pedidoRepository.save(pedido);
     }
 
     public void updateStatus(Long numero_pedido, String status) {
         Pedido pedido = pedidoRepository.findByNumero(numero_pedido)
-        .orElseThrow(()->new StandardNotFoundException("Pedido de numero :" + numero_pedido + "não encontrado!"));
+                .orElseThrow(
+                        () -> new StandardNotFoundException("Pedido de numero :" + numero_pedido + "não encontrado!"));
         pedido.setStatus(status);
         pedidoRepository.save(pedido);
     }
 
-    public void addPedido(PedidoBody modelo) {
-        Pedido pedido = new Pedido();
-        pedido = modelMapper.map(modelo, pedido.getClass());
-        pedido = pedidoRepository.save(pedido);
-        for (RoupaCarrinho roupaModelo : modelo.roupas) {
-            Roupa resultado = roupaRepository.findByNumero(roupaModelo.numero);
-            if (resultado != null) {
-                Carrinho carrinho = new Carrinho();
-                carrinho.setPedido(pedido);
-                carrinho.setQuantidade(roupaModelo.quantidade);
-                carrinho.setRoupa(resultado);
-                carrinhoRepository.save(carrinho);
+    public Cadastro updatePedido(Cadastro cadastro, PedidoBody body, String numero_pedido) {
+        List<Pedido> pedidos = cadastro.getPedidos();
+        for (Pedido pedido : pedidos) {
+            if (pedido.numero == Long.parseLong(numero_pedido)) {
+                pedido = modelMapper.map(body, pedido.getClass());
+                pedidoRepository.save(pedido);
             }
         }
+        cadastro.setPedidos(pedidos);
+        return cadastro;
+    }
+
+    public List<PedidoBody> getPedidoList(Cadastro cadastro) {
+        List<Pedido> pedidos = cadastro.getPedidos();
+        List<PedidoBody> bodies = new ArrayList<>();
+        for (Pedido pedido : pedidos) {
+            PedidoBody body = new PedidoBody(pedido);
+            bodies.add(body);
+        }
+        return bodies;
+    }
+
+    /*
+     * public void addPedido(PedidoBody modelo) {
+     * Pedido pedido = new Pedido();
+     * pedido = modelMapper.map(modelo, pedido.getClass());
+     * pedido = pedidoRepository.save(pedido);
+     * for (RoupaCarrinho roupaModelo : modelo.roupas) {
+     * Roupa resultado = roupaService.getRoupa(roupaModelo.numero);
+     * if (resultado != null) {
+     * Carrinho carrinho = new Carrinho();
+     * carrinho.setPedido(pedido);
+     * carrinho.setQuantidade(roupaModelo.quantidade);
+     * carrinho.setRoupa(resultado);
+     * carrinhoRepository.save(carrinho);
+     * }
+     * }
+     * }
+     */
+
+    public Cadastro addPedido(Cadastro cadastro, List<CarrinhoDTO> carrinhosDTO) {
+        Long numeroPedido = cadastro.getLastestPedido() + 1;
+        LocalDate data = LocalDate.now();
+        long prazo = 0;
+        String status = "EM ABERTO";
+        Double total = 0.0;
+        Pedido pedido = new Pedido(null, numeroPedido, data, null, 0.0, status, new ArrayList<>(), cadastro);
+        if (cadastro.getPedidos() != null)
+            cadastro.getPedidos().add(pedido);
+        else
+            cadastro.setPedidos(new ArrayList<Pedido>());
+        for (CarrinhoDTO carrinhoDTO : carrinhosDTO) {
+            Roupa roupa = roupaService.getRoupa(carrinhoDTO.getNumeroRoupa());
+            pedido.addCarrinho(new Carrinho(pedido, roupa, carrinhoDTO.getQuantidade()));
+            total += (roupa.getValor() * carrinhoDTO.getQuantidade());
+            prazo = roupa.getTempoDeLavagem() > prazo ? roupa.getTempoDeLavagem() : prazo;
+        }
+        pedido.setTotal(total);
+        pedido.setPrazo(data.plusDays(prazo));
+        pedido = pedidoRepository.save(pedido);
+        return cadastro;
+    }
+
+    public Cadastro updatePedidoStatus(Cadastro cadastro, String status, Long numeroPedido) {
+        List<Pedido> pedidos = cadastro.getPedidos();
+        for (Pedido pedido : pedidos) {
+            if (pedido.getNumero().equals(numeroPedido)) {
+                pedido.setStatus(status);
+                pedidoRepository.save(pedido);
+            }
+        }
+        return cadastro;
+    }
+
+    @Transactional
+    public Cadastro deletePedido(Cadastro usuario, String numero_pedido) {
+        List<Pedido> pedidos = usuario.getPedidos();
+        for (Pedido pedido : pedidos) {
+            if (pedido.numero == Long.parseLong(numero_pedido)) {
+                pedidos.remove(pedido);
+                pedidoRepository.delete(pedido);
+            }
+        }
+        usuario.setPedidos(pedidos);
+        return usuario;
     }
 }

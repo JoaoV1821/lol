@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import axios from 'axios';
 import { Pessoa } from 'src/app/shared/models/pessoa.model';
-import { getData } from 'src/app/services/axiosService';
 
 @Injectable({
   providedIn: 'root'

@@ -3,7 +3,6 @@ package com.example.lavanderiabackend.models.Cadastro;
 import java.util.List;
 import java.util.ArrayList;
 
-
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -15,8 +14,10 @@ import com.example.lavanderiabackend.Exceptions.UserNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.example.lavanderiabackend.models.Cadastro.DTO.CadastroDTO;
+import com.example.lavanderiabackend.models.Carrinho.DTOS.CarrinhoDTO;
 import com.example.lavanderiabackend.models.Endereco.EnderecoService;
-import com.example.lavanderiabackend.models.Pedido.Pedido;
+import com.example.lavanderiabackend.models.Pedido.PedidoService;
+import com.example.lavanderiabackend.models.Pedido.DTO.PedidoBody;
 import com.example.lavanderiabackend.services.Validation.CPFValidator;
 import com.example.lavanderiabackend.services.Validation.EmailValidator;
 
@@ -26,16 +27,22 @@ public class CadastroService {
     public CadastroRepository cadastroRepository;
     public ModelMapper modelMapper;
     public EnderecoService enderecoService;
+    public PedidoService pedidoService;
 
     @Autowired
     CadastroService(CadastroRepository cadastroRepository, ModelMapper modelMapper,
-            EnderecoService enderecoService) {
+            EnderecoService enderecoService, PedidoService pedidoService) {
         this.cadastroRepository = cadastroRepository;
         this.modelMapper = modelMapper;
         this.enderecoService = enderecoService;
+        this.pedidoService = pedidoService;
     }
 
     public void saveCadastro(CadastroDTO modelo) {
+        if (cadastroRepository.findByCpf(modelo.getCpf()).isPresent()) {
+            updateCadastro(modelo);
+            return;
+        }
         Cadastro cadastro = new Cadastro(modelo);
         if (!CPFValidator.isCpfValid(modelo.getCpf()))
             throw new InvalidFieldException("Campo Cpf inválido!", "cpf");
@@ -96,11 +103,6 @@ public class CadastroService {
         return cadastroModelo;
     }
 
-    public List<Pedido> getPedidos() {
-        Cadastro cadastro = getLoggedUser();
-        return cadastro.getPedidos();
-    }
-
     private Cadastro getLoggedUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
@@ -109,24 +111,41 @@ public class CadastroService {
         return cadastro;
     }
 
-    public List<Pedido> getListaPedidos(){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        Cadastro cadastro = cadastroRepository.findByEmail(userDetails.getUsername())
-        .orElseThrow(()-> new UserNotFoundException("Usuario não existe!"));
-        List<Pedido> pedidos = cadastro.getPedidos();
-        return pedidos;
+    public List<PedidoBody> getListaPedidos() {
+        Cadastro cadastro = getCadastroFromToken();
+        return pedidoService.getPedidoList(cadastro);
     }
 
-    public void deletarPedido(String pedido){
+    public void addPedido(List<CarrinhoDTO> carrinhos) {
+        Cadastro cadastro = getCadastroFromToken();
+        cadastro = this.pedidoService.addPedido(cadastro, carrinhos);
+        cadastroRepository.save(cadastro);
+    }
+
+    public void deletarPedido(String numero_pedido) {
+        Cadastro cadastro = getCadastroFromToken();
+        cadastro = this.pedidoService.deletePedido(cadastro, numero_pedido);
+        cadastroRepository.save(cadastro);
+    }
+
+    public void updatePedido(PedidoBody modelo, String numero_pedido) {
+        Cadastro cadastro = getCadastroFromToken();
+        cadastro = this.pedidoService.updatePedido(cadastro, modelo, numero_pedido);
+        cadastroRepository.save(cadastro);
+    }
+
+    public void updatePedidoStatus(String status, String numeroPedido) {
+        Cadastro cadastro = getCadastroFromToken();
+        cadastro = this.pedidoService.updatePedidoStatus(cadastro, status, Long.parseLong(numeroPedido));
+        cadastroRepository.save(cadastro);
+    }
+
+    private Cadastro getCadastroFromToken() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         Cadastro cadastro = cadastroRepository.findByEmail(userDetails.getUsername())
-        .orElseThrow(()-> new UserNotFoundException("Usuario não existe!"));
-
-        
+                .orElseThrow(() -> new UserNotFoundException("Usuario não existe!"));
+        return cadastro;
     }
 
 }
-
-

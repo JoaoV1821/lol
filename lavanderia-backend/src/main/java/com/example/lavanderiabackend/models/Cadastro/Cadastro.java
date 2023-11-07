@@ -1,6 +1,8 @@
 package com.example.lavanderiabackend.models.Cadastro;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.security.core.GrantedAuthority;
@@ -49,72 +51,82 @@ public class Cadastro implements UserDetails {
     private String senha;
     @Column(nullable = false)
     private String telefone;
-    @Column(nullable=false)
+    @Column(nullable = false)
     private Papel papel;
     @ManyToOne
     @JoinColumn(name = "endereco_id", nullable = false)
     private Endereco endereco;
     @OneToMany(mappedBy = "cadastro", cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<Pedido> pedidos;
-    
 
     public Cadastro(CadastroDTO modelo) {
-        
+
         String listaNomes[] = modelo.getNome().split(" ");
         this.nome = listaNomes[0];
-        this.sobrenome =  String.join("",listaNomes);
+        this.sobrenome = String.join("", listaNomes);
         this.cpf = modelo.getCpf();
         this.email = modelo.getEmail();
         this.telefone = modelo.getTelefone();
         this.papel = modelo.getPapel();
     }
 
-    public Cadastro(UserDTO user){
+    public Cadastro(UserDTO user) {
         String listaNomes[] = user.getNome().split(" ");
         this.cpf = user.getCpf();
-        this.email =user.getEmail();
+        this.email = user.getEmail();
         this.nome = listaNomes[0];
         listaNomes[0] = "";
-        this.sobrenome = String.join("",listaNomes);
+        this.sobrenome = String.join("", listaNomes);
         this.telefone = user.getTelefone();
     }
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        if(this.papel == Papel.ADMIN) return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"),new SimpleGrantedAuthority("ROLE_USER"));
-        else return List.of(new SimpleGrantedAuthority("ROLE_USER"));
-        
+
+    public void addPedido(Pedido pedido) {
+        this.pedidos = this.pedidos != null ? this.pedidos : new ArrayList<>();
+        this.pedidos.add(pedido);
+        pedido.setCadastro(this);
     }
 
+    public Long getLastestPedido() {
+        if (this.pedidos == null) {
+            return Long.valueOf(0);
+        } else {
+            return Collections.max(pedidos).getNumero();
+        }
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        if (this.papel == Papel.ADMIN)
+            return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"), new SimpleGrantedAuthority("ROLE_USER"));
+        else
+            return List.of(new SimpleGrantedAuthority("ROLE_USER"));
+
+    }
 
     @Override
     public String getPassword() {
         return this.getSenha();
     }
 
-
     @Override
     public String getUsername() {
         return this.getEmail();
     }
-
 
     @Override
     public boolean isAccountNonExpired() {
         return true;
     }
 
-
     @Override
     public boolean isAccountNonLocked() {
         return true;
     }
 
-
     @Override
     public boolean isCredentialsNonExpired() {
         return true;
     }
-
 
     @Override
     public boolean isEnabled() {

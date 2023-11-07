@@ -30,7 +30,7 @@ public class PedidoBody {
         this.status = pedido.status;
         for (Carrinho carrinho : pedido.carrinhos) {
             RoupaCarrinho roupa = new RoupaCarrinho();
-            roupa.nomeCategoria = carrinho.getRoupa().categoria.getNomeCategoria();
+            roupa.nomeCategoria = carrinho.getRoupa().categoria.getDescricao();
             roupa.valor = carrinho.getRoupa().valor;
             roupa.numero = carrinho.getRoupa().numero;
             roupa.quantidade = carrinho.getQuantidade();

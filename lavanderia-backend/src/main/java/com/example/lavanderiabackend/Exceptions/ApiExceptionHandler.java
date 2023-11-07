@@ -108,7 +108,14 @@ public class ApiExceptionHandler {
         return ResponseEntity.badRequest().body(body);
     }
 
-    @ExceptionHandler(Exception.class)
+    @ExceptionHandler(AlreadyExistsException.class)
+    public ResponseEntity<ExceptionBody> alreadyExists(AlreadyExistsException exception) {
+        ExceptionBody body = new ExceptionBody(Instant.now(), HttpStatus.CONFLICT.value(), "Duplicate",
+                exception.getMessage(), "");
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(body);
+    }
+
+    // @ExceptionHandler(Exception.class)
     public ResponseEntity<ExceptionBody> internalErrorException(Exception exception) {
 
         ExceptionBody body = new ExceptionBody(Instant.now(), HttpStatus.INTERNAL_SERVER_ERROR.value(), "Erro interno",

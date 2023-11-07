@@ -53,7 +53,7 @@ public class PedidoController {
 
     @PostMapping("/delete/pedido")
     public ResponseEntity<Integer> deletePedido(@RequestBody NumeroPedidoWrapper numero_pedido) {
-        pedidoService.deletePedido(numero_pedido.getNumero());
+        // pedidoService.deletePedido(numero_pedido.getNumero());
         return ResponseEntity.ok(200);
     }
 
@@ -63,11 +63,13 @@ public class PedidoController {
         return ResponseEntity.ok(200);
     }
 
-    @PostMapping("/add/pedido")
-    public ResponseEntity<Integer> addPedido(@RequestBody PedidoBody modelo) {
-        pedidoService.addPedido(modelo);
-        return ResponseEntity.ok(200);
-    }
+    /*
+     * @PostMapping("/add/pedido")
+     * public ResponseEntity<Integer> addPedido(@RequestBody PedidoBody modelo) {
+     * pedidoService.addPedido(modelo);
+     * return ResponseEntity.ok(200);
+     * }
+     */
 
     @PostMapping("/update/status")
     public ResponseEntity<Integer> updateStatus(@RequestBody updateWrapper wrapper) {

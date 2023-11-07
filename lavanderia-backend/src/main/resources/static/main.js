@@ -418,7 +418,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   AutocadastroComponent: () => (/* binding */ AutocadastroComponent)
 /* harmony export */ });
-/* harmony import */ var C_Users_samue_Desktop_Programa_o_lol_lavanderia_online_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 71670);
+/* harmony import */ var C_Users_Samuel_Arquivos_Programa_o_lol_lavanderia_online_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 71670);
 /* harmony import */ var src_app_shared_models_pessoa_model__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/shared/models/pessoa.model */ 70772);
 /* harmony import */ var src_app_shared_models_cadastro_model__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/shared/models/cadastro.model */ 13798);
 /* harmony import */ var src_app_shared_models_endereco_model__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/shared/models/endereco.model */ 3370);
@@ -500,7 +500,7 @@ class AutocadastroComponent {
   }
   ngOnInit() {}
   teste() {
-    return (0,C_Users_samue_Desktop_Programa_o_lol_lavanderia_online_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,C_Users_Samuel_Arquivos_Programa_o_lol_lavanderia_online_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       let result = yield src_app_services_requestService__WEBPACK_IMPORTED_MODULE_4__.RequestMaker.getData("/auth/teste");
       if (result.data) {
         console.log(result.data);
@@ -517,7 +517,7 @@ class AutocadastroComponent {
     });
   }
   realizarCadastro(formulario) {
-    return (0,C_Users_samue_Desktop_Programa_o_lol_lavanderia_online_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,C_Users_Samuel_Arquivos_Programa_o_lol_lavanderia_online_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       let dados = formulario.value;
       let endereco = new src_app_shared_models_endereco_model__WEBPACK_IMPORTED_MODULE_3__.Endereco(dados.cep, dados.cidade, dados.endereco, dados.numero, dados.complemento);
       let cadastro = new src_app_shared_models_cadastro_model__WEBPACK_IMPORTED_MODULE_2__.Cadastro(dados.nome, dados.cpf, dados.telefone, dados.email, endereco);
@@ -3664,7 +3664,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   LoginService: () => (/* binding */ LoginService)
 /* harmony export */ });
-/* harmony import */ var C_Users_samue_Desktop_Programa_o_lol_lavanderia_online_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 71670);
+/* harmony import */ var C_Users_Samuel_Arquivos_Programa_o_lol_lavanderia_online_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 71670);
 /* harmony import */ var src_app_services_requestService__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/services/requestService */ 1531);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ 61699);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ 27947);
@@ -3679,7 +3679,7 @@ class LoginService {
   }
   login(login) {
     var _this = this;
-    return (0,C_Users_samue_Desktop_Programa_o_lol_lavanderia_online_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,C_Users_Samuel_Arquivos_Programa_o_lol_lavanderia_online_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       let response = yield src_app_services_requestService__WEBPACK_IMPORTED_MODULE_1__.RequestMaker.postData("/auth/login", login);
       if (response.error) {
         alert(response.error.message);
@@ -5051,7 +5051,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   PedidoComponent: () => (/* binding */ PedidoComponent)
 /* harmony export */ });
-/* harmony import */ var C_Users_samue_Desktop_Programa_o_lol_lavanderia_online_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 71670);
+/* harmony import */ var C_Users_Samuel_Arquivos_Programa_o_lol_lavanderia_online_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 71670);
 /* harmony import */ var pdf_lib__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! pdf-lib */ 54664);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ 61699);
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/common */ 26575);
@@ -5156,7 +5156,7 @@ class PedidoComponent {
     this.total = 0;
   }
   gerarPDF() {
-    return (0,C_Users_samue_Desktop_Programa_o_lol_lavanderia_online_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,C_Users_Samuel_Arquivos_Programa_o_lol_lavanderia_online_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       const pdfDoc = yield pdf_lib__WEBPACK_IMPORTED_MODULE_1__.PDFDocument.create();
       const page = pdfDoc.addPage([600, 400]);
       const font = yield pdfDoc.embedFont(pdf_lib__WEBPACK_IMPORTED_MODULE_1__.StandardFonts.Helvetica);
@@ -6102,7 +6102,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   RequestMaker: () => (/* binding */ RequestMaker),
 /* harmony export */   RequestResult: () => (/* binding */ RequestResult)
 /* harmony export */ });
-/* harmony import */ var C_Users_samue_Desktop_Programa_o_lol_lavanderia_online_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 71670);
+/* harmony import */ var C_Users_Samuel_Arquivos_Programa_o_lol_lavanderia_online_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 71670);
 /* harmony import */ var _environment_environment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../environment/environment */ 27845);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ 55486);
 
@@ -6112,23 +6112,23 @@ var _class;
 class RequestMaker {
   static getData(url) {
     var _this = this;
-    return (0,C_Users_samue_Desktop_Programa_o_lol_lavanderia_online_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,C_Users_Samuel_Arquivos_Programa_o_lol_lavanderia_online_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       return _this.baseFunction(url, null, "get");
     })();
   }
   static postData(url, body) {
     var _this2 = this;
-    return (0,C_Users_samue_Desktop_Programa_o_lol_lavanderia_online_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,C_Users_Samuel_Arquivos_Programa_o_lol_lavanderia_online_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       return _this2.baseFunction(url, body, "post");
     })();
   }
   static baseFunction(url, body, type) {
     var _this3 = this;
-    return (0,C_Users_samue_Desktop_Programa_o_lol_lavanderia_online_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,C_Users_Samuel_Arquivos_Programa_o_lol_lavanderia_online_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       url = _this3.checkUrl(url);
       console.log(_this3.baseUrl + url);
       if (_this3.baseUrl == "") {
-        return yield _this3.getCurrentUrl().then( /*#__PURE__*/(0,C_Users_samue_Desktop_Programa_o_lol_lavanderia_online_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+        return yield _this3.getCurrentUrl().then( /*#__PURE__*/(0,C_Users_Samuel_Arquivos_Programa_o_lol_lavanderia_online_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
           if (_this3.baseUrl != "") return yield _this3.baseFunction(url, body, type);else return new RequestResult(0, null, null);
         })).catch(() => new RequestResult(0, null, null));
       }
@@ -6146,7 +6146,7 @@ class RequestMaker {
     return url;
   }
   static handleError(error) {
-    return (0,C_Users_samue_Desktop_Programa_o_lol_lavanderia_online_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,C_Users_Samuel_Arquivos_Programa_o_lol_lavanderia_online_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       // Ocorre quando o status code é diferente de 2xx
       if (error.response) {
         return new RequestResult(error.response.status, null, error.response.data);
@@ -6158,11 +6158,11 @@ class RequestMaker {
   // Função para descobrir qual o domain disponível do backend
   static getCurrentUrl() {
     var _this4 = this;
-    return (0,C_Users_samue_Desktop_Programa_o_lol_lavanderia_online_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,C_Users_Samuel_Arquivos_Programa_o_lol_lavanderia_online_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       yield axios__WEBPACK_IMPORTED_MODULE_2__["default"].get(_environment_environment__WEBPACK_IMPORTED_MODULE_1__.environment.API_URL + "/").then(() => {
         _this4.baseUrl = _environment_environment__WEBPACK_IMPORTED_MODULE_1__.environment.API_URL;
       }).catch( /*#__PURE__*/function () {
-        var _ref2 = (0,C_Users_samue_Desktop_Programa_o_lol_lavanderia_online_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (error) {
+        var _ref2 = (0,C_Users_Samuel_Arquivos_Programa_o_lol_lavanderia_online_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (error) {
           if (error.request) {
             yield axios__WEBPACK_IMPORTED_MODULE_2__["default"].get(_environment_environment__WEBPACK_IMPORTED_MODULE_1__.environment.SECONDARY_API_URL + "/").then(() => {
               _this4.baseUrl = _environment_environment__WEBPACK_IMPORTED_MODULE_1__.environment.SECONDARY_API_URL;
