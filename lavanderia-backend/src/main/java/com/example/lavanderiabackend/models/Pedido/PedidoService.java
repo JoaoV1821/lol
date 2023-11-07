@@ -125,6 +125,7 @@ public class PedidoService {
         List<PedidoBody> bodies = new ArrayList<>();
         for (Pedido pedido : pedidos) {
             PedidoBody body = new PedidoBody(pedido);
+            System.out.println(body.getRoupas().get(0).getDescricao());
             bodies.add(body);
         }
         return bodies;
@@ -161,13 +162,17 @@ public class PedidoService {
             cadastro.setPedidos(new ArrayList<Pedido>());
         for (CarrinhoDTO carrinhoDTO : carrinhosDTO) {
             Roupa roupa = roupaService.getRoupa(carrinhoDTO.getNumeroRoupa());
-            pedido.addCarrinho(new Carrinho(pedido, roupa, carrinhoDTO.getQuantidade()));
+            Carrinho carrinho = new Carrinho(pedido, roupa, carrinhoDTO.getQuantidade());
+            pedido.addCarrinho(carrinho);
             total += (roupa.getValor() * carrinhoDTO.getQuantidade());
             prazo = roupa.getTempoDeLavagem() > prazo ? roupa.getTempoDeLavagem() : prazo;
         }
         pedido.setTotal(total);
         pedido.setPrazo(data.plusDays(prazo));
         pedido = pedidoRepository.save(pedido);
+        for (Carrinho carrinho : pedido.getCarrinhos()) {
+            carrinhoRepository.save(carrinho);
+        }
         return cadastro;
     }
 

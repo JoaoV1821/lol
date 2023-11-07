@@ -43,8 +43,8 @@ public class UsuarioController {
     }
 
     @PostMapping("/add/pedido")
-    public ResponseEntity<Object> addPedido(@Valid @RequestBody List<CarrinhoDTO> carrinhos) {
-        cadastroService.addPedido(carrinhos);
+    public ResponseEntity<Object> addPedido(@Valid @RequestBody CarrinhoWrapper carrinhos) {
+        cadastroService.addPedido(carrinhos.getCarrinhos());
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
@@ -73,4 +73,12 @@ public class UsuarioController {
 @NoArgsConstructor
 class StringWrapper {
     public String string;
+}
+
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+class CarrinhoWrapper {
+    public List<CarrinhoDTO> carrinhos;
 }

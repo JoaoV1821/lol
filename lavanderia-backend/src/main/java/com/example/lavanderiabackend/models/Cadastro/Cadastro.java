@@ -87,7 +87,7 @@ public class Cadastro implements UserDetails {
     }
 
     public Long getLastestPedido() {
-        if (this.pedidos == null) {
+        if (this.pedidos == null || (this.pedidos.isEmpty())) {
             return Long.valueOf(0);
         } else {
             return Collections.max(pedidos).getNumero();

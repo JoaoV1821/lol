@@ -49,7 +49,7 @@ public class RoupaService {
     }
 
     public void addOrUpdateRoupa(RoupaDTO modelo) {
-        Roupa roupa = roupaRepository.findByNumero(modelo.getNumero()).orElse(new Roupa());
+        Roupa roupa = roupaRepository.findByDescricao(modelo.getDescricao()).orElse(new Roupa());
         Long id = roupa.getId();
         List<Carrinho> carrinhos = roupa.getCarrinhos();
         Categoria categoria = categoriaService.getCategoria(modelo.getNumeroCategoria());

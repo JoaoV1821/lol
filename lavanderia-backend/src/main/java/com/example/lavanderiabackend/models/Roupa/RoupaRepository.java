@@ -8,4 +8,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface RoupaRepository extends JpaRepository<Roupa, Long> {
     public Optional<Roupa> findByNumero(String numero_roupa);
+
+    public Optional<Roupa> findByDescricao(String descricao);
 }

@@ -15,6 +15,6 @@ public class RoupaCarrinho {
     public String descricao;
     public String numero;
     public Double quantidade;
-    public String nomeCategoria;
+    public String categoria;
     public Long tempoDeLavagem;
 }

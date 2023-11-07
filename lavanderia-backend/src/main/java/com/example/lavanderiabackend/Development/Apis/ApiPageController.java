@@ -16,11 +16,10 @@ public class ApiPageController {
         return "api.html";
     }
 
-    @GetMapping("/api")
-
-    public String getPage() {
-        return "api.html";
-    }
+    // @GetMapping("/api")
+    // //public String getPage() {
+    // return "api.html";
+    // }
 
     @Bean
     public ClassLoaderTemplateResolver emailTemplateResolver() {

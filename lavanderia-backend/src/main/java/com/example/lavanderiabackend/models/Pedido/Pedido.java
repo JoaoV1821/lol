@@ -8,6 +8,7 @@ import com.example.lavanderiabackend.models.Cadastro.Cadastro;
 import com.example.lavanderiabackend.models.Carrinho.Carrinho;
 import com.example.lavanderiabackend.models.Pedido.DTO.PedidoBody;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -36,7 +37,7 @@ public class Pedido implements Comparable<Pedido> {
     public LocalDate prazo;
     public double total;
     public String status;
-    @OneToMany(mappedBy = "pedido")
+    @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
     public List<Carrinho> carrinhos;
     @ManyToOne
     @JoinColumn(name = "cadastro_id", nullable = false)
