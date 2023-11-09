@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clientes cadastrados</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row justify-content-center mt-5">
+            <div class="col-lg-10">
+                <div class="card border-2" id="card">
+                    <div class="card-body">
+                        <div class="mt-4 mx-3 text-center">
+                            <img src="../../assets/logoLol.png" alt="Logo" aria-hidden="true" width="200">
+                        </div>
+                        <div>
+                            <form class="mx-3 mt-3">
+                                <div class="row align-items-start">
+                                    <div class="col">
+                                        <H4>CLIENTE CADASTRADOS</H4>
+                                        <table class="table table-striped table-bordered table-hover">
+
+                                            <tr>
+                                                <th>NOME</th>
+                                                <th>CPF</th>
+                                                <th>CONTATO</th>
+                                                <th>EMAIL</th>
+                                                <th class="text-center">
+                                    
+                                                    <a [routerLink]="['/autocadastro']" href="#" title="cadastro" alt="cadastro" class="btn btn-xs btn-success">
+                                                        <i class="fa fa-plus" aria-hidden="true"></i> Cadastro
+                                                    </a>
+                                    
+                                                </th>
+                                            </tr>
+                                    
+                                            <tr *ngFor="let pessoa of pessoas">
+                                                <td> {{pessoa.nome}} </td>
+                                                <td> {{pessoa.cpf}} </td>
+                                                <td> {{pessoa.contato}} </td>
+                                                <td> {{pessoa.email}} </td>
+                                                <td class="text-center" style="width: 300px;">
+                                    
+                                                    <a [routerLink]="['/cliente/editar', pessoa.id]" href="#" title="Editar" alt="Editar" class="btn btn-xs btn-info">
+                                                        <i class="fa fa-edit" aria-hidden="true"></i> Editar
+                                                    </a>
+                                    
+                                                    <a href="#" title="Rmover" alt="Remover" class="btn btn-xs btn-danger"
+                                                        (click)="remover($event, pessoa)">
+                                                        <i class="fa fa-times" aria-hidden="true"></i> Remover
+                                                    </a>
+                                                    
+                                                </td>
+                                            </tr> 
+
+                                        </table>
+                                        
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+

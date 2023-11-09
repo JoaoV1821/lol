@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PaginaInicialFuncionarioService } from '../services';
 import { PedidosEmAberto } from 'src/app/shared/models/pedidos-em-aberto.model';
-
 @Component({
   selector: 'app-listar-pedidos-abertos',
   templateUrl: './listar-pedidos-abertos.component.html',

@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar cliente</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row justify-content-center mt-5">
+            <div class="col-lg-10">
+                <div class="card border-2" id="card">
+                    <div class="card-body">
+                        <div class="mt-4 mx-3 text-center">
+                            <img src="../../assets/logoLol.png" alt="Logo" aria-hidden="true" width="200">
+                        </div>
+                        <div>
+                            <form class="mx-3 mt-3">
+                                <div class="row align-items-start">
+                                    <div class="col">
+                                        <H4>EDITAR CADASTRO</H4>
+
+                                        <form #formPessoa="ngForm">
+
+                                            <div>
+                                                <label class="form-label mt-2" for="nome">Nome:</label>
+                                                <input type="text" class="form-control inputlol text-left" id="nome" name="nome" 
+                                                    [(ngModel)]="pessoa.nome"
+                                                    #nome="ngModel"
+                                                    minlength="5" maxlength="60" required>
+                                                    <div *ngIf="nome.errors && (nome.dirty || nome.touched)" class="alert alert-danger">
+                                                        <div [hidden]="!nome.errors['required']">Nome completo obrigatório.</div>
+                                                        <div [hidden]="!nome.errors['minlength']">O nome deve conter no mínimo 5 caracteres.</div>
+                                                    </div>
+                                            </div>
+                                            
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <label class="form-label mt-2" for="cpf">CPF:</label>
+                                                    <input type="text" class="form-control inputlol text-left" id="CPF" name="cpf" title="Digite seu CPF"
+                                                        pattern="(\d{3}\.?\d{3}\.?\d{3}-?\d{2})"
+                                                        [(ngModel)]="pessoa.cpf"
+                                                        #cpf="ngModel"
+                                                        minlength="11" maxlength="11" required>
+                                                    <div *ngIf="cpf.errors && (cpf.dirty || cpf.touched)" class="alert alert-danger">
+                                                        <div [hidden]="!cpf.errors['required']">CPF obrigatório.</div>
+                                                        <div [hidden]="!cpf.errors['minlength']">O CPF deve conter no mínimo 11 caracteres.</div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <label class="form-label mt-2" for="contato">Telefone:</label>
+                                                    <input type="tel" class="form-control inputlol text-left" id="contato" name="contato"
+                                                        [(ngModel)]="pessoa.contato"
+                                                        #contato="ngModel"
+                                                        minlength="10" maxlength="11" required>
+                                                    <div *ngIf="contato.errors && (contato.dirty || contato.touched)" class="alert alert-danger">
+                                                        <div [hidden]="!contato.errors['required']">Contato obrigatório.</div>
+                                                        <div [hidden]="!contato.errors['minlength']">Deve conter no mínimo 10 caracteres.</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col">
+                                                <div class="row">
+        
+                                                    <div class="col-sm-4">
+                                                        <label class="form-label mt-2" for="cep">CEP:</label>
+                                                        <input type="text" class="form-control inputlol text-left" id="cep" name="cep"
+                                                            [(ngModel)]="pessoa.cep"
+                                                            #cep="ngModel"
+                                                            minlength="8" maxlength="9" required>
+                                                        <div *ngIf="cep.errors && (cep.dirty || cep.touched)" class="alert alert-danger">
+                                                            <div [hidden]="!cep.errors['required']">CEP completo obrigatório.</div>
+                                                            <div [hidden]="!cep.errors['minlength']">O CEP deve conter no mínimo 8 caracteres.</div>
+                                                        </div>
+                                                    </div>
+        
+                                                    <div class="col-sm-8">
+                                                        <label class="form-label mt-2" for="cidade">Cidade:</label>
+                                                        <input type="text" class="form-control inputlol text-left" id="cidade" name="cidade"
+                                                            [(ngModel)]="pessoa.cidade"
+                                                            #cidade="ngModel"
+                                                            minlength="2" maxlength="60" required>
+                                                        <div *ngIf="cidade.errors && (cidade.dirty || cidade.touched)" class="alert alert-danger">
+                                                            <div [hidden]="!cidade.errors['required']">Cidade obrigatório.</div>
+                                                            <div [hidden]="!cidade.errors['minlength']">O nome da cidade deve conter no mínimo 2 caracteres.</div>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                </div>
+
+                                                <div>
+                                                    <label class="form-label mt-2" for="bairro">Bairro:</label>
+                                                    <input type="text" class="form-control inputlol text-left" id="bairro" name="bairro"
+                                                        [(ngModel)]="pessoa.bairro"
+                                                        #bairro="ngModel"
+                                                        minlength="2" maxlength="60" required>
+                                                    <div *ngIf="bairro.errors && (bairro.dirty || bairro.touched)" class="alert alert-danger">
+                                                        <div [hidden]="!bairro.errors['required']">Bairro obrigatório.</div>
+                                                        <div [hidden]="!bairro.errors['minlength']">O nome do bairro deve conter no mínimo 2 caracteres.</div>
+                                                    </div>
+                                                </div>
+
+                                                <div>
+                                                    <label class="form-label mt-2" for="estado">Estado:</label>
+                                                    <input type="text" class="form-control inputlol text-left" id="estado" name="estado"
+                                                        [(ngModel)]="pessoa.estado"
+                                                        #estado="ngModel"
+                                                        minlength="2" maxlength="60" required>
+                                                    <div *ngIf="estado.errors && (estado.dirty || estado.touched)" class="alert alert-danger">
+                                                        <div [hidden]="!estado.errors['required']">Estado obrigatório.</div>
+                                                        <div [hidden]="!estado.errors['minlength']">O nome do estado deve conter no mínimo 2 caracteres.</div>
+                                                    </div>
+                                                </div>
+
+                                                <div>
+                                                    <label class="form-label mt-2" for="logradouro">Endereço:</label>
+                                                    <input type="text" class="form-control inputlol text-left" id="logradouro" name="logradouro"
+                                                        [(ngModel)]="pessoa.logradouro"
+                                                        #logradouro="ngModel"
+                                                        minlength="2" maxlength="60" required>
+                                                    <div *ngIf="logradouro.errors && (logradouro.dirty || logradouro.touched)" class="alert alert-danger">
+                                                        <div [hidden]="!logradouro.errors['required']">Endereço obrigatório.</div>
+                                                        <div [hidden]="!logradouro.errors['minlength']">O nome do logradouro deve conter no mínimo 2 caracteres.</div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-sm-4">
+                                                        <label class="form-label mt-2" for="logNumero">Número:</label>
+                                                        <input type="text" class="form-control inputlol text-left" id="logNumero" name="logNumero"
+                                                            [(ngModel)]="pessoa.logNumero"
+                                                            #logNumero="ngModel"
+                                                            required>
+                                                        <div *ngIf="logNumero.errors && (logNumero.dirty || logNumero.touched)" class="alert alert-danger">
+                                                            <div [hidden]="!logNumero.errors['required']">Caso não possuir número, preencha com "0".</div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-sm-8">
+                                                        <label class="form-label mt-2" for="complemento">Complemento:</label>
+                                                        <input type="text" class="form-control inputlol text-left" id="complemento" name="complemento"
+                                                            [(ngModel)]="pessoa.complemento"
+                                                            #complemento="ngModel">
+                                                    </div>
+
+                                                    <div>
+                                                        <label class="form-label mt-2" for="email">E-mail:</label>
+                                                        <input type="email" class="form-control inputlol text-left" id="email" name="email"
+                                                            [(ngModel)]="pessoa.email"
+                                                            #email="ngModel"
+                                                            maxlength="60" required>
+                                                        <div *ngIf="email.errors && (email.dirty || email.touched)" class="alert alert-danger">
+                                                            <div [hidden]="!email.errors['required']">Email obrigatório.</div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div>
+                                                        <label class="form-label mt-2" for="senha">Senha:</label>
+                                                        <input type="string" class="form-control inputlol text-left" id="senha" name="senha"
+                                                            [(ngModel)]="pessoa.senha"
+                                                            #senha="ngModel"
+                                                            minlength="4" maxlength="4" required>
+                                                        <div *ngIf="senha.errors && (senha.dirty || senha.touched)" class="alert alert-danger">
+                                                            <div [hidden]="!senha.errors['required']">Senha obrigatória.</div>
+                                                            <div [hidden]="!senha.errors['minlength']">A senha 4 caracteres.</div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+        
+                                            </div>
+
+                                            <div class="form-group">
+                                                <button type="button" class="btn btn-primary"
+                                                    (click)="atualizar()"
+                                                    [disabled]="!formPessoa.form.valid">
+                                                    <i class="fa fa-save" aria-hidden="true"></i> Atualizar
+                                                </button>
+                                                <a class="btn btn-secondary"
+                                                    [routerLink]="['/clientes']">
+                                                    <i class="fa fa-arrow-left" aria-hidden="true"></i> Voltar
+                                                </a>
+                                            </div>
+                                    
+                                        </form>
+                                        
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+

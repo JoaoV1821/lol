@@ -3,12 +3,12 @@ import { Injectable } from '@angular/core';
 
 import { Pessoa } from 'src/app/shared/models/pessoa.model';
 import axios from 'axios';
+
 const LS_CHAVE: string = "pessoas";
 
 @Injectable({
   providedIn: 'root'
 })
-
 
 export class AutocadastroService {
 

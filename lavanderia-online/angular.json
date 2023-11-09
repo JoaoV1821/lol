@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "lavanderia-online": {
+    "projeto-angular": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/lavanderia-online",
+            "outputPath": "dist/projeto-angular",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
@@ -26,14 +26,11 @@
             ],
             "styles": [
               "src/styles.css",
-
-              "node_modules/bootstrap/dist/css/bootstrap.min.css"
-
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "node_modules/@fortawesome/fontawesome-free/css/all.css"
-
             ],
             "scripts": [
+              "node_modules/jquery/dist/jquery.min.js",
               "node_modules/bootstrap/dist/js/bootstrap.min.js"
             ]
           },
@@ -68,10 +65,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "lavanderia-online:build:production"
+              "browserTarget": "projeto-angular:build:production"
             },
             "development": {
-              "browserTarget": "lavanderia-online:build:development"
+              "browserTarget": "projeto-angular:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -79,7 +76,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "lavanderia-online:build"
+            "browserTarget": "projeto-angular:build"
           }
         },
         "test": {
@@ -104,6 +101,6 @@
     }
   },
   "cli": {
-    "analytics": "6e6f3bab-b545-4520-a97e-ebbb779bf9d0"
+    "analytics": "3726b381-5554-4d6c-8a9c-5a27dc69489d"
   }
 }

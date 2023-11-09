@@ -16,6 +16,7 @@ import { FuncionarioModule } from './funcionario';
 import { RelatoriosModule } from './relatorios';
 import { FormsModule } from '@angular/forms';
 import { ListagemFModule } from './listagemF';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 /* Aonde está escrito o nome do componente no import é para substituir com o nome do componente que vc criou 
@@ -24,7 +25,8 @@ import { ListagemFModule } from './listagemF';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    // NumericoDirective
   ],
   imports: [
     BrowserModule,
@@ -40,9 +42,11 @@ import { ListagemFModule } from './listagemF';
     PedidoModule,
     CrudRoupasModule,
     ListagemModule,
+    ListagemFModule,
     FormsModule,
     FuncionarioModule,
-    RelatoriosModule
+    RelatoriosModule,
+    NgbModule
   ],
 
   providers: [],

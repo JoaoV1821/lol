@@ -9,10 +9,14 @@ export class PedidoService {
   constructor() { }
 
   async postPedido(object: any) {
-    return await axios.post(`http://localhost:8080/post/pedido`, 
+    return await axios.post(`http://localhost:8080/pedido/add/pedido`, 
+
     {
-      "itens": object.item,
-      "total": object.total
+      "roupas": object.itens,
+      "total": object.total,
+      "data": object.data,
+      "prazo": object.data,
+      "status": object.status
     },
 
     {

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ListagemComponent } from './listagem/listagem/listagem.component';
-import { AutocadastroComponent } from './autocadastro';
+import { AutocadastroComponent, EditarClienteComponent, ListarClientesComponent } from './autocadastro';
 import { ConsultaPedidoComponent } from './consulta-pedido';
 import { LoginComponent } from './login';
 import { OrcamentoComponent } from './orcamento';
@@ -23,9 +23,15 @@ const routes: Routes = [
     pathMatch: 'full'},
     
   { path: 'autocadastro',
-    redirectTo: 'autocadastro/autocadastro'},
-  { path: 'autocadastro/autocadastro',
+    redirectTo: 'autocadastro/novo'},
+  { path: 'autocadastro/novo',
     component: AutocadastroComponent },
+
+  { path: 'clientes',
+    component: ListarClientesComponent },
+
+  { path: 'cliente/editar/:id',
+    component: EditarClienteComponent },
 
   { path: 'consulta-pedido',
     redirectTo: 'consulta-pedido/consulta-pedido'},
@@ -58,8 +64,6 @@ const routes: Routes = [
     component: PaginaInicialComponent },
 
   { path: 'pagina-inicial-funcionario',
-    redirectTo: 'pagina-inicial-funcionario/listar-pedidos-aberto'},
-  { path: 'pagina-inicial-funcionario/listar-pedidos-aberto',
     component: ListarPedidosAbertosComponent },
 
   { path: 'pedido',
@@ -88,8 +92,6 @@ const routes: Routes = [
   { path: 'relatorios', component: RelatoriosComponent}
   
 
-  //Relatorios, Pagina-Funcionario
-  
 ];
 
 @NgModule({
