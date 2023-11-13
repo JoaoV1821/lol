@@ -43,9 +43,9 @@ public class PedidoService {
         return new PedidoBody(pedido);
     }
 
-    public List<PedidoBody> getPedidoList(String dataInicial, String dataPrazo) {
+    public List<PedidoBody> getPedidoList(String dataInicial, String dataPrazo, String status) {
         List<PedidoBody> pedidos = new ArrayList<PedidoBody>();
-        if (dataInicial == null && dataPrazo == null) {
+        if (dataInicial == null && dataPrazo == null && status == null) {
             for (Pedido pedido : pedidoRepository.findAll()) {
                 pedidos.add(new PedidoBody(pedido));
             }
@@ -58,6 +58,11 @@ public class PedidoService {
             LocalDate ini = LocalDate.parse(dataInicial);
             LocalDate prazo = LocalDate.parse(dataPrazo);
             for (Pedido pedido : pedidoRepository.findAllByDate(ini, prazo)) {
+                pedidos.add(new PedidoBody(pedido));
+            }
+        } else if (status != null && dataInicial == null && dataPrazo == null){
+            String statusUpperCase = status.toUpperCase();
+            for (Pedido pedido : pedidoRepository.findAllByStatus(statusUpperCase)) {
                 pedidos.add(new PedidoBody(pedido));
             }
         }

@@ -30,8 +30,8 @@ public class PedidoController {
 
     @GetMapping("/get/pedidos")
     public List<PedidoBody> getPedidos(@RequestParam(required = false) String dataInicial,
-            @RequestParam(required = false) String dataPrazo) {
-        return pedidoService.getPedidoList(dataInicial, dataPrazo);
+            @RequestParam(required = false) String dataPrazo, @RequestParam(required = false) String status) {
+        return pedidoService.getPedidoList(dataInicial, dataPrazo, status);
     }
 
     @PostMapping("/get/pedido")

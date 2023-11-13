@@ -20,4 +20,7 @@ public interface PedidoRepository extends JpaRepository<Pedido, String> {
 
     @Query("SELECT p FROM Pedido p WHERE p.data >= :dataInicial")
     public List<Pedido> findAllByInitialDate(@Param("dataInicial") LocalDate dataInicial);
+    
+    @Query("SELECT p FROM Pedido p WHERE p.status >= :status")
+    public List<Pedido> findAllByStatus(@Param("status") String status);
 }
