@@ -26,12 +26,16 @@
                             </th>
                         -->
                         <th>Resumo do pedido</th>
-                        <th></th>
+                        <th>Status</th>
+                        <th>Confirmar Recolhimento</th>
                     </tr>
             
                     <tr *ngFor="let pedidosEmAberto of pedidosEmAberto">
                         <td>{{pedidosEmAberto.numeroPedido}}</td>
                         <td>{{pedidosEmAberto.resumo}}</td>
+                        <td>
+                            <button class="btn btn-aberto">EM ABERTO</button>
+                        </td>
                         <td class="text-center" style="width: 450px">
                             <div class="d-flex flex-row">
                                 <div class="d-flex justify-content-around mx-2">
@@ -40,9 +44,6 @@
                                     </a>
                                 </div>
                             </div>
-                           
-                          
-            
                         </td>
                     </tr>
                 </tbody>

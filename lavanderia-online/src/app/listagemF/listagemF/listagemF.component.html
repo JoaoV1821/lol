@@ -52,16 +52,38 @@
                                 <td class="td-button" [ngSwitch]="pedido.status">
                                 <!-- <td class="td-button"> -->
                                     <button *ngSwitchCase="'EM ABERTO'"
-                                        class="btn btn-aberto">{{pedido.status}}</button>
+                                        class="btn btn-aberto"data-bs-toggle="modal" data-bs-target="#modal-pedido">{{pedido.status}}</button>
                                     <button *ngSwitchCase="'RECOLHIDO'"
-                                        class="btn btn-recolhido">{{pedido.status}}</button>
+                                        class="btn btn-recolhido"data-bs-toggle="modal" data-bs-target="#modal-pedido">{{pedido.status}}</button>
                                     <button *ngSwitchCase="'AGUARDANDO PAGAMENTO'"
-                                        class="btn btn-aguardando">{{pedido.status}}</button>
-                                    <button *ngSwitchCase="'PAGO'" class="btn btn-pago">{{pedido.status}}</button>
+                                        class="btn btn-aguardando"data-bs-toggle="modal" data-bs-target="#modal-pedido">{{pedido.status}}</button>
+                                    <button *ngSwitchCase="'PAGO'"
+                                        class="btn btn-pago"data-bs-toggle="modal" data-bs-target="#modal-pedido">{{pedido.status}}</button>
                                     <button *ngSwitchCase="'CANCELADO'"
-                                        class="btn btn-cancelado">{{pedido.status}}</button>
+                                        class="btn btn-cancelado"data-bs-toggle="modal" data-bs-target="#modal-pedido">{{pedido.status}}</button>
                                     <button *ngSwitchCase="'FINALIZADO'"
-                                        class="btn btn-finalizado">{{pedido.status}}</button>
+                                        class="btn btn-finalizado"data-bs-toggle="modal" data-bs-target="#modal-pedido">{{pedido.status}}</button>
+                                        <div class="modal fade" id="modal-pedido" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Informações do pedido</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                <p>Pedido: {{pedido.pedido}}</p>
+                                                <p>Valor do pedido: R$ {{pedido.valor}},00</p>
+                                                <p>Data do pedido: {{pedido.data}}</p>
+                                                <p>Prazo do pedido: {{pedido.prazo}}</p>
+                                                <p>Status do pedido: {{pedido.status}}</p>
+                                                </div>
+                                                <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Voltar</button>
+                                                <button type="button" class="btn btn-success">Confirmar</button>
+                                                </div>
+                                            </div>
+                                            </div>
+                                        </div>
                                 </td>
                                 <td class="td-button">
                                     <button *ngIf="pedido.status == 'RECOLHIDO'"
