@@ -8,12 +8,15 @@ import jakarta.persistence.Id;
 import jakarta.persistence.IdClass;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Setter
 @Getter
+@NoArgsConstructor
 @IdClass(CarrinhoId.class)
 public class Carrinho {
 
@@ -28,5 +31,13 @@ public class Carrinho {
     private Roupa roupa;
 
     private Double quantidade;
+
+    public Carrinho(Pedido pedido, Roupa roupa, Double quantidade) {
+        this.quantidade = quantidade;
+        this.roupa = roupa;
+        this.pedido = pedido;
+        pedido.carrinhos.add(this);
+        roupa.carrinhos.add(this);
+    }
 
 }

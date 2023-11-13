@@ -6,6 +6,7 @@ import com.example.lavanderiabackend.models.Carrinho.Carrinho;
 import com.example.lavanderiabackend.models.Categoria.Categoria;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -14,6 +15,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.SequenceGenerator;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -22,15 +24,21 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
+
 public class Roupa {
 
     @Id
     @SequenceGenerator(name = "roupa_sequence", sequenceName = "roupa_sequence", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "roupa_sequence")
-    public Long idRoupa;
+    public Long id;
+    @Column(unique = true)
     public String numero;
+    @Column(unique = true)
     public String descricao;
     public Double valor;
+    @Column(name = "tempo_lavagem")
+    public Long tempoDeLavagem;
     @ManyToOne
     @JoinColumn(name = "categoria_id")
     public Categoria categoria;
@@ -38,8 +46,9 @@ public class Roupa {
     @OneToMany(mappedBy = "roupa", cascade = CascadeType.PERSIST, orphanRemoval = true)
     public List<Carrinho> carrinhos;
 
-    public Roupa(Double valor, Categoria categoria) {
-        this.categoria = categoria;
-        this.valor = valor;
+    @Override
+    public String toString() {
+        return this.getId() + "," + this.getNumero() + "," + this.getDescricao();
     }
+
 }

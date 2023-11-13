@@ -1,6 +1,7 @@
 package com.example.lavanderiabackend.models.Pedido.DTO;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.example.lavanderiabackend.models.Carrinho.Carrinho;
@@ -28,12 +29,16 @@ public class PedidoBody {
         this.prazo = pedido.prazo;
         this.total = pedido.total;
         this.status = pedido.status;
-        for (Carrinho carrinho : pedido.carrinhos) {
+        this.roupas = new ArrayList<>();
+        for (Carrinho carrinho : pedido.getCarrinhos()) {
             RoupaCarrinho roupa = new RoupaCarrinho();
-            roupa.nomeCategoria = carrinho.getRoupa().categoria.getNomeCategoria();
+            roupa.categoria = carrinho.getRoupa().categoria.getDescricao();
             roupa.valor = carrinho.getRoupa().valor;
             roupa.numero = carrinho.getRoupa().numero;
             roupa.quantidade = carrinho.getQuantidade();
+            roupa.descricao = carrinho.getRoupa().getDescricao();
+            roupa.tempoDeLavagem = carrinho.getRoupa().getTempoDeLavagem();
+            roupas.add(roupa);
         }
     }
 }

@@ -1,10 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import { FormsModule } from '@angular/forms';
 import { AutocadastroComponent } from './autocadastro/autocadastro.component';
-import { AutocadastroService } from './services';
-import { SharedModule } from '../shared';
-
+import { AutoCadastroService } from './services';
 
 @NgModule({
   declarations: [
@@ -12,13 +10,13 @@ import { SharedModule } from '../shared';
   ],
   imports: [
     CommonModule,
-    SharedModule
+    FormsModule
   ],
   exports: [
     AutocadastroComponent
   ],
   providers: [
-    AutocadastroService
+    AutoCadastroService
   ]
 })
 export class AutocadastroModule { }

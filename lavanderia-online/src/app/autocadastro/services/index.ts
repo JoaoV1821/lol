@@ -1,1 +1,2 @@
-export * from './autocadastro.service';
+export * from './autoCadastro.service';
+

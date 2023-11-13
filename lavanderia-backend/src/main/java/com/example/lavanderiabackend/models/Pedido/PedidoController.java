@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,8 +18,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @RestController
-@RequestMapping("/pedido")
-@CrossOrigin(originPatterns = "*")
+@RequestMapping("/api/pedido")
 public class PedidoController {
 
     PedidoService pedidoService;
@@ -55,7 +53,7 @@ public class PedidoController {
 
     @PostMapping("/delete/pedido")
     public ResponseEntity<Integer> deletePedido(@RequestBody NumeroPedidoWrapper numero_pedido) {
-        pedidoService.deletePedido(numero_pedido.getNumero());
+        // pedidoService.deletePedido(numero_pedido.getNumero());
         return ResponseEntity.ok(200);
     }
 
@@ -65,11 +63,13 @@ public class PedidoController {
         return ResponseEntity.ok(200);
     }
 
-    @PostMapping("/add/pedido")
-    public ResponseEntity<Integer> addPedido(@RequestBody PedidoBody modelo) {
-        pedidoService.addPedido(modelo);
-        return ResponseEntity.ok(200);
-    }
+    /*
+     * @PostMapping("/add/pedido")
+     * public ResponseEntity<Integer> addPedido(@RequestBody PedidoBody modelo) {
+     * pedidoService.addPedido(modelo);
+     * return ResponseEntity.ok(200);
+     * }
+     */
 
     @PostMapping("/update/status")
     public ResponseEntity<Integer> updateStatus(@RequestBody updateWrapper wrapper) {

@@ -69,41 +69,35 @@ export class RelatoriosComponent {
     },
     {
       number: 3,
-      nome: 'João Silva',
+      nome: 'Joana',
       cpf: '987.654.321-00',
       telefone: '99999-8888',
       email: 'joao@mail.com',
     },
+
     {
       number: 4,
-      nome: 'João Silva',
+      nome: 'Joaquina',
       cpf: '987.654.321-00',
       telefone: '99999-8888',
       email: 'joao@mail.com',
     },
-    {
-      number: 5,
-      nome: 'João Silva',
-      cpf: '987.654.321-00',
-      telefone: '99999-8888',
-      email: 'joao@mail.com',
-    },
-    {
-      number: 6,
-      nome: 'João Silva',
-      cpf: '987.654.321-00',
-      telefone: '99999-8888',
-      email: 'joao@mail.com',
-    },
+    
   ];
+
+  
 
   ngOnInit(): void {}
 
+
   @ViewChild('content') content: ElementRef | undefined;
+  
+  
 
   gerarRelatorioPDF() {
     if (!this.mostrarListaClientes) {
       this.mostrarListaClientes = true;
+  
       const doc = new jsPDF.default();
 
       // Posição inicial da tabela

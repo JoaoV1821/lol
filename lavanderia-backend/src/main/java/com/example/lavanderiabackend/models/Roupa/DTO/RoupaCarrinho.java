@@ -10,9 +10,11 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class RoupaCarrinho {
-    public String numero;
+
     public Double valor;
     public String descricao;
+    public String numero;
     public Double quantidade;
-    public String nomeCategoria;
+    public String categoria;
+    public Long tempoDeLavagem;
 }

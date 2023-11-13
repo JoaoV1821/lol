@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { ModalPedidoComponent } from '../modal-pedido/modal-pedido.component';
 import { PedidoService } from '../services';
+import { PDFDocument, rgb, StandardFonts } from 'pdf-lib';
 
 interface itemCarrinho {
   tipo: string,
@@ -27,14 +26,9 @@ interface itemList {
 
 export class PedidoComponent implements OnInit{
 
-  //carrinho: itemCarrinho[] = [
-  // { tipo: 'Bermuda', qt: 4, valor_un: 20, subtotal: 80 },
-  // { tipo: 'Short', qt: 4, valor_un: 20, subtotal: 80 },
-  // { tipo: 'Jeans', qt: 4, valor_un: 20, subtotal: 80 },
-  //  { tipo: 'Sapato', qt: 4, valor_un: 20, subtotal: 80 }
-  //]
 
   carrinho: itemCarrinho[] = [];
+  
   lista_de_items: itemList[] = [
     { tipo: "Batina", valor_un: 10, categoria: "Blusas", prazo: 10 },
     { tipo: "Blusa Regata", valor_un: 15, categoria: "Blusas", prazo: 12 },
@@ -60,6 +54,30 @@ export class PedidoComponent implements OnInit{
     modalRef.componentInstance.orcamento = this.total;
     modalRef.componentInstance.listaRoupasPedido = this.carrinho;    
     modalRef.componentInstance.prazoMax = this.prazoMax;
+  }
+
+  async gerarPDF () {
+      
+  const pdfDoc = await PDFDocument.create();
+  const page = pdfDoc.addPage([600, 400]);
+
+
+  const font = await pdfDoc.embedFont(StandardFonts.Helvetica);
+  const { width, height } = page.getSize();
+  const fontSize = 30;
+  const text = 'Hello, PDF!';
+
+  page.drawText(text, {
+    x: 50,
+    y: height - 50,
+    size: fontSize,
+    font: font,
+    color: rgb(0, 0, 0),
+  });
+
+
+  const pdfBytes = await pdfDoc.save();
+  
   }
 
   changeItemValue(index: number, operation: string) {

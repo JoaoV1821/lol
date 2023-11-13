@@ -1,15 +1,20 @@
 package com.example.lavanderiabackend.models.Cadastro;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.example.lavanderiabackend.models.Cadastro.DTO.CadastroModelo;
+import com.example.lavanderiabackend.models.Cadastro.DTO.CadastroDTO;
 import com.example.lavanderiabackend.models.Endereco.Endereco;
+import com.example.lavanderiabackend.models.Pedido.Pedido;
+import com.example.lavanderiabackend.services.Authentication.DTO.UserDTO;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -17,16 +22,14 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.SequenceGenerator;
-import jakarta.persistence.Table;
-import jakarta.persistence.UniqueConstraint;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"nome","sobrenome"}))
 @Getter
 @Setter
 @AllArgsConstructor
@@ -48,59 +51,82 @@ public class Cadastro implements UserDetails {
     private String senha;
     @Column(nullable = false)
     private String telefone;
-    @Column(nullable=false)
-    private Papeis papel;
+    @Column(nullable = false)
+    private Papel papel;
     @ManyToOne
     @JoinColumn(name = "endereco_id", nullable = false)
     private Endereco endereco;
-    
+    @OneToMany(mappedBy = "cadastro", cascade = CascadeType.PERSIST, orphanRemoval = true)
+    private List<Pedido> pedidos;
 
-    public Cadastro(CadastroModelo modelo) {
+    public Cadastro(CadastroDTO modelo) {
+
+        String listaNomes[] = modelo.getNome().split(" ");
+        this.nome = listaNomes[0];
+        this.sobrenome = String.join("", listaNomes);
         this.cpf = modelo.getCpf();
         this.email = modelo.getEmail();
         this.telefone = modelo.getTelefone();
-        this.nome = modelo.getNome();
-        this.sobrenome = modelo.getSobrenome();
+        this.papel = modelo.getPapel();
     }
 
+    public Cadastro(UserDTO user) {
+        String listaNomes[] = user.getNome().split(" ");
+        this.cpf = user.getCpf();
+        this.email = user.getEmail();
+        this.nome = listaNomes[0];
+        listaNomes[0] = "";
+        this.sobrenome = String.join("", listaNomes);
+        this.telefone = user.getTelefone();
+    }
+
+    public void addPedido(Pedido pedido) {
+        this.pedidos = this.pedidos != null ? this.pedidos : new ArrayList<>();
+        this.pedidos.add(pedido);
+        pedido.setCadastro(this);
+    }
+
+    public Long getLastestPedido() {
+        if (this.pedidos == null || (this.pedidos.isEmpty())) {
+            return Long.valueOf(0);
+        } else {
+            return Collections.max(pedidos).getNumero();
+        }
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        if(this.papel == Papeis.ADMIN) return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"),new SimpleGrantedAuthority("ROLE_USER"));
-        else return List.of(new SimpleGrantedAuthority("ROLE_USER"));
-        
-    }
+        if (this.papel == Papel.ADMIN)
+            return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"), new SimpleGrantedAuthority("ROLE_USER"));
+        else
+            return List.of(new SimpleGrantedAuthority("ROLE_USER"));
 
+    }
 
     @Override
     public String getPassword() {
         return this.getSenha();
     }
 
-
     @Override
     public String getUsername() {
-        return this.getNome() + " " + this.getSobrenome();
+        return this.getEmail();
     }
-
 
     @Override
     public boolean isAccountNonExpired() {
         return true;
     }
 
-
     @Override
     public boolean isAccountNonLocked() {
         return true;
     }
 
-
     @Override
     public boolean isCredentialsNonExpired() {
         return true;
     }
-
 
     @Override
     public boolean isEnabled() {

@@ -6,6 +6,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.lavanderiabackend.Exceptions.StandardNotFoundException;
 import com.example.lavanderiabackend.models.Cadastro.Cadastro;
 import com.example.lavanderiabackend.models.Endereco.DTO.EnderecoModelo;
 
@@ -32,11 +33,10 @@ public class EnderecoService {
 
     public void deleteCadastro(Endereco enderecoModelo, Cadastro cadastro) {
         Endereco endereco = enderecoRepository.findUniqueEndereco(enderecoModelo.cep, enderecoModelo.logradouro,
-                enderecoModelo.complemento, enderecoModelo.numero, enderecoModelo.cidade);
-        if (endereco != null) {
-            endereco.removeCadastro(cadastro);
-            enderecoRepository.save(endereco);
-        }
+                enderecoModelo.complemento, enderecoModelo.numero, enderecoModelo.cidade)
+                .orElseThrow(()->new StandardNotFoundException("Endereco não encontrado!"));
+        endereco.removeCadastro(cadastro);
+        enderecoRepository.save(endereco);
     }
 
     public Endereco getEndereco(EnderecoModelo enderecoModelo) {
@@ -48,9 +48,8 @@ public class EnderecoService {
         Endereco endereco = modelMapper.map(enderecoModelo, Endereco.class);
         Endereco resultado = enderecoRepository.findUniqueEndereco(endereco.cep, endereco.logradouro,
                 endereco.complemento,
-                endereco.numero, endereco.cidade);
-        if (resultado == null)
-            resultado = enderecoRepository.save(endereco);
+                endereco.numero, endereco.cidade)
+                .orElse(enderecoRepository.save(endereco));
         return resultado;
     }
 

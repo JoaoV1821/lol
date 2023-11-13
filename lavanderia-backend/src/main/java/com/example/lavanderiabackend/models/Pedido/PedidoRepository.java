@@ -2,13 +2,15 @@ package com.example.lavanderiabackend.models.Pedido;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 public interface PedidoRepository extends JpaRepository<Pedido, String> {
-    public Pedido findByNumero(Long numero);
+
+    public Optional<Pedido> findByNumero(Long numero);
 
     public void deleteByNumero(Long numero);
 

@@ -28,6 +28,7 @@ import { ModalPedidoComponent } from './modal-pedido/modal-pedido.component';
   providers: [
     CategoriaComponent,
     PedidoService
+
   ]
 })
 export class PedidoModule { }

@@ -10,14 +10,11 @@ import { PagamentoModule } from './pagamento';
 import { PaginaInicialModule } from './pagina-inicial';
 import { PedidoModule } from './pedido';
 import { CrudRoupasModule } from './crud-roupas';
-import { RelatoriosModule } from './relatorios';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ListagemModule } from './listagem';
 import { CommonModule } from '@angular/common';
 import { FuncionarioModule } from './funcionario';
 import { FormsModule } from '@angular/forms';
 import { ListagemFModule } from './listagemF';
-import { SharedModule } from './shared';
 
 
 /* Aonde está escrito o nome do componente no import é para substituir com o nome do componente que vc criou 
@@ -41,14 +38,10 @@ import { SharedModule } from './shared';
     PedidoModule,
     PedidoModule,
     CrudRoupasModule,
-    RelatoriosModule,
-    NgbModule,
     ListagemModule,
-    ListagemFModule,
     FormsModule,
     FuncionarioModule,
-    RelatoriosModule,
-    SharedModule
+    RelatoriosModule
   ],
 
   providers: [],
