@@ -1,7 +1,5 @@
 package com.example.lavanderiabackend.models.Cadastro;
 
-import java.util.List;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,14 +9,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.lavanderiabackend.models.Cadastro.DTO.CadastroDTO;
-import com.example.lavanderiabackend.models.Carrinho.DTOS.CarrinhoDTO;
 import com.example.lavanderiabackend.models.Pedido.DTO.PedidoStatus;
+import com.example.lavanderiabackend.wrappers.CarrinhoWrapper;
+import com.example.lavanderiabackend.wrappers.StringWrapper;
 
 import jakarta.validation.Valid;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @RestController
 @RequestMapping("/api/usuario")
@@ -64,21 +59,4 @@ public class UsuarioController {
         cadastroService.deletarPedido(numero_pedido.getString());
         return ResponseEntity.ok().build();
     }
-
-}
-
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
-class StringWrapper {
-    public String string;
-}
-
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
-class CarrinhoWrapper {
-    public List<CarrinhoDTO> carrinhos;
 }

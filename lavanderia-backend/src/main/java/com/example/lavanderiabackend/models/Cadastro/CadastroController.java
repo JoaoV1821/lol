@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.lavanderiabackend.models.Cadastro.DTO.CadastroDTO;
-import com.example.lavanderiabackend.models.Cadastro.Wrappers.CpfWrapper;
+import com.example.lavanderiabackend.wrappers.StringWrapper;
 
 import jakarta.validation.Valid;
 
@@ -26,8 +26,8 @@ public class CadastroController {
     }
 
     @PostMapping("/get/cadastro")
-    public ResponseEntity<CadastroDTO> getCadastro(@Valid @RequestBody CpfWrapper cpf) {
-        CadastroDTO cadastroDTO = cadastroService.getCadastro(cpf.getCpf());
+    public ResponseEntity<CadastroDTO> getCadastro(@Valid @RequestBody StringWrapper cpf) {
+        CadastroDTO cadastroDTO = cadastroService.getCadastro(cpf.getString());
         return ResponseEntity.ok().body(cadastroDTO);
     }
 
@@ -50,8 +50,8 @@ public class CadastroController {
     }
 
     @PostMapping("/delete/cadastro")
-    public ResponseEntity<Object> deleteCadastro(@Valid @RequestBody CpfWrapper cpf) {
-        cadastroService.deleteCadastro(cpf.getCpf());
+    public ResponseEntity<Object> deleteCadastro(@Valid @RequestBody StringWrapper cpf) {
+        cadastroService.deleteCadastro(cpf.getString());
         return ResponseEntity.noContent().build();
     }
 

@@ -87,6 +87,11 @@ public class AuthenticationController {
         return ResponseEntity.status(HttpStatus.CREATED).body("Senha :" + "123123123");
     }
 
+    @GetMapping("/testLogin")
+    public ResponseEntity<String> testLogin() {
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
     @PostMapping("/logout")
     public ResponseEntity<Object> logout(HttpServletResponse response) {
         cookieService.clear(response, "AuthCookie");

@@ -15,7 +15,7 @@ import { CommonModule } from '@angular/common';
 import { FuncionarioModule } from './funcionario';
 import { RelatoriosModule } from './relatorios';
 import { FormsModule } from '@angular/forms';
-import { ListagemFModule } from './listagemF';
+import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
 
 
 /* Aonde está escrito o nome do componente no import é para substituir com o nome do componente que vc criou 
@@ -42,10 +42,12 @@ import { ListagemFModule } from './listagemF';
     ListagemModule,
     FormsModule,
     FuncionarioModule,
-    RelatoriosModule
+    RelatoriosModule,
+    NgxMaskDirective,
+    NgxMaskPipe
   ],
 
-  providers: [],
+  providers: [provideNgxMask()],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -17,17 +17,26 @@ import { Login } from 'src/app/shared/models/login.model';
 })
 export class LoginComponent implements OnInit {
 
+  erro = false
+  usuario?: string
+  senha?: string
+
+
   constructor(private loginService: LoginService) {
 
   }
 
   ngOnInit(): void {
-
+    this.loginService.checkIfLogged();
   }
 
   pegarDadosFormulario(formulario: NgForm) {
     let dados = formulario.value;
     let login: Login = new Login(dados.username, dados.password);
-    this.loginService.login(login);
+    this.loginService.login(login, this);
+  }
+
+  setErro(valor: boolean) {
+    this.erro = valor;
   }
 }
