@@ -1,1 +1,0 @@
-export * from './pagina-inicial-funcionario.service';

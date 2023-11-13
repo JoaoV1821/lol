@@ -1,1 +1,0 @@
-export * from './listar-pedidos-abertos.component';

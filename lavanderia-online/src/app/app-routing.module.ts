@@ -1,93 +1,143 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ListagemComponent } from './listagem/listagem/listagem.component';
-import { AutocadastroComponent } from './autocadastro';
-import { ConsultaPedidoComponent } from './consulta-pedido';
-import { LoginComponent } from './login';
-import { OrcamentoComponent } from './orcamento';
-import { PagamentoComponent } from './pagamento';
-import { PaginaInicialComponent } from './pagina-inicial';
-import { ListarPedidosAbertosComponent } from './pagina-inicial-funcionario';
-import { PedidoComponent } from './pedido';
-import { ListarRoupasComponent } from './crud-roupas/listar-roupas';
-import { InserirRoupaComponent } from './crud-roupas/inserir-roupa';
-import { EditarRoupaComponent } from './crud-roupas/editar-roupa';
-import { Rf012Component } from './prototipos/rf012/rf012.component';
-import { ListagemFComponent } from './listagemF';
-import { RelatoriosComponent } from './relatorios';
-import { EditarFuncionarioComponent, InserirFuncionarioComponent, ListarFuncionarioComponent } from './funcionario';
+import { EditarPessoaComponent, InserirPessoaComponent, ListarPessoaComponent } from './pessoa';
+import { EditarEnderecoComponent, InserirEnderecoComponent, ListarEnderecoComponent } from './endereco';
+import { EditarCidadeComponent, InserirCidadeComponent, ListarCidadeComponent } from './cidade';
+import { EditarEstadoComponent, InserirEstadoComponent, ListarEstadoComponent } from './estado';
+import { LoginRoutes } from './auth/auth-routing.module';
+import { AuthGuard } from './auth/auth.guard';
+import { HomeComponent } from './home/home.component';
 
 const routes: Routes = [
-  { path: '',
-    redirectTo: '',
-    pathMatch: 'full'},
-    
-  { path: 'autocadastro',
-    redirectTo: 'autocadastro/autocadastro'},
-  { path: 'autocadastro/autocadastro',
-    component: AutocadastroComponent },
+  {
+    path: '',
+    redirectTo: 'login',
+    pathMatch: 'full'
+  },
+  {
+    path: 'pessoas',
+    redirectTo: 'pessoas/listar'
+  },
+  {
+    path: 'pessoas/listar',
+    component: ListarPessoaComponent,
+    canActivate: [AuthGuard],
+    data: {
+      role: 'ADMIN,GERENTE,FUNCIONARIO'
+    }
+  },
+  {
+    path: 'pessoas/novo',
+    component: InserirPessoaComponent,
+    canActivate: [AuthGuard],
+    data: {
+      role: 'ADMIN,GERENTE,FUNCIONARIO'
+    }
+  },
+  {
+    path: 'pessoas/editar/:id',
+    component: EditarPessoaComponent,
+    canActivate: [AuthGuard],
+    data: {
+      role: 'ADMIN,GERENTE,FUNCIONARIO'
+    }
+  },
 
-  { path: 'consulta-pedido',
-    redirectTo: 'consulta-pedido/consulta-pedido'},
-  { path: 'consulta-pedido/consulta-pedido',
-    component: ConsultaPedidoComponent },
+  {
+    path: 'enderecos',
+    redirectTo: 'enderecos/listar'
+  },
+  {
+    path: 'enderecos/listar',
+    component: ListarEnderecoComponent,
+    canActivate: [AuthGuard],
+    data: {
+      role: 'ADMIN,GERENTE,FUNCIONARIO'
+    }
+  },
+  {
+    path: 'enderecos/novo',
+    component: InserirEnderecoComponent,
+    canActivate: [AuthGuard],
+    data: {
+      role: 'ADMIN,GERENTE,FUNCIONARIO'
+    }
+  },
+  {
+    path: 'enderecos/editar/:id',
+    component: EditarEnderecoComponent,
+    canActivate: [AuthGuard],
+    data: {
+      role: 'ADMIN,GERENTE,FUNCIONARIO'
+    }
+  },
 
-  { path: 'login',
-    redirectTo: 'login/login'},
-  { path: 'login/login',
-    component: LoginComponent },
+  {
+    path: 'cidades',
+    redirectTo: 'cidades/listar'
+  },
+  {
+    path: 'cidades/listar',
+    component: ListarCidadeComponent,
+    canActivate: [AuthGuard],
+    data: {
+      role: 'ADMIN,GERENTE'
+    }
+  },
+  {
+    path: 'cidades/novo',
+    component: InserirCidadeComponent,
+    canActivate: [AuthGuard],
+    data: {
+      role: 'ADMIN,GERENTE'
+    }
+  },
+  {
+    path: 'cidades/editar/:id',
+    component: EditarCidadeComponent,
+    canActivate: [AuthGuard],
+    data: {
+      role: 'ADMIN,GERENTE'
+    }
+  },
 
-  { path: 'orcamento',
-    redirectTo: 'orcamento/orcamento'},
-  { path: 'orcamento/orcamento',
-    component: OrcamentoComponent },
-
-  { path: 'listagem',
-    redirectTo: 'listagem/listagem'},
-  { path: 'listagem/listagem',
-    component: ListagemComponent },
-
-  { path: 'pagamento',
-    redirectTo: 'pagamento/pagamento'},
-  { path: 'pagamento/pagamento',
-    component: PagamentoComponent },
-
-  { path: 'pagina-inicial',
-    redirectTo: 'pagina-inicial/pagina-inicial'},
-  { path: 'pagina-inicial/pagina-inicial',
-    component: PaginaInicialComponent },
-
-  { path: 'pagina-inicial-funcionario',
-    redirectTo: 'pagina-inicial-funcionario/listar-pedidos-aberto'},
-  { path: 'pagina-inicial-funcionario/listar-pedidos-aberto',
-    component: ListarPedidosAbertosComponent },
-
-  { path: 'pedido',
-    redirectTo: 'pedido/pedido'},
-  { path: 'pedido/pedido',
-    component: PedidoComponent },
-  
-    //CRUD Roupas
-  { path: 'roupas', redirectTo: 'roupas/listar-roupas'},
-  { path: 'roupas/listar-roupas', component: ListarRoupasComponent},
-  { path: 'roupas/novo', component: InserirRoupaComponent},
-  { path: 'roupas/editar/:id', component: EditarRoupaComponent},
-  
-  { path: 'funcionarios', redirectTo: 'funcionario/listar-funcionario'},
-  { path: 'funcionario/listar-funcionario', component: ListarFuncionarioComponent},
-  { path: 'funcionario/inserir-funcionario', component: InserirFuncionarioComponent},
-  { path: 'funcionario/editar-funcionario', component: EditarFuncionarioComponent},
-  
-  { path: 'prop', redirectTo: 'prototipos/rf012'},
-  { path: 'prototipos/rf012', component: Rf012Component},
-
-  { path: 'listagemF', redirectTo: 'listagemF/listagemF'},
-  { path: 'listagemF', component: ListagemFComponent},
-  
-  { path: 'relatorios', redirectTo: 'relatorios/relatorios'},
-  { path: 'relatorios', component: RelatoriosComponent}
-  
-
+  {
+    path: 'estados',
+    redirectTo: 'estados/listar'
+  },
+  {
+    path: 'estados/listar',
+    component: ListarEstadoComponent,
+    canActivate: [AuthGuard],
+    data: {
+      role: 'ADMIN'
+    }
+  },
+  {
+    path: 'estados/novo',
+    component: InserirEstadoComponent,
+    canActivate: [AuthGuard],
+    data: {
+      role: 'ADMIN'
+    }
+  },
+  {
+    path: 'estados/editar/:id',
+    component: EditarEstadoComponent,
+    canActivate: [AuthGuard],
+    data: {
+      role: 'ADMIN'
+    }
+  },
+  {
+    path: 'home',
+    component: HomeComponent,
+    canActivate: [AuthGuard],
+    data: {
+      role: 'ADMIN,GERENTE,FUNCIONARIO,CLIENTE'
+    }
+  },
+  ...LoginRoutes
 ];
 
 @NgModule({

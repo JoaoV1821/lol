@@ -1,0 +1,148 @@
+<head>
+    <link rel="stylesheet" type="text/css" href="inserir-pessoa.component.css">
+</head>
+
+<h1>Novo Cadastro</h1>
+<div class="well">
+    <form #formPessoa="ngForm">
+
+        <div class="form-group">
+            <label for="cpf">CPF:</label>
+            <input type="text" class="form-control" id="cpf" name="cpf" [(ngModel)]="pessoa.cpf" #cpf="ngModel" numerico
+                minlength="11" maxlength="11" required>
+            <div *ngIf="cpf.errors && (cpf.dirty || cpf.touched)" class="alert alert-danger">
+                <div [hidden]="!cpf.errors['required']">CPF obrigatório.</div>
+                <div [hidden]="!cpf.errors['minlength']">O CPF deve conter 11 caracteres.</div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="nome">Nome:</label>
+            <input type="text" class="form-control" id="nome" name="nome" [(ngModel)]="pessoa.nome" #nome="ngModel"
+                alfabeticoPTBR minlength="2" required>
+            <div *ngIf="nome.errors && (nome.dirty || nome.touched)" class="alert alert-danger">
+                <div [hidden]="!nome.errors['required']"> Nome obrigatório. </div>
+                <div [hidden]="!nome.errors['minlength']"> O nome deve conter ao menos 2 caracteres. </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="data">Data Nascimento:</label>
+            <input type="text" class="form-control" id="data" name="data" [(ngModel)]="pessoa.dataNascimento"
+                #dataNascimento="ngModel" mask="d0/M0/0000" required>
+            <div *ngIf="dataNascimento.errors && (dataNascimento.dirty || dataNascimento.touched)"
+                class="alert alert-danger">
+                <div [hidden]="!dataNascimento.errors['required']">
+                    Data de nascimento obrigatória.
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="cep">CEP:</label>
+            <input type="text" class="form-control" id="cep" name="cep" [(ngModel)]="pessoa.cep" #cep="ngModel" numerico
+                minlength="8" maxlength="8" required>
+            <div *ngIf="cpf.errors && (cpf.dirty || cpf.touched)" class="alert alert-danger">
+                <div [hidden]="!cpf.errors['required']">CEP obrigatório.</div>
+                <div [hidden]="!cpf.errors['minlength']">O CEP deve conter 8 caracteres.</div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="logradouro">Logradouro:</label>
+            <input type="text" class="form-control" id="logradouro" name="logradouro" [(ngModel)]="pessoa.logradouro"
+                #logradouro="ngModel" alfabeticoPTBR minlength="2" required>
+            <div *ngIf="logradouro.errors && (logradouro.dirty || logradouro.touched)" class="alert alert-danger">
+                <div [hidden]="!logradouro.errors['required']">Logradouro obrigatório.</div>
+                <div [hidden]="!logradouro.errors['minlength']">O logradouro deve conter ao menos 2 caracteres.</div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="logNumero">Número:</label>
+            <input type="text" class="form-control" id="logNumero" name="logNumero" [(ngModel)]="pessoa.logNumero"
+                #logNumero="ngModel" numerico required>
+            <div *ngIf="logradouro.errors && (logradouro.dirty || logradouro.touched)" class="alert alert-danger">
+                <div [hidden]="!logradouro.errors['required']">Número obrigatório.</div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="complemento">Complemento:</label>
+            <input type="text" class="form-control" id="complemento" name="complemento" [(ngModel)]="pessoa.complemento"
+                #complemento="ngModel">
+        </div>
+
+        <div class="form-group">
+            <label for="cidade">Cidade:</label>
+            <input type="text" class="form-control" id="cidade" name="cidade" [(ngModel)]="pessoa.cidade"
+                #cidade="ngModel" alfabeticoPTBR minlength="2" required>
+            <div *ngIf="cidade.errors && (cidade.dirty || cidade.touched)" class="alert alert-danger">
+                <div [hidden]="!cidade.errors['required']">Cidade obrigatória.</div>
+                <div [hidden]="!cidade.errors['minlength']">A cidade deve conter ao menos 2 caracteres.</div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="estado">Estado:</label>
+            <input type="text" class="form-control" id="estado" name="estado" [(ngModel)]="pessoa.estado"
+                #estado="ngModel" alfabeticoPTBR minlength="2" required>
+            <div *ngIf="estado.errors && (estado.dirty || estado.touched)" class="alert alert-danger">
+                <div [hidden]="!estado.errors['required']">Estado obrigatória.</div>
+                <div [hidden]="!estado.errors['minlength']">O estado deve conter ao menos 2 caracteres.</div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="contato">Contato:</label>
+            <input type="text" class="form-control" id="contato" name="contato" [(ngModel)]="pessoa.contato"
+                #contato="ngModel" numerico minlength="9" required>
+            <div *ngIf="contato.errors && (contato.dirty || contato.touched)" class="alert alert-danger">
+                <div [hidden]="!contato.errors['required']">Contato obrigatório.</div>
+                <div [hidden]="!contato.errors['minlength']">O contato deve conter ao menos 9 caracteres. DDD obrigatório.</div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="text" class="form-control" id="email" name="email" [(ngModel)]="pessoa.email"
+                #email="ngModel" minlength="2" required>
+            <div *ngIf="email.errors && (email.dirty || email.touched)" class="alert alert-danger">
+                <div [hidden]="!email.errors['required']">Email obrigatório.</div>
+                <div [hidden]="!email.errors['minlength']">O email deve conter ao menos 2 caracteres.</div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="senha">Senha:</label>
+            <input type="text" class="form-control" id="senha" name="senha" [(ngModel)]="pessoa.senha"
+                #senha="ngModel" minlength="4" meuNumerico required>
+            <div *ngIf="senha.errors && (senha.dirty || senha.touched)" class="alert alert-danger">
+                <div [hidden]="!senha.errors['required']">Senha obrigatória.</div>
+                <div [hidden]="!senha.errors['minlength']">A senha deve conter ao menos 4 números.</div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="perfil">Perfil:</label>
+            <input type="radio" class="form-check-input" id="perfil1" name="perfil" [(ngModel)]="pessoa.perfil"
+                #perfil1="ngModel" value="CLIENTE" checked> CLIENTE <br />
+            <input type="radio" class="form-check-input" id="perfil2" name="perfil" [(ngModel)]="pessoa.perfil"
+                #perfil2="ngModel" value="FUNCIONARIO"> FUNCIONARIO <br />
+            <input type="radio" class="form-check-input" id="perfil3" name="perfil" [(ngModel)]="pessoa.perfil"
+                #perfil3="ngModel" value="GERENTE"> GERENTE <br />
+            <input type="radio" class="form-check-input" id="perfil4" name="perfil" [(ngModel)]="pessoa.perfil"
+                #perfil4="ngModel" value="ADMIN"> ADMIN <br />
+        </div>
+
+        <div class="form-group">
+            <button type="button" class="btn btn-primary" (click)="inserirPessoaComponent()"
+                [disabled]="!formPessoa.form.valid">
+                <i class="fa fa-save" aria-hidden="true"></i> Salvar
+            </button>
+            <a class="btn btn-secondary" [routerLink]="['/pessoas']">
+                <i class="fa fa-arrow-left" aria-hidden="true"></i> Voltar
+            </a>
+        </div>
+    </form>
+</div>

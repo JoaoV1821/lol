@@ -1,0 +1,25 @@
+<div class="modal-header">
+    <h4 class="modal-title" id="modalLabel"> ESTADO </h4>
+</div>
+
+
+<table class="table table-striped table-bordered table-hover">
+    <tbody>
+        <tr>
+            <th>Id</th>
+            <td> {{estado.id}} </td>
+        </tr>
+        <tr>
+            <th>Estado</th>
+            <td> {{estado.nomeEstado | uppercase}} </td>
+        </tr>
+        <tr>
+            <th>Sigla</th>
+            <td> {{estado.sigla | uppercase}} </td>
+        </tr>
+    </tbody>
+</table>
+
+<div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="activeModal.close()">Fechar</button>
+</div>

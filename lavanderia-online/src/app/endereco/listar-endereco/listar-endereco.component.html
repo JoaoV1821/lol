@@ -1,0 +1,57 @@
+<head>
+    <!-- <link rel="stylesheet" type="text/css" href="listar-pessoa.component.css"> -->
+</head>
+
+<h1>Pedidos</h1>
+<table class="table table-striped table-bordered table-hover">
+    <tbody>
+        <tr>
+            <!-- <th>Id</th> -->
+            <th>CEP</th>
+            <th>Logradouro</th>
+            <th>Número</th>
+            <th>Complemento</th>
+            <th>Tipo</th>
+            <th>Bairro</th>
+
+            <th> Cidade
+                <button type="button" class="btn btn-link" (click)="ordenarCidade()">
+                    <i class="fa"
+                        [ngClass]="{'fa-sort-alpha-up': ordenacaoCrescente, 'fa-sort-alpha-down': !ordenacaoCrescente}"></i>
+                </button>
+            </th>
+
+            <th>Estado</th>
+            <th class="text-center">
+                <a [routerLink]="['/enderecos/novo']" href="#" title="Novo" alt="Novo" class="btn btn-xs btn-success">
+                    <i class="fa fa-plus" aria-hidden="true"></i> Novo
+                </a>
+            </th>
+        </tr>
+        <tr *ngFor="let endereco of enderecos">
+            <!-- <td> {{endereco.id}} </td> -->
+            <td> {{endereco.cep}} </td>
+            <td> {{endereco.logradouro | caixaAlta}} </td>
+            <td> {{endereco.logNumero}} </td>
+            <td> {{endereco.complemento | uppercase}} </td>
+            <td> {{endereco.residencial! ? "Residencial" : "Comercial"}} </td>
+            <td> {{endereco.bairro | uppercase}} </td>
+            <td> {{endereco.cidade | uppercase}} </td>
+            <td> {{endereco.estado | uppercase}} </td>
+            <td class="text-center" style="width: 300px">
+                <button type="button" class="btn btn-outline-secondary" (click)="abrirModalEndereco(endereco)">
+                    <i class="fa fa-eye" aria-hidden="true"></i> Ver
+                </button>
+                <a [routerLink]="['/enderecos/editar', endereco.id]" href="#" title="Editar" alt="Editar"
+                    class="btn btn-xs btn-info">
+                    <i class="fa fa-edit" aria-hidden="true"></i> Editar
+                </a>
+                <a href="#" title="Remover" alt="Remover" class="btn btn-xs btn-danger"
+                    (click)="remover($event, endereco)">
+                    <i class="fa fa-times" aria-hidden="true"></i> Remover
+                </a>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<p *ngIf="enderecos.length==0">Nenhuma endereço cadastrado.</p>

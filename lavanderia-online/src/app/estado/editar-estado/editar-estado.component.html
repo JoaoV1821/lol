@@ -1,0 +1,47 @@
+<head>
+    <link rel="stylesheet" type="text/css" href="editar-estado.component.css">
+</head>
+
+<h1>Editar Relatórios</h1>
+<div class="well">
+    <form #formEstado="ngForm">
+
+        <div class="form-group">
+            <label for="nomeEstado">Estado:</label>
+            <input type="text" class="form-control" id="nomeEstado" name="nomeEstado" [(ngModel)]="estado.nomeEstado"
+                #nomeEstado="ngModel" alfabeticoPTBR minlength="2" required>
+            <div *ngIf="nomeEstado.errors && (nomeEstado.dirty || nomeEstado.touched)" class="alert alert-danger">
+                <div [hidden]="!nomeEstado.errors['required']">
+                    Digite o Estado.
+                </div>
+                <div [hidden]="!nomeEstado.errors['minlength']">
+                    O Estado deve conter ao menos 2 caracteres.
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="sigla">Sigla:</label>
+            <input type="text" class="form-control" id="sigla" name="sigla" [(ngModel)]="estado.sigla"
+                #sigla="ngModel" alfabeticoPTBR minlength="2" maxlength="2" required>
+            <div *ngIf="sigla.errors && (sigla.dirty || sigla.touched)" class="alert alert-danger">
+                <div [hidden]="!sigla.errors['required']">
+                    Digite a sigla.
+                </div>
+                <div [hidden]="!sigla.errors['minlength']">
+                    A sigla deve conter 2 caracteres.
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <button type="button" class="btn btn-primary" (click)="atualizarEstadoComponent()"
+                [disabled]="!formEstado.form.valid">
+                <i class="fa fa-save" aria-hidden="true"></i> Atualizar
+            </button>
+            <a class="btn btn-secondary" [routerLink]="['/estados']">
+                <i class="fa fa-arrow-left" aria-hidden="true"></i> Voltar
+            </a>
+        </div>
+    </form>
+</div>

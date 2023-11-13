@@ -1,0 +1,38 @@
+<head>
+    <!-- <link rel="stylesheet" type="text/css" href="listar-pessoa.component.css"> -->
+</head>
+
+<h1>Roupas</h1>
+<table class="table table-striped table-bordered table-hover">
+    <tbody>
+        <tr>
+            <!-- <th>Id</th> -->
+            <th>Cidade</th>
+            <th>Estado</th>
+            <th class="text-center">
+                <a [routerLink]="['/cidades/novo']" href="#" title="Novo" alt="Novo" class="btn btn-xs btn-success">
+                    <i class="fa fa-plus" aria-hidden="true"></i> Novo
+                </a>
+            </th>
+        </tr>
+        <tr *ngFor="let cidade of cidades">
+            <!-- <td> {{cidade.id}} </td> -->
+            <td> {{cidade.nomeCidade | uppercase}} </td>
+            <td> {{cidade?.estado?.sigla | uppercase}} </td>
+            <td class="text-center" style="width: 300px">
+                <button type="button" class="btn btn-outline-secondary" (click)="abrirModalCidade(cidade)">
+                    <i class="fa fa-eye" aria-hidden="true"></i> Ver
+                </button>
+                <a [routerLink]="['/cidades/editar', cidade.id]" href="#" title="Editar" alt="Editar"
+                    class="btn btn-xs btn-info">
+                    <i class="fa fa-edit" aria-hidden="true"></i> Editar
+                </a>
+                <a href="#" title="Remover" alt="Remover" class="btn btn-xs btn-danger"
+                    (click)="remover($event, cidade)">
+                    <i class="fa fa-times" aria-hidden="true"></i> Remover
+                </a>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<p *ngIf="cidades.length==0">Nenhuma endereço cadastrado.</p>

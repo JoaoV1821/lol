@@ -1,0 +1,46 @@
+<div class="modal-header">
+    <h4 class="modal-title" id="modalLabel"> ENDERECO </h4>
+</div>
+
+
+<table class="table table-striped table-bordered table-hover">
+    <tbody>
+        <tr>
+            <th>Id</th>
+            <td> {{endereco.id}} </td>
+        </tr>
+        <tr>
+            <th>CEP</th>
+            <td> {{endereco.cep}} </td>
+        </tr>
+        <tr>
+            <th>Logradouro</th>
+            <td> {{endereco.logradouro | uppercase}} </td>
+        </tr>
+        <tr>
+            <th>Número</th>
+            <td> {{endereco.logNumero}} </td>
+        </tr>
+        <tr>
+            <th>Complemento</th>
+            <td> {{endereco.complemento! | uppercase}} </td>
+        </tr>
+        <tr>
+            <th>Tipo de endereço</th>
+            <td>{{ endereco.residencial! ? "Residencial" : "Comercial" }}</td>
+        </tr>
+
+        <tr>
+            <th>Cidade</th>
+            <td> {{endereco.cidade! | uppercase}} </td>
+        </tr>
+        <tr>
+            <th>Estado</th>
+            <td> {{endereco.estado! | uppercase}} </td>
+        </tr>
+    </tbody>
+</table>
+
+<div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="activeModal.close()">Fechar</button>
+</div>
