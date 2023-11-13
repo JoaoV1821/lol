@@ -21,8 +21,10 @@ import com.example.lavanderiabackend.Exceptions.UserAlreadyExistsException;
 import com.example.lavanderiabackend.Exceptions.UserNotFoundException;
 import com.example.lavanderiabackend.models.Cadastro.Cadastro;
 import com.example.lavanderiabackend.models.Cadastro.CadastroRepository;
+import com.example.lavanderiabackend.models.Cadastro.CadastroService;
 import com.example.lavanderiabackend.models.Cadastro.Papel;
 import com.example.lavanderiabackend.models.Cadastro.DTO.AuthenticationDTO;
+import com.example.lavanderiabackend.models.Cadastro.DTO.CadastroDTO;
 import com.example.lavanderiabackend.models.Endereco.EnderecoService;
 import com.example.lavanderiabackend.services.Authentication.DTO.LoginResponseDTO;
 import com.example.lavanderiabackend.services.Authentication.DTO.UserDTO;
@@ -52,6 +54,9 @@ public class AuthenticationController {
     @Autowired
     private CookieService cookieService;
 
+    @Autowired
+    CadastroService cadastroService;
+
     @PostMapping("/login")
     public ResponseEntity<LoginResponseDTO> login(@RequestBody AuthenticationDTO data, HttpServletResponse response,
             HttpServletRequest request) {
@@ -77,7 +82,7 @@ public class AuthenticationController {
         password += idRandom;
         String encryptedPassword = new BCryptPasswordEncoder().encode(password);
         cadastro.setSenha(encryptedPassword);
-        cadastro.setPapel(Papel.USER);
+        cadastro.setPerfil(Papel.USER);
         enderecoService.addCadastros(data.getEndereco(), List.of(cadastro));
         return ResponseEntity.status(HttpStatus.CREATED).body(password + idRandom); // 200 Ok
     }
@@ -88,8 +93,10 @@ public class AuthenticationController {
     }
 
     @GetMapping("/testLogin")
-    public ResponseEntity<String> testLogin() {
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    public ResponseEntity<CadastroDTO> testLogin() {
+        CadastroDTO cadastroDTO = cadastroService.getUsuarioLogado();
+        System.out.println(cadastroDTO.getPerfil());
+        return ResponseEntity.ok().body(cadastroDTO);
     }
 
     @PostMapping("/logout")

@@ -14,11 +14,11 @@ import lombok.Setter;
 @Setter
 public class CadastroDTO {
 
-    private String cpf; 
+    private String cpf;
     private String nome;
     private String email;
     private String senha;
     private EnderecoModelo endereco;
     private String telefone;
-    private Papel papel;
+    private Papel perfil;
 }

@@ -3710,19 +3710,25 @@ class LoginService {
           loginComponent.setErro(true);
         }
       } else if (response.data) {
-        if (response.data.perfil == "admin") {
-          _this.router.navigate(["/pagina-inicial"]);
-        } else {
-          _this.router.navigate(["/orcamento"]);
-        }
+        _this.navigateAfterLogin(response.data);
       }
     })();
   }
   checkIfLogged() {
+    var _this2 = this;
     return (0,C_Users_Samuel_Arquivos_Programa_o_lol_lavanderia_online_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       let response = yield src_app_services_requestService__WEBPACK_IMPORTED_MODULE_1__.RequestMaker.getData("/auth/testLogin");
-      console.log(response);
+      if (response.status != 401 && response.data) {
+        _this2.navigateAfterLogin(response.data);
+      }
     })();
+  }
+  navigateAfterLogin(usuario) {
+    if (usuario.perfil == "admin") {
+      this.router.navigate(["/orcamento"]);
+    } else {
+      this.router.navigate(["/pagina-inicial"]);
+    }
   }
 }
 _class = LoginService;

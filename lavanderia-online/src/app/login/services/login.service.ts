@@ -19,16 +19,23 @@ export class LoginService {
         loginComponent.setErro(true);
       }
     } else if (response.data) {
-      if (response.data.perfil == "admin") {
-        this.router.navigate(["/pagina-inicial"])
-      } else {
-        this.router.navigate(["/orcamento"]);
-      }
+      this.navigateAfterLogin(response.data);
     }
   }
 
   async checkIfLogged() {
-    let response = await RequestMaker.getData<String>("/auth/testLogin");
-    console.log(response);
+    let response = await RequestMaker.getData<Usuario>("/auth/testLogin");
+    if (response.status != 401 && response.data) {
+      this.navigateAfterLogin(response.data)
+    }
   }
+
+  private navigateAfterLogin(usuario: Usuario) {
+    if (usuario.perfil == "admin") {
+      this.router.navigate(["/orcamento"]);
+    } else {
+      this.router.navigate(["/pagina-inicial"])
+    }
+  }
+
 }
