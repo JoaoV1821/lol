@@ -31,7 +31,11 @@
                     <a class="nav-link" href="#" routerLink="/estado">Estados</a>
                 </li>
 
-                <li class="nav-item" ngbDropdown>
+                <li class="nav-item">
+                    <a id="api" class="nav-link" (click)="$event.preventDefault()" href="#">Api</a>
+                </li>
+
+                <li class=" nav-item" ngbDropdown>
 
                     <a class="nav-link" tabindex="0" ngbDropdownToggle id="navbarDropdown1" role="button">Cadastros</a>
 
@@ -58,5 +62,8 @@
     </nav>
     <router-outlet></router-outlet>
 </body>
+<script>
+
+</script>
 
 </html>

@@ -198,6 +198,14 @@ class AppComponent {
     this.isChecked = false;
     this.title = 'lavanderia-online';
   }
+  ngOnInit() {
+    let api = document.getElementById("api");
+    if (api != null) {
+      api.addEventListener("click", () => {
+        window.location.href = "/api/index";
+      });
+    }
+  }
 }
 _class = AppComponent;
 _class.ɵfac = function AppComponent_Factory(t) {
@@ -206,9 +214,9 @@ _class.ɵfac = function AppComponent_Factory(t) {
 _class.ɵcmp = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({
   type: _class,
   selectors: [["app-root"]],
-  decls: 37,
+  decls: 40,
   vars: 0,
-  consts: [["lang", "en"], ["charset", "UTF-8"], ["name", "viewport", "content", "width=device-width, initial-scale=1.0"], [1, "navbar", "navbar-expand-md", "n", "navbar-dark", "bg-dark"], ["href", "#", 1, "navbar-brand"], ["src", "../assets/logoLol.png", "width", "100", "alt", "Logo", 2, "margin-right", "7px"], ["id", "navbarContent", 1, "navbar-collapse", "collapsed"], [1, "navbar-nav", "ml-auto"], [1, "nav-item"], ["href", "#", "routerLink", "/autocadastro", 1, "nav-link"], ["href", "#", "routerLink", "/endereco", 1, "nav-link"], ["href", "#", "routerLink", "/cidade", 1, "nav-link"], ["href", "#", "routerLink", "/estado", 1, "nav-link"], ["ngbDropdown", "", 1, "nav-item"], ["tabindex", "0", "ngbDropdownToggle", "", "id", "navbarDropdown1", "role", "button", 1, "nav-link"], ["ngbDropdownMenu", "", "aria-labelledby", "navbarDropdown1", 1, "dropdown-menu"], ["ngbDropdownItem", "", "href", "#", "routerLink", "/cadastro", 3, "click"], ["ngbDropdownItem", "", "href", "#", "routerLink", "/endereco", 3, "click"], ["ngbDropdownItem", "", "href", "#", "routerLink", "/cidade", 3, "click"], ["ngbDropdownItem", "", "href", "#", "routerLink", "/estado", 3, "click"]],
+  consts: [["lang", "en"], ["charset", "UTF-8"], ["name", "viewport", "content", "width=device-width, initial-scale=1.0"], [1, "navbar", "navbar-expand-md", "n", "navbar-dark", "bg-dark"], ["href", "#", 1, "navbar-brand"], ["src", "../assets/logoLol.png", "width", "100", "alt", "Logo", 2, "margin-right", "7px"], ["id", "navbarContent", 1, "navbar-collapse", "collapsed"], [1, "navbar-nav", "ml-auto"], [1, "nav-item"], ["href", "#", "routerLink", "/autocadastro", 1, "nav-link"], ["href", "#", "routerLink", "/endereco", 1, "nav-link"], ["href", "#", "routerLink", "/cidade", 1, "nav-link"], ["href", "#", "routerLink", "/estado", 1, "nav-link"], ["id", "api", "href", "#", 1, "nav-link", 3, "click"], ["ngbDropdown", "", 1, "nav-item"], ["tabindex", "0", "ngbDropdownToggle", "", "id", "navbarDropdown1", "role", "button", 1, "nav-link"], ["ngbDropdownMenu", "", "aria-labelledby", "navbarDropdown1", 1, "dropdown-menu"], ["ngbDropdownItem", "", "href", "#", "routerLink", "/cadastro", 3, "click"], ["ngbDropdownItem", "", "href", "#", "routerLink", "/endereco", 3, "click"], ["ngbDropdownItem", "", "href", "#", "routerLink", "/cidade", 3, "click"], ["ngbDropdownItem", "", "href", "#", "routerLink", "/estado", 3, "click"]],
   template: function AppComponent_Template(rf, ctx) {
     if (rf & 1) {
       _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "html", 0)(1, "head");
@@ -231,34 +239,40 @@ _class.ɵcmp = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefi
       _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](21, "li", 8)(22, "a", 12);
       _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](23, "Estados");
       _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]()();
-      _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](24, "li", 13)(25, "a", 14);
-      _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](26, "Cadastros");
-      _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-      _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](27, "div", 15)(28, "a", 16);
-      _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function AppComponent_Template_a_click_28_listener($event) {
+      _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](24, "li", 8)(25, "a", 13);
+      _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function AppComponent_Template_a_click_25_listener($event) {
         return $event.preventDefault();
       });
-      _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](29, "Clientes");
+      _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](26, "Api");
+      _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]()();
+      _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](27, "li", 14)(28, "a", 15);
+      _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](29, "Cadastros");
       _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-      _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](30, "a", 17);
-      _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function AppComponent_Template_a_click_30_listener($event) {
+      _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](30, "div", 16)(31, "a", 17);
+      _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function AppComponent_Template_a_click_31_listener($event) {
         return $event.preventDefault();
       });
-      _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](31, "Endere\u00E7os");
+      _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](32, "Clientes");
       _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-      _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](32, "a", 18);
-      _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function AppComponent_Template_a_click_32_listener($event) {
+      _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](33, "a", 18);
+      _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function AppComponent_Template_a_click_33_listener($event) {
         return $event.preventDefault();
       });
-      _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](33, "Cidades");
+      _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](34, "Endere\u00E7os");
       _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-      _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](34, "a", 19);
-      _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function AppComponent_Template_a_click_34_listener($event) {
+      _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](35, "a", 19);
+      _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function AppComponent_Template_a_click_35_listener($event) {
         return $event.preventDefault();
       });
-      _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](35, "Estados");
+      _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](36, "Cidades");
+      _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+      _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](37, "a", 20);
+      _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function AppComponent_Template_a_click_37_listener($event) {
+        return $event.preventDefault();
+      });
+      _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](38, "Estados");
       _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]()()()()()();
-      _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](36, "router-outlet");
+      _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](39, "router-outlet");
       _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]()();
     }
   },

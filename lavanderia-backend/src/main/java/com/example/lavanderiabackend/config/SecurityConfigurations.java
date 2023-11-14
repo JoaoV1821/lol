@@ -37,6 +37,8 @@ public class SecurityConfigurations {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/api/").permitAll()
+                        .requestMatchers("/api/index").permitAll()
+                        .requestMatchers("/api/dev/**").permitAll()
                         .requestMatchers("/api/auth/testLogin").authenticated()
                         .requestMatchers("/api/auth/**").permitAll()
                         .requestMatchers("/api/**").authenticated()
