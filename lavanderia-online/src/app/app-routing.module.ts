@@ -1,9 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+
 import { ListagemComponent } from './listagem/listagem/listagem.component';
 import { AutocadastroComponent } from './autocadastro';
 import { ConsultaPedidoComponent } from './consulta-pedido';
-import { LoginComponent } from './login';
+import { LoginComponent } from './auth';
 import { OrcamentoComponent } from './orcamento';
 import { PagamentoComponent } from './pagamento';
 import { PaginaInicialComponent } from './pagina-inicial';
@@ -16,104 +17,32 @@ import { Rf012Component } from './prototipos/rf012/rf012.component';
 import { ListagemFComponent } from './listagemF';
 import { RelatoriosComponent } from './relatorios';
 import { EditarFuncionarioComponent, InserirFuncionarioComponent, ListarFuncionarioComponent } from './funcionario';
+import { AuthGuard } from './auth/auth.guard';
 
 export const routes: Routes = [
-  {
-    path: '',
-    redirectTo: 'login/login',
-    pathMatch: 'full'
-  },
-  {
-    path: 'autocadastro',
-    redirectTo: 'autocadastro/autocadastro'
-  },
-  {
-    path: 'autocadastro/autocadastro',
-    component: AutocadastroComponent
-  },
 
-  {
-    path: 'consulta-pedido',
-    redirectTo: 'consulta-pedido/consulta-pedido'
-  },
-  {
-    path: 'consulta-pedido/consulta-pedido',
-    component: ConsultaPedidoComponent
-  },
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: 'login', component: LoginComponent, },
+  { path: 'autocadastro', component: AutocadastroComponent },
 
-  {
-    path: 'login',
-    redirectTo: 'login/login'
-  },
-  {
-    path: 'login/login',
-    component: LoginComponent
-  },
+  { path: 'home', component: PaginaInicialComponent, canActivate: [AuthGuard], data: { role: "ADMIN,GERENTE,FUNCIONARIO,CLIENTE" } },
+  { path: 'home-funcionario', component: ListarPedidosAbertosComponent, canActivate: [AuthGuard], data: { role: "ADMIN,GERENTE,FUNCIONARIO" } },
 
-  {
-    path: 'orcamento',
-    redirectTo: 'orcamento/orcamento'
-  },
-  {
-    path: 'orcamento/orcamento',
-    component: OrcamentoComponent
-  },
+  { path: 'consulta-pedido', component: ConsultaPedidoComponent, canActivate: [AuthGuard], data: { role: "ADMIN,GERENTE,FUNCIONARIO" } },
+  { path: 'orcamento', component: OrcamentoComponent, canActivate: [AuthGuard], data: { role: "ADMIN,GERENTE,FUNCIONARIO,CLIENTE" } },
+  { path: 'listagem', component: ListagemComponent, canActivate: [AuthGuard], data: { role: "ADMIN,GERENTE,FUNCIONARIO,CLIENTE" } },
+  { path: 'pagamento', component: PagamentoComponent, data: { role: "ADMIN,GERENTE,FUNCIONARIO,CLIENTE" } },
+  { path: 'pedido', component: PedidoComponent, data: { role: "ADMIN,GERENTE,FUNCIONARIO,CLIENTE" } },
 
-  {
-    path: 'listagem',
-    redirectTo: 'listagem/listagem'
-  },
-  {
-    path: 'listagem/listagem',
-    component: ListagemComponent
-  },
+  { path: 'roupas', redirectTo: 'roupas/listar' },
+  { path: 'roupas/listar', component: ListarRoupasComponent, canActivate: [AuthGuard], data: { role: "ADMIN,GERENTE" } },
+  { path: 'roupas/novo', component: InserirRoupaComponent, canActivate: [AuthGuard], data: { role: "ADMIN,GERENTE," } },
+  { path: 'roupas/editar/:id', component: EditarRoupaComponent, canActivate: [AuthGuard], data: { role: "ADMIN,GERENTE" } },
 
-  {
-    path: 'pagamento',
-    redirectTo: 'pagamento/pagamento'
-  },
-  {
-    path: 'pagamento/pagamento',
-    component: PagamentoComponent
-  },
-
-  {
-    path: 'pagina-inicial',
-    redirectTo: 'pagina-inicial/pagina-inicial'
-  },
-  {
-    path: 'pagina-inicial/pagina-inicial',
-    component: PaginaInicialComponent
-  },
-
-  {
-    path: 'pagina-inicial-funcionario',
-    redirectTo: 'pagina-inicial-funcionario/listar-pedidos-aberto'
-  },
-  {
-    path: 'pagina-inicial-funcionario/listar-pedidos-aberto',
-    component: ListarPedidosAbertosComponent
-  },
-
-  {
-    path: 'pedido',
-    redirectTo: 'pedido/pedido'
-  },
-  {
-    path: 'pedido/pedido',
-    component: PedidoComponent
-  },
-
-  //CRUD Roupas
-  { path: 'roupas', redirectTo: 'roupas/listar-roupas' },
-  { path: 'roupas/listar-roupas', component: ListarRoupasComponent },
-  { path: 'roupas/novo', component: InserirRoupaComponent },
-  { path: 'roupas/editar/:id', component: EditarRoupaComponent },
-
-  { path: 'funcionarios', redirectTo: 'funcionario/listar-funcionario' },
-  { path: 'funcionario/listar-funcionario', component: ListarFuncionarioComponent },
-  { path: 'funcionario/inserir-funcionario', component: InserirFuncionarioComponent },
-  { path: 'funcionario/editar-funcionario', component: EditarFuncionarioComponent },
+  { path: 'funcionario', redirectTo: 'funcionario/listar' },
+  { path: 'funcionario/listar', component: ListarFuncionarioComponent, canActivate: [AuthGuard], data: { role: "ADMIN,GERENTE" } },
+  { path: 'funcionario/inserir', component: InserirFuncionarioComponent, canActivate: [AuthGuard], data: { role: "ADMIN,GERENTE" } },
+  { path: 'funcionario/editar', component: EditarFuncionarioComponent, canActivate: [AuthGuard], data: { role: "ADMIN,GERENTE" } },
 
   { path: 'prop', redirectTo: 'prototipos/rf012' },
   { path: 'prototipos/rf012', component: Rf012Component },
@@ -121,11 +50,7 @@ export const routes: Routes = [
   { path: 'listagemF', redirectTo: 'listagemF/listagemF' },
   { path: 'listagemF', component: ListagemFComponent },
 
-  { path: 'relatorios', redirectTo: 'relatorios/relatorios' },
-  { path: 'relatorios', component: RelatoriosComponent }
-
-
-  //Relatorios, Pagina-Funcionario
+  { path: 'relatorios', component: RelatoriosComponent, canActivate: [AuthGuard], data: { role: "ADMIN,GERENTE" } }
 
 ];
 

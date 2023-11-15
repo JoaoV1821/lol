@@ -15,21 +15,21 @@ export abstract class RequestMaker {
         return this.baseFunction(url, body, "post");
     }
 
+
     private static async baseFunction<T>(url: string, body: any, type: string): Promise<RequestResult<T>> {
         url = this.checkUrl(url);
-        console.log(this.baseUrl + url);
         if (this.baseUrl == "") {
             return await this.getCurrentUrl()
                 .then(
                     async () => {
                         if (this.baseUrl != "") return await this.baseFunction<T>(url, body, type);
-                        else return new RequestResult<T>(0, null, null);
+                        else throw new Error('Não foi possivel se conectar com o backend!');// ex return new RequestResult<T>(0, getPathError());
                     })
-                .catch(() => new RequestResult<T>(0, null, null))
+                .catch(() => { throw new Error('Não foi possivel se conectar com o backend!') })//new RequestResult<T>(0, null, null))
         }
         let response = type == "get" ? axios.get(this.baseUrl + url) : axios.post(this.baseUrl + url, body);
         let result = await response
-            .then((response) => new RequestResult<T>(response.status, response.data, null))
+            .then((response) => new RequestResult<T>(response.status, response.data))
             .catch((error) => this.handleError<T>(error));
         console.log(result);
         return result;
@@ -44,12 +44,16 @@ export abstract class RequestMaker {
     }
 
     private static async handleError<T>(error: any) {
-        // Ocorre quando o status code é diferente de 2xx
-        if (error.response) {
-            return new RequestResult<T>(error.response.status, null, error.response.data)
-        } else {
-            return new RequestResult<T>(0, null, null);
+        if (axios.isAxiosError(error)) {
+            // Ocorre quando o status code é diferente de 2xx
+            if (error.response) {
+                return new RequestResult<T>(error.response.status, error.response.data)
+            } else {
+                throw new Error('Erro ao receber dados do backend!');
+                //new RequestResult<T>(0, null, null);
+            }
         }
+        throw new Error('Erro desconhecido!');
     }
     // Função para descobrir qual o domain disponível do backend
     private static async getCurrentUrl() {
@@ -63,18 +67,21 @@ export abstract class RequestMaker {
                 }
             })
     }
+
 }
 
 export class RequestResult<T>{
 
-    status!: number;
-    data!: T | null;
-    error!: Erro;
+    status: number;
+    data: T | Erro;
 
 
-    public constructor(status: number, data: any, error: any) {
+    public ok(data: T | Erro): data is T {
+        return (data as Erro).error === undefined;
+    }
+
+    public constructor(status: number, data: T | Erro) {
         this.status = status;
         this.data = data;
-        this.error = error;
     }
 }

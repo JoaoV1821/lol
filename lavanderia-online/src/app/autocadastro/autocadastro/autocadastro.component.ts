@@ -3,12 +3,10 @@ import { NgForm } from '@angular/forms';
 import { ViewChild } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AutoCadastroService } from '../services';
-import { Pessoa } from 'src/app/shared/models/pessoa.model';
-import { Cadastro } from 'src/app/shared/models/cadastro.model';
-import { Endereco } from 'src/app/shared/models/endereco.model';
+
 import { RequestMaker } from 'src/app/services/requestService';
 import { NgxMaskDirective } from 'ngx-mask';
-import { FormularioData } from 'src/app/shared/models/formulario-data.model';
+import { Pessoa, Endereco, Cadastro, FormularioData } from 'src/app/shared/models';
 
 
 
@@ -61,11 +59,11 @@ export class AutocadastroComponent implements OnInit {
     let result = await RequestMaker.postData<string>("/auth/register", cadastro);
     return
 
-    if (result.error) {
+    /*if (result.error) {
       console.log(result.error);
     } else if (result.data) {
       alert("Cadastro realizado! Sua senha é : " + result.data);
-    }
+    }*/
   }
 
 
