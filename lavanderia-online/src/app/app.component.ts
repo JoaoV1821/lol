@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, ɵɵtrustConstantResourceUrl } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoginService } from './auth';
 import { Usuario } from './shared/models';
@@ -21,12 +21,6 @@ export class AppComponent implements OnInit {
   }
   ngOnInit(): void {
     this.usuario = this.loginService.getUsuario();
-    let api = document.getElementById("api");
-    if (api != null) {
-      api.addEventListener("click", () => {
-        window.location.href = "/api/index";
-      })
-    }
   }
 
   logout() {

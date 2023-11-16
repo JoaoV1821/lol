@@ -95,7 +95,6 @@ public class AuthenticationController {
     @GetMapping("/testLogin")
     public ResponseEntity<CadastroDTO> testLogin() {
         CadastroDTO cadastroDTO = cadastroService.getUsuarioLogado();
-        System.out.println(cadastroDTO.getPerfil());
         return ResponseEntity.ok().body(cadastroDTO);
     }
 

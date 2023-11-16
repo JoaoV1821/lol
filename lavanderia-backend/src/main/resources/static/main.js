@@ -256,9 +256,6 @@ function AppComponent_div_10_Template(rf, ctx) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](13, "Estados");
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]()();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](14, "li", 9)(15, "a", 14);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("click", function AppComponent_div_10_Template_a_click_15_listener($event) {
-      return $event.preventDefault();
-    });
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](16, "Api");
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]()();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](17, "li", 15)(18, "a", 16);
@@ -307,12 +304,6 @@ class AppComponent {
   }
   ngOnInit() {
     this.usuario = this.loginService.getUsuario();
-    let api = document.getElementById("api");
-    if (api != null) {
-      api.addEventListener("click", () => {
-        window.location.href = "/api/index";
-      });
-    }
   }
   logout() {
     this.loginService.logout();
@@ -330,7 +321,7 @@ _class.ɵcmp = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefi
   selectors: [["app-root"]],
   decls: 12,
   vars: 1,
-  consts: [["lang", "en"], ["charset", "UTF-8"], ["name", "viewport", "content", "width=device-width, initial-scale=1.0"], [1, "navbar", "navbar-expand-md", "n", "navbar-dark", "bg-dark"], ["href", "#", 1, "navbar-brand"], ["src", "../assets/logoLol.png", "width", "100", "alt", "Logo", 2, "margin-right", "7px"], ["class", "navbar-collapse collapsed justify-content-between", "id", "navbarContent", 4, "ngIf"], ["id", "navbarContent", 1, "navbar-collapse", "collapsed", "justify-content-between"], [1, "navbar-nav", "ml-auto"], [1, "nav-item"], ["href", "#", "routerLink", "/autocadastro", 1, "nav-link"], ["href", "#", "routerLink", "/endereco", 1, "nav-link"], ["href", "#", "routerLink", "/cidade", 1, "nav-link"], ["href", "#", "routerLink", "/estado", 1, "nav-link"], ["id", "api", "href", "#", 1, "nav-link", 3, "click"], ["ngbDropdown", "", 1, "nav-item"], ["tabindex", "0", "ngbDropdownToggle", "", "id", "navbarDropdown1", "role", "button", 1, "nav-link"], ["ngbDropdownMenu", "", "aria-labelledby", "navbarDropdown1", 1, "dropdown-menu"], ["ngbDropdownItem", "", "href", "#", "routerLink", "/cadastro", 3, "click"], ["ngbDropdownItem", "", "href", "#", "routerLink", "/endereco", 3, "click"], ["ngbDropdownItem", "", "href", "#", "routerLink", "/cidade", 3, "click"], ["ngbDropdownItem", "", "href", "#", "routerLink", "/estado", 3, "click"], ["class", "navbar-nav ml-auto", 4, "ngIf"], ["href", "#", 1, "nav-link", 3, "click"], [1, "navbar-text", "mb-0", "text-white"], [1, "fa", "fa-user"]],
+  consts: [["lang", "en"], ["charset", "UTF-8"], ["name", "viewport", "content", "width=device-width, initial-scale=1.0"], [1, "navbar", "navbar-expand-md", "n", "navbar-dark", "bg-dark"], ["href", "#", 1, "navbar-brand"], ["src", "../assets/logoLol.png", "width", "100", "alt", "Logo", 2, "margin-right", "7px"], ["class", "navbar-collapse collapsed justify-content-between", "id", "navbarContent", 4, "ngIf"], ["id", "navbarContent", 1, "navbar-collapse", "collapsed", "justify-content-between"], [1, "navbar-nav", "ml-auto"], [1, "nav-item"], ["href", "#", "routerLink", "/autocadastro", 1, "nav-link"], ["href", "#", "routerLink", "/endereco", 1, "nav-link"], ["href", "#", "routerLink", "/cidade", 1, "nav-link"], ["href", "#", "routerLink", "/estado", 1, "nav-link"], ["href", "/api/index", 1, "nav-link"], ["ngbDropdown", "", 1, "nav-item"], ["tabindex", "0", "ngbDropdownToggle", "", "id", "navbarDropdown1", "role", "button", 1, "nav-link"], ["ngbDropdownMenu", "", "aria-labelledby", "navbarDropdown1", 1, "dropdown-menu"], ["ngbDropdownItem", "", "href", "#", "routerLink", "/cadastro", 3, "click"], ["ngbDropdownItem", "", "href", "#", "routerLink", "/endereco", 3, "click"], ["ngbDropdownItem", "", "href", "#", "routerLink", "/cidade", 3, "click"], ["ngbDropdownItem", "", "href", "#", "routerLink", "/estado", 3, "click"], ["class", "navbar-nav ml-auto", 4, "ngIf"], ["href", "#", 1, "nav-link", 3, "click"], [1, "navbar-text", "mb-0", "text-white"], [1, "fa", "fa-user"]],
   template: function AppComponent_Template(rf, ctx) {
     if (rf & 1) {
       _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "html", 0)(1, "head");
@@ -802,7 +793,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   LoginService: () => (/* binding */ LoginService)
 /* harmony export */ });
-/* harmony import */ var C_Users_Samuel_Arquivos_Programa_o_lol_lavanderia_online_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 71670);
+/* harmony import */ var C_Users_samue_Desktop_Programa_o_lol_lavanderia_online_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 71670);
 /* harmony import */ var src_app_services_requestService__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/services/requestService */ 1531);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ 61699);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ 27947);
@@ -817,7 +808,7 @@ class LoginService {
   }
   login(login, loginComponent) {
     var _this = this;
-    return (0,C_Users_Samuel_Arquivos_Programa_o_lol_lavanderia_online_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,C_Users_samue_Desktop_Programa_o_lol_lavanderia_online_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       login.login = (login.login || '').toLowerCase();
       let response = yield src_app_services_requestService__WEBPACK_IMPORTED_MODULE_1__.RequestMaker.postData("/auth/login", login);
       if (response.ok(response.data)) {
@@ -831,7 +822,7 @@ class LoginService {
   }
   checkIfLogged() {
     var _this2 = this;
-    return (0,C_Users_Samuel_Arquivos_Programa_o_lol_lavanderia_online_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,C_Users_samue_Desktop_Programa_o_lol_lavanderia_online_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       let usuario = _this2.procurarNoLocalStorage();
       if (usuario != null) {
         _this2.navigateAfterLogin(usuario);
@@ -948,7 +939,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   AutocadastroComponent: () => (/* binding */ AutocadastroComponent)
 /* harmony export */ });
-/* harmony import */ var C_Users_Samuel_Arquivos_Programa_o_lol_lavanderia_online_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 71670);
+/* harmony import */ var C_Users_samue_Desktop_Programa_o_lol_lavanderia_online_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 71670);
 /* harmony import */ var src_app_services_requestService__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/services/requestService */ 1531);
 /* harmony import */ var src_app_shared_models__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/shared/models */ 98958);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/core */ 61699);
@@ -1029,7 +1020,7 @@ class AutocadastroComponent {
 
   ngOnInit() {}
   teste() {
-    return (0,C_Users_Samuel_Arquivos_Programa_o_lol_lavanderia_online_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,C_Users_samue_Desktop_Programa_o_lol_lavanderia_online_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       let result = yield src_app_services_requestService__WEBPACK_IMPORTED_MODULE_1__.RequestMaker.getData("/auth/teste");
       if (result.data) {
         console.log(result.data);
@@ -1047,7 +1038,7 @@ class AutocadastroComponent {
   }
   realizarCadastro(formulario) {
     var _this = this;
-    return (0,C_Users_Samuel_Arquivos_Programa_o_lol_lavanderia_online_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,C_Users_samue_Desktop_Programa_o_lol_lavanderia_online_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       let dados = formulario.value;
       console.log(dados);
       dados = _this.autoCadastroService.validadeFormulario(dados);
@@ -5386,7 +5377,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   PedidoComponent: () => (/* binding */ PedidoComponent)
 /* harmony export */ });
-/* harmony import */ var C_Users_Samuel_Arquivos_Programa_o_lol_lavanderia_online_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 71670);
+/* harmony import */ var C_Users_samue_Desktop_Programa_o_lol_lavanderia_online_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 71670);
 /* harmony import */ var pdf_lib__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! pdf-lib */ 54664);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ 61699);
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/common */ 26575);
@@ -5491,7 +5482,7 @@ class PedidoComponent {
     this.total = 0;
   }
   gerarPDF() {
-    return (0,C_Users_Samuel_Arquivos_Programa_o_lol_lavanderia_online_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,C_Users_samue_Desktop_Programa_o_lol_lavanderia_online_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       const pdfDoc = yield pdf_lib__WEBPACK_IMPORTED_MODULE_1__.PDFDocument.create();
       const page = pdfDoc.addPage([600, 400]);
       const font = yield pdfDoc.embedFont(pdf_lib__WEBPACK_IMPORTED_MODULE_1__.StandardFonts.Helvetica);
@@ -6437,7 +6428,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   RequestMaker: () => (/* binding */ RequestMaker),
 /* harmony export */   RequestResult: () => (/* binding */ RequestResult)
 /* harmony export */ });
-/* harmony import */ var C_Users_Samuel_Arquivos_Programa_o_lol_lavanderia_online_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 71670);
+/* harmony import */ var C_Users_samue_Desktop_Programa_o_lol_lavanderia_online_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 71670);
 /* harmony import */ var _environment_environment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../environment/environment */ 27845);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ 55486);
 
@@ -6447,22 +6438,22 @@ var _class;
 class RequestMaker {
   static getData(url) {
     var _this = this;
-    return (0,C_Users_Samuel_Arquivos_Programa_o_lol_lavanderia_online_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,C_Users_samue_Desktop_Programa_o_lol_lavanderia_online_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       return _this.baseFunction(url, null, "get");
     })();
   }
   static postData(url, body) {
     var _this2 = this;
-    return (0,C_Users_Samuel_Arquivos_Programa_o_lol_lavanderia_online_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,C_Users_samue_Desktop_Programa_o_lol_lavanderia_online_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       return _this2.baseFunction(url, body, "post");
     })();
   }
   static baseFunction(url, body, type) {
     var _this3 = this;
-    return (0,C_Users_Samuel_Arquivos_Programa_o_lol_lavanderia_online_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,C_Users_samue_Desktop_Programa_o_lol_lavanderia_online_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       url = _this3.checkUrl(url);
       if (_this3.baseUrl == "") {
-        return yield _this3.getCurrentUrl().then( /*#__PURE__*/(0,C_Users_Samuel_Arquivos_Programa_o_lol_lavanderia_online_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+        return yield _this3.getCurrentUrl().then( /*#__PURE__*/(0,C_Users_samue_Desktop_Programa_o_lol_lavanderia_online_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
           if (_this3.baseUrl != "") return yield _this3.baseFunction(url, body, type);else throw new Error('Não foi possivel se conectar com o backend!'); // ex return new RequestResult<T>(0, getPathError());
         })).catch(() => {
           throw new Error('Não foi possivel se conectar com o backend!');
@@ -6483,7 +6474,7 @@ class RequestMaker {
     return url;
   }
   static handleError(error) {
-    return (0,C_Users_Samuel_Arquivos_Programa_o_lol_lavanderia_online_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,C_Users_samue_Desktop_Programa_o_lol_lavanderia_online_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       if (axios__WEBPACK_IMPORTED_MODULE_2__["default"].isAxiosError(error)) {
         // Ocorre quando o status code é diferente de 2xx
         if (error.response) {
@@ -6500,11 +6491,11 @@ class RequestMaker {
   // Função para descobrir qual o domain disponível do backend
   static getCurrentUrl() {
     var _this4 = this;
-    return (0,C_Users_Samuel_Arquivos_Programa_o_lol_lavanderia_online_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,C_Users_samue_Desktop_Programa_o_lol_lavanderia_online_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       yield axios__WEBPACK_IMPORTED_MODULE_2__["default"].get(_environment_environment__WEBPACK_IMPORTED_MODULE_1__.environment.API_URL + "/").then(() => {
         _this4.baseUrl = _environment_environment__WEBPACK_IMPORTED_MODULE_1__.environment.API_URL;
       }).catch( /*#__PURE__*/function () {
-        var _ref2 = (0,C_Users_Samuel_Arquivos_Programa_o_lol_lavanderia_online_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (error) {
+        var _ref2 = (0,C_Users_samue_Desktop_Programa_o_lol_lavanderia_online_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (error) {
           if (error.request) {
             yield axios__WEBPACK_IMPORTED_MODULE_2__["default"].get(_environment_environment__WEBPACK_IMPORTED_MODULE_1__.environment.SECONDARY_API_URL + "/").then(() => {
               _this4.baseUrl = _environment_environment__WEBPACK_IMPORTED_MODULE_1__.environment.SECONDARY_API_URL;
