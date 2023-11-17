@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "projeto-angular": {
+    "lavanderia-online": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,16 +13,27 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/projeto-angular",
-            "index": "src/index.html",
+            "outputPath": "../lavanderia-backend/src/main/resources/static",
+            "index": {
+              "input": "src/index.html",
+              "output": "index.html"
+            },
             "main": "src/main.ts",
             "polyfills": [
               "zone.js"
             ],
             "tsConfig": "tsconfig.app.json",
             "assets": [
-              "src/favicon.ico",
-              "src/assets"
+              {
+                "glob": "**/*",
+                "input": "src/assets/",
+                "output": "/assets/"
+              },
+              {
+                "glob": "favicon.ico",
+                "input": "src/",
+                "output": "/"
+              }
             ],
             "styles": [
               "src/styles.css",
@@ -30,7 +41,6 @@
               "node_modules/@fortawesome/fontawesome-free/css/all.css"
             ],
             "scripts": [
-              "node_modules/jquery/dist/jquery.min.js",
               "node_modules/bootstrap/dist/js/bootstrap.min.js"
             ]
           },
@@ -39,8 +49,8 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "1mb"
+                  "maximumWarning": "2mb",
+                  "maximumError": "2mb"
                 },
                 {
                   "type": "anyComponentStyle",
@@ -65,10 +75,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "projeto-angular:build:production"
+              "browserTarget": "lavanderia-online:build:production"
             },
             "development": {
-              "browserTarget": "projeto-angular:build:development"
+              "browserTarget": "lavanderia-online:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -76,7 +86,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "projeto-angular:build"
+            "browserTarget": "lavanderia-online:build"
           }
         },
         "test": {
@@ -101,6 +111,6 @@
     }
   },
   "cli": {
-    "analytics": "3726b381-5554-4d6c-8a9c-5a27dc69489d"
+    "analytics": "6e6f3bab-b545-4520-a97e-ebbb779bf9d0"
   }
 }

@@ -1,57 +1,36 @@
-import { JsonPipe } from '@angular/common';
 import { Injectable } from '@angular/core';
-
+import axios from 'axios';
+import { FormularioData } from 'src/app/shared/models/formulario-data.model';
 import { Pessoa } from 'src/app/shared/models/pessoa.model';
-
-const LS_CHAVE: string = "pessoas";
 
 @Injectable({
   providedIn: 'root'
 })
 
-export class AutocadastroService {
+export class AutoCadastroService {
 
   constructor() { }
 
-  listarPessoasService(): Pessoa[] {
-    const pessoas = localStorage[LS_CHAVE];
 
-    return pessoas ? JSON.parse(pessoas) : [];
-  }
 
-  inserirPessoaService(pessoa: Pessoa): void {
-    const pessoas = this.listarPessoasService();
-
-    pessoa.id = new Date().getTime();
-
-    pessoas.push(pessoa);
-
-    localStorage[LS_CHAVE] = JSON.stringify(pessoas);
-  }
-
-  buscarPessoaPorIdService(id: number): Pessoa | undefined {
-    const pessoas: Pessoa[] = this.listarPessoasService();
-
-    return pessoas.find(pessoa => pessoa.id === id);
-  }
-
-  atualizaPessoaService(pessoa: Pessoa): void {
-    const pessoas: Pessoa[] = this.listarPessoasService();
-
-    pessoas.forEach( (obj, index, objs) => {
-      if (pessoa.id === obj.id) {
-        objs[index] = pessoa
+  getCep(cep: string) {
+    return axios.get(`https://viacep.com.br/ws/${cep}/json/`, {
+      headers: {
+        "Content-Type": 'application/json'
       }
-    } );
-
-    localStorage[LS_CHAVE] = JSON.stringify(pessoas);
+    })
   }
 
-  removerPessoaService(id: number): void {
-    let pessoas: Pessoa[] = this.listarPessoasService();
+  private validateTel(tel: string): string {
+    switch (tel.length) {
 
-    pessoas = pessoas.filter(pessoa => pessoa.id !== id);
+    }
+    console.log(tel.length);
+    return tel;
+  }
 
-    localStorage[LS_CHAVE] = JSON.stringify(pessoas);
+  validadeFormulario(dados: FormularioData) {
+    this.validateTel(dados.telefone);
+    return dados;
   }
 }

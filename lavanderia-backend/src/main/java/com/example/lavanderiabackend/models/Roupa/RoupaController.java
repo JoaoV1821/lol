@@ -2,7 +2,6 @@ package com.example.lavanderiabackend.models.Roupa;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -10,36 +9,34 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.lavanderiabackend.models.Roupa.DTO.RoupaCategoria;
-import com.example.lavanderiabackend.models.Roupa.DTO.RoupaModelo;
+import com.example.lavanderiabackend.models.Roupa.DTO.RoupaDTO;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @RestController
-@RequestMapping("/roupa")
+@RequestMapping("/api/roupa")
 public class RoupaController {
 
-    RoupaService roupaService;
+    private final RoupaService roupaService;
 
-    @Autowired
     RoupaController(RoupaService roupaService) {
         this.roupaService = roupaService;
     }
 
     @GetMapping("/get/roupas")
-    public List<RoupaCategoria> getRoupas() {
-        return roupaService.getRoupaList();
+    public List<RoupaDTO> getRoupas() {
+        return roupaService.getRoupas();
     }
 
     @PostMapping("/get/roupa")
-    public RoupaCategoria getRoupa(@RequestBody NumeroWrapper numeroWrapper) {
-        return roupaService.getRoupa(numeroWrapper.getNumero());
+    public RoupaDTO getRoupa(@RequestBody NumeroWrapper numeroWrapper) {
+        return roupaService.getRoupaDTO(numeroWrapper.getNumero());
     }
 
     @PostMapping("/update/roupa")
-    public ResponseEntity<Integer> updateRoupa(@RequestBody RoupaModelo modelo) {
-        roupaService.updateRoupa(modelo);
+    public ResponseEntity<Integer> updateRoupa(@RequestBody RoupaDTO modelo) {
+        roupaService.addOrUpdateRoupa(modelo);
         return ResponseEntity.ok(200);
     }
 

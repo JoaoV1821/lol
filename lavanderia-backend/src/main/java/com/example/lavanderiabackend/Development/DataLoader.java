@@ -1,0 +1,126 @@
+package com.example.lavanderiabackend.Development;
+
+import org.springframework.boot.ApplicationArguments;
+import org.springframework.boot.ApplicationRunner;
+import org.springframework.stereotype.Component;
+
+import com.example.lavanderiabackend.models.Cadastro.CadastroService;
+import com.example.lavanderiabackend.models.Cadastro.Papel;
+import com.example.lavanderiabackend.models.Cadastro.DTO.CadastroDTO;
+import com.example.lavanderiabackend.models.Categoria.CategoriaService;
+import com.example.lavanderiabackend.models.Categoria.DTO.CategoriaDTO;
+import com.example.lavanderiabackend.models.Endereco.DTO.EnderecoModelo;
+import com.example.lavanderiabackend.models.Roupa.RoupaService;
+import com.example.lavanderiabackend.models.Roupa.DTO.RoupaDTO;
+
+import jakarta.transaction.Transactional;
+
+@Component
+@Transactional
+public class DataLoader implements ApplicationRunner {
+
+    private final CadastroService cadastroService;
+    private final RoupaService roupaService;
+    private final CategoriaService categoriaService;
+
+    public DataLoader(CadastroService cadastroService, RoupaService roupaService, CategoriaService categoriaService) {
+        this.cadastroService = cadastroService;
+        this.roupaService = roupaService;
+        this.categoriaService = categoriaService;
+    }
+
+    @Override
+    public void run(ApplicationArguments args) throws Exception {
+
+        EnderecoModelo enderecoModelo = new EnderecoModelo("99999", "logradouro", "complemento", "123", "cidade");
+        CadastroDTO cadastroModelo = new CadastroDTO("727.713.780-94", "nome sobrenome", "admin@admin.com", "admin",
+                enderecoModelo, "999-999", Papel.ADMIN);
+        cadastroService.saveCadastro(cadastroModelo);
+
+        CategoriaDTO[] categorias = {
+                new CategoriaDTO("0001", "Bermudas e shorts"),
+                new CategoriaDTO("0002", "Blusas"),
+                new CategoriaDTO("0003", "Calça"),
+                new CategoriaDTO("0004", "Calçados"),
+                new CategoriaDTO("0005", "Camisa/outros"),
+                new CategoriaDTO("0006", "Casaco/jaqueta"),
+                new CategoriaDTO("0007", "Couro"),
+                new CategoriaDTO("0008", "Praia"),
+                new CategoriaDTO("0009", "Roupas Intimas"),
+                new CategoriaDTO("0010", "Esportes"),
+                new CategoriaDTO("0011", "Social Masculino"),
+                new CategoriaDTO("0012", "Vestido"),
+        };
+        for (CategoriaDTO categoriaDTO : categorias) {
+            categoriaService.addOrUpdateCategoria(categoriaDTO);
+        }
+
+        RoupaDTO[] roupas = {
+                new RoupaDTO("0001", "Bermuda especial", 20.0, "0001", (long) 2),
+                new RoupaDTO("0002", "Bermuda simples", 15.0, "0001", (long) 2),
+                new RoupaDTO("0003", "Batina", 39.0, "0002", (long) 2),
+                new RoupaDTO("0004", "Blusa de moleton", 25.0, "0002", (long) 1),
+                new RoupaDTO("0005", "Blusa especial", 28.0, "0002", (long) 2),
+                new RoupaDTO("0006", "Blusa regata especial", 22.0, "0002", (long) 2),
+                new RoupaDTO("0007", "Blusa regata simples", 20.0, "0002", (long) 1),
+                new RoupaDTO("0008", "Blusa simples", 19.0, "0002", (long) 1),
+                new RoupaDTO("0009", "Colete simples", 26.00, "0002", (long) 3),
+                new RoupaDTO("0010", "Calça jeans", 16.00, "0003", (long) 2),
+                new RoupaDTO("0011", "Calça social", 18.0, "0003", (long) 2),
+                new RoupaDTO("0012", "Macacão", 42.0, "0003", (long) 4),
+                new RoupaDTO("0013", "Macacão especial", 58.0, "0003", (long) 5),
+                new RoupaDTO("0014", "Calça especial(seda/linho)", 33.0, "0003", (long) 3),
+                new RoupaDTO("0015", "Sapato", 46.0, "0004", (long) 2),
+                new RoupaDTO("0016", "Tenis especial", 56.0, "0004", (long) 2),
+                new RoupaDTO("0017", "Tenis simples", 47.0, "0004", (long) 2),
+                new RoupaDTO("0018", "Camisa especial", 21.0, "0005", (long) 2),
+                new RoupaDTO("0019", "Camisa polo curta", 13.0, "0005", (long) 1),
+                new RoupaDTO("0020", "Camisa polo longa", 14.0, "0005", (long) 1),
+                new RoupaDTO("0021", "Camisa social", 16.0, "0005", (long) 2),
+                new RoupaDTO("0022", "Camiseta manga curta", 13.0, "0005", (long) 2),
+                new RoupaDTO("0023", "Camiseta manga longa ", 14.0, "0005", (long) 2),
+                new RoupaDTO("0024", "Jaleco", 23.0, "0005", (long) 3),
+                new RoupaDTO("0025", "Casaco premium", 140.0, "0006", (long) 4),
+                new RoupaDTO("0026", "Jaqueta com forro", 72.0, "0006", (long) 4),
+                new RoupaDTO("0027", "Jaqueta simples sem forro", 46.0, "0006", (long) 3),
+                new RoupaDTO("0028", "Casaco curto", 52.0, "0006", (long) 3),
+                new RoupaDTO("0029", "Sobretudo simples", 67.0, "0006", (long) 4),
+                new RoupaDTO("0030", "Bermuda de couro", 119.0, "0007", (long) 3),
+                new RoupaDTO("0031", "Calça de couro", 160.0, "0007", (long) 3),
+                new RoupaDTO("0032", "Camisa manga curta couro", 120.0, "0007", (long) 2),
+                new RoupaDTO("0033", "Camisa manga longa couro", 120.0, "0007", (long) 2),
+                new RoupaDTO("0034", "Casaco couro", 160.0, "0007", (long) 4),
+                new RoupaDTO("0035", "Jaqueta de couro", 160.0, "0007", (long) 4),
+                new RoupaDTO("0036", "Sobretudo couro", 280.0, "0007", (long) 5),
+                new RoupaDTO("0037", "Jaqueta premium de couro", 240.0, "0007", (long) 4),
+                new RoupaDTO("0038", "Colete todo em couro", 120.0, "0007", (long) 5),
+                new RoupaDTO("0039", "Biquini", 13.0, "0008", (long) 2),
+                new RoupaDTO("0040", "Maiô", 11.0, "0008", (long) 2),
+                new RoupaDTO("0041", "Calcinha", 7.0, "0009", (long) 1),
+                new RoupaDTO("0042", "Camisola", 34.0, "0009", (long) 2),
+                new RoupaDTO("0043", "Corpete simples", 19.0, "0009", (long) 2),
+                new RoupaDTO("0044", "Cueca", 5.0, "0009", (long) 1),
+                new RoupaDTO("0045", "Meia", 4.0, "0009", (long) 1),
+                new RoupaDTO("0046", "Pijama blusa", 14.0, "0009", (long) 2),
+                new RoupaDTO("0047", "Pijama calça", 14.0, "0009", (long) 3),
+                new RoupaDTO("0048", "Sutiã", 7.0, "0009", (long) 1), // 63 / 90
+                new RoupaDTO("0049", "Kimono blusa", 17.0, "0010", (long) 3),
+                new RoupaDTO("0050", "Kimono calça", 16.0, "0010", (long) 3),
+                new RoupaDTO("0051", "Jaqueta motociclismo", 89.0, "0010", (long) 4),
+                new RoupaDTO("0052", "Macacão", 98.0, "0010", (long) 4),
+                new RoupaDTO("0053", "Blazer/paleto", 26.0, "0011", (long) 2),
+                new RoupaDTO("0054", "Brazer/paleto especial(seda/veludo)", 42.0, "0011", (long) 3),
+                new RoupaDTO("0055", "Terno completo", 45.0, "0011", (long) 5),
+                new RoupaDTO("0056", "Vestido curto", 65.0, "0012", (long) 3),
+                new RoupaDTO("0057", "Vestido longo", 140.0, "0012", (long) 3),
+                new RoupaDTO("0058", "Vestido de noiva", 280.0, "0012", (long) 5),
+                new RoupaDTO("0059", "Vestido longuete", 85.0, "0012", (long) 4),
+        };
+
+        for (RoupaDTO roupa : roupas) {
+            roupaService.addOrUpdateRoupa(roupa);
+        }
+
+    }
+
+}

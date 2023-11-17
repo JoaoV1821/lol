@@ -1,0 +1,32 @@
+#card {
+    border-color: #5a57ff;
+    border-radius: 20px;
+    box-shadow: 0 10px 15px #ccccff;
+}
+
+.container {
+    display: flexbox;
+    align-items: center;
+    margin-top: 14vh;
+    margin-bottom: 14vh;
+}
+
+#cadastre-se {
+    color: #5a57ff;
+}
+
+.inputlol {
+    border-color: #b8b7ff;
+}
+
+.inputlol:focus {
+    border-color: #5a57ff;
+    box-shadow: 0 0 10px 0.25rem #d9d8ff;
+}
+
+.alert {
+    padding: 6%;
+    margin-bottom: 2%;
+    line-height: 0%;
+    text-align: center;
+}

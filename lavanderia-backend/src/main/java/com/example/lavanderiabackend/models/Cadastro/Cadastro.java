@@ -1,8 +1,20 @@
 package com.example.lavanderiabackend.models.Cadastro;
 
-import com.example.lavanderiabackend.models.Cadastro.DTO.CadastroModelo;
-import com.example.lavanderiabackend.models.Endereco.Endereco;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import com.example.lavanderiabackend.models.Cadastro.DTO.CadastroDTO;
+import com.example.lavanderiabackend.models.Endereco.Endereco;
+import com.example.lavanderiabackend.models.Pedido.Pedido;
+import com.example.lavanderiabackend.services.Authentication.DTO.UserDTO;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -10,6 +22,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.SequenceGenerator;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,30 +34,102 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Cadastro {
+public class Cadastro implements UserDetails {
     @Id
     @SequenceGenerator(name = "cadastro_sequence", sequenceName = "cadastro_sequence", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "cadastro_sequence")
-    public Long cadastroId;
+    private Long cadastroId;
     @Column(unique = true, nullable = false)
-    public String cpf;
+    private String cpf;
     @Column(nullable = false)
-    public String nome;
-    public String sobrenome;
+    private String nome;
+    @Column(nullable = true)
+    private String sobrenome;
     @Column(unique = true, nullable = false)
-    public String email;
+    private String email;
     @Column(nullable = false)
-    public String senha;
+    private String senha;
+    @Column(nullable = false)
+    private String telefone;
+    @Column(nullable = false)
+    private Papel perfil;
     @ManyToOne
     @JoinColumn(name = "endereco_id", nullable = false)
-    public Endereco endereco;
-    public String telefone;
+    private Endereco endereco;
+    @OneToMany(mappedBy = "cadastro", cascade = CascadeType.PERSIST, orphanRemoval = true)
+    private List<Pedido> pedidos;
 
-    public Cadastro(CadastroModelo modelo) {
-        this.cpf = modelo.cpf;
-        this.email = modelo.email;
-        this.telefone = modelo.telefone;
-        this.nome = modelo.nome;
-        this.sobrenome = modelo.sobrenome;
+    public Cadastro(CadastroDTO modelo) {
+
+        String listaNomes[] = modelo.getNome().split(" ");
+        this.nome = listaNomes[0];
+        this.sobrenome = String.join("", listaNomes);
+        this.cpf = modelo.getCpf();
+        this.email = modelo.getEmail();
+        this.telefone = modelo.getTelefone();
+        this.perfil = modelo.getPerfil();
+    }
+
+    public Cadastro(UserDTO user) {
+        String listaNomes[] = user.getNome().split(" ");
+        this.cpf = user.getCpf();
+        this.email = user.getEmail();
+        this.nome = listaNomes[0];
+        listaNomes[0] = "";
+        this.sobrenome = String.join("", listaNomes);
+        this.telefone = user.getTelefone();
+    }
+
+    public void addPedido(Pedido pedido) {
+        this.pedidos = this.pedidos != null ? this.pedidos : new ArrayList<>();
+        this.pedidos.add(pedido);
+        pedido.setCadastro(this);
+    }
+
+    public Long getLastestPedido() {
+        if (this.pedidos == null || (this.pedidos.isEmpty())) {
+            return Long.valueOf(0);
+        } else {
+            return Collections.max(pedidos).getNumero();
+        }
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        if (this.perfil == Papel.ADMIN)
+            return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"), new SimpleGrantedAuthority("ROLE_USER"));
+        else
+            return List.of(new SimpleGrantedAuthority("ROLE_USER"));
+
+    }
+
+    @Override
+    public String getPassword() {
+        return this.getSenha();
+    }
+
+    @Override
+    public String getUsername() {
+        return this.getEmail();
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 }

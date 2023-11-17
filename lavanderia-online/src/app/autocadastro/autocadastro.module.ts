@@ -1,31 +1,26 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-import { AutocadastroComponent } from './autocadastro';
-import { AutocadastroService } from './services';
-import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { ListarClientesComponent } from './listar-clientes';
-import { EditarClienteComponent } from './editar-cliente';
-import { NumericoDirective } from '../shared/directives/numerico.directive';
+import { AutocadastroComponent } from './autocadastro/autocadastro.component';
+import { AutoCadastroService } from './services';
+import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
 
 @NgModule({
   declarations: [
-    AutocadastroComponent,
-    ListarClientesComponent,
-    EditarClienteComponent,
-    NumericoDirective
+    AutocadastroComponent
   ],
   imports: [
     CommonModule,
-    RouterModule,
-    FormsModule
+    FormsModule,
+    NgxMaskDirective,
+    NgxMaskPipe
   ],
   exports: [
     AutocadastroComponent
   ],
   providers: [
-    AutocadastroService
+    AutoCadastroService,
+    provideNgxMask()
   ]
 })
 export class AutocadastroModule { }

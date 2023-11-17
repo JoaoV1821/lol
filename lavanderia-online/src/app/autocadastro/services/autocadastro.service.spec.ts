@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { AutocadastroService } from './autocadastro.service';
+import { AutoCadastroService } from './autoCadastro.service';
 
 describe('AutocadastroService', () => {
-  let service: AutocadastroService;
+  let service: AutoCadastroService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(AutocadastroService);
+    service = TestBed.inject(AutoCadastroService);
   });
 
   it('should be created', () => {

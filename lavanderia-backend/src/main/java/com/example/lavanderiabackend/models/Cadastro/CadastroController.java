@@ -3,23 +3,22 @@ package com.example.lavanderiabackend.models.Cadastro;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.lavanderiabackend.models.Cadastro.DTO.CadastroModelo;
+import com.example.lavanderiabackend.models.Cadastro.DTO.CadastroDTO;
+import com.example.lavanderiabackend.wrappers.StringWrapper;
 
-import lombok.Getter;
-import lombok.Setter;
+import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/cadastro")
-@CrossOrigin(originPatterns = "*")
+@RequestMapping("/api/cadastro")
 public class CadastroController {
-    public CadastroService cadastroService;
+
+    private final CadastroService cadastroService;
 
     @Autowired
     CadastroController(CadastroService cadastroService) {
@@ -27,38 +26,33 @@ public class CadastroController {
     }
 
     @PostMapping("/get/cadastro")
-    public CadastroModelo getCadastro(@RequestBody CpfWrapper cpf) {
-        return cadastroService.getCadastro(cpf.getCpf());
+    public ResponseEntity<CadastroDTO> getCadastro(@Valid @RequestBody StringWrapper cpf) {
+        CadastroDTO cadastroDTO = cadastroService.getCadastro(cpf.getString());
+        return ResponseEntity.ok().body(cadastroDTO);
     }
 
     @GetMapping("/get/cadastros")
-    public List<CadastroModelo> getCadastros() {
-        return cadastroService.getCadastroList();
-
+    public ResponseEntity<List<CadastroDTO>> getCadastros() {
+        List<CadastroDTO> cadastros = cadastroService.getCadastroList();
+        return ResponseEntity.ok().body(cadastros);
     }
 
     @PostMapping("/add/cadastro")
-    public ResponseEntity<Integer> addCadastro(@RequestBody CadastroModelo cadastroModelo) {
+    public ResponseEntity<Object> addCadastro(@Valid @RequestBody CadastroDTO cadastroModelo) {
         cadastroService.saveCadastro(cadastroModelo);
-        return ResponseEntity.ok(200);
+        return ResponseEntity.noContent().build();
     }
 
     @PostMapping("/update/cadastro")
-    public ResponseEntity<Integer> updateCadastro(@RequestBody CadastroModelo cadastroModelo) {
+    public ResponseEntity<Object> updateCadastro(@Valid @RequestBody CadastroDTO cadastroModelo) {
         cadastroService.updateCadastro(cadastroModelo);
-        return ResponseEntity.ok(200);
+        return ResponseEntity.noContent().build();
     }
 
     @PostMapping("/delete/cadastro")
-    public ResponseEntity<Integer> deleteCadastro(@RequestBody CpfWrapper cpf) {
-        cadastroService.deleteCadastro(cpf.getCpf());
-        return ResponseEntity.ok(200);
+    public ResponseEntity<Object> deleteCadastro(@Valid @RequestBody StringWrapper cpf) {
+        cadastroService.deleteCadastro(cpf.getString());
+        return ResponseEntity.noContent().build();
     }
 
-}
-
-@Getter
-@Setter
-class CpfWrapper {
-    public String cpf;
 }
