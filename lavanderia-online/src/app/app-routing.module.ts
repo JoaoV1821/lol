@@ -17,6 +17,7 @@ import { Rf012Component } from './prototipos/rf012/rf012.component';
 import { ListagemFComponent } from './listagemF';
 import { EditarFuncionarioComponent, InserirFuncionarioComponent, ListarFuncionarioComponent } from './funcionario';
 import { AuthGuard } from './auth/auth.guard';
+import { RelatoriosComponent } from './relatorios';
 
 export const routes: Routes = [
 
@@ -39,10 +40,10 @@ export const routes: Routes = [
   { path: 'roupas/editar/:id', component: EditarRoupaComponent, canActivate: [AuthGuard], data: { role: "ADMIN,GERENTE" } },
 
   { path: 'funcionario', redirectTo: 'funcionario/listar' },
-  { path: 'funcionario/listar', component: ListarFuncionarioComponent, canActivate: [AuthGuard], data: { role: "ADMIN,GERENTE" } },
-  { path: 'funcionario/inserir', component: InserirFuncionarioComponent, canActivate: [AuthGuard], data: { role: "ADMIN,GERENTE" } },
-  { path: 'funcionario/editar', component: EditarFuncionarioComponent, canActivate: [AuthGuard], data: { role: "ADMIN,GERENTE" } },
-
+  { path: 'funcionario/listar', component: ListarFuncionarioComponent, canActivate: [AuthGuard], data: { role: "ADMIN,GERENTE,FUNCIONARIO,CLIENTE" } },
+  { path: 'funcionario/inserir', component: InserirFuncionarioComponent, canActivate: [AuthGuard], data: { role: "ADMIN,GERENTE,FUNCIONARIO,CLIENTE" } },
+  { path: 'funcionario/editar/:cpf', component: EditarFuncionarioComponent, canActivate: [AuthGuard], data: { role: "ADMIN,GERENTE,FUNCIONARIO,CLIENTE" } },
+  //funcionario/inserir-funcionario
   { path: 'prop', redirectTo: 'prototipos/rf012' },
   { path: 'prototipos/rf012', component: Rf012Component },
 

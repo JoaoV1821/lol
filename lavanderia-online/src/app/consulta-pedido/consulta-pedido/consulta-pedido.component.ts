@@ -8,7 +8,7 @@ import { Pedido } from '../../shared/models/pedido.model'
   templateUrl: './consulta-pedido.component.html',
   styleUrls: ['./consulta-pedido.component.css']
 })
-export class ConsultaPedidoComponent implements OnInit{
+export class ConsultaPedidoComponent implements OnInit {
 
   pedidos: Pedido[] = [];
 
@@ -25,12 +25,12 @@ export class ConsultaPedidoComponent implements OnInit{
     /*
     return this.consultaPedidoService.listarTodosPedidos();
     */
-    
-    return[
-      new Pedido(100, "camiseta", 2, 4.99),
-      new Pedido(100, "calça jeans", 1, 8.00),
-      new Pedido(100, "moleton  ", 1, 12.30)
+
+    return [
+      // new Pedido(100, "camiseta", 2, 4.99),
+      //  new Pedido(100, "calça jeans", 1, 8.00),
+      //  new Pedido(100, "moleton  ", 1, 12.30)
     ]
-    
+
   }
 }

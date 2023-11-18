@@ -67,7 +67,7 @@ export class LoginService {
   }
 
   private navigateAfterLogin(usuario: Usuario) {
-    if (usuario.perfil == "admin") {
+    if (usuario.perfil == "user") {
       this.router.navigate(["/orcamento"]);
     } else {
       this.router.navigate(["/home"])

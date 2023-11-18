@@ -9,28 +9,24 @@ import { Router } from '@angular/router';
   templateUrl: './inserir-funcionario.component.html',
   styleUrls: ['./inserir-funcionario.component.css']
 })
-
-
 export class InserirFuncionarioComponent implements OnInit {
-  
-  @ViewChild('formFuncionario') formFuncionario! : NgForm;
-  
-  funcionario! : Funcionario;
-  
+
+  @ViewChild('formFuncionario') formFuncionario!: NgForm;
+
+  funcionario!: Funcionario;
   constructor(
     private funcService: FuncionarioService,
     private router: Router
   ) { }
 
   ngOnInit(): void {
-    this.funcionario = new Funcionario();
-    
   }
 
   inserirFuncionario(): void {
     if (this.formFuncionario.form.valid) {
+      let form = this.funcionario;
       this.funcService.inserirFuncionario(this.funcionario);
-      this.router.navigate(["/funcionarios"]);
+
     }
   }
 }

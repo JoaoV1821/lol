@@ -26,18 +26,18 @@ export class EditarFuncionarioComponent implements OnInit {
     const cpf: string = this.route.snapshot.params['cpf'];
 
     const res = this.funcService.buscarFuncionarioPorCPF(cpf);
-    if(res != undefined){
+    if (res != undefined) {
       this.funcionario = res;
     } else {
-      throw new Error ("Funcionário não encontrado: cpf = " + cpf);
+      throw new Error("Funcionário não encontrado: cpf = " + cpf);
     }
-    
+
   }
-  
+
   atualizarFuncionario(): void {
-    if(this.formFuncionario.form.valid) {
+    if (this.formFuncionario.form.valid) {
       this.funcService.atualizarFuncionario(this.funcionario);
-      this.router.navigate(['/funcionarios']);
+      this.router.navigate(['/funcionario']);
     }
   }
 

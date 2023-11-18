@@ -31,6 +31,12 @@ public class CadastroController {
         return ResponseEntity.ok().body(cadastroDTO);
     }
 
+    @GetMapping("/get/funcionarios")
+    public ResponseEntity<List<CadastroDTO>> getFuncionairos() {
+        List<CadastroDTO> cadastroDTOs = cadastroService.getFuncionarios();
+        return ResponseEntity.ok().body(cadastroDTOs);
+    }
+
     @GetMapping("/get/cadastros")
     public ResponseEntity<List<CadastroDTO>> getCadastros() {
         List<CadastroDTO> cadastros = cadastroService.getCadastroList();

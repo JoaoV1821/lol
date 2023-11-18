@@ -1,12 +1,13 @@
+import { Item } from "./item.model";
+
 export class Pedido {
 
     constructor(
-        public numeroPedido?: number,
-        public item?: string,
-        public quantidade?: number,
-        public valor?: number,
-        public valorTotal?: number,
+        public numero?: number,
+        public itens?: Item[],
+        public total?: number,
+        public data?: string,
         public prazo?: string,
-        public situacao?: string,
+        public status?: string,
     ) { }
 }

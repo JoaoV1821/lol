@@ -28,14 +28,14 @@ export class ConsultaPedidoService {
   buscarPorPedido(numeroPedido: number): Pedido | undefined {
     const pedidos: Pedido[] = this.listarTodosPedidos();
 
-    return pedidos.find(pedido => pedido.numeroPedido === numeroPedido );
+    return pedidos.find(pedido => pedido.numero === numeroPedido);
   }
 
   atualizarPedido(pedido: Pedido): void {
     const pedidos: Pedido[] = this.listarTodosPedidos();
 
-    pedidos.forEach( (obj, index, objs) => {
-      if (pedido.numeroPedido === obj.numeroPedido) {
+    pedidos.forEach((obj, index, objs) => {
+      if (pedido.numero === obj.numero) {
         objs[index] = pedido
       }
     });
@@ -46,7 +46,7 @@ export class ConsultaPedidoService {
   removerPedido(numeroPedido: number): void {
     let pedidos: Pedido[] = this.listarTodosPedidos();
 
-    pedidos = pedidos.filter(pedido => pedido.numeroPedido !== numeroPedido);
+    pedidos = pedidos.filter(pedido => pedido.numero !== numeroPedido);
 
     localStorage[LS_CHAVE] = JSON.stringify(pedidos);
   }

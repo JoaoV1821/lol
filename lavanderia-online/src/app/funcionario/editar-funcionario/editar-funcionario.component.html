@@ -6,18 +6,17 @@
 
             <div class="form-group">
                 <label for="nome">Nome:</label>
-                <input type="text" class="form-control" id="nome" name="nome" [(ngModel)]="funcionario.nome"
+                <input type="text" class="form-control" name="nome" id="nome" [(ngModel)]="funcionario.nome"
                     #nome="ngModel" minlength="2" required>
                 <div *ngIf="nome.errors && (nome.dirty || nome.touched)" class="alert alert-danger">
-                    <div [hidden]="!nome.errors['required']">Digite o nome do funcionário.</div>
+                    <div [hidden]="!nome.errors['required']">Digite o nome do funcionario.</div>
                     <div [hidden]="!nome.errors['minlength']">Nome inválido!</div>
                 </div>
             </div>
-
             <div class="form-group">
                 <label for="cpf">CPF:</label>
                 <input type="text" class="form-control" name="cpf" id="cpf" [(ngModel)]="funcionario.cpf" #cpf="ngModel"
-                    minlength="11" required>
+                    minlength="11" mask="000.000.000-00" required>
                 <div *ngIf="cpf.errors && (cpf.dirty || cpf.touched)" class="alert alert-danger">
                     <div [hidden]="!cpf.errors['required']">Digite o cpf do funcionario.</div>
                     <div [hidden]="!cpf.errors['minlength']">CPF inválido!</div>
@@ -35,9 +34,18 @@
             </div>
 
             <div class="form-group">
+                <label for="telefone">Telefone:</label>
+                <input type="email" class="form-control" name="telefone" id="telefone"
+                    [(ngModel)]="funcionario.telefone" #telefone="ngModel" minlength="8" maxlength="13" required>
+                <div *ngIf="telefone.errors && (telefone.dirty || telefone.touched)" class="alert alert-danger">
+                    <div [hidden]="!telefone.errors['required']">Telefone obrigatório.</div>
+                </div>
+            </div>
+
+            <div class="form-group">
                 <label for="dataNasc">Data de Nascimento:</label>
                 <input type="text" class="form-control" name="dataNasc" id="dataNasc" [(ngModel)]="funcionario.dataNasc"
-                    #dataNasc="ngModel" minlength="10" required>
+                    #dataNasc="ngModel" minlength="7" mask="d0/M0/0000" required>
                 <div *ngIf="dataNasc.errors && (dataNasc.dirty || dataNasc.touched)" class="alert alert-danger">
                     <div [hidden]="!dataNasc.errors['required']">Digite a data de nascimento do funcionario.</div>
                     <div [hidden]="!dataNasc.errors['minlength']">Data de nascimento inválida!</div>
@@ -45,13 +53,50 @@
             </div>
 
             <div class="form-group">
-                <label for="tipo">Cargo:</label>
-                <input type="text" class="form-control" name="tipo" id="tipo" [(ngModel)]="funcionario.tipo"
-                    #tipo="ngModel" minlength="4" required>
-                <div *ngIf="tipo.errors && (tipo.dirty || tipo.touched)" class="alert alert-danger">
-                    <div [hidden]="!tipo.errors['required']">Digite o cargo do funcionario.</div>
-                    <div [hidden]="!tipo.errors['minlength']">Cargo inválido!</div>
+                <label for="senha">Senha:</label>
+                <input type="password" class="form-control" name="senha" id="senha" [(ngModel)]="funcionario.senha"
+                    #senha="ngModel" minlength="4" required>
+                <div *ngIf="senha.errors && (senha.dirty || senha.touched)" class="alert alert-danger">
+                    <div [hidden]="!senha.errors['required']">Digite uma senha válida.</div>
+                    <div [hidden]="!senha.errors['minlength']">Senha inválida!</div>
                 </div>
+            </div>
+
+            <div>
+                <label for="cep">CEP:</label>
+                <input type="text" class="form-control" name="cep" id="cep" [(ngModel)]="funcionario.endereco.cep"
+                    #cep="ngModel" minlength="8" maxlength="8" mask="00.000-000" required>
+                <div *ngIf="cep.errors && (cep.dirty || cep.touched)" class="alert alert-danger">
+                    <div [hidden]="!cep.errors['required']">CEP obrigatório.</div>
+                    <div [hidden]="!cep.errors['minlength']">O cep deve conter ao menos 8 digitos</div>
+                </div>
+
+                <label for="cidade">Cidade:</label>
+                <input type="text" class="form-control" name="cidade" id="cidade"
+                    [(ngModel)]="funcionario.endereco.cidade" #cidade="ngModel" minlength="2" required>
+                <div *ngIf="cidade.errors && (cidade.dirty || cidade.touched)" class="alert alert-danger">
+                    <div [hidden]="!cidade.errors['required']">Cidade obrigatória.</div>
+                    <div [hidden]="!cidade.errors['minlength']">A cidade deve conter ao menos 2 digitos</div>
+                </div>
+
+                <label for="endereco">Endereço:</label>
+                <input type="text" class="form-control" name="endereco" id="endereco"
+                    [(ngModel)]="funcionario.endereco.endereco" #endereco="ngModel" minlength="2" required>
+                <div *ngIf="endereco.errors && (endereco.dirty || endereco.touched)" class="alert alert-danger">
+                    <div [hidden]="!endereco.errors['required']">Endereço obrigatório.</div>
+                    <div [hidden]="!endereco.errors['minlength']">O Endereço deve conter ao menos 2 digitos</div>
+                </div>
+
+                <label for="numero">Número:</label>
+                <input type="text" class="form-control" name="numero" id="numero"
+                    [(ngModel)]="funcionario.endereco.numero" #numero="ngModel" minlength="8" required>
+                <div *ngIf="numero.errors && (numero.dirty || numero.touched)" class="alert alert-danger">
+                    <div [hidden]="!numero.errors['required']">Número do endereço obrigatório.</div>
+                </div>
+
+                <label for="complemento">Complemento:</label>
+                <input type="text" class="form-control" name="complemento" id="complemento"
+                    [(ngModel)]="funcionario.endereco.complemento" #complemento="ngModel">
             </div>
 
             <div class="form-group">
@@ -60,7 +105,7 @@
                     <i class="fa fa-save" aria-hidden="true"></i>
                     Atualizar
                 </button>
-                <a [routerLink]="['/funcionarios']" class="btn btn-secondary" href="">
+                <a [routerLink]="['/funcionario']" class="btn btn-secondary" href="">
                     <i class="fa fa-arrow-left" aria-hidden="true"></i>
                     Voltar
                 </a>

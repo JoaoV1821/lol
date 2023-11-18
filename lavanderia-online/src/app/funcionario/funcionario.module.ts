@@ -8,21 +8,26 @@ import { FuncionarioService } from './services';
 import { ListarFuncionarioComponent } from './listar-funcionario';
 import { InserirFuncionarioComponent } from './inserir-funcionario';
 import { EditarFuncionarioComponent } from './editar-funcionario';
+import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
 
 
 @NgModule({
   declarations: [
     ListarFuncionarioComponent,
     InserirFuncionarioComponent,
-    EditarFuncionarioComponent
+    EditarFuncionarioComponent,
+
   ],
   imports: [
     CommonModule,
     RouterModule,
     FormsModule,
+    NgxMaskDirective,
+    NgxMaskPipe
   ],
   providers: [
-    FuncionarioService
+    FuncionarioService,
+    provideNgxMask()
   ]
 })
 export class FuncionarioModule { }

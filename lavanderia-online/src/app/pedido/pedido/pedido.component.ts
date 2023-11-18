@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { PedidoService } from '../services';
 import { PDFDocument, rgb, StandardFonts } from 'pdf-lib';
+import { ModalPedidoComponent } from '../modal-pedido/modal-pedido.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+
 
 interface itemCarrinho {
   tipo: string,
@@ -24,11 +27,11 @@ interface itemList {
 })
 
 
-export class PedidoComponent implements OnInit{
+export class PedidoComponent implements OnInit {
 
 
   carrinho: itemCarrinho[] = [];
-  
+
   lista_de_items: itemList[] = [
     { tipo: "Batina", valor_un: 10, categoria: "Blusas", prazo: 10 },
     { tipo: "Blusa Regata", valor_un: 15, categoria: "Blusas", prazo: 12 },
@@ -44,40 +47,40 @@ export class PedidoComponent implements OnInit{
     { tipo: "Jaqueta Simples", valor_un: 40, categoria: "Casacos", prazo: 15 }
   ]
   total: number = 0;
-  prazoMax : number = 0;
+  prazoMax: number = 0;
 
-  constructor(private modalService : NgbModal) {
+  constructor(private modalService: NgbModal) {
   }
 
   orcamento() {
     const modalRef = this.modalService.open(ModalPedidoComponent);
     modalRef.componentInstance.orcamento = this.total;
-    modalRef.componentInstance.listaRoupasPedido = this.carrinho;    
+    modalRef.componentInstance.listaRoupasPedido = this.carrinho;
     modalRef.componentInstance.prazoMax = this.prazoMax;
   }
+  //aquiiii
+  async gerarPDF() {
 
-  async gerarPDF () {
-      
-  const pdfDoc = await PDFDocument.create();
-  const page = pdfDoc.addPage([600, 400]);
-
-
-  const font = await pdfDoc.embedFont(StandardFonts.Helvetica);
-  const { width, height } = page.getSize();
-  const fontSize = 30;
-  const text = 'Hello, PDF!';
-
-  page.drawText(text, {
-    x: 50,
-    y: height - 50,
-    size: fontSize,
-    font: font,
-    color: rgb(0, 0, 0),
-  });
+    const pdfDoc = await PDFDocument.create();
+    const page = pdfDoc.addPage([600, 400]);
 
 
-  const pdfBytes = await pdfDoc.save();
-  
+    const font = await pdfDoc.embedFont(StandardFonts.Helvetica);
+    const { width, height } = page.getSize();
+    const fontSize = 30;
+    const text = 'Hello, PDF!';
+
+    page.drawText(text, {
+      x: 50,
+      y: height - 50,
+      size: fontSize,
+      font: font,
+      color: rgb(0, 0, 0),
+    });
+
+
+    const pdfBytes = await pdfDoc.save();
+
   }
 
   changeItemValue(index: number, operation: string) {
@@ -97,7 +100,7 @@ export class PedidoComponent implements OnInit{
     }
   }
 
-  addItem(item: itemList ) {
+  addItem(item: itemList) {
     for (let x = 0; x < this.carrinho.length; x++) {
       if (this.carrinho[x].tipo == item.tipo) {
         this.carrinho[x].qt += 1;
@@ -124,15 +127,15 @@ export class PedidoComponent implements OnInit{
     }
   }
 
-    prazo() {
-      console.log(this.carrinho);
-      for (let x = 0; x < this.carrinho.length; x++) {
-        if(this.carrinho[x].prazo > this.prazoMax){
-          this.prazoMax = this.carrinho[x].prazo;
-        }
+  prazo() {
+    console.log(this.carrinho);
+    for (let x = 0; x < this.carrinho.length; x++) {
+      if (this.carrinho[x].prazo > this.prazoMax) {
+        this.prazoMax = this.carrinho[x].prazo;
       }
-      console.log(this.prazoMax);
     }
+    console.log(this.prazoMax);
+  }
 
   limparItens() {
     this.carrinho = [];

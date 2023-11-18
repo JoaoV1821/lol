@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.lavanderiabackend.models.Cadastro.DTO.CadastroDTO;
-import com.example.lavanderiabackend.models.Pedido.DTO.PedidoBody;
 import com.example.lavanderiabackend.models.Pedido.DTO.PedidoStatus;
 import com.example.lavanderiabackend.wrappers.CarrinhoWrapper;
 import com.example.lavanderiabackend.wrappers.StringWrapper;
@@ -50,12 +49,15 @@ public class UsuarioController {
         cadastroService.updatePedidoStatus(pedidoStatus.getStatus(), pedidoStatus.getNumeroPedido());
         return ResponseEntity.ok().build();
     }
-/*  GET PEDIDOS ORIGINAL
-    @GetMapping("/get/pedidos")
-    public ResponseEntity<Object> getPedidos() {
-        return ResponseEntity.ok().body(cadastroService.getListaPedidos());
-    }
-*/
+
+    /*
+     * GET PEDIDOS ORIGINAL
+     * 
+     * @GetMapping("/get/pedidos")
+     * public ResponseEntity<Object> getPedidos() {
+     * return ResponseEntity.ok().body(cadastroService.getListaPedidos());
+     * }
+     */
     @GetMapping("/get/pedidos")
     public ResponseEntity<Object> getPedidos(@RequestParam(required = false) String status) {
         if (status != null) {
@@ -64,7 +66,6 @@ public class UsuarioController {
             return ResponseEntity.ok().body(cadastroService.getListaPedidos());
         }
     }
-
 
     @GetMapping("/deletar/pedido")
     public ResponseEntity<Object> deletarPedido(@RequestBody StringWrapper numero_pedido) {

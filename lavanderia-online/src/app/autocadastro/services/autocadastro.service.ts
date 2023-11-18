@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import axios from 'axios';
 import { FormularioData } from 'src/app/shared/models/formulario-data.model';
 import { Pessoa } from 'src/app/shared/models/pessoa.model';
@@ -9,7 +10,8 @@ import { Pessoa } from 'src/app/shared/models/pessoa.model';
 
 export class AutoCadastroService {
 
-  constructor() { }
+  constructor(private router: Router) {
+  }
 
 
 
@@ -33,4 +35,7 @@ export class AutoCadastroService {
     this.validateTel(dados.telefone);
     return dados;
   }
+
+
+
 }

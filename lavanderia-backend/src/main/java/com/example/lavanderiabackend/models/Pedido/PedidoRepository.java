@@ -14,13 +14,13 @@ public interface PedidoRepository extends JpaRepository<Pedido, String> {
 
     public void deleteByNumero(Long numero);
 
-    @Query("SELECT p FROM Pedido p WHERE p.data >= :dataInicial AND p.data <= :dataPrazo")
+    @Query("SELECT p FROM Pedido p WHERE p.data >= :dataInicial AND p.data <= :dataPrazo ORDER BY p.data DESC")
     public List<Pedido> findAllByDate(@Param("dataInicial") LocalDate dataInicial,
             @Param("dataPrazo") LocalDate dataPrazo);
 
-    @Query("SELECT p FROM Pedido p WHERE p.data >= :dataInicial")
+    @Query("SELECT p FROM Pedido p WHERE p.data >= :dataInicial ORDER BY p.data DESC")
     public List<Pedido> findAllByInitialDate(@Param("dataInicial") LocalDate dataInicial);
-    
-    @Query("SELECT p FROM Pedido p WHERE p.status >= :status")
+
+    @Query("SELECT p FROM Pedido p WHERE p.status >= :status ORDER BY p.data DESC")
     public List<Pedido> findAllByStatus(@Param("status") String status);
 }

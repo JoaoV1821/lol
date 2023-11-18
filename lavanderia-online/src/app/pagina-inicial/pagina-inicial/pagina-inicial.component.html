@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Página Inicial</title>
 </head>
+
 <body>
     <div class="container">
         <div class="row">
@@ -26,34 +28,28 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
+                        <tr *ngFor="let pedido of pedidos">
+                            <!--
                             <th scope="row">000001</th>
                             <td>R$ 60,00</td>
                             <td>11/08/2023</td>
                             <td>17/08/2023</td>
                             <td class="btn btn-aberto">Em aberto</td>
                             <td><button class="btn btn-danger">Cancelar</button></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">000002</th>
-                            <td>R$ 70,00</td>
-                            <td>13/08/2023</td>
-                            <td>17/08/2023</td>
-                            <td class="btn btn-aberto">Em aberto</td>
-                            <td><button class="btn btn-danger">Cancelar</button></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">000003</th>
-                            <td>R$ 45,00</td>
-                            <td>12/08/2023</td>
-                            <td>16/08/2023</td>
-                            <td class="btn btn-aberto">Em aberto</td>
-                            <td><button class="btn btn-danger">Cancelar</button></td>
+                            -->
+                            <td>{{pedido.numero}}</td>
+                            <td>{{pedido.total}}</td>
+                            <td>{{pedido.data! | format}}</td>
+                            <td>{{pedido.prazo! | format}}</td>
+                            <td>{{pedido.status}}</td>
+                            <td><button (click)="alterarStatus(pedido)" class="btn btn-danger">Cancelar</button></td>
                         </tr>
                     </tbody>
                 </table>
+                <p *ngIf="pedidos.length == 0">Não foram encontrados pedidos em aberto</p>
             </div>
         </div>
     </div>
 </body>
+
 </html>

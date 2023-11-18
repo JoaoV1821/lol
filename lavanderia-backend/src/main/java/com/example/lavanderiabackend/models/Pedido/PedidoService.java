@@ -60,7 +60,7 @@ public class PedidoService {
             for (Pedido pedido : pedidoRepository.findAllByDate(ini, prazo)) {
                 pedidos.add(new PedidoBody(pedido));
             }
-        } else if (status != null && dataInicial == null && dataPrazo == null){
+        } else if (status != null && dataInicial == null && dataPrazo == null) {
             String statusUpperCase = status.toUpperCase();
             for (Pedido pedido : pedidoRepository.findAllByStatus(statusUpperCase)) {
                 pedidos.add(new PedidoBody(pedido));
@@ -146,7 +146,6 @@ public class PedidoService {
         }
         return bodies;
     }
-    
 
     /*
      * public void addPedido(PedidoBody modelo) {

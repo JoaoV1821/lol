@@ -5,16 +5,12 @@
         <div class="form-group row mb-3">
             <label for="numeroPedido" class="col-sm-3 col-form-label">Informe o número do pedido:</label>
             <div class="col-sm-2">
-                <input
-                    id="numeroPedido"
-                    class="form-control inputlol"
-                    placeholder="Número do pedido"
-                    #numeroPedido
-                    type="text"/>
-                </div>
-                <a href="#" title="Pesquisar" alt="Pesquisar" class="col-sm-2 btn btn-primary">
-                    <i class="fa fa-search" aria-hidden="true"></i> Pesquisar
-                </a>
+                <input id="numeroPedido" class="form-control inputlol" placeholder="Número do pedido" #numeroPedido
+                    type="text" />
+            </div>
+            <a href="#" title="Pesquisar" alt="Pesquisar" class="col-sm-2 btn btn-primary">
+                <i class="fa fa-search" aria-hidden="true"></i> Pesquisar
+            </a>
         </div>
         <!--
             <button type="button" class="btn btn-secondary"
@@ -44,14 +40,15 @@
             </tr>
 
             <tr *ngFor="let pedido of pedidos">
-                <td class="col-2">{{pedido.quantidade}}</td>
+                <!-- <td class="col-2">{{pedido.quantidade}}</td>
                 <td class="col-4">{{pedido.item}}</td>
                 <td class="col-2">{{pedido.valor}}</td>
+                -->
             </tr>
-            
+
         </tbody>
     </table>
-    
+
     <form>
         <div *ngIf="pedidos.length !=0" class="form-group row">
             <div class="row-sm-4">
