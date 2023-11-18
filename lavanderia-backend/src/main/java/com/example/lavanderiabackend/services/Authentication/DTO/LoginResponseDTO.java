@@ -7,8 +7,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-
-
 @Getter
 @Setter
 @NoArgsConstructor
@@ -20,13 +18,13 @@ public class LoginResponseDTO {
     private String login;
     private String senha;
     private String perfil;
-    
-    public LoginResponseDTO(Cadastro cadastro){
+
+    public LoginResponseDTO(Cadastro cadastro) {
         this.id = cadastro.getCadastroId();
-        this.nome = cadastro.getNome() + " " +  cadastro.getSobrenome();
+        this.nome = cadastro.getNome() + " " + cadastro.getSobrenome();
         this.login = cadastro.getEmail();
         this.senha = cadastro.getSenha();
-        this.perfil = cadastro.getPapel().getPapel();
+        this.perfil = cadastro.getPerfil().getPapel();
     }
 
 }

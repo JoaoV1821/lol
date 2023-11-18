@@ -3,17 +3,17 @@ import { NgForm } from '@angular/forms';
 import { ViewChild } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AutoCadastroService } from '../services';
-import { Pessoa } from 'src/app/shared/models/pessoa.model';
-import { Cadastro } from 'src/app/shared/models/cadastro.model';
-import { Endereco } from 'src/app/shared/models/endereco.model';
+
 import { RequestMaker } from 'src/app/services/requestService';
+import { NgxMaskDirective } from 'ngx-mask';
+import { Pessoa, Endereco, Cadastro, FormularioData } from 'src/app/shared/models';
 
 
 
 @Component({
   selector: 'app-autocadastro',
   templateUrl: './autocadastro.component.html',
-  styleUrls: ['./autocadastro.component.css']
+  styleUrls: ['./autocadastro.component.css'],
 })
 export class AutocadastroComponent implements OnInit {
 
@@ -26,7 +26,7 @@ export class AutocadastroComponent implements OnInit {
 
   constructor(private autoCadastroService: AutoCadastroService) {
     this.pessoa = new Pessoa();
-    this.teste();
+    //  this.teste();
 
   }
 
@@ -51,14 +51,20 @@ export class AutocadastroComponent implements OnInit {
   }
 
   async realizarCadastro(formulario: NgForm) {
-    let dados = formulario.value;
+    let dados: FormularioData = formulario.value;
+    console.log(dados);
+    dados = this.autoCadastroService.validadeFormulario(dados);
     let endereco = new Endereco(dados.cep, dados.cidade, dados.endereco, dados.numero, dados.complemento);
     let cadastro = new Cadastro(dados.nome, dados.cpf, dados.telefone, dados.email, endereco);
     let result = await RequestMaker.postData<string>("/auth/register", cadastro);
-    if (result.error) {
+    return
+
+    /*if (result.error) {
       console.log(result.error);
     } else if (result.data) {
       alert("Cadastro realizado! Sua senha é : " + result.data);
-    }
+    }*/
   }
+
+
 }

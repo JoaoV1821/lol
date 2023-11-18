@@ -130,11 +130,23 @@ public class PedidoService {
         List<PedidoBody> bodies = new ArrayList<>();
         for (Pedido pedido : pedidos) {
             PedidoBody body = new PedidoBody(pedido);
-            System.out.println(body.getRoupas().get(0).getDescricao());
             bodies.add(body);
         }
         return bodies;
     }
+
+    public List<PedidoBody> getPedidoListWithStatus(Cadastro cadastro, String status) {
+        List<Pedido> pedidos = cadastro.getPedidos();
+        List<PedidoBody> bodies = new ArrayList<>();
+        for (Pedido pedido : pedidos) {
+            if (pedido.getStatus().equalsIgnoreCase(status)) {
+                PedidoBody body = new PedidoBody(pedido);
+                bodies.add(body);
+            }
+        }
+        return bodies;
+    }
+    
 
     /*
      * public void addPedido(PedidoBody modelo) {

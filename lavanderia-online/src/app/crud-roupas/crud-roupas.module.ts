@@ -1,14 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-import { CrudRoupasService } from './services/crud-roupas.service';
-import { ListarRoupasComponent } from './listar-roupas/listar-roupas.component';
-import { InserirRoupaComponent } from './inserir-roupa/inserir-roupa.component';
-import { EditarRoupaComponent } from './editar-roupa/editar-roupa.component';
-
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { SharedModule } from '../shared';
+
+import { CrudRoupasService } from './services';
+import { ListarRoupasComponent } from './listar-roupas';
+import { InserirRoupaComponent } from './inserir-roupa';
+import { EditarRoupaComponent } from './editar-roupa';
 
 @NgModule({
   declarations: [
@@ -22,7 +21,7 @@ import { SharedModule } from '../shared';
     FormsModule,
     SharedModule
   ],
-  providers:[
+  providers: [
     CrudRoupasService
   ]
 })

@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AutocadastroComponent } from './autocadastro/autocadastro.component';
 import { AutoCadastroService } from './services';
+import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
 
 @NgModule({
   declarations: [
@@ -10,13 +11,16 @@ import { AutoCadastroService } from './services';
   ],
   imports: [
     CommonModule,
-    FormsModule
+    FormsModule,
+    NgxMaskDirective,
+    NgxMaskPipe
   ],
   exports: [
     AutocadastroComponent
   ],
   providers: [
-    AutoCadastroService
+    AutoCadastroService,
+    provideNgxMask()
   ]
 })
 export class AutocadastroModule { }

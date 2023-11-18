@@ -40,7 +40,10 @@ public class CadastroService {
 
     public void saveCadastro(CadastroDTO modelo) {
         if (cadastroRepository.findByCpf(modelo.getCpf()).isPresent()) {
-            updateCadastro(modelo);
+            //updateCadastro(modelo);
+            return;
+        }
+        if(cadastroRepository.findByEmail(modelo.getEmail()).isPresent()){
             return;
         }
         Cadastro cadastro = new Cadastro(modelo);
@@ -99,22 +102,36 @@ public class CadastroService {
 
     public CadastroDTO getUsuarioLogado() {
         Cadastro cadastro = getLoggedUser();
-        CadastroDTO cadastroModelo = modelMapper.map(cadastro, CadastroDTO.class);
+        if(cadastro != null){
+            CadastroDTO cadastroModelo = modelMapper.map(cadastro, CadastroDTO.class);
         return cadastroModelo;
+        }
+        return null;
     }
 
     private Cadastro getLoggedUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        try{
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         Cadastro cadastro = cadastroRepository.findByEmail(userDetails.getUsername())
                 .orElseThrow(() -> new UserNotFoundException("Usuario não encontrado" + userDetails.getUsername()));
         return cadastro;
+        }catch(Exception e){
+        return null;
+     }
+
     }
 
     public List<PedidoBody> getListaPedidos() {
         Cadastro cadastro = getCadastroFromToken();
         return pedidoService.getPedidoList(cadastro);
     }
+    
+    public List<PedidoBody> getListaPedidosWithStatus(String status) {
+        Cadastro cadastro = getCadastroFromToken();
+        return pedidoService.getPedidoListWithStatus(cadastro, status);
+    }
+    
 
     public void addPedido(List<CarrinhoDTO> carrinhos) {
         Cadastro cadastro = getCadastroFromToken();

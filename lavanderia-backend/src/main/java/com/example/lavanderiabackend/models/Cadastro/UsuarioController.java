@@ -1,24 +1,21 @@
 package com.example.lavanderiabackend.models.Cadastro;
 
-import java.util.List;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.lavanderiabackend.models.Cadastro.DTO.CadastroDTO;
-import com.example.lavanderiabackend.models.Carrinho.DTOS.CarrinhoDTO;
+import com.example.lavanderiabackend.models.Pedido.DTO.PedidoBody;
 import com.example.lavanderiabackend.models.Pedido.DTO.PedidoStatus;
+import com.example.lavanderiabackend.wrappers.CarrinhoWrapper;
+import com.example.lavanderiabackend.wrappers.StringWrapper;
 
 import jakarta.validation.Valid;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @RestController
 @RequestMapping("/api/usuario")
@@ -53,32 +50,25 @@ public class UsuarioController {
         cadastroService.updatePedidoStatus(pedidoStatus.getStatus(), pedidoStatus.getNumeroPedido());
         return ResponseEntity.ok().build();
     }
-
+/*  GET PEDIDOS ORIGINAL
     @GetMapping("/get/pedidos")
     public ResponseEntity<Object> getPedidos() {
         return ResponseEntity.ok().body(cadastroService.getListaPedidos());
     }
+*/
+    @GetMapping("/get/pedidos")
+    public ResponseEntity<Object> getPedidos(@RequestParam(required = false) String status) {
+        if (status != null) {
+            return ResponseEntity.ok().body(cadastroService.getListaPedidosWithStatus(status));
+        } else {
+            return ResponseEntity.ok().body(cadastroService.getListaPedidos());
+        }
+    }
+
 
     @GetMapping("/deletar/pedido")
     public ResponseEntity<Object> deletarPedido(@RequestBody StringWrapper numero_pedido) {
         cadastroService.deletarPedido(numero_pedido.getString());
         return ResponseEntity.ok().build();
     }
-
-}
-
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
-class StringWrapper {
-    public String string;
-}
-
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
-class CarrinhoWrapper {
-    public List<CarrinhoDTO> carrinhos;
 }

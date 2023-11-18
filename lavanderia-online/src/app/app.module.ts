@@ -4,7 +4,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AutocadastroModule } from './autocadastro';
 import { ConsultaPedidoModule } from './consulta-pedido';
-import { LoginModule } from './login/login.module';
 import { OrcamentoModule } from './orcamento';
 import { PagamentoModule } from './pagamento';
 import { PaginaInicialModule } from './pagina-inicial';
@@ -14,8 +13,8 @@ import { ListagemModule } from './listagem';
 import { CommonModule } from '@angular/common';
 import { FuncionarioModule } from './funcionario';
 import { FormsModule } from '@angular/forms';
-import { ListagemFModule } from './listagemF';
-
+import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
+import { AuthModule } from './auth/auth.module';
 
 /* Aonde está escrito o nome do componente no import é para substituir com o nome do componente que vc criou 
   Exemplo: Se vc criou o componente esta com o login é para substituir o "LoginComponent" pelo nome do componente que vc criou. 
@@ -29,7 +28,7 @@ import { ListagemFModule } from './listagemF';
     BrowserModule,
     CommonModule,
     AppRoutingModule,
-    LoginModule,
+    AuthModule,
     AutocadastroModule,
     ConsultaPedidoModule,
     OrcamentoModule,
@@ -41,10 +40,12 @@ import { ListagemFModule } from './listagemF';
     ListagemModule,
     FormsModule,
     FuncionarioModule,
-    RelatoriosModule
+    RelatoriosModule,
+    NgxMaskDirective,
+    NgxMaskPipe
   ],
 
-  providers: [],
+  providers: [provideNgxMask()],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

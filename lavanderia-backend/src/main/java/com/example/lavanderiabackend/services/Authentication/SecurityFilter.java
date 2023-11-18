@@ -8,12 +8,12 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.util.WebUtils;
 
+import com.example.lavanderiabackend.models.Cadastro.Cadastro;
 import com.example.lavanderiabackend.models.Cadastro.CadastroRepository;
 
 import jakarta.servlet.FilterChain;
@@ -43,11 +43,16 @@ public class SecurityFilter extends OncePerRequestFilter {
         Optional<String> token = recoverToken(request);
         if (token.isPresent()) {
             String subject = tokenService.validateToken(token.get());
-            UserDetails userDetails = cadastroRepository.findByEmail(subject)
-                    .orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado!"));
-            var authentication = new UsernamePasswordAuthenticationToken(userDetails, null,
-                    userDetails.getAuthorities());
-            SecurityContextHolder.getContext().setAuthentication(authentication);
+            Optional<Cadastro> cadastro = cadastroRepository.findByEmail(subject);
+            System.out.println(cadastro.isEmpty());
+            if (cadastro.isPresent()) {
+                System.out.println(cadastro.get().getNome());
+                UserDetails userDetails = cadastro.get();
+                // .orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado!"));
+                var authentication = new UsernamePasswordAuthenticationToken(userDetails, null,
+                        userDetails.getAuthorities());
+                SecurityContextHolder.getContext().setAuthentication(authentication);
+            }
         }
         filterChain.doFilter(request, response);
     }

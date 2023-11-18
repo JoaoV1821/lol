@@ -38,9 +38,10 @@
                                             <div class="col-sm-6">
                                                 <label class="form-label mt-2" for="cpf">CPF:</label>
                                                 <input type="text" class="form-control inputlol text-left" id="CPF"
-                                                    name="cpf" title="Digite seu CPF"
-                                                    pattern="(\d{3}\.?\d{3}\.?\d{3}-?\d{2})" [(ngModel)]="pessoa.cpf"
-                                                    #cpf="ngModel" minlength="11" maxlength="11" required ngModel>
+                                                    pattern="(\d{3}\.?\d{3}\.?\d{3}-?\d{2})" name="cpf"
+                                                    title="Digite seu CPF" [(ngModel)]="pessoa.cpf"
+                                                    mask="000.000.000-00" #cpf="ngModel" minlength="11" maxlength="14"
+                                                    required ngModel>
                                                 <div *ngIf="cpf.errors && (cpf.dirty || cpf.touched)"
                                                     class="alert alert-danger">
                                                     <div [hidden]="!cpf.errors['required']">CPF obrigatório.</div>
@@ -51,8 +52,9 @@
                                             <div class="col-sm-6">
                                                 <label class="form-label mt-2" for="telefone">Telefone:</label>
                                                 <input type="tel" class="form-control inputlol text-left" id="telefone"
-                                                    name="telefone" [(ngModel)]="pessoa.contato" #contato="ngModel"
-                                                    minlength="10" maxlength="11" numerico name="telefone" ngModel>
+                                                    mask="(00) 00000-0000" name="telefone" [(ngModel)]="pessoa.contato"
+                                                    #contato="ngModel" minlength="11" maxlength="15" numerico
+                                                    name="telefone" ngModel>
                                                 <div *ngIf="contato.errors && (contato.dirty || contato.touched)"
                                                     class="alert alert-danger">
                                                     <div [hidden]="!contato.errors['required']">Contato obrigatório.
@@ -74,9 +76,10 @@
                                                 CEP:
                                                 <div class="input-group col-sm-5">
                                                     <button class="btn btn-outline-secondary" (click)="requestCep()"
-                                                        type="button" id="button-addon1">O</button>
+                                                        type="button" id="button-addon1"><img
+                                                            src="../../../assets/search.svg" alt=""></button>
                                                     <input type="text" id="cep" ngModel name="cep" [(ngModel)]="cep"
-                                                        class="form-control inputlol" placeholder=""
+                                                        mask="00000-000" class="form-control inputlol" placeholder=""
                                                         aria-label="Example text with button addon"
                                                         aria-describedby="button-addon1">
                                                 </div>
