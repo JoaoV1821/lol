@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import axios from 'axios';
+import { RequestMaker } from 'src/app/services/requestService';
+import { Endereco } from 'src/app/shared';
 import { FormularioData } from 'src/app/shared/models/formulario-data.model';
-import { Pessoa } from 'src/app/shared/models/pessoa.model';
+import { UserDTO } from 'src/app/shared/models/user-dto.model';
 
 @Injectable({
   providedIn: 'root'
@@ -36,6 +38,17 @@ export class AutoCadastroService {
     return dados;
   }
 
-
-
+  async postUser(data: FormularioData) {
+    console.log(data.dataNasc);
+    let endereco = new Endereco(data.cep, data.cidade, data.endereco, data.numero, data.complemento);
+    let usuario = new UserDTO(data.nome, data.cpf, data.telefone, data.email, data.dataNasc, endereco);
+    let response = await RequestMaker.postData<string>("/auth/register", usuario);
+    if (response.ok(response.data)) {
+      if (confirm("Cliente cadastrado com sucesso!\nSua senha é " + response.data)) {
+      }
+      this.router.navigate(["/login"]);
+    } else {
+      alert("Erro ao cadastrar cliente");
+    }
+  }
 }

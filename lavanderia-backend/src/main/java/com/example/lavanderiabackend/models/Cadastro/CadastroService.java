@@ -14,12 +14,15 @@ import com.example.lavanderiabackend.Exceptions.UserNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.example.lavanderiabackend.models.Cadastro.DTO.CadastroDTO;
+import com.example.lavanderiabackend.models.Cadastro.DTO.TopCadastroDTO;
 import com.example.lavanderiabackend.models.Carrinho.DTOS.CarrinhoDTO;
 import com.example.lavanderiabackend.models.Endereco.EnderecoService;
 import com.example.lavanderiabackend.models.Pedido.PedidoService;
 import com.example.lavanderiabackend.models.Pedido.DTO.PedidoBody;
+import com.example.lavanderiabackend.models.Pedido.DTO.PedidoDTO;
 import com.example.lavanderiabackend.services.Validation.CPFValidator;
 import com.example.lavanderiabackend.services.Validation.EmailValidator;
+import com.example.lavanderiabackend.services.Validation.Validator;
 
 @Service
 public class CadastroService {
@@ -48,6 +51,16 @@ public class CadastroService {
         return cadastroDTOs;
     }
 
+    public List<CadastroDTO> getClientes() {
+        List<Cadastro> cadastros = cadastroRepository.findByPerfil(Papel.USER);
+        List<CadastroDTO> cadastroDTOs = new ArrayList<>();
+        for (Cadastro cadastro : cadastros) {
+            CadastroDTO cadastroDTO = modelMapper.map(cadastro, CadastroDTO.class);
+            cadastroDTOs.add(cadastroDTO);
+        }
+        return cadastroDTOs;
+    }
+
     public void saveCadastro(CadastroDTO modelo) {
         if (cadastroRepository.findByCpf(modelo.getCpf()).isPresent()) {
             // updateCadastro(modelo);
@@ -57,13 +70,15 @@ public class CadastroService {
             return;
         }
         Cadastro cadastro = new Cadastro(modelo);
-        if (!CPFValidator.isCpfValid(modelo.getCpf()))
-            throw new InvalidFieldException("Campo Cpf inválido!", "cpf");
-        if (!EmailValidator.isEmailValid(modelo.getEmail()))
-            throw new InvalidFieldException("Campo Email inválido!", "email");
+        Validator.validateCadastro(modelo);
         String encryptedPassword = new BCryptPasswordEncoder().encode(modelo.getSenha());
         cadastro.setSenha(encryptedPassword);
         enderecoService.addCadastros(modelo.getEndereco(), List.of(cadastro));
+    }
+
+    public List<TopCadastroDTO> getTopCadastros() {
+        List<TopCadastroDTO> topCadastroDTOs = pedidoService.getTopCadastros();
+        return topCadastroDTOs;
     }
 
     public void updateCadastro(CadastroDTO modelo) {

@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { RequestMaker } from 'src/app/services/requestService';
+import { Pedido } from 'src/app/shared';
 
 interface pedido {
   pedido: string,
@@ -17,43 +18,40 @@ interface pedido {
 export class ListagemComponent implements OnInit {
 
   estado_pedido: string | null = null;
-  dados: pedido[] = [];
+  dados: Pedido[] = [
+    new Pedido(10, [], 100, "2022-02-02", "2022-02-03", "EM ABERTO"),
+    new Pedido(10, [], 100, "2022-02-02", "2022-02-03", "AGUARDANDO PAGAMENTO"),
+    new Pedido(10, [], 100, "2022-02-02", "2022-02-03", "FINALIZADO"),
+  ];
 
-  constructor(private http: HttpClient) { }
-
-  ngOnInit(): void {
-    this.carregarDadosDoServidor();
+  constructor(private ref: ChangeDetectorRef) {
   }
 
-  carregarDadosDoServidor() {
-    this.http.get<any>('http://localhost:8080/get/pedidos')
-      .subscribe((data: pedido[]) => {
-        this.dados = data;
-        this.dados.sort(this.sortFunction);
-      });
+  async ngOnInit(): Promise<void> {
+    //this.carregarDadosDoServidor(null);
   }
 
-  mudarEstadoPedido(estado: Event) {
+  async carregarDadosDoServidor(estado: string | null) {
+    let response = null;
+    if (estado == null) {
+      response = await RequestMaker.getData<Pedido[]>("/usuario/get/pedidos");
+    }
+    else {
+      response = await RequestMaker.getData<Pedido[]>(`/usuario/get/pedidos?status=${estado}`);
+    }
+    if (response.ok(response.data)) {
+      this.dados = response.data
+    }
+    this.ref.markForCheck();
+    console.log(this.dados);
+    console.log(estado);
+  }
+
+
+  mudarEstadoPedidoFiltro(estado: Event) {
     const target = estado.target as HTMLSelectElement;
     this.estado_pedido = target.value.toUpperCase();
-    console.log(this.estado_pedido);
+    this.carregarDadosDoServidor(this.estado_pedido);
   }
 
-  filtrarEstadoPedido(estadoPedido: string): boolean {
-    if (this.estado_pedido == null || this.estado_pedido == 'TODOS') {
-      return true;
-    } else if (this.estado_pedido == estadoPedido.toUpperCase()) {
-      return true;
-    }
-    return false;
-  }
-
-  sortFunction(obj1: pedido, obj2: pedido): number {
-    if (obj1.data < obj1.data) {
-      return 1;
-    } else if (obj2.data < obj1.data) {
-      return -1;
-    }
-    return 0;
-  }
 }

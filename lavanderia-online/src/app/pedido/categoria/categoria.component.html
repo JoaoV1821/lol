@@ -1,4 +1,4 @@
-<div id="container">
+<!-- <div id="container">
 
     <div class="itemRow">
 
@@ -19,6 +19,31 @@
             </div>
             <div>
                 <button (click)="adicionar(item)">&#43;</button>
+            </div>
+        </div>
+    </ng-container>
+</div> -->
+
+<div id="container">
+
+    <div class="itemRow">
+
+        <div>
+            <h3 style="color: #5a57ff">{{categoria}}</h3>
+        </div>
+        <button *ngIf="ativo==false" class="btn btn-primary" (click)="switch()">&#x2193;</button>
+        <button *ngIf="ativo==true" class="btn btn-primary" (click)="switch()">&#x2191;</button>
+
+    </div>
+    <ng-container *ngFor="let item of items;let i = index;">
+        <div *ngIf="item.categoria == categoria && ativo==true" class="itemRow">
+            <div id="texto-item">
+                <h5 style="color: #000000">
+                    {{item.tipo}}
+                </h5>
+            </div>
+            <div>
+                <button class="btn btn-secondary" style="border-color: #5a57ff;" (click)="adicionar(item)">+</button>
             </div>
         </div>
     </ng-container>

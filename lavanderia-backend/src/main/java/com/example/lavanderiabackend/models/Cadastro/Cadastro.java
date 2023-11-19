@@ -1,5 +1,6 @@
 package com.example.lavanderiabackend.models.Cadastro;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -53,6 +54,8 @@ public class Cadastro implements UserDetails {
     private String telefone;
     @Column(nullable = false)
     private Papel perfil;
+    @Column(nullable = false)
+    private LocalDate dataNascimento;
     @ManyToOne
     @JoinColumn(name = "endereco_id", nullable = false)
     private Endereco endereco;
@@ -68,6 +71,7 @@ public class Cadastro implements UserDetails {
         this.email = modelo.getEmail();
         this.telefone = modelo.getTelefone();
         this.perfil = modelo.getPerfil();
+        this.dataNascimento = modelo.getDataNasc();
     }
 
     public Cadastro(UserDTO user) {
@@ -78,6 +82,19 @@ public class Cadastro implements UserDetails {
         listaNomes[0] = "";
         this.sobrenome = String.join("", listaNomes);
         this.telefone = user.getTelefone();
+        this.dataNascimento = LocalDate.parse(user.getDataNasc());
+    }
+
+    public int getNumberOfPedidos() {
+        return this.pedidos.size();
+    }
+
+    public double getReceita() {
+        Double total = 0.0;
+        for (Pedido pedido : this.pedidos) {
+            total += pedido.getTotal();
+        }
+        return total;
     }
 
     public void addPedido(Pedido pedido) {

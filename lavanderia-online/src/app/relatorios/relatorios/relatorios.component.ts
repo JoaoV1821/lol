@@ -1,6 +1,16 @@
 import { Component, ElementRef, ViewChild, OnInit, NgModule } from '@angular/core';
 import * as jsPDF from 'jspdf';
 
+export interface ClienteRelatorio {
+  number: number,
+  nome: string,
+  cpf: string,
+  telefone: string,
+  email: string
+}
+
+
+
 @Component({
   selector: 'app-relatorios',
   templateUrl: './relatorios.component.html',
@@ -8,8 +18,9 @@ import * as jsPDF from 'jspdf';
 })
 
 
+
 export class RelatoriosComponent {
-  constructor() {}
+  constructor() { }
 
   mostrarListaClientes = false;
   mostrarListaTopClientes = false;
@@ -17,23 +28,23 @@ export class RelatoriosComponent {
 
   @ViewChild("dateInput2") dateInput2: any
   @ViewChild("dateInput1") dateInput1: any;
-  
+
   dataIni = ''
   dataFi = ''
 
   receita = [
-      {
-        dataInicio: this.dataIni,
-        dataFim: this.dataFi,
-        valorTotal: 546789
-      }
+    {
+      dataInicio: this.dataIni,
+      dataFim: this.dataFi,
+      valorTotal: 546789
+    }
   ];
-  
+
   topClientes = [
 
     {
       number: 1,
-      nome:'João',
+      nome: 'João',
       qtd: "2",
       receita: "300"
     },
@@ -52,6 +63,8 @@ export class RelatoriosComponent {
       receita: "300"
     }
   ];
+
+
 
   clientes = [
     {
@@ -82,22 +95,22 @@ export class RelatoriosComponent {
       telefone: '99999-8888',
       email: 'joao@mail.com',
     },
-    
+
   ];
 
-  
 
-  ngOnInit(): void {}
+
+  ngOnInit(): void { }
 
 
   @ViewChild('content') content: ElementRef | undefined;
-  
-  
+
+
 
   gerarRelatorioPDF() {
     if (!this.mostrarListaClientes) {
       this.mostrarListaClientes = true;
-  
+
       const doc = new jsPDF.default();
 
       // Posição inicial da tabela
@@ -188,8 +201,7 @@ export class RelatoriosComponent {
   }
 
 
-  gerarRelatorioReceita() {
-   
+  async gerarRelatorioReceita() {
     if (!this.mostrarReceita) {
       this.mostrarReceita = true;
       const doc = new jsPDF.default();
@@ -215,10 +227,9 @@ export class RelatoriosComponent {
 
       // Preencha os dados da tabela
       this.receita.forEach((row) => {
-        console.log(this.dateInput1.nativeElement.value);
         startY += 10;
-        doc.text(this.dateInput1.nativeElement.value, columns[0].x + 2, startY);
-        doc.text(this.dateInput2.nativeElement.value,  columns[1].x + 2, startY);
+        doc.text(new Date(this.dateInput1.nativeElement.value).toLocaleDateString('pt-br', { timeZone: 'UTC' }), columns[0].x + 2, startY);
+        doc.text(new Date(this.dateInput2.nativeElement.value).toLocaleDateString('pt-br', { timeZone: 'UTC' }), columns[1].x + 2, startY);
         doc.text(row.valorTotal.toString(), columns[2].x + 2, startY);
       });
 

@@ -1,5 +1,7 @@
 package com.example.lavanderiabackend.models.Cadastro.DTO;
 
+import java.time.LocalDate;
+
 import com.example.lavanderiabackend.models.Cadastro.Papel;
 import com.example.lavanderiabackend.models.Endereco.DTO.EnderecoModelo;
 
@@ -21,4 +23,5 @@ public class CadastroDTO {
     private EnderecoModelo endereco;
     private String telefone;
     private Papel perfil;
+    private LocalDate dataNasc;
 }

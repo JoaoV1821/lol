@@ -1,4 +1,3 @@
-export * from './pessoa.model';
 export * from './usuario.model';
 export * from './pedido.model';
 export * from './roupa.model';

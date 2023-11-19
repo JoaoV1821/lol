@@ -21,16 +21,11 @@ export class EditarFuncionarioComponent implements OnInit {
     private router: Router
   ) { }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
 
     const cpf: string = this.route.snapshot.params['cpf'];
+    const response = await this.funcService.buscarFuncionarioPorCPF(cpf);
 
-    const res = this.funcService.buscarFuncionarioPorCPF(cpf);
-    if (res != undefined) {
-      this.funcionario = res;
-    } else {
-      throw new Error("Funcionário não encontrado: cpf = " + cpf);
-    }
 
   }
 

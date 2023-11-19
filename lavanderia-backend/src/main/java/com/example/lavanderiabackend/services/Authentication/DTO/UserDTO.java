@@ -1,6 +1,5 @@
 package com.example.lavanderiabackend.services.Authentication.DTO;
 
-
 import com.example.lavanderiabackend.models.Endereco.DTO.EnderecoModelo;
 
 import lombok.AllArgsConstructor;
@@ -15,8 +14,9 @@ import lombok.Setter;
 public class UserDTO {
 
     private String nome;
-    private String cpf; 
+    private String cpf;
     private String telefone;
     private String email;
+    private String dataNasc;
     private EnderecoModelo endereco;
 }

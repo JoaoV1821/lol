@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 public enum Papel {
     ADMIN("admin"),
-    USER("user"),
+    USER("cliente"),
     FUNCIONARIO("funcionario");
 
     private String papel;

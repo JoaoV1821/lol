@@ -67,10 +67,10 @@ export class LoginService {
   }
 
   private navigateAfterLogin(usuario: Usuario) {
-    if (usuario.perfil == "user") {
-      this.router.navigate(["/orcamento"]);
+    if (usuario.perfil == "cliente") {
+      this.router.navigate(["/home"]);
     } else {
-      this.router.navigate(["/home"])
+      this.router.navigate(["/orcamento"])
     }
   }
 

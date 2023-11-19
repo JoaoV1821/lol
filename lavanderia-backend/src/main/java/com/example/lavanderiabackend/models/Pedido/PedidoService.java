@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 
 import com.example.lavanderiabackend.Exceptions.StandardNotFoundException;
 import com.example.lavanderiabackend.models.Cadastro.Cadastro;
+import com.example.lavanderiabackend.models.Cadastro.DTO.CadastroDTO;
+import com.example.lavanderiabackend.models.Cadastro.DTO.TopCadastroDTO;
 import com.example.lavanderiabackend.models.Carrinho.Carrinho;
 import com.example.lavanderiabackend.models.Carrinho.CarrinhoRepository;
 import com.example.lavanderiabackend.models.Carrinho.DTOS.CarrinhoDTO;
@@ -67,6 +69,21 @@ public class PedidoService {
             }
         }
         return pedidos;
+    }
+
+    public List<TopCadastroDTO> getTopCadastros() {
+        List<Cadastro> cadastros = pedidoRepository.findMax3Values();
+        List<TopCadastroDTO> topCadastros = new ArrayList<>();
+        int contador = 1;
+        for (Cadastro cadastro : cadastros) {
+            TopCadastroDTO topCadastro = new TopCadastroDTO();
+            topCadastro.setNome(cadastro.getNome());
+            topCadastro.setNumber(contador);
+            topCadastro.setQtd(cadastro.getNumberOfPedidos());
+            topCadastro.setReceita(cadastro.getReceita());
+            contador++;
+        }
+        return topCadastros;
     }
 
     public List<PedidoInfo> getPedidoInfoList(String dataInicial, String dataPrazo) {

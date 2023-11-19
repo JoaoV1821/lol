@@ -8,6 +8,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import com.example.lavanderiabackend.models.Cadastro.Cadastro;
+
 public interface PedidoRepository extends JpaRepository<Pedido, String> {
 
     public Optional<Pedido> findByNumero(Long numero);
@@ -23,4 +25,7 @@ public interface PedidoRepository extends JpaRepository<Pedido, String> {
 
     @Query("SELECT p FROM Pedido p WHERE p.status >= :status ORDER BY p.data DESC")
     public List<Pedido> findAllByStatus(@Param("status") String status);
+
+    @Query("SELECT Cadastro c FROM Pedido p GROUP BY p.cadastro ORDER BY COUNT(pedido) ")
+    public List<Cadastro> findMax3Values();
 }

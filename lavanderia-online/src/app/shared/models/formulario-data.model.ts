@@ -18,7 +18,8 @@ export class FormularioData {
         public endereco: string,
         public nome: string,
         public numero: string,
-        public telefone: string
+        public telefone: string,
+        public dataNasc: string
     ) {
 
     }

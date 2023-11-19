@@ -6,7 +6,7 @@ import { AutoCadastroService } from '../services';
 
 import { RequestMaker } from 'src/app/services/requestService';
 import { NgxMaskDirective } from 'ngx-mask';
-import { Pessoa, Endereco, Cadastro, FormularioData } from 'src/app/shared/models';
+import { Endereco, Cadastro, FormularioData } from 'src/app/shared/models';
 
 
 
@@ -18,15 +18,12 @@ import { Pessoa, Endereco, Cadastro, FormularioData } from 'src/app/shared/model
 export class AutocadastroComponent implements OnInit {
 
   @ViewChild('formPessoa') formPessoa!: NgForm;
-  pessoa!: Pessoa;
   cidade!: any;
   cep!: any;
   complemento!: any;
   endereco!: any;
 
   constructor(private autoCadastroService: AutoCadastroService) {
-    this.pessoa = new Pessoa();
-    //  this.teste();
 
   }
 
@@ -51,12 +48,14 @@ export class AutocadastroComponent implements OnInit {
   }
 
   async realizarCadastro(formulario: NgForm) {
+    console.log("Dados:");
+    console.log(formulario.value);
     let dados: FormularioData = formulario.value;
-    console.log(dados);
     dados = this.autoCadastroService.validadeFormulario(dados);
+    this.autoCadastroService.postUser(dados);
     let endereco = new Endereco(dados.cep, dados.cidade, dados.endereco, dados.numero, dados.complemento);
-    let cadastro = new Cadastro(dados.nome, dados.cpf, dados.telefone, dados.email, endereco);
-    let result = await RequestMaker.postData<string>("/auth/register", cadastro);
+    let cadastro = new Cadastro(dados.nome, dados.cpf, dados.telefone, dados.email, "cliente", "1234", dados.dataNasc, endereco);
+    //let result = await RequestMaker.postData<string>("/auth/register", cadastro);
     return
 
     /*if (result.error) {
@@ -65,6 +64,5 @@ export class AutocadastroComponent implements OnInit {
       alert("Cadastro realizado! Sua senha é : " + result.data);
     }*/
   }
-
 
 }

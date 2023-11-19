@@ -23,13 +23,9 @@ export class AuthGuard implements CanActivate {
     let url = state.url;
     //console.log(usuarioLogado);
     if (usuarioLogado) {
-      console.log(usuarioLogado.perfil);
-      console.log(usuarioLogado);
-      if (route.data?.['role'] && route.data?.['role'].indexOf(usuarioLogado.perfil.toUpperCase()) === -1) {
+      if (route.data?.['role'] && route.data?.['role'].indexOf(usuarioLogado.perfil) === -1) {
         // Se o perfil do usuário não está no perfil da rota
         // vai para login
-        console.log("erro1");
-        console.log(route.data?.['role']);
         this.router.navigate(['/login'],
           { queryParams: { error: "Proibido o acesso a " + url } });
         return false;
@@ -39,7 +35,6 @@ export class AuthGuard implements CanActivate {
     }
     // Se não está logado, vai para login
 
-    console.log("erro2");
     this.router.navigate(['/login'],
       {
         state: {

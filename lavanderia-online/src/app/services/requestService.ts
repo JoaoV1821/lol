@@ -31,7 +31,6 @@ export abstract class RequestMaker {
         let result = await response
             .then((response) => new RequestResult<T>(response.status, response.data))
             .catch((error) => this.handleError<T>(error));
-        console.log(result);
         return result;
     }
 

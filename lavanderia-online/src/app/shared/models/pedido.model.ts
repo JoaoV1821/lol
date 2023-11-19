@@ -4,7 +4,7 @@ export class Pedido {
 
     constructor(
         public numero?: number,
-        public itens?: Item[],
+        public roupas?: Item[],
         public total?: number,
         public data?: string,
         public prazo?: string,

@@ -27,7 +27,7 @@ export class FuncionarioService {
 
   async inserirFuncionario(func: Funcionario): Promise<void> {
     if (func.nome && func.cpf && func.endereco && func.telefone && func.email) {
-      let cadastro = new Cadastro(func.nome, func.cpf, func.telefone, func.email, func.endereco);
+      let cadastro = new Cadastro(func.nome, func.cpf, func.telefone, func.email, "funcionario", func.senha, func.dataNasc, func.endereco);
       let response = await RequestMaker.postData("/cadastro/add/cadastro", cadastro);
       if (response.ok(response.data)) {
         this.router.navigate(["/funcionario"]);
@@ -37,37 +37,34 @@ export class FuncionarioService {
     }
   };
 
-  buscarFuncionarioPorCPF(cpf: string): Funcionario | undefined {
-    const funcionarios: Funcionario[] = this.listarFuncionarios();
+  async buscarFuncionarioPorCPF(cpf: string): Promise<void> {
+    let response = await RequestMaker.postData<Cadastro>("/cadastro/get/cadastro", { cpf: cpf });
+    if (response.ok(response.data)) {
+      // let funcionario = response.data as Funcionario;
+      // return response.data;
 
-    return funcionarios.find(funcionario => funcionario.cpf === cpf);
+    } else {
+      throw new Error("Funcionário não encontrado: cpf = " + cpf);
+    }
   };
 
   atualizarFuncionario(func: Funcionario): void {
-    const funcionarios: Funcionario[] = this.listarFuncionarios();
+    // const funcionarios: Funcionario[] = this.listarFuncionarios();
+    //
+    // funcionarios.forEach((obj, index, objs) => {
+    //  if (func.cpf === obj.cpf) {
+    //    objs[index] = func
+    //  }
+    //});
 
-    funcionarios.forEach((obj, index, objs) => {
-      if (func.cpf === obj.cpf) {
-        objs[index] = func
-      }
-    });
-
-    localStorage[LS_CHAVE] = JSON.stringify(funcionarios);
+    //localStorage[LS_CHAVE] = JSON.stringify(funcionarios);
   }
 
   async removerFuncionario(cpf: string): Promise<void> {
-    let resultado = await this.listarFuncionarios();
-    let funcionarios: Funcionario[];
-    if (resultado != null) {
-      funcionarios = resultado;
-      let func: Funcionario | undefined = funcionarios.find((func) => func.cpf === cpf);
-      funcionarios = funcionarios.filter(funcionario => funcionario.cpf !== cpf);
-      if (func != undefined) {
-        RequestMaker.postData("/cadastro/delete/cadastro", { cpf: func.cpf })
-      }
+    let response = await RequestMaker.postData("/cadastro/delete/cadastro", { cpf: cpf });
+    if (!response.ok(response.data)) {
+      alert("Não foi possivel deletar o funcionário");
     }
-
-
   }
 
 }

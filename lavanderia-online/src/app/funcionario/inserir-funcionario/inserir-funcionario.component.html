@@ -4,12 +4,12 @@
 
     <div class="well">
 
-        <form action="" #formFuncionario="ngForm">
+        <form action="" #formFuncionario="ngForm" (ngSubmit)="inserirFuncionario(formFuncionario)">
 
             <div class="form-group">
                 <label for="nome">Nome:</label>
-                <input type="text" class="form-control" name="nome" id="nome" [(ngModel)]="funcionario.nome"
-                    #nome="ngModel" minlength="2" required>
+                <input type="text" class="form-control" name="nome" id="nome" #nome="ngModel" minlength="2" ngModel
+                    required>
                 <div *ngIf="nome.errors && (nome.dirty || nome.touched)" class="alert alert-danger">
                     <div [hidden]="!nome.errors['required']">Digite o nome do funcionario.</div>
                     <div [hidden]="!nome.errors['minlength']">Nome inválido!</div>
@@ -17,8 +17,8 @@
             </div>
             <div class="form-group">
                 <label for="cpf">CPF:</label>
-                <input type="text" class="form-control" name="cpf" id="cpf" [(ngModel)]="funcionario.cpf" #cpf="ngModel"
-                    minlength="11" mask="000.000.000-00" required>
+                <input type="text" class="form-control" name="cpf" id="cpf" #cpf="ngModel" minlength="11"
+                    mask="000.000.000-00" ngModel required>
                 <div *ngIf="cpf.errors && (cpf.dirty || cpf.touched)" class="alert alert-danger">
                     <div [hidden]="!cpf.errors['required']">Digite o cpf do funcionario.</div>
                     <div [hidden]="!cpf.errors['minlength']">CPF inválido!</div>
@@ -27,8 +27,8 @@
 
             <div class="form-group">
                 <label for="email">Email:</label>
-                <input type="email" class="form-control" name="email" id="email" [(ngModel)]="funcionario.email"
-                    #email="ngModel" minlength="4" required>
+                <input type="email" class="form-control" ngModel name="email" id="email" #email="ngModel" minlength="4"
+                    required>
                 <div *ngIf="email.errors && (email.dirty || email.touched)" class="alert alert-danger">
                     <div [hidden]="!email.errors['required']">Digite o email do funcionario.</div>
                     <div [hidden]="!email.errors['minlength']">Email inválido!</div>
@@ -37,8 +37,8 @@
 
             <div class="form-group">
                 <label for="telefone">Telefone:</label>
-                <input type="email" class="form-control" name="telefone" id="telefone"
-                    [(ngModel)]="funcionario.telefone" #telefone="ngModel" minlength="8" maxlength="13" required>
+                <input type="email" class="form-control" ngModel name="telefone" id="telefone" #telefone="ngModel"
+                    minlength="8" maxlength="13" required>
                 <div *ngIf="telefone.errors && (telefone.dirty || telefone.touched)" class="alert alert-danger">
                     <div [hidden]="!telefone.errors['required']">Telefone obrigatório.</div>
                 </div>
@@ -46,8 +46,8 @@
 
             <div class="form-group">
                 <label for="dataNasc">Data de Nascimento:</label>
-                <input type="text" class="form-control" name="dataNasc" id="dataNasc" [(ngModel)]="funcionario.dataNasc"
-                    #dataNasc="ngModel" minlength="7" mask="d0/M0/0000" required>
+                <input type="text" class="form-control" ngModel name="dataNasc" id="dataNasc" #dataNasc="ngModel"
+                    minlength="8" mask="d0/M0/0000" required>
                 <div *ngIf="dataNasc.errors && (dataNasc.dirty || dataNasc.touched)" class="alert alert-danger">
                     <div [hidden]="!dataNasc.errors['required']">Digite a data de nascimento do funcionario.</div>
                     <div [hidden]="!dataNasc.errors['minlength']">Data de nascimento inválida!</div>
@@ -56,8 +56,8 @@
 
             <div class="form-group">
                 <label for="senha">Senha:</label>
-                <input type="password" class="form-control" name="senha" id="senha" [(ngModel)]="funcionario.senha"
-                    #senha="ngModel" minlength="4" required>
+                <input type="text" class="form-control" ngModel name="senha" id="senha" #senha="ngModel" minlength="4"
+                    required>
                 <div *ngIf="senha.errors && (senha.dirty || senha.touched)" class="alert alert-danger">
                     <div [hidden]="!senha.errors['required']">Digite uma senha válida.</div>
                     <div [hidden]="!senha.errors['minlength']">Senha inválida!</div>
@@ -66,44 +66,43 @@
 
             <div>
                 <label for="cep">CEP:</label>
-                <input type="text" class="form-control" name="cep" id="cep" [(ngModel)]="funcionario.endereco.cep"
-                    #cep="ngModel" minlength="8" maxlength="8" mask="00.000-000" required>
+                <input type="text" class="form-control" ngModel name="cep" id="cep" #cep="ngModel" minlength="8"
+                    mask="00.000-000" required>
                 <div *ngIf="cep.errors && (cep.dirty || cep.touched)" class="alert alert-danger">
                     <div [hidden]="!cep.errors['required']">CEP obrigatório.</div>
                     <div [hidden]="!cep.errors['minlength']">O cep deve conter ao menos 8 digitos</div>
                 </div>
 
                 <label for="cidade">Cidade:</label>
-                <input type="text" class="form-control" name="cidade" id="cidade"
-                    [(ngModel)]="funcionario.endereco.cidade" #cidade="ngModel" minlength="2" required>
+                <input type="text" class="form-control" ngModel name="cidade" id="cidade" #cidade="ngModel"
+                    minlength="2" required>
                 <div *ngIf="cidade.errors && (cidade.dirty || cidade.touched)" class="alert alert-danger">
                     <div [hidden]="!cidade.errors['required']">Cidade obrigatória.</div>
                     <div [hidden]="!cidade.errors['minlength']">A cidade deve conter ao menos 2 digitos</div>
                 </div>
 
                 <label for="endereco">Endereço:</label>
-                <input type="text" class="form-control" name="endereco" id="endereco"
-                    [(ngModel)]="funcionario.endereco.endereco" #endereco="ngModel" minlength="2" required>
+                <input type="text" class="form-control" ngModel name="endereco" id="endereco" #endereco="ngModel"
+                    minlength="2" required>
                 <div *ngIf="endereco.errors && (endereco.dirty || endereco.touched)" class="alert alert-danger">
                     <div [hidden]="!endereco.errors['required']">Endereço obrigatório.</div>
                     <div [hidden]="!endereco.errors['minlength']">O Endereço deve conter ao menos 2 digitos</div>
                 </div>
 
                 <label for="numero">Número:</label>
-                <input type="text" class="form-control" name="numero" id="numero"
-                    [(ngModel)]="funcionario.endereco.numero" #numero="ngModel" minlength="8" required>
+                <input type="text" class="form-control" ngModel name="numero" id="numero" #numero="ngModel"
+                    minlength="8" required>
                 <div *ngIf="numero.errors && (numero.dirty || numero.touched)" class="alert alert-danger">
                     <div [hidden]="!numero.errors['required']">Número do endereço obrigatório.</div>
                 </div>
 
                 <label for="complemento">Complemento:</label>
-                <input type="text" class="form-control" name="complemento" id="complemento"
-                    [(ngModel)]="funcionario.endereco.complemento" #complemento="ngModel">
+                <input type="text" class="form-control" ngModel name="complemento" id="complemento"
+                    #complemento="ngModel">
             </div>
 
             <div class="form-group">
-                <button type="button" class="btn btn-primary" (click)="inserirFuncionario()"
-                    [disabled]="!formFuncionario.form.valid">
+                <button type="submit" class="btn btn-primary" [disabled]="!formFuncionario.form.valid">
                     <i class="fa fa-save" aria-hidden="true"></i>
                     Salvar
                 </button>

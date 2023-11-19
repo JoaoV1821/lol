@@ -24,8 +24,8 @@
                                         <div>
                                             <label class="form-label mt-2" for="nome">Nome:</label>
                                             <input type="text" class="form-control inputlol text-left" id="nome"
-                                                [(ngModel)]="pessoa.nome" #nome="ngModel" minlength="5" maxlength="60"
-                                                name="nome" required ngModel>
+                                                #nome="ngModel" minlength="5" maxlength="60" name="nome" required
+                                                ngModel>
                                             <div *ngIf="nome.errors && (nome.dirty || nome.touched)"
                                                 class="alert alert-danger">
                                                 <div [hidden]="!nome.errors['required']">Nome completo obrigatório.
@@ -39,9 +39,8 @@
                                                 <label class="form-label mt-2" for="cpf">CPF:</label>
                                                 <input type="text" class="form-control inputlol text-left" id="CPF"
                                                     pattern="(\d{3}\.?\d{3}\.?\d{3}-?\d{2})" name="cpf"
-                                                    title="Digite seu CPF" [(ngModel)]="pessoa.cpf"
-                                                    mask="000.000.000-00" #cpf="ngModel" minlength="11" maxlength="14"
-                                                    required ngModel>
+                                                    title="Digite seu CPF" mask="000.000.000-00" #cpf="ngModel"
+                                                    minlength="11" maxlength="14" required ngModel>
                                                 <div *ngIf="cpf.errors && (cpf.dirty || cpf.touched)"
                                                     class="alert alert-danger">
                                                     <div [hidden]="!cpf.errors['required']">CPF obrigatório.</div>
@@ -49,12 +48,24 @@
                                                         mínimo 11 caracteres.</div>
                                                 </div>
                                             </div>
+
+                                            <!-- <div class="col-sm-6">
+                                                <label class="form-label mt-2" for="dataNasc">Data de Nascimento:</label>
+                                                <input type="tel" class="form-control inputlol text-left" id="dataNasc"
+                                                    name="dataNasc" #dataNasc="ngModel" numerico ngModel>
+                                                <div *ngIf="dataNasc.errors && (dataNasc.dirty || dataNasc.touched)"
+                                                    class="alert alert-danger">
+                                                    <div [hidden]="!dataNasc.errors['required']">Data de nascimento
+                                                        obrigatória.
+                                                    </div>
+                                                </div>
+                                            </div> -->
+
                                             <div class="col-sm-6">
                                                 <label class="form-label mt-2" for="telefone">Telefone:</label>
                                                 <input type="tel" class="form-control inputlol text-left" id="telefone"
-                                                    mask="(00) 00000-0000" name="telefone" [(ngModel)]="pessoa.contato"
-                                                    #contato="ngModel" minlength="11" maxlength="15" numerico
-                                                    name="telefone" ngModel>
+                                                    mask="(00) 00000-0000" name="telefone" #contato="ngModel"
+                                                    minlength="11" maxlength="15" numerico name="telefone" ngModel>
                                                 <div *ngIf="contato.errors && (contato.dirty || contato.touched)"
                                                     class="alert alert-danger">
                                                     <div [hidden]="!contato.errors['required']">Contato obrigatório.
@@ -64,15 +75,22 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div>
-                                            <label class="form-label mt-2" for="email">E-mail:</label>
-                                            <input type="email" class="form-control inputlol text-left" id="email"
-                                                name="email" required ngModel>
+                                        <div class="row">
+                                            <div class="col-sm-7">
+                                                <label class="form-label mt-2" for="email">E-mail:</label>
+                                                <input type="email" class="form-control inputlol text-left" id="email"
+                                                    name="email" required ngModel>
+                                            </div>
+                                            <div class="col-sm-5">
+                                                <label class="form-label mt-2" for="dataNasc">Nascimento:</label>
+                                                <input type="date" class="form-control inputlol text-left" id="dataNasc"
+                                                    name="dataNasc" required ngModel>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="col">
                                         <div class="row">
-                                            <div class="col-sm-4 inputCep">
+                                            <div class="col-sm-5 inputCep">
                                                 CEP:
                                                 <div class="input-group col-sm-5">
                                                     <button class="btn btn-outline-secondary" (click)="requestCep()"
@@ -84,7 +102,7 @@
                                                         aria-describedby="button-addon1">
                                                 </div>
                                             </div>
-                                            <div class="col-sm-8">
+                                            <div class="col-sm-7">
                                                 <label class="form-label mt-2" for="nome">Cidade:</label>
                                                 <input type="text" class="form-control inputlol text-left" id="cidade"
                                                     required ngModel name="cidade" [(ngModel)]="cidade">

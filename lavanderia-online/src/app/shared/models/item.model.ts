@@ -3,6 +3,8 @@ export class Item {
     public quantidade?: number
     public valor?: number
     public numero?: string
+    public tempoDeLavagem?: string
+    public descricao?: string
     constructor() {
 
     }

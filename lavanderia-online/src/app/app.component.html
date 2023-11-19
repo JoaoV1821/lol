@@ -8,9 +8,10 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-md n navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-md n navbar-dark bg-dark"
+        style="border-bottom: 1px; box-shadow: 0 0 10px 1px #5a57ff;">
         <a class="navbar-brand" href="#" routerLink="/home"><img src="../assets/logoLol.png" width="100" alt="Logo"
-                style="margin-right: 7px;"></a>
+                style="margin-right: 7px; padding-left: 20px;"></a>
 
         <div *ngIf="loginService.usuarioLogado()" class="navbar-collapse collapsed justify-content-between"
             id="navbarContent">
@@ -20,11 +21,12 @@
                     <a class="nav-link" href="#" routerLink="/home">Página Inicial</a>
                 </li>
 
-                <li class="nav-item">
+                <!-- <li class="nav-item">
                     <a class="nav-link" href="#" routerLink="/autocadastro">Cadastro</a>
-                </li>
+                </li> -->
 
                 <li class="nav-item">
+                    <!-- *ngIf="user.perfil==='admin' || user.perfil==='funcionario'" -->
                     <a class="nav-link" href="#" routerLink="/funcionario">Funcionarios</a>
                 </li>
 

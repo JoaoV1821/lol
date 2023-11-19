@@ -1,5 +1,7 @@
 package com.example.lavanderiabackend.Development;
 
+import java.time.LocalDate;
+
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
@@ -34,9 +36,16 @@ public class DataLoader implements ApplicationRunner {
 
         EnderecoModelo enderecoModelo = new EnderecoModelo("99999", "logradouro", "complemento", "123", "cidade");
         CadastroDTO cadastroModelo = new CadastroDTO("727.713.780-94", "nome sobrenome", "admin@admin.com", "admin",
-                enderecoModelo, "999-999", Papel.ADMIN);
+                enderecoModelo, "999-999", Papel.ADMIN, LocalDate.now());
         cadastroService.saveCadastro(cadastroModelo);
 
+        CadastroDTO funcionario = new CadastroDTO("889.980.330-70", "funcionario1", "func@func.com", "func",
+                enderecoModelo, "999-888", Papel.FUNCIONARIO, LocalDate.now());
+        cadastroService.saveCadastro(funcionario);
+
+        CadastroDTO cliente = new CadastroDTO("160.447.470-00", "cliente1", "cli@cli.com", "cli", enderecoModelo,
+                "888-888", Papel.USER, LocalDate.now());
+        cadastroService.saveCadastro(cliente);
         CategoriaDTO[] categorias = {
                 new CategoriaDTO("0001", "Bermudas e shorts"),
                 new CategoriaDTO("0002", "Blusas"),

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.lavanderiabackend.models.Cadastro.DTO.CadastroDTO;
+import com.example.lavanderiabackend.models.Cadastro.DTO.TopCadastroDTO;
 import com.example.lavanderiabackend.wrappers.StringWrapper;
 
 import jakarta.validation.Valid;
@@ -27,13 +28,27 @@ public class CadastroController {
 
     @PostMapping("/get/cadastro")
     public ResponseEntity<CadastroDTO> getCadastro(@Valid @RequestBody StringWrapper cpf) {
-        CadastroDTO cadastroDTO = cadastroService.getCadastro(cpf.getString());
-        return ResponseEntity.ok().body(cadastroDTO);
+        System.out.println(cpf.getString());
+        // CadastroDTO cadastroDTO = cadastroService.getCadastro(cpf.getString());
+        return null;
+        // return ResponseEntity.ok().body(cadastroDTO);
+    }
+
+    @GetMapping("/get/topcadastros")
+    public ResponseEntity<List<TopCadastroDTO>> getTopCadastros() {
+        List<TopCadastroDTO> topCadastroDTOs = cadastroService.getTopCadastros();
+        return ResponseEntity.ok().body(topCadastroDTOs);
     }
 
     @GetMapping("/get/funcionarios")
     public ResponseEntity<List<CadastroDTO>> getFuncionairos() {
         List<CadastroDTO> cadastroDTOs = cadastroService.getFuncionarios();
+        return ResponseEntity.ok().body(cadastroDTOs);
+    }
+
+    @GetMapping("/get/clientes")
+    public ResponseEntity<List<CadastroDTO>> getClientes() {
+        List<CadastroDTO> cadastroDTOs = cadastroService.getClientes();
         return ResponseEntity.ok().body(cadastroDTOs);
     }
 
@@ -57,6 +72,7 @@ public class CadastroController {
 
     @PostMapping("/delete/cadastro")
     public ResponseEntity<Object> deleteCadastro(@Valid @RequestBody StringWrapper cpf) {
+        System.out.println(cpf.getString());
         cadastroService.deleteCadastro(cpf.getString());
         return ResponseEntity.noContent().build();
     }
