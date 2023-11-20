@@ -3,6 +3,7 @@
 }
 
 li {
+    border: 1px solid;
     border-color: #5a57ff;
     border-radius: 8px;
     background-color: #e5e3ff;

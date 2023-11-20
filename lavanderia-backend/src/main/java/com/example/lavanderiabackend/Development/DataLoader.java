@@ -64,6 +64,26 @@ public class DataLoader implements ApplicationRunner {
             categoriaService.addOrUpdateCategoria(categoriaDTO);
         }
 
+        EnderecoModelo enderecoModelo2 = new EnderecoModelo("99999", "logradouro", "complemento", "123", "cidade");
+        CadastroDTO cadastroModelo2 = new CadastroDTO("149.259.570-58", "Mário", "mario@mario.com", "mario",
+                enderecoModelo2, "999-999", Papel.FUNCIONARIO, LocalDate.now());
+        cadastroService.saveCadastro(cadastroModelo2);
+        EnderecoModelo enderecoModelo3 = new EnderecoModelo("99999", "logradouro", "complemento", "123", "cidade");
+        CadastroDTO cadastroModelo3 = new CadastroDTO("826.501.050-89", "Maria", "maria@maria.com", "maria",
+                enderecoModelo2, "999-999", Papel.FUNCIONARIO, LocalDate.now());
+        cadastroService.saveCadastro(cadastroModelo3);
+        CadastroDTO cadastroModelo4 = new CadastroDTO("171.109.690-37", "João", "joao@joao.com", "joao",
+                enderecoModelo2, "999-999", Papel.USER, LocalDate.now());
+        cadastroService.saveCadastro(cadastroModelo4);
+        CadastroDTO cadastroModelo5 = new CadastroDTO("922.505.930-27", "José", "jose@jose.com", "jose",
+                enderecoModelo2, "999-999", Papel.USER, LocalDate.now());
+        cadastroService.saveCadastro(cadastroModelo5);
+        CadastroDTO cadastroModelo6 = new CadastroDTO("808.334.710-82", "Joana", "joana@joana.com", "joana",
+                enderecoModelo2, "999-999", Papel.USER, LocalDate.now());
+        cadastroService.saveCadastro(cadastroModelo6);
+        CadastroDTO cadastroModelo7 = new CadastroDTO("743.513.810-00", "Joaquina", "joaquina@joaquina.com", "joaquina",
+                enderecoModelo2, "999-999", Papel.USER, LocalDate.now());
+        cadastroService.saveCadastro(cadastroModelo7);
         RoupaDTO[] roupas = {
                 new RoupaDTO("0001", "Bermuda especial", 20.0, "0001", (long) 2),
                 new RoupaDTO("0002", "Bermuda simples", 15.0, "0001", (long) 2),

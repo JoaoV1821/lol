@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Format } from 'src/app/shared/pipes/format';
 import { ListagemFComponent } from './listagemF/listagemF.component';
 import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -12,7 +13,8 @@ import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
     CommonModule,
     Format,
     NgxMaskDirective,
-    NgxMaskPipe
+    NgxMaskPipe,
+    FormsModule
   ],
   exports: [
     ListagemFComponent

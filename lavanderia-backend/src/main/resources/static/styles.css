@@ -117,6 +117,14 @@
     margin-right: 10px;
 }
 
+.border-danger {
+    border-color: #ea3b3b;
+    border-radius: 8px;
+    color: #ea3b3b;
+    background-color: #e5e3ff;
+    margin-right: 10px;
+}
+
 * {
     font-family: Poppins;
 }
