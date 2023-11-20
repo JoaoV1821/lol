@@ -8,7 +8,7 @@
 </head>
 
 <body>
-    <nav *ngIf="loginService.usuarioLogado()" class="navbar navbar-expand-md n navbar-dark bg-dark mb-3"
+    <nav *ngIf="loginService.usuarioLogado()" class="navbar navbar-expand-md n mb-3"
         style="border-bottom: 1px; box-shadow: 0 0 10px 1px #5a57ff;">
 
         <a class="navbar-brand" href="#" routerLink="/home"><img src="../assets/logoLol.png" width="100" alt="Logo"
@@ -26,7 +26,11 @@
                 </li>
                 -->
                 <li *ngIf="user == null ">
-                    <a class="nav-link" href="#">Link</a>
+                    <a class="nav-link" href="#">Entrar</a>
+                </li>
+
+                <li *ngIf="user?.perfil==='admin' || user?.perfil==='funcionario'" class="nav-item">
+                    <a class="nav-link" href="#" routerLink="/home-funcionario">Página Inicial</a>
                 </li>
 
                 <li *ngIf="user?.perfil==='admin' || user?.perfil==='cliente'" class="nav-item">
@@ -50,7 +54,7 @@
                     </li>
                 -->
                 <li *ngIf="user?.perfil==='admin' || user?.perfil==='funcionario'" class="nav-item">
-                    <a class="nav-link" href="#" routerLink="/listagemF">Listagem</a>
+                    <a class="nav-link" href="#" routerLink="/visualizacao">Visualização de Pedidos</a>
                 </li>
 
                 <li *ngIf="user?.perfil==='admin' || user?.perfil==='funcionario'" class="nav-item">
@@ -62,24 +66,21 @@
                 </li>
 
                 <li *ngIf="user?.perfil==='admin' || user?.perfil==='funcionario'" class="nav-item">
-                    <a class="nav-link" href="#" routerLink="/prototipos/rf012">Prop</a>
-                </li>
-
-                <li *ngIf="user?.perfil==='admin' || user?.perfil==='funcionario'" class="nav-item">
                     <a class="nav-link" href="#" routerLink="/relatorios">Relatórios</a>
                 </li>
-
-                <li *ngIf="user?.perfil==='admin' || user?.perfil==='funcionario'" class="nav-item">
-                    <a class="nav-link" href="/api/index">Api</a>
-                </li>
+                <!--
+                    <li *ngIf="user?.perfil==='admin' || user?.perfil==='funcionario'" class="nav-item">
+                        <a class="nav-link" href="/api/index">Api</a>
+                    </li>
+                -->
             </ul>
             <ul *ngIf="loginService.getUsuario()" class="navbar-nav ml-auto px-2 mx-2">
                 <li class="nav-item">
                     <a class="nav-link" href="#" (click)="logout()">Logout</a>
                 </li>
                 <li class="nav-item">
-                    <p class="navbar-text mb-0 text-white px-2 mx-2">
-                        <i class="fa fa-user"></i> {{ loginService.getUsuario()?.nome| uppercase}}
+                    <p class="navbar-text mb-0 px-2 mx-2" style="color: #5a57ff;">
+                        <i class="fa fa-user"> </i> {{ user?.nome| uppercase}}
                     </p>
                 </li>
             </ul>
@@ -94,7 +95,6 @@
                 </div>
             </div> -->
         </div>
-
     </nav>
     <router-outlet></router-outlet>
 </body>

@@ -41,6 +41,7 @@ export class ListagemComponent implements OnInit {
     this.ref.markForCheck();
     console.log(this.dados);
     console.log(estado);
+
   }
 
 

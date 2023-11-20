@@ -22,8 +22,6 @@ export class AppComponent implements OnInit {
   }
   ngOnInit(): void {
     this.user = this.loginService.getUsuario();
-    console.log(this.user);
-    this.recarregarPagina();
   }
 
   logout() {
@@ -34,11 +32,10 @@ export class AppComponent implements OnInit {
     return this.loginService.checkIfLogged();
   }
 
-  recarregarPagina() {
-    if (this.user == null) {
-      location.reload();
-    }
+  refresh(): void {
+    window.location.reload();
   }
+
 }
 
 export class AppModule { }

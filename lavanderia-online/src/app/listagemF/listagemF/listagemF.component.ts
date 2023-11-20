@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Pedido } from 'src/app/shared';
+import { RequestMaker } from 'src/app/services/requestService';
 
 interface pedido {
   pedido: string,
@@ -13,38 +15,95 @@ interface pedido {
   styleUrls: ['./listagemF.component.css']
 })
 export class ListagemFComponent implements OnInit {
-  ngOnInit(): void {
-    this.dados.sort(this.sortFunction);
-  }
+
+  constructor() { }
+
   estado_pedido: string | null = null;
-  dados: pedido[] = [{ pedido: '000003', valor: 60, data: '12/08/2023', prazo: '16/08/2023', status: 'EM ABERTO' },
-  { pedido: '000005', valor: 85, data: '11/08/2023', prazo: '16/08/2023', status: 'RECOLHIDO' },
-  { pedido: '000001', valor: 55, data: '12/08/2023', prazo: '16/08/2023', status: 'AGUARDANDO PAGAMENTO' },
-  { pedido: '000002', valor: 70, data: '12/08/2023', prazo: '16/08/2023', status: 'PAGO' },
-  { pedido: '000004', valor: 40, data: '12/08/2023', prazo: '16/08/2023', status: 'CANCELADO' },
-  { pedido: '000006', valor: 75, data: '10/08/2023', prazo: '13/08/2023', status: 'FINALIZADO' }
-  ]
-  mudarEstadoPedido(estado: Event) {
-    const target = estado.target as HTMLSelectElement;
-    this.estado_pedido = target.value.toUpperCase();
-    console.log(this.estado_pedido);
+  dados: Pedido[] = [];
+  dataIni: any;
+  dataFi: any;
+
+  async ngOnInit(): Promise<void> {
+    this.carregarDadosDoServidor(null);
   }
-  filtrarEstadoPedido(estadoPedido: string): boolean {
-    if (this.estado_pedido == null || this.estado_pedido == 'TODOS') {
-      return true;
-    } else if (this.estado_pedido == estadoPedido.toUpperCase()) {
-      return true;
-    }
-    return false;
+
+  onDateInputChange(): void {
+    this.carregarDadosDoServidor(this.estado_pedido);
   }
-  sortFunction(obj1: pedido, obj2: pedido): number {
-    if (obj1.data < obj1.data) {
-      return 1;
-    } else if (
-      obj2.data < obj1.data
-    ) {
-      return -1;
+
+  ///api/pedido/get/pedidos&dataInicial=String&dataPrazo=String&status=String
+  async carregarDadosDoServidor(estado: string | null) {
+    let response = null;
+
+    if (this.dataIni && this.dataFi) {
+      response = await RequestMaker.getData<Pedido[]>(`/pedido/get/pedidos?dataInicial=${this.dataIni}&dataPrazo=${this.dataFi}`)
     }
-    return 0;
+    else if (this.dataIni && !this.dataFi) {
+      response = await RequestMaker.getData<Pedido[]>(`/pedido/get/pedidos?dataInicial=${this.dataIni}`)
+    }
+    else if (this.dataIni == null && this.dataFi == null && estado == null) {
+      response = await RequestMaker.getData<Pedido[]>("/pedido/get/pedidos");
+    }
+    if (response?.ok(response.data)) {
+      this.dados = response.data
+    }
+
+  }
+  /* {
+  "numero": "Long",
+  "status": "String",
+  "cpf":"string"
+} */
+  async confirmarRecolhimento(pedido: Pedido) {
+
+    if (confirm(`Deseja realmente confirmar o recolhimento do pedido ${pedido.numero} do cliente ${pedido.cadastro?.cpf}?`)) {
+
+      if (pedido.cadastro) {
+        RequestMaker.postData<void>("/pedido/update/status", {
+          numeroPedido: pedido.numero,
+          status: "RECOLHIDO",
+          cpf: pedido.cadastro?.cpf
+        });
+      }
+
+    }
+  }
+  /* {
+     "numero": "Long",
+     "cpf" : "String",
+     "status": "String"
+   }*/
+  async confirmarLavagem(pedido: Pedido) {
+
+    if (confirm(`Deseja realmente confirmar a lavagem do pedido ${pedido.numero} do cliente ${pedido.cadastro?.cpf}?`)) {
+
+      if (pedido.cadastro) {
+        RequestMaker.postData<void>("/pedido/update/status", {
+          numeroPedido: pedido.numero,
+          status: "AGUARDANDO PAGAMENTO",
+          cpf: pedido.cadastro?.cpf
+        });
+      }
+    }
+  }
+
+
+  /* {
+    "numero": "Long",
+    "cpf" : "String",
+    "status": "String"
+  }*/
+  async finalizarPedido(pedido: Pedido) {
+
+    if (confirm(`Deseja realmente finalizar o pedido ${pedido.numero} do cliente ${pedido.cadastro?.cpf}?`)) {
+
+      if (pedido.cadastro) {
+        RequestMaker.postData<void>("/pedido/update/status", {
+          numeroPedido: pedido.numero,
+          status: "FINALIZADO",
+          cpf: pedido.cadastro?.cpf
+        });
+      }
+    }
   }
 }

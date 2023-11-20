@@ -23,6 +23,7 @@ public class AddRoupaDTO {
         this.valor = roupa.valor;
         this.numeroCategoria = roupa.categoria.getNumero();
         this.tempoDeLavagem = roupa.getTempoDeLavagem();
+
     }
 
     public AddRoupaDTO(String string, String string2, double d, String string3, long l) {

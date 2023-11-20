@@ -4,7 +4,8 @@
     <form #formRoupa="ngForm" (ngSubmit)="atualizar(formRoupa)">
       <div class="form-group">
         <label for="nome">Nome:</label>
-        <input type="text" class="form-control" id="nome" name="nome" minlength="2" required #nome="ngModel" ngModel />
+        <input type="text" class="form-control" id="nome" name="nome" minlength="2" required #nome="ngModel"
+          [(ngModel)]="roupa.descricao" ngModel />
         <div class="alert alert-danger" *ngIf="nome.errors && (nome.dirty || nome.touched)">
           <div [hidden]="!nome.errors['required']">Digite o nome da roupa.</div>
           <div [hidden]="!nome.errors['minlength']">
@@ -15,7 +16,8 @@
 
       <div class="form-group">
         <label for="preco">Preço:</label>
-        <input type="text" class="form-control" id="preco" name="preco" required #preco="ngModel" ngModel />
+        <input type="text" class="form-control" id="preco" name="preco" required #preco="ngModel"
+          [(ngModel)]="roupa.valor" ngModel />
         <div class="alert alert-danger" *ngIf="preco.errors && (preco.dirty || preco.touched)">
           <div [hidden]="!preco.errors['required']">Digite o preço.</div>
         </div>
@@ -23,7 +25,8 @@
 
       <div class="form-group">
         <label for="nome">Prazo:</label>
-        <input type="text" class="form-control" id="prazo" name="prazo" required #prazo="ngModel" ngModel />
+        <input type="text" class="form-control" id="prazo" name="prazo" required #prazo="ngModel"
+          [(ngModel)]="roupa.tempoDeLavagem" ngModel />
         <div class="alert alert-danger" *ngIf="prazo.errors && (prazo.dirty || prazo.touched)">
           <div [hidden]="!prazo.errors['required']">Digite o prazo.</div>
         </div>
@@ -31,7 +34,7 @@
 
       <div class="form-group">
         <label for="categoria">Categoria:</label>
-        <select required class="form-select  mb-4" name="categoria" #categoria [value]="categoria" ngModel>
+        <select required class="form-select  mb-4" name="categoria" #categoria [value]="roupa.categoria" ngModel>
           <option *ngFor="let categoria of categorias;" [value]="categoria.numero">{{categoria.descricao}}
           </option>
         </select>

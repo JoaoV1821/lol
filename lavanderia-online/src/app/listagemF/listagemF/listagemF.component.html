@@ -11,13 +11,14 @@
     <div class="container">
         <div class="row">
             <div class="col mb-3">
-                <h1 id="titulo">Pedidos</h1>
+                <h1 id="titulo">Visualizacação de Pedidos</h1>
             </div>
         </div>
+        <!-- 
         <div class="row">
             <h4 class="col-sm-1">Filtrar: </h4>
             <div class="col-sm-3 mb-3">
-                <select class="form-select filtro" (change)="mudarEstadoPedido($event)">
+                <select class="form-select filtro" (change)="mudarEstadoPedidoFiltro($event)">
                     <option disabled selected>Estado do pedido</option>
                     <option>Aguardando Pagamento</option>
                     <option>Finalizado</option>
@@ -29,12 +30,24 @@
                     <option>Todos</option>
                 </select>
             </div>
+        </div> -->
+
+        <div class="card p-3" id="card">
+            <h4 class="mb-3">Filtrar por data</h4>
+            <label>Data Início</label>
+            <input class="mb-3 form-control inputlol" [(ngModel)]='dataIni' (ngModelChange)="onDateInputChange()"
+                type="date">
+            <label>Data Fim</label>
+            <input class="mb-3 form-control inputlol" [(ngModel)]='dataFi' (ngModelChange)="onDateInputChange()"
+                type="date">
         </div>
+
         <div class="row">
             <div class="col">
                 <table class="table" id="table">
                     <thead>
                         <tr>
+                            <th>CPF</th>
                             <th>Nº Pedido</th>
                             <th>Valor</th>
                             <th>Data</th>
@@ -45,15 +58,16 @@
                     </thead>
                     <tbody>
                         <ng-container *ngFor="let pedido of dados">
-                            <tr class="fadeIn" *ngIf="filtrarEstadoPedido(pedido.status)" [id]="pedido.pedido">
-                                <td>{{pedido.pedido}}</td>
-                                <td>R$ {{pedido.valor.toFixed(2).replace('.',',')}}</td>
-                                <td>{{pedido.data}}</td>
-                                <td>{{pedido.prazo}}</td>
+                            <tr class="fadeIn">
+                                <td>{{pedido.cadastro?.cpf! | mask:'000.000.000-00'}}</td>
+                                <td>{{pedido.numero}}</td>
+                                <td>R$ {{pedido.total}}</td>
+                                <td>{{pedido.data! | format}}</td>
+                                <td>{{pedido.prazo! | format}}</td>
                                 <td class="td-button" [ngSwitch]="pedido.status">
                                     <!-- <td class="td-button"> -->
-                                    <button *ngSwitchCase="'EM ABERTO'"
-                                        class="btn btn-aberto">{{pedido.status}}</button>
+                                    <button *ngSwitchCase="'EM ABERTO'" class="btn btn-aberto"
+                                        [disabled]>{{pedido.status}}</button>
                                     <button *ngSwitchCase="'RECOLHIDO'"
                                         class="btn btn-recolhido">{{pedido.status}}</button>
                                     <button *ngSwitchCase="'AGUARDANDO PAGAMENTO'"
@@ -65,13 +79,14 @@
                                         class="btn btn-finalizado">{{pedido.status}}</button>
                                 </td>
                                 <td class="td-button">
-                                    <button *ngIf="pedido.status == 'RECOLHIDO'" class="btn btn-primary">Confirmar
+                                    <button *ngIf="pedido.status == 'RECOLHIDO'" class="btn btn-primary"
+                                        (click)="confirmarLavagem(pedido)">Confirmar
                                         Lavagem</button>
-                                    <button *ngIf="pedido.status == 'EM ABERTO'" class="btn btn-primary">Confirmar
+                                    <button *ngIf="pedido.status == 'EM ABERTO'" class="btn btn-primary"
+                                        (click)="confirmarRecolhimento(pedido)">Confirmar
                                         Recolhimento</button>
-                                    <button *ngIf="pedido.status == 'EM ABERTO'"
-                                        class="btn btn-danger">Cancelar</button>
-                                    <button *ngIf="pedido.status == 'PAGO'" class="btn btn-success">Finalizar</button>
+                                    <button *ngIf="pedido.status == 'PAGO'" class="btn btn-success"
+                                        (click)="finalizarPedido(pedido)">Finalizar</button>
                                 </td>
                             </tr>
                         </ng-container>

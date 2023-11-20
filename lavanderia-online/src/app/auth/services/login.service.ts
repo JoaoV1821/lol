@@ -68,9 +68,9 @@ export class LoginService {
 
   private navigateAfterLogin(usuario: Usuario) {
     if (usuario.perfil == "cliente") {
-      this.router.navigate(["/home"]);
+      this.router.navigate(["/seus-pedidos"]);
     } else {
-      this.router.navigate(["/consulta-pedido"])
+      this.router.navigate(["/home-funcionario"])
     }
   }
 

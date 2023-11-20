@@ -8,14 +8,14 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 interface itemCarrinho {
   descricao: string,
   quantidade: number,
-  valor_un: number,
+  valor: number,
   subtotal: number,
   numeroRoupa: number
 }
 
 interface itemList {
   descricao: string,
-  valor_un: number,
+  valor: number,
   categoria: string,
   prazo: number,
   numero: number
@@ -79,7 +79,7 @@ export class PedidoComponent implements OnInit {
   changeItemValue(index: number, operation: string) {
     if (operation == 'up') {
       this.carrinho[index].quantidade += 1;
-      this.carrinho[index].subtotal = this.carrinho[index].quantidade * this.carrinho[index].valor_un;
+      this.carrinho[index].subtotal = this.carrinho[index].quantidade * this.carrinho[index].valor;
       this.updateTotal();
     } else {
       this.carrinho[index].quantidade -= 1;
@@ -87,7 +87,7 @@ export class PedidoComponent implements OnInit {
         this.carrinho.splice(index, 1);
       }
       else {
-        this.carrinho[index].subtotal = this.carrinho[index].quantidade * this.carrinho[index].valor_un;
+        this.carrinho[index].subtotal = this.carrinho[index].quantidade * this.carrinho[index].valor;
       }
       this.updateTotal();
     }
@@ -98,7 +98,7 @@ export class PedidoComponent implements OnInit {
     for (let x = 0; x < this.carrinho.length; x++) {
       if (this.carrinho[x].descricao == item.descricao) {
         this.carrinho[x].quantidade += 1;
-        this.carrinho[x].subtotal += this.carrinho[x].valor_un;
+        this.carrinho[x].subtotal += this.carrinho[x].valor;
         this.updateTotal();
         return;
       }
@@ -107,8 +107,8 @@ export class PedidoComponent implements OnInit {
       numeroRoupa: item.numero,
       descricao: item.descricao,
       quantidade: 1,
-      valor_un: item.valor_un,
-      subtotal: 1 * item.valor_un,
+      valor: item.valor,
+      subtotal: 1 * item.valor,
 
     })
     this.updateTotal();
@@ -130,6 +130,7 @@ export class PedidoComponent implements OnInit {
   async requestRoupas() {
     const response: any = await this.PedidoService.getRoupas();
     this.lista_de_items = response;
+    console.log(this.lista_de_items)
   }
 
   async requestCategorias() {

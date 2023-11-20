@@ -36,9 +36,9 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>14/08/2023</td>
-                        <td>R$22,99</td>
+                    <tr *ngFor="let pedido of pedidos">
+                        <td>{{pedido.data}}</td>
+                        <td>{{pedido.total}}</td>
                         <td>
                             <button class="btn btn-success mx-2">Aprovar</button>
                             <button class="btn btn-danger mx-2">Rejeitar</button>

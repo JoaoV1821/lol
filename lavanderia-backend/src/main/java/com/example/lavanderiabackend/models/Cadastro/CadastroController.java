@@ -28,7 +28,8 @@ public class CadastroController {
 
     @PostMapping("/get/cadastro")
     public ResponseEntity<CadastroDTO> getCadastro(@Valid @RequestBody StringWrapper cpf) {
-        return null;
+        CadastroDTO cadastroDTO = cadastroService.getCadastro(cpf.getString());
+        return ResponseEntity.ok().body(cadastroDTO);
     }
 
     @GetMapping("/get/topcadastros")

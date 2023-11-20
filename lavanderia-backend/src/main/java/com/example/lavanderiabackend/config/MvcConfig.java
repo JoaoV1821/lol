@@ -28,6 +28,8 @@ public class MvcConfig implements WebMvcConfigurer {
         registry.addViewController("/funcionario/listar/{*}").setViewName("forward:/");
         registry.addViewController("funcionario/inserir/{*}").setViewName("forward:/");
         registry.addViewController("funcionario/editar/{*}").setViewName("forward:/");
+        registry.addViewController("home-funcionario/{*}").setViewName("forward:/");
+        //
 
     }
 }

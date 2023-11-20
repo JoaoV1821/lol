@@ -15,22 +15,6 @@
             </div>
         </div>
         <div class="row">
-            <h4 class="col-sm-1">Filtrar: </h4>
-            <div class="col-sm-3 mb-3">
-                <select class="form-select filtro" (change)="mudarEstadoPedidoFiltro($event)">
-                    <option disabled selected>Estado do pedido</option>
-                    <option>Aguardando Pagamento</option>
-                    <option>Finalizado</option>
-                    <option>Em Aberto</option>
-                    <option>Recolhido</option>
-                    <option>Pago</option>
-                    <option>Pendente</option>
-                    <option>Cancelado</option>
-                    <option>Todos</option>
-                </select>
-            </div>
-        </div>
-        <div class="row">
             <div class="col">
                 <table class="table" id="table">
                     <thead>
@@ -42,7 +26,6 @@
                             <th>Status</th>
                             <th></th>
                             <th></th>
-                            <!--<th>Ação</th>-->
                         </tr>
                     </thead>
                     <tbody>
@@ -53,29 +36,23 @@
                             <td>R$ {{pedido.total?.toFixed(2)?.replace('.',',')}}</td>
                             <td>{{pedido.data! | format}}</td>
                             <td>{{pedido.prazo! | format}}</td>
-                            <td>{{pedido.status}}</td>
-                            <!-- <ng-container>
-                                <td class="td-button">
-                                    <button *ngSwitchCase="'EM ABERTO'"
-                                        class="btn btn-aberto">{{pedido.status}}</button>
-                                    <button *ngSwitchCase="'RECOLHIDO'"
-                                        class="btn btn-recolhido">{{pedido.status}}</button>
-                                    <button *ngSwitchCase="'AGUARDANDO PAGAMENTO'"
-                                        class="btn btn-aguardando">{{pedido.status}}</button>
-                                    <button *ngSwitchCase="'PAGO'" class="btn btn-pago">{{pedido.status}}</button>
-                                    <button *ngSwitchCase="'CANCELADO'"
-                                        class="btn btn-cancelado">{{pedido.status}}</button>
-                                    <button *ngSwitchCase="'FINALIZADO'"
-                                        class="btn btn-finalizado">{{pedido.status}}</button>
-                                </td>
-                            </ng-container> -->
+                            <!-- <td>{{pedido.status}}</td> -->
+                            <td class="td-button">
+                                <button *ngSwitchCase="'EM ABERTO'" class="btn btn-aberto">{{pedido.status}}</button>
+                                <button *ngSwitchCase="'RECOLHIDO'" class="btn btn-recolhido">{{pedido.status}}</button>
+                                <button *ngSwitchCase="'AGUARDANDO PAGAMENTO'"
+                                    class="btn btn-aguardando">{{pedido.status}}</button>
+                                <button *ngSwitchCase="'PAGO'" class="btn btn-pago">{{pedido.status}}</button>
+                                <button *ngSwitchCase="'CANCELADO'" class="btn btn-cancelado">{{pedido.status}}</button>
+                                <button *ngSwitchCase="'FINALIZADO'"
+                                    class="btn btn-finalizado">{{pedido.status}}</button>
+                            </td>
                             <td class="td-button">
                                 <a [routerLink]="['/pagamento', pedido.numero]" class="btn btn-success"
-                                    *ngIf="pedido.status === 'AGUARDANDO PAGAMENTO' || pedido.status === 'EM ABERTO'">
+                                    *ngIf="pedido.status === 'AGUARDANDO PAGAMENTO'">
                                     Pagar
                                 </a>
-                                <button class="btn disabled"
-                                    *ngIf="pedido.status !== 'AGUARDANDO PAGAMENTO' && pedido.status !== 'EM ABERTO'">
+                                <button class="btn disabled" *ngIf="pedido.status !== 'AGUARDANDO PAGAMENTO'">
                                     Pagar
                                 </button>
                             </td>
@@ -91,7 +68,6 @@
                             </td>
 
                         </tr>
-                        <!--  </ng-container> -->
                     </tbody>
                 </table>
             </div>

@@ -15,20 +15,31 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="itensDropdown">Itens do Pedido:</label>
-                        <div class="dropdown">
-                            <button class="btn btn-secondary dropdown-toggle" type="button" id="itensDropdown"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Selecione uma roupa
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="itensDropdown">
-                                <a *ngFor="let roupa of pedido.roupas" class="dropdown-item">{{ roupa }}</a>
+                        <div class="d-flex flex-wrap">
+                            <div class="m-1">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Nome</th>
+                                            <th></th>
+                                            <th>Qtd.</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let roupa of roupas">
+                                            <td>{{ roupa.descricao }}</td>
+                                            <td>x</td>
+                                            <td>{{ roupa.quantidade }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
-                    <button type="button" class="btn btn-primary" (click)="pagar(pedido)">Pagar</button>
-                    <a class='btn btn-dark' [routerLink]="['/seus-pedidos']">Voltar</a>
                 </div>
+                <button type="button" class="btn btn-success" (click)="pagar(pedido)">Pagar</button>
             </div>
         </div>
     </div>
+    <a class='btn btn-dark' [routerLink]="['/seus-pedidos']">Voltar</a>
 </div>

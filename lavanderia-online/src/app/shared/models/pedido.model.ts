@@ -1,3 +1,4 @@
+import { Cadastro } from "./cadastro.model";
 import { Item } from "./item.model";
 
 export class Pedido {
@@ -9,5 +10,6 @@ export class Pedido {
         public data?: string,
         public prazo?: string,
         public status?: string,
+        public cadastro?: Cadastro
     ) { }
 }

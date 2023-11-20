@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 import { Funcionario } from 'src/app/shared/models/funcionario.model';
 import { FuncionarioService } from '../services';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Endereco } from 'src/app/shared';
 
 @Component({
   selector: 'app-editar-funcionario',
@@ -17,7 +18,7 @@ export class EditarFuncionarioComponent implements OnInit {
   complemento!: any;
   endereco!: any;
 
-  funcionario!: Funcionario;
+  funcionario: Funcionario = new Funcionario("", "", "", "", "", new Endereco("", "", "", "", ""), "");
 
   constructor(
     private funcService: FuncionarioService,
@@ -28,25 +29,29 @@ export class EditarFuncionarioComponent implements OnInit {
   async ngOnInit(): Promise<void> {
 
     const cpf: string = this.route.snapshot.params['cpf'];
-    const response = await this.funcService.buscarFuncionarioPorCPF(cpf);
-
-
+    const data = await this.funcService.buscarFuncionarioPorCPF(cpf);
+    this.funcionario = new Funcionario(data.cpf, data.nome, data.dataNasc, data.email, data.senha, data.endereco, data.telefone);
+    console.log(this.funcionario);
   }
 
   atualizarFuncionario(): void {
-    if (this.formFuncionario.form.valid) {
-      this.funcService.atualizarFuncionario(this.funcionario);
-      this.router.navigate(['/funcionario']);
-    }
+
+    this.funcService.atualizarFuncionario(this.funcionario);
+    //this.router.navigate(['/funcionario']);
+
   }
 
   async requestCep() {
-    console.log(this.funcionario)
-    await this.funcService.getCep('83045100').then((response) => {
-      this.cidade = response.data.localidade;
-      this.endereco = response.data.logradouro;
-      this.complemento = response.data.complemento;
 
+    console.log()
+
+    await this.funcService.getCep('83045100').then((response) => {
+      let data = response.data;
+      this.funcionario.endereco.cep = data.cep;
+      this.funcionario.endereco.cidade = data.localidade;
+      this.funcionario.endereco.complemento = data.complemento;
+      this.funcionario.endereco.endereco = data.logradouro;
+      this.funcionario.endereco.numero = data.siafi;
     }).catch((error) => {
       console.log(error.menssage);
     })

@@ -81,6 +81,12 @@ public class RoupaService {
             String numero2 = addPadding(numero);
             roupa.setNumero(numero2);
             roupaRepository.save(roupa);
+        } else {
+            Categoria categoria = categoriaService.getCategoria(modelo.getNumeroCategoria());
+            roupa.setCategoria(categoria);
+            roupa.setValor(modelo.getValor());
+            roupa.setTempoDeLavagem(modelo.getTempoDeLavagem());
+            roupaRepository.save(roupa);
         }
     }
 

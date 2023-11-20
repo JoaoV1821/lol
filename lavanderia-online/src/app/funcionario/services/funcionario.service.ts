@@ -38,31 +38,28 @@ export class FuncionarioService {
     }
   };
 
-  async buscarFuncionarioPorCPF(cpf: string): Promise<void> {
-    let response = await RequestMaker.postData<Cadastro>("/cadastro/get/cadastro", { cpf: cpf });
+  async buscarFuncionarioPorCPF(cpf: string): Promise<Cadastro> {
+    let response = await RequestMaker.postData<Cadastro>("/cadastro/get/cadastro", { string: cpf });
     if (response.ok(response.data)) {
-      // let funcionario = response.data as Funcionario;
-      // return response.data;
-
+      return response.data;
     } else {
+      alert("Funcionário não encontrado: cpf = " + cpf);
       throw new Error("Funcionário não encontrado: cpf = " + cpf);
     }
   };
 
-  atualizarFuncionario(func: Funcionario): void {
-    // const funcionarios: Funcionario[] = this.listarFuncionarios();
-    //
-    // funcionarios.forEach((obj, index, objs) => {
-    //  if (func.cpf === obj.cpf) {
-    //    objs[index] = func
-    //  }
-    //});
 
-    //localStorage[LS_CHAVE] = JSON.stringify(funcionarios);
+  async atualizarFuncionario(func: Funcionario): Promise<void> {
+    let response = await RequestMaker.postData("/cadastro/update/cadastro", func);
+    if (response.ok(response.data)) {
+
+    } else {
+      alert("Não foi possível atualizar o ")
+    }
   }
 
   async removerFuncionario(cpf: string): Promise<void> {
-    let response = await RequestMaker.postData("/cadastro/delete/cadastro", { cpf: cpf });
+    let response = await RequestMaker.postData("/cadastro/delete/cadastro", { string: cpf });
     if (!response.ok(response.data)) {
       alert("Não foi possivel deletar o funcionário");
     }

@@ -1,3 +1,4 @@
+import { underline } from "pdfkit";
 import { Endereco } from "./endereco.model";
 
 export class Funcionario {
@@ -15,10 +16,11 @@ export class Funcionario {
     }
 
     private ajustarDataNasc() {
-        let dia = this.dataNasc.slice(0, 2);
-        let mes = this.dataNasc.slice(2, 4);
-        let ano = this.dataNasc.slice(4, 8);
-        this.dataNasc = [ano, mes, dia].join('-');
-
+        if (this.dataNasc != null && this.dataNasc != undefined) {
+            let dia = this.dataNasc.slice(0, 2);
+            let mes = this.dataNasc.slice(2, 4);
+            let ano = this.dataNasc.slice(4, 8);
+            this.dataNasc = [ano, mes, dia].join('-');
+        }
     }
 }

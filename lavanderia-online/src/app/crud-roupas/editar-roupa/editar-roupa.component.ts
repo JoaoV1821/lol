@@ -5,12 +5,8 @@ import { CrudRoupasService } from '../services/crud-roupas.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Interface } from 'readline';
 import { Categoria } from 'src/app/shared/models/categoria.model';
+import { RoupaDTO } from 'src/app/shared/models/roupa-dto.model';
 
-export interface roupaFormulario {
-  nome: string,
-  prazo: number,
-  preco: number
-}
 
 
 @Component({
@@ -43,8 +39,8 @@ export class EditarRoupaComponent implements OnInit {
 
 
   atualizar(formulario: NgForm): void {
-
-    let roupa: roupaFormulario = this.formRoupa.value as roupaFormulario;
+    let roupa = formulario.value as RoupaDTO;
+    this.roupaService.atualizar(roupa);
 
     //this.roupaService.atualizar(roupa);
     //this.router.navigate(['/roupas']);

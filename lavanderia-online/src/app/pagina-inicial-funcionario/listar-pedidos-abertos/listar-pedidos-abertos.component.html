@@ -1,45 +1,82 @@
-<h1 class="mx-5">Página Inicial - Funcionário</h1>
-
+<div class="m-3">
+    <h1>Página Inicial</h1>
+    <h4>Pedidos em aberto</h4>
+</div>
 <div class="container">
-    <table *ngIf="pedidosEmAberto.length != 0" class="table table-striped table-bordered table-hover">
-        <tbody>
-            <tr>
-                <th>Número do Pedido</th>
-                <!--
-                    <th class="text-center">
-                        <a href="#" title="Recolhido" alt="Recolhido" class="btn btn-xs btn-success">
-                            <i class="fa fa-plus" aria-hidden="true"></i> Recolhindo
-                        </a>
-                    </th>
-                -->
-                <th>Resumo do pedido</th>
-                <th></th>
-            </tr>
-    
-            <tr *ngFor="let pedidosEmAberto of pedidosEmAberto">
-                <td>{{pedidosEmAberto.numeroPedido}}</td>
-                <td>{{pedidosEmAberto.resumo}}</td>
-                <td class="text-center" style="width: 450px">
-                    <div class="d-flex flex-row">
-                        <a href="pagina-inicial-funcionario" title="Recolhido" alt="Recolhido" class="btn btn-secondary">
-                             Recolhido
-                        </a>
-    
-                        <div class="d-flex justify-content-around mx-2">
-                            <a href="pagina-inicial-funcionario" title="Recolhido" alt="Recolhido" class="btn btn-primary mx-2">
-                                Confirmar Lavagem
-                            </a>
-        
-                            <a href="pagina-inicial-funcionario" title="Recolhido" alt="Recolhido" class="btn btn-success mx-2">
-                                Finalizar pedido
-                            </a>
-                        </div>
-                    </div>
-                   
-                  
+    <!--
+        <table class="table" id="table">
+            <thead>
+                <tr>
+                    <th>CPF</th>
+                    <th>Nº Pedido</th>
+                    <th>Valor</th>
+                    <th>Data</th>
+                    <th>Prazo</th>
+                    <th>Status</th>
+                    <th>Ação</th>
+                </tr>
+            </thead>
+            <tbody>
+                <ng-container *ngFor="let pedido of dados">
+                    <tr class="fadeIn">
+                        <td>{{pedido.numero}}</td>
+                        <td>R$ {{pedido.total}}</td>
+                        <td>{{pedido.data! | format}}</td>
+                        <td>{{pedido.prazo! | format}}</td>
+                        <td class="td-button" [ngSwitch]="pedido.status">
+                            <button *ngSwitchCase="'EM ABERTO'" class="btn btn-aberto" [disabled]>{{pedido.status}}</button>
+                        <td class="td-button">
+                            <button *ngIf="pedido.status == 'EM ABERTO'" class="btn btn-primary"
+                                (click)="confirmarRecolhimento(pedido)">Confirmar
+                                Recolhimento</button>
+                        </td>
+                    </tr>
+                </ng-container>
+            </tbody>
+        </table>
+    -->
 
-                </td>
+    <table class="table" id="table">
+        <thead>
+            <tr>
+                <th>CPF</th>
+                <th>Nº Pedido</th>
+                <th>Valor</th>
+                <th>Data</th>
+                <th>Prazo</th>
+                <th>Status</th>
+                <th>Ação</th>
             </tr>
+        </thead>
+        <tbody>
+            <ng-container *ngFor="let pedido of dados">
+                <tr class="fadeIn">
+                    <td>{{pedido.cadastro?.cpf! | mask:'000.000.000-00'}}</td>
+                    <td>{{pedido.numero}}</td>
+                    <td>R$ {{pedido.total}}</td>
+                    <td>{{pedido.data! | format}}</td>
+                    <td>{{pedido.prazo! | format}}</td>
+                    <td class="td-button" [ngSwitch]="pedido.status">
+                        <button *ngSwitchCase="'EM ABERTO'" class="btn btn-aberto" [disabled]>{{pedido.status}}</button>
+                        <button *ngSwitchCase="'RECOLHIDO'" class="btn btn-recolhido">{{pedido.status}}</button>
+                        <button *ngSwitchCase="'AGUARDANDO PAGAMENTO'"
+                            class="btn btn-aguardando">{{pedido.status}}</button>
+                        <button *ngSwitchCase="'PAGO'" class="btn btn-pago">{{pedido.status}}</button>
+                        <button *ngSwitchCase="'CANCELADO'" class="btn btn-cancelado">{{pedido.status}}</button>
+                        <button *ngSwitchCase="'FINALIZADO'" class="btn btn-finalizado">{{pedido.status}}</button>
+                    </td>
+                    <td class="td-button">
+                        <button *ngIf="pedido.status == 'RECOLHIDO'" class="btn btn-primary"
+                            (click)="confirmarLavagem(pedido)">Confirmar
+                            Lavagem</button>
+                        <button *ngIf="pedido.status == 'EM ABERTO'" class="btn btn-primary"
+                            (click)="confirmarRecolhimento(pedido)">Confirmar
+                            Recolhimento</button>
+                        <button *ngIf="pedido.status == 'PAGO'" class="btn btn-success"
+                            (click)="finalizarPedido(pedido)">Finalizar</button>
+                    </td>
+                </tr>
+            </ng-container>
         </tbody>
     </table>
     <p *ngIf="pedidosEmAberto.length == 0">Nenhum pedido em aberto</p>

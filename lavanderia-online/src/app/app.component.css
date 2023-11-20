@@ -1,3 +1,10 @@
 .nav-link:hover {
-    color: #fff;
+    color: #5a57ff;
+}
+
+li {
+    border-color: #5a57ff;
+    border-radius: 8px;
+    background-color: #e5e3ff;
+    margin-right: 10px;
 }

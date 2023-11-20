@@ -36,13 +36,22 @@
                         <label for="itensDropdown">Itens do Pedido:</label>
                         <div class="d-flex flex-wrap">
                             <div class="m-1">
-                                <th>Nome</th>
-                                <th></th>
-                                <th>Qtd.</th>
-                                <tr *ngFor="let roupa of roupas">
-                                    <td>{{ roupa.descricao }}</td>
-                                    <td>{{ roupa.quantidade }}</td>
-                                </tr>
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Nome</th>
+                                            <th></th>
+                                            <th>Qtd.</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let roupa of roupas">
+                                            <td>{{ roupa.descricao }}</td>
+                                            <td>x</td>
+                                            <td>{{ roupa.quantidade }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>

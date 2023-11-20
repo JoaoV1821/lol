@@ -46,10 +46,7 @@ export const routes: Routes = [
   //funcionario/inserir-funcionario
   { path: 'prop', redirectTo: 'prototipos/rf012' },
   { path: 'prototipos/rf012', component: Rf012Component },
-
-  { path: 'listagemF', redirectTo: 'listagemF/listagemF' },
-  { path: 'listagemF', component: ListagemFComponent },
-
+  { path: 'visualizacao', component: ListagemFComponent, canActivate: [AuthGuard], data: { role: "admin,funcionario" } },
   { path: 'relatorios', component: RelatoriosComponent, canActivate: [AuthGuard], data: { role: "admin,funcionario" } }
 
 ];

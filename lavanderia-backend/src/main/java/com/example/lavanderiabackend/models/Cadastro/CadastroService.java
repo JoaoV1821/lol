@@ -143,6 +143,14 @@ public class CadastroService {
         return modelo;
     }
 
+    public Cadastro getCadastroEntity(String cpf) {
+        if (!CPFValidator.isCpfValid(cpf))
+            throw new InvalidFieldException("Campo Cpf inválido!", "cpf");
+        Cadastro cadastro = cadastroRepository.findByCpf(cpf)
+                .orElseThrow(() -> new UserNotFoundException("Usuario não encontrado"));
+        return cadastro;
+    }
+
     public CadastroDTO getUsuarioLogado() {
         Cadastro cadastro = getLoggedUser();
         if (cadastro != null) {

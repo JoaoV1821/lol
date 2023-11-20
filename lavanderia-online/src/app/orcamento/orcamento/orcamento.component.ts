@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { OrcamentoService } from '../services';
+import { Pedido } from 'src/app/shared';
 
 @Component({
   selector: 'app-orcamento',
@@ -8,14 +9,25 @@ import { OrcamentoService } from '../services';
   styleUrls: ['./orcamento.component.css']
 })
 
-export class OrcamentoComponent implements OnInit{
+export class OrcamentoComponent implements OnInit {
 
-  constructor() {
+  pedidos!: Pedido[];
+
+  constructor(private orcamentoService: OrcamentoService) {
 
   }
 
-  ngOnInit(): void {
-    
+  async ngOnInit(): Promise<void> {
+    this.pedidos = await this.orcamentoService.getPedidos();
+  }
+
+
+  aprovar() {
+
+  }
+
+  rejeitar() {
+
   }
 
 }

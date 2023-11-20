@@ -70,17 +70,9 @@ public class PedidoController {
         return ResponseEntity.ok(200);
     }
 
-    /*
-     * @PostMapping("/add/pedido")
-     * public ResponseEntity<Integer> addPedido(@RequestBody PedidoBody modelo) {
-     * pedidoService.addPedido(modelo);
-     * return ResponseEntity.ok(200);
-     * }
-     */
-
     @PostMapping("/update/status")
     public ResponseEntity<Integer> updateStatus(@RequestBody updateWrapper wrapper) {
-        pedidoService.updateStatus(wrapper.getNumero(), wrapper.getStatus());
+        pedidoService.updateStatus(wrapper.getNumero(), wrapper.getStatus(), wrapper.getCpf());
         return ResponseEntity.ok(200);
     }
 
@@ -103,4 +95,5 @@ class StatusWrapper {
 class updateWrapper {
     public Long numero;
     public String status;
+    public String cpf;
 }

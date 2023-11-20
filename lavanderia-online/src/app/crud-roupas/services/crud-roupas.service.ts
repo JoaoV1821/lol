@@ -4,7 +4,6 @@ import { Categoria } from 'src/app/shared/models/categoria.model';
 import { RoupaDTO } from 'src/app/shared/models/roupa-dto.model';
 
 import { Roupa } from 'src/app/shared/models/roupa.model';
-import { roupaFormulario } from '../editar-roupa';
 import { Router } from '@angular/router';
 
 const LS_CHAVE: string = "roupas";
@@ -64,8 +63,14 @@ export class CrudRoupasService {
       return null;
     }
   }
-  async atualizar(roupa: roupaFormulario): Promise<void> {
-    let response = await RequestMaker.postData("/roupa/update/roupa", roupa);
+  async atualizar(roupa: any): Promise<void> {
+
+    let response = await RequestMaker.postData("/roupa/update/roupa", {
+      valor: roupa.preco,
+      tempoDeLavagem: roupa.prazo,
+      numeroCategoria: roupa.categoria,
+      descricao: roupa.nome,
+    });
     if (response.ok(response.data)) {
       this.router.navigate(["/roupas/listar"]);
     } else {

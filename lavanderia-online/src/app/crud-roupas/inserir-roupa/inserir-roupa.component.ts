@@ -32,7 +32,7 @@ export class InserirRoupaComponent {
     let roupa: RoupaDTO = new RoupaDTO(dados.preco, dados.prazo, dados.categoria, dados.nome);
     if (this.formRoupa.form.valid) {
       this.roupaService.inserir(roupa);
-      //this.router.navigate(["/roupas"]);
+      this.router.navigate(["/roupas"]);
     }
   }
 }

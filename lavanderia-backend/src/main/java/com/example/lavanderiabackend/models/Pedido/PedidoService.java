@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.lavanderiabackend.Exceptions.StandardNotFoundException;
 import com.example.lavanderiabackend.models.Cadastro.Cadastro;
+import com.example.lavanderiabackend.models.Cadastro.CadastroRepository;
 import com.example.lavanderiabackend.models.Carrinho.Carrinho;
 import com.example.lavanderiabackend.models.Carrinho.CarrinhoRepository;
 import com.example.lavanderiabackend.models.Carrinho.DTOS.CarrinhoDTO;
@@ -27,13 +28,19 @@ public class PedidoService {
     public final RoupaService roupaService;
     public final ModelMapper modelMapper;
 
+    private final CadastroRepository cadastroRepository;
+    // private final CadastroService cadastroService;
+
     @Autowired
-    PedidoService(PedidoRepository pedidoRepository, ModelMapper modelMapper, CarrinhoRepository carrinhoRepository,
+    PedidoService(PedidoRepository pedidoRepository, ModelMapper modelMapper,
+            CarrinhoRepository carrinhoRepository,
+            CadastroRepository cadastroRepository,
             RoupaService roupaService) {
         this.pedidoRepository = pedidoRepository;
         this.modelMapper = modelMapper;
         this.carrinhoRepository = carrinhoRepository;
         this.roupaService = roupaService;
+        this.cadastroRepository = cadastroRepository;
     }
 
     public PedidoBody getPedido(Long numero_pedido) {
@@ -45,7 +52,6 @@ public class PedidoService {
 
     public PedidoBody getPedido(Cadastro cadastro, String numeroPedido) {
         List<Pedido> pedidos = pedidoRepository.findByCadastro(cadastro);
-
         for (Pedido pedido : pedidos) {
             if (pedido.getNumero() == Long.parseLong(numeroPedido)) {
                 PedidoBody pedidoBody = new PedidoBody(pedido);
@@ -145,12 +151,24 @@ public class PedidoService {
         pedidoRepository.save(pedido);
     }
 
-    public void updateStatus(Long numero_pedido, String status) {
-        Pedido pedido = pedidoRepository.findByNumero(numero_pedido)
-                .orElseThrow(
-                        () -> new StandardNotFoundException("Pedido de numero :" + numero_pedido + "não encontrado!"));
-        pedido.setStatus(status);
-        pedidoRepository.save(pedido);
+    public void updateStatus(Long numero_pedido, String status, String cpf) {
+        Cadastro cadastro = cadastroRepository.findByCpf(cpf).orElse(null);
+        Pedido pedidoEscolhido = null;
+        if (cadastro != null) {
+            List<Pedido> pedidos = cadastro.getPedidos();
+            for (Pedido pedido : pedidos) {
+                if (pedido.numero == numero_pedido) {
+                    pedidoEscolhido = pedido;
+                    break;
+                }
+            }
+            if (pedidoEscolhido != null) {
+                pedidoEscolhido.setStatus(status);
+                pedidoRepository.save(pedidoEscolhido);
+                cadastro.setPedidos(pedidos);
+                cadastroRepository.save(cadastro);
+            }
+        }
     }
 
     public Cadastro updatePedido(Cadastro cadastro, PedidoBody body, String numero_pedido) {
