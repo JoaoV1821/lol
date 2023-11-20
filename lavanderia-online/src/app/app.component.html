@@ -29,7 +29,7 @@
                     <a class="nav-link" href="#">Entrar</a>
                 </li>
 
-                <li *ngIf="user?.perfil==='admin' || user?.perfil==='funcionario'" class="nav-item">
+                <li *ngIf="user?.perfil==='admin' || user?.perfil==='funcionario'" ng-bind="user" class="nav-item">
                     <a class="nav-link" href="#" routerLink="/home-funcionario">Página Inicial</a>
                 </li>
 
@@ -84,16 +84,6 @@
                     </p>
                 </li>
             </ul>
-            <!-- <div class="col">
-                <div class="row" style="max-height: 30%">
-                    <p class="navbar-text mb-0 text-white">
-                        <i class="fa fa-user"></i> {{ loginService.getUsuario()?.nome| uppercase}}
-                    </p>
-                </div>
-                <div class="row">
-                    <a href="#" (click)="logout()">Logout</a>
-                </div>
-            </div> -->
         </div>
     </nav>
     <router-outlet></router-outlet>

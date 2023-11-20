@@ -4,6 +4,7 @@ import { LoginService } from '../services';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Login } from 'src/app/shared/models/login.model';
+import { AppComponent } from 'src/app/app.component';
 
 
 
@@ -21,7 +22,7 @@ export class LoginComponent implements OnInit {
   senha?: string
   login?: Login
 
-  constructor(private loginService: LoginService, private router: Router) {
+  constructor(private loginService: LoginService, private router: Router, private app: AppComponent) {
     let value = this.router.getCurrentNavigation()?.extras.state;
     if (value != undefined) {
       this.erro = true;
@@ -37,7 +38,8 @@ export class LoginComponent implements OnInit {
     if (formulario.form.valid) {
       let dados = formulario.value;
       let login: Login = new Login(dados.username, dados.password);
-      this.loginService.login(login, this);
+      this.loginService.login(login, this, this.app);
+
     } else {
       this.erro = true;
     }

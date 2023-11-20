@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, OnChanges, SimpleChanges, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoginService } from './auth';
 import { Usuario } from './shared/models';
@@ -14,13 +14,15 @@ import { timeout } from 'rxjs';
 
 export class AppComponent implements OnInit {
   isChecked: boolean = false;
-  user: Usuario | null = this.loginService.getUsuario();
+  user!: Usuario | null;
   sh: any;
   title = 'lavanderia-online';
   constructor(public router: Router, public loginService: LoginService, private ref: ChangeDetectorRef) {
-
   }
+
+
   ngOnInit(): void {
+    console.log("hi");
     this.user = this.loginService.getUsuario();
   }
 

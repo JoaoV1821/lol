@@ -24,7 +24,7 @@ export class ListagemComponent implements OnInit {
   }
 
   async ngOnInit(): Promise<void> {
-    this.carregarDadosDoServidor(null);
+    await this.carregarDadosDoServidor(null);
     // console.log(this.dados.forEach((dado) => { console.log(dado.status) }));
   }
 

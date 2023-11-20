@@ -4,6 +4,7 @@ import { Login } from 'src/app/shared/models/login.model';
 import { RequestMaker, RequestResult } from 'src/app/services/requestService';
 import { Router } from '@angular/router';
 import { LoginComponent } from '../login';
+import { AppComponent } from 'src/app/app.component';
 
 @Injectable({
   providedIn: 'root'
@@ -12,13 +13,14 @@ export class LoginService {
 
   constructor(private router: Router) { }
 
-  async login(login: Login, loginComponent: LoginComponent) {
+  async login(login: Login, loginComponent: LoginComponent, app: AppComponent) {
     login.login = (login.login || '').toLowerCase();
     let response = await RequestMaker.postData<Usuario>("/auth/login", login);
     if (response.ok(response.data)) {
       let usuario = response.data;
       localStorage["user"] = JSON.stringify(usuario);
       this.navigateAfterLogin(response.data);
+      console.log(app.ngOnInit());
     } else {
       loginComponent.setErro(true);
     }
