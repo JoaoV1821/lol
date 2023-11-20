@@ -70,7 +70,7 @@ export class LoginService {
     if (usuario.perfil == "cliente") {
       this.router.navigate(["/home"]);
     } else {
-      this.router.navigate(["/orcamento"])
+      this.router.navigate(["/consulta-pedido"])
     }
   }
 

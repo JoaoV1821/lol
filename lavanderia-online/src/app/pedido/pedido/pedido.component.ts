@@ -1,23 +1,29 @@
 import { Component, OnInit } from '@angular/core';
-import { PedidoService } from '../services';
+import { PedidoService } from '../services/pedido.service';
 import { PDFDocument, rgb, StandardFonts } from 'pdf-lib';
 import { ModalPedidoComponent } from '../modal-pedido/modal-pedido.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 
 interface itemCarrinho {
-  tipo: string,
-  qt: number,
+  descricao: string,
+  quantidade: number,
   valor_un: number,
   subtotal: number,
-  prazo: number
+  numeroRoupa: number
 }
 
 interface itemList {
-  tipo: string,
+  descricao: string,
   valor_un: number,
   categoria: string,
-  prazo: number
+  prazo: number,
+  numero: number
+}
+
+interface Categoria {
+  numero: string;
+  descricao: string;
 }
 
 @Component({
@@ -31,25 +37,12 @@ export class PedidoComponent implements OnInit {
 
 
   carrinho: itemCarrinho[] = [];
-
-  lista_de_items: itemList[] = [
-    { tipo: "Batina", valor_un: 10, categoria: "Blusas", prazo: 10 },
-    { tipo: "Blusa Regata", valor_un: 15, categoria: "Blusas", prazo: 12 },
-    { tipo: "Blusa Cropped", valor_un: 12, categoria: "Blusas", prazo: 13 },
-    { tipo: "Blusa Comum ", valor_un: 10, categoria: "Blusas", prazo: 14 },
-    { tipo: "Calça Jeans", valor_un: 14, categoria: "Calças", prazo: 15 },
-    { tipo: "Calça Social", valor_un: 16, categoria: "Calças", prazo: 11 },
-    { tipo: "Camisa Social", valor_un: 14, categoria: "Camisas", prazo: 10 },
-    { tipo: "Camiseta manga longa", valor_un: 15, categoria: "Camisas", prazo: 9 },
-    { tipo: "Camiseta manga curta ", valor_un: 13, categoria: "Camisas", prazo: 8 },
-    { tipo: "Casaco Simples", valor_un: 30, categoria: "Casacos", prazo: 7 },
-    { tipo: "Casaco Longo", valor_un: 35, categoria: "Casacos", prazo: 12 },
-    { tipo: "Jaqueta Simples", valor_un: 40, categoria: "Casacos", prazo: 15 }
-  ]
+  categorias: Categoria[] = [];
+  lista_de_items: any;
   total: number = 0;
   prazoMax: number = 0;
 
-  constructor(private modalService: NgbModal) {
+  constructor(private modalService: NgbModal, private PedidoService: PedidoService) {
   }
 
   orcamento() {
@@ -85,39 +78,41 @@ export class PedidoComponent implements OnInit {
 
   changeItemValue(index: number, operation: string) {
     if (operation == 'up') {
-      this.carrinho[index].qt += 1;
-      this.carrinho[index].subtotal = this.carrinho[index].qt * this.carrinho[index].valor_un;
+      this.carrinho[index].quantidade += 1;
+      this.carrinho[index].subtotal = this.carrinho[index].quantidade * this.carrinho[index].valor_un;
       this.updateTotal();
     } else {
-      this.carrinho[index].qt -= 1;
-      if (this.carrinho[index].qt <= 0) {
+      this.carrinho[index].quantidade -= 1;
+      if (this.carrinho[index].quantidade <= 0) {
         this.carrinho.splice(index, 1);
       }
       else {
-        this.carrinho[index].subtotal = this.carrinho[index].qt * this.carrinho[index].valor_un;
+        this.carrinho[index].subtotal = this.carrinho[index].quantidade * this.carrinho[index].valor_un;
       }
       this.updateTotal();
     }
   }
 
-  addItem(item: itemList) {
+  addItem(event: any) {
+    let item = event as itemList;
     for (let x = 0; x < this.carrinho.length; x++) {
-      if (this.carrinho[x].tipo == item.tipo) {
-        this.carrinho[x].qt += 1;
+      if (this.carrinho[x].descricao == item.descricao) {
+        this.carrinho[x].quantidade += 1;
         this.carrinho[x].subtotal += this.carrinho[x].valor_un;
         this.updateTotal();
         return;
       }
     }
     this.carrinho.push({
-      tipo: item.tipo,
-      qt: 1,
+      numeroRoupa: item.numero,
+      descricao: item.descricao,
+      quantidade: 1,
       valor_un: item.valor_un,
       subtotal: 1 * item.valor_un,
-      prazo: item.prazo
+
     })
     this.updateTotal();
-    this.prazo();
+
   }
 
   updateTotal() {
@@ -127,22 +122,41 @@ export class PedidoComponent implements OnInit {
     }
   }
 
-  prazo() {
-    console.log(this.carrinho);
-    for (let x = 0; x < this.carrinho.length; x++) {
-      if (this.carrinho[x].prazo > this.prazoMax) {
-        this.prazoMax = this.carrinho[x].prazo;
-      }
-    }
-    console.log(this.prazoMax);
-  }
 
   limparItens() {
     this.carrinho = [];
     this.total = 0;
   }
+  async requestRoupas() {
+    const response: any = await this.PedidoService.getRoupas();
+    this.lista_de_items = response;
+  }
 
-  ngOnInit(): void {
+  async requestCategorias() {
+    const response: any = await this.PedidoService.getCategorias();
+    this.categorias = response;
+  }
+
+  async ngOnInit(): Promise<void> {
+    await this.requestRoupas();
+    await this.requestCategorias();
+    console.log('ngOnInit: ' + this.lista_de_items);
+  }
+
+
+
+  async cadastrarPedido() {
+    const pedido = {
+      "carrinhos": this.carrinho
+    }
+
+    console.log(pedido)
+    await this.PedidoService.postPedido(pedido).then((response: any) => {
+      alert("Pedido Cadastrado com sucesso!")
+    }).catch((error) => {
+      alert("Erro ao cadastrar Pedido!");
+    })
 
   }
+
 }

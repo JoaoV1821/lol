@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.lavanderiabackend.models.Cadastro.DTO.CadastroDTO;
+import com.example.lavanderiabackend.models.Pedido.DTO.PedidoBody;
 import com.example.lavanderiabackend.models.Pedido.DTO.PedidoStatus;
 import com.example.lavanderiabackend.wrappers.CarrinhoWrapper;
 import com.example.lavanderiabackend.wrappers.StringWrapper;
@@ -67,8 +68,15 @@ public class UsuarioController {
         }
     }
 
+    @GetMapping("/get/pedido")
+    public ResponseEntity<PedidoBody> getPedido(@RequestParam(required = false) String numeroPedido) {
+        PedidoBody pedido = cadastroService.getPedido(numeroPedido);
+        return ResponseEntity.ok().body(pedido);
+    }
+
     @GetMapping("/deletar/pedido")
-    public ResponseEntity<Object> deletarPedido(@RequestBody StringWrapper numero_pedido) {
+    public ResponseEntity<Object> deletarPedido(
+            @RequestBody StringWrapper numero_pedido) {
         cadastroService.deletarPedido(numero_pedido.getString());
         return ResponseEntity.ok().build();
     }

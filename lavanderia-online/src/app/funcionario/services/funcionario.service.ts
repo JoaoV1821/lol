@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { RequestMaker } from 'src/app/services/requestService';
 import { Cadastro, Endereco } from 'src/app/shared';
 
+import axios from 'axios';
 import { Funcionario } from 'src/app/shared/models/funcionario.model';
 
 const LS_CHAVE: string = "funcionario";
@@ -67,4 +68,11 @@ export class FuncionarioService {
     }
   }
 
+  getCep(cep: string) {
+    return axios.get(`https://viacep.com.br/ws/${cep}/json/`, {
+      headers: {
+        "Content-Type": 'application/json'
+      }
+    })
+  }
 }

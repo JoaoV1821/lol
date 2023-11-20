@@ -73,10 +73,6 @@ public class AuthenticationController {
 
     @PostMapping("/register")
     public ResponseEntity<String> register(@Valid @RequestBody UserDTO data) {
-        System.out.println("LInha");
-        System.out.println(data.getNome());
-        System.out.println(data.getEmail());
-        System.out.println(data.getDataNasc());
         if (this.cadastroRepository.findByEmail(data.getEmail()).isPresent())
             throw new UserAlreadyExistsException("Email já existe!");
         Cadastro cadastro = new Cadastro(data);

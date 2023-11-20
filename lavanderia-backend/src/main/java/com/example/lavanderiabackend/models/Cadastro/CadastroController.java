@@ -28,10 +28,7 @@ public class CadastroController {
 
     @PostMapping("/get/cadastro")
     public ResponseEntity<CadastroDTO> getCadastro(@Valid @RequestBody StringWrapper cpf) {
-        System.out.println(cpf.getString());
-        // CadastroDTO cadastroDTO = cadastroService.getCadastro(cpf.getString());
         return null;
-        // return ResponseEntity.ok().body(cadastroDTO);
     }
 
     @GetMapping("/get/topcadastros")
@@ -72,7 +69,6 @@ public class CadastroController {
 
     @PostMapping("/delete/cadastro")
     public ResponseEntity<Object> deleteCadastro(@Valid @RequestBody StringWrapper cpf) {
-        System.out.println(cpf.getString());
         cadastroService.deleteCadastro(cpf.getString());
         return ResponseEntity.noContent().build();
     }

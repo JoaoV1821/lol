@@ -10,4 +10,6 @@ public interface RoupaRepository extends JpaRepository<Roupa, Long> {
     public Optional<Roupa> findByNumero(String numero_roupa);
 
     public Optional<Roupa> findByDescricao(String descricao);
+
+    public Optional<Roupa> findTopByOrderByNumeroDesc();
 }

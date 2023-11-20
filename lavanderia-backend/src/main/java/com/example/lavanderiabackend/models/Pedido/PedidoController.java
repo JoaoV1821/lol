@@ -34,6 +34,13 @@ public class PedidoController {
         return pedidoService.getPedidoList(dataInicial, dataPrazo, status);
     }
 
+    @GetMapping("/get/receita")
+    public Double getReceita(@RequestParam(required = false) String dataInicial,
+            @RequestParam(required = false) String dataFinal) {
+        return pedidoService.getReceita(dataInicial, dataFinal);
+
+    }
+
     @PostMapping("/get/pedido")
     public PedidoBody getPedido(@RequestBody NumeroPedidoWrapper numero_pedido) {
         return pedidoService.getPedido(numero_pedido.getNumero());

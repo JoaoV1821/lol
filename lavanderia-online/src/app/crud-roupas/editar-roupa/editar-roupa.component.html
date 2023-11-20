@@ -1,23 +1,11 @@
 <div class="container">
   <h1>Editar Roupa</h1>
   <div class="well">
-    <form #formRoupa="ngForm">
+    <form #formRoupa="ngForm" (ngSubmit)="atualizar(formRoupa)">
       <div class="form-group">
         <label for="nome">Nome:</label>
-        <input
-          type="text"
-          class="form-control"
-          id="nome"
-          name="nome"
-          minlength="2"
-          required
-          [(ngModel)]="roupa.nome"
-          #nome="ngModel"
-        />
-        <div
-          class="alert alert-danger"
-          *ngIf="nome.errors && (nome.dirty || nome.touched)"
-        >
+        <input type="text" class="form-control" id="nome" name="nome" minlength="2" required #nome="ngModel" ngModel />
+        <div class="alert alert-danger" *ngIf="nome.errors && (nome.dirty || nome.touched)">
           <div [hidden]="!nome.errors['required']">Digite o nome da roupa.</div>
           <div [hidden]="!nome.errors['minlength']">
             O nome deve conter ao menos 2 caracteres.
@@ -27,58 +15,36 @@
 
       <div class="form-group">
         <label for="preco">Preço:</label>
-        <input
-          type="text"
-          class="form-control"
-          id="preco"
-          name="preco"
-          required
-          [(ngModel)]="roupa.preco"
-          #preco="ngModel"
-        />
-        <div
-          class="alert alert-danger"
-          *ngIf="preco.errors && (preco.dirty || preco.touched)"
-        >
+        <input type="text" class="form-control" id="preco" name="preco" required #preco="ngModel" ngModel />
+        <div class="alert alert-danger" *ngIf="preco.errors && (preco.dirty || preco.touched)">
           <div [hidden]="!preco.errors['required']">Digite o preço.</div>
         </div>
       </div>
 
       <div class="form-group">
         <label for="nome">Prazo:</label>
-        <input
-          type="text"
-          class="form-control"
-          id="prazo"
-          name="prazo"
-          required
-          [(ngModel)]="roupa.prazo"
-          #prazo="ngModel"
-        />
-        <div
-          class="alert alert-danger"
-          *ngIf="prazo.errors && (prazo.dirty || prazo.touched)"
-        >
+        <input type="text" class="form-control" id="prazo" name="prazo" required #prazo="ngModel" ngModel />
+        <div class="alert alert-danger" *ngIf="prazo.errors && (prazo.dirty || prazo.touched)">
           <div [hidden]="!prazo.errors['required']">Digite o prazo.</div>
         </div>
       </div>
 
-      <div class="form-group" style="margin-top: 5px">
-        <button
-          type="button"
-          class="btn btn-primary"
-          (click)="atualizar()"
-          [disabled]="!formRoupa.form.valid"
-        >
-          <i class="fa fa-save" aria-hidden="true"></i> Atualizar
-        </button>
-        <a
-          class="btn btn-secondary"
-          style="margin-left: 5px"
-          [routerLink]="['/roupas']"
-        >
-          <i class="fa fa-arrow-left" aria-hidden="true"></i> Voltar
-        </a>
+      <div class="form-group">
+        <label for="categoria">Categoria:</label>
+        <select required class="form-select  mb-4" name="categoria" #categoria [value]="categoria" ngModel>
+          <option *ngFor="let categoria of categorias;" [value]="categoria.numero">{{categoria.descricao}}
+          </option>
+        </select>
+
+        <div class="form-group" style="margin-top: 5px">
+          <button type="submit" class="btn btn-primary" [disabled]="!formRoupa.form.valid">
+            <i class="fa fa-save" aria-hidden="true"></i> Atualizar
+          </button>
+          <a class="btn btn-secondary" style="margin-left: 5px" [routerLink]="['/roupas']">
+            <i class="fa fa-arrow-left" aria-hidden="true"></i> Voltar
+          </a>
+        </div>
+
       </div>
     </form>
   </div>

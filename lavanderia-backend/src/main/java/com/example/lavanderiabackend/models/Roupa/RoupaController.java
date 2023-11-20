@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.lavanderiabackend.models.Roupa.DTO.AddRoupaDTO;
 import com.example.lavanderiabackend.models.Roupa.DTO.RoupaDTO;
+import com.example.lavanderiabackend.wrappers.StringWrapper;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -24,6 +26,12 @@ public class RoupaController {
         this.roupaService = roupaService;
     }
 
+    @PostMapping("/delete/roupa")
+    public ResponseEntity<Object> deleteRoupa(@RequestBody StringWrapper numero) {
+        roupaService.deleteRoupa(numero.getString());
+        return ResponseEntity.noContent().build();
+    }
+
     @GetMapping("/get/roupas")
     public List<RoupaDTO> getRoupas() {
         return roupaService.getRoupas();
@@ -35,9 +43,15 @@ public class RoupaController {
     }
 
     @PostMapping("/update/roupa")
-    public ResponseEntity<Integer> updateRoupa(@RequestBody RoupaDTO modelo) {
+    public ResponseEntity<Integer> updateRoupa(@RequestBody AddRoupaDTO modelo) {
         roupaService.addOrUpdateRoupa(modelo);
         return ResponseEntity.ok(200);
+    }
+
+    @PostMapping("/add/roupa")
+    public ResponseEntity<Object> addRoupa(@RequestBody AddRoupaDTO modelo) {
+        roupaService.addOrUpdateRoupa(modelo);
+        return ResponseEntity.noContent().build();
     }
 
     @PostMapping("/update/categoria")

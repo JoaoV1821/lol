@@ -46,4 +46,5 @@ export class LoginComponent implements OnInit {
   setErro(valor: boolean) {
     this.erro = valor;
   }
+
 }

@@ -8,101 +8,91 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-md n navbar-dark bg-dark"
+    <nav *ngIf="loginService.usuarioLogado()" class="navbar navbar-expand-md n navbar-dark bg-dark mb-3"
         style="border-bottom: 1px; box-shadow: 0 0 10px 1px #5a57ff;">
+
         <a class="navbar-brand" href="#" routerLink="/home"><img src="../assets/logoLol.png" width="100" alt="Logo"
                 style="margin-right: 7px; padding-left: 20px;"></a>
 
-        <div *ngIf="loginService.usuarioLogado()" class="navbar-collapse collapsed justify-content-between"
-            id="navbarContent">
+        <div class="navbar-collapse collapsed justify-content-between" id="navbarContent">
             <ul class="navbar-nav ml-auto">
-
+                <!--
                 <li class="nav-item">
                     <a class="nav-link" href="#" routerLink="/home">Página Inicial</a>
                 </li>
 
-                <!-- <li class="nav-item">
+                <li class="nav-item">
                     <a class="nav-link" href="#" routerLink="/autocadastro">Cadastro</a>
-                </li> -->
-
-                <li class="nav-item">
-                    <!-- *ngIf="user.perfil==='admin' || user.perfil==='funcionario'" -->
-                    <a class="nav-link" href="#" routerLink="/funcionario">Funcionarios</a>
+                </li>
+                -->
+                <li *ngIf="user == null ">
+                    <a class="nav-link" href="#">Link</a>
                 </li>
 
-                <li class="nav-item">
-                    <a class="nav-link" href="#" routerLink="/consulta-pedido">Consulta Pedidos</a>
+                <li *ngIf="user?.perfil==='admin' || user?.perfil==='cliente'" class="nav-item">
+                    <a class="nav-link" href="#" routerLink="/consulta-pedido">Consultar Pedidos</a>
                 </li>
 
-                <li class="nav-item">
-                    <a class="nav-link" href="#" routerLink="/orcamento">Orçamento</a>
+                <li *ngIf="user?.perfil==='admin' || user?.perfil==='cliente'" class="nav-item">
+                    <a class="nav-link" href="#" routerLink="/realizar-pedido">Realizar Pedido</a>
                 </li>
 
-                <li class="nav-item">
-                    <a class="nav-link" href="#" routerLink="/listagem">Listagem</a>
+                <li *ngIf="user?.perfil==='admin' || user?.perfil==='cliente'" class="nav-item">
+                    <a class="nav-link" href="#" routerLink="/orcamento">Orçamentos</a>
                 </li>
 
-                <li class="nav-item">
-                    <a class="nav-link" href="#" routerLink="/pagamento">Pagamento</a>
+                <li *ngIf="user?.perfil==='admin' || user?.perfil==='cliente'" class="nav-item">
+                    <a class="nav-link" href="#" routerLink="/seus-pedidos">Seus Pedidos</a>
+                </li>
+                <!--
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" routerLink="/pagamento">Pagamento</a>
+                    </li>
+                -->
+                <li *ngIf="user?.perfil==='admin' || user?.perfil==='funcionario'" class="nav-item">
+                    <a class="nav-link" href="#" routerLink="/listagemF">Listagem</a>
                 </li>
 
-                <li class="nav-item">
-                    <a class="nav-link" href="#" routerLink="/pedido">Pedidos</a>
-                </li>
-
-                <li class="nav-item">
+                <li *ngIf="user?.perfil==='admin' || user?.perfil==='funcionario'" class="nav-item">
                     <a class="nav-link" href="#" routerLink="/roupas">Roupas</a>
                 </li>
 
-                <li class="nav-item">
+                <li *ngIf="user?.perfil==='admin' || user?.perfil==='funcionario'" class="nav-item">
+                    <a class="nav-link" href="#" routerLink="/funcionario">Lista de Funcionarios</a>
+                </li>
+
+                <li *ngIf="user?.perfil==='admin' || user?.perfil==='funcionario'" class="nav-item">
                     <a class="nav-link" href="#" routerLink="/prototipos/rf012">Prop</a>
                 </li>
 
-                <li class="nav-item">
-                    <a class="nav-link" href="#" routerLink="/listagemf">ListagemF</a>
-                </li>
-
-                <li class="nav-item">
+                <li *ngIf="user?.perfil==='admin' || user?.perfil==='funcionario'" class="nav-item">
                     <a class="nav-link" href="#" routerLink="/relatorios">Relatórios</a>
                 </li>
 
-                <li class="nav-item">
+                <li *ngIf="user?.perfil==='admin' || user?.perfil==='funcionario'" class="nav-item">
                     <a class="nav-link" href="/api/index">Api</a>
                 </li>
-
-                <!-- <li class=" nav-item" ngbDropdown>
-
-                    <a class="nav-link" tabindex="0" ngbDropdownToggle id="navbarDropdown1" role="button">Cadastros</a>
-
-                    <div ngbDropdownMenu aria-labelledby="navbarDropdown1" class="dropdown-menu">
-
-                        <a ngbDropdownItem href="#" routerLink="/cadastro"
-                            (click)="$event.preventDefault()">Clientes</a>
-
-                        <a ngbDropdownItem href="#" routerLink="/endereco"
-                            (click)="$event.preventDefault()">Endereços</a>
-
-                        <a ngbDropdownItem href="#" routerLink="/cidade" (click)="$event.preventDefault()">Cidades</a>
-
-                        <a ngbDropdownItem href="#" routerLink="/estado" (click)="$event.preventDefault()">Estados</a>
-
-                    </div>
-
-                </li> -->
-
             </ul>
-
-            <ul *ngIf="loginService.getUsuario()" class="navbar-nav ml-auto">
+            <ul *ngIf="loginService.getUsuario()" class="navbar-nav ml-auto px-2 mx-2">
                 <li class="nav-item">
                     <a class="nav-link" href="#" (click)="logout()">Logout</a>
                 </li>
                 <li class="nav-item">
-                    <p class="navbar-text mb-0 text-white">
+                    <p class="navbar-text mb-0 text-white px-2 mx-2">
                         <i class="fa fa-user"></i> {{ loginService.getUsuario()?.nome| uppercase}}
                     </p>
                 </li>
             </ul>
-
+            <!-- <div class="col">
+                <div class="row" style="max-height: 30%">
+                    <p class="navbar-text mb-0 text-white">
+                        <i class="fa fa-user"></i> {{ loginService.getUsuario()?.nome| uppercase}}
+                    </p>
+                </div>
+                <div class="row">
+                    <a href="#" (click)="logout()">Logout</a>
+                </div>
+            </div> -->
         </div>
 
     </nav>

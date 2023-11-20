@@ -1,5 +1,7 @@
 import { Component, ElementRef, ViewChild, OnInit, NgModule } from '@angular/core';
 import * as jsPDF from 'jspdf';
+import { TopCliente } from 'src/app/shared/models/top-cliente.model';
+import { RelatoriosService } from '../service/relatorios.service';
 
 export interface ClienteRelatorio {
   number: number,
@@ -9,7 +11,11 @@ export interface ClienteRelatorio {
   email: string
 }
 
-
+export interface Receita {
+  dataInicio: string,
+  dataFim: string,
+  valorTotal: number
+}
 
 @Component({
   selector: 'app-relatorios',
@@ -20,7 +26,7 @@ export interface ClienteRelatorio {
 
 
 export class RelatoriosComponent {
-  constructor() { }
+  constructor(private relatorioService: RelatoriosService) { }
 
   mostrarListaClientes = false;
   mostrarListaTopClientes = false;
@@ -28,7 +34,8 @@ export class RelatoriosComponent {
 
   @ViewChild("dateInput2") dateInput2: any
   @ViewChild("dateInput1") dateInput1: any;
-
+  clientes!: ClienteRelatorio[];
+  topClientes!: TopCliente[]
   dataIni = ''
   dataFi = ''
 
@@ -39,65 +46,64 @@ export class RelatoriosComponent {
       valorTotal: 546789
     }
   ];
+  /*
+    topClientes = [
+  
+      {
+        number: 1,
+        nome: 'João',
+        qtd: "2",
+        receita: "300"
+      },
+  
+      {
+        number: 2,
+        nome: 'José',
+        qtd: "2",
+        receita: "300"
+      },
+  
+      {
+        number: 3,
+        nome: 'Joana',
+        qtd: "2",
+        receita: "300"
+      }
+    ];
+  */
 
-  topClientes = [
-
-    {
-      number: 1,
-      nome: 'João',
-      qtd: "2",
-      receita: "300"
-    },
-
-    {
-      number: 2,
-      nome: 'José',
-      qtd: "2",
-      receita: "300"
-    },
-
-    {
-      number: 3,
-      nome: 'Joana',
-      qtd: "2",
-      receita: "300"
-    }
-  ];
-
-
-
-  clientes = [
-    {
-      number: 1, nome: 'João',
-      cpf: '123.456.789-00',
-      telefone: '99999-9999',
-      email: 'example@mail.com',
-    },
-    {
-      number: 2,
-      nome: 'José',
-      cpf: '987.654.321-00',
-      telefone: '99999-8888',
-      email: 'joao@mail.com',
-    },
-    {
-      number: 3,
-      nome: 'Joana',
-      cpf: '987.654.321-00',
-      telefone: '99999-8888',
-      email: 'joao@mail.com',
-    },
-
-    {
-      number: 4,
-      nome: 'Joaquina',
-      cpf: '987.654.321-00',
-      telefone: '99999-8888',
-      email: 'joao@mail.com',
-    },
-
-  ];
-
+  /* clientes = [
+     {
+       number: 1, nome: 'João',
+       cpf: '123.456.789-00',
+       telefone: '99999-9999',
+       email: 'example@mail.com',
+     },
+     {
+       number: 2,
+       nome: 'José',
+       cpf: '987.654.321-00',
+       telefone: '99999-8888',
+       email: 'joao@mail.com',
+     },
+     {
+       number: 3,
+       nome: 'Joana',
+       cpf: '987.654.321-00',
+       telefone: '99999-8888',
+       email: 'joao@mail.com',
+     },
+  
+     {
+       number: 4,
+       nome: 'Joaquina',
+       cpf: '987.654.321-00',
+       telefone: '99999-8888',
+       email: 'joao@mail.com',
+     },
+  
+   ];
+  */
 
 
   ngOnInit(): void { }
@@ -106,8 +112,17 @@ export class RelatoriosComponent {
   @ViewChild('content') content: ElementRef | undefined;
 
 
+  async getTopCliente() {
+    this.gerarRelatorioClientesPDF();
+  }
 
-  gerarRelatorioPDF() {
+  async getCliente() {
+    this.clientes = await this.relatorioService.getRelatorio();
+  }
+
+
+  async gerarRelatorioPDF() {
+    this.clientes = await this.relatorioService.getRelatorio();
     if (!this.mostrarListaClientes) {
       this.mostrarListaClientes = true;
 
@@ -155,7 +170,9 @@ export class RelatoriosComponent {
     }
   }
 
-  gerarRelatorioClientesPDF() {
+  async gerarRelatorioClientesPDF() {
+    this.topClientes = await this.relatorioService.getTopClientes();
+    console.log(this.topClientes);
     if (!this.mostrarListaTopClientes) {
       this.mostrarListaTopClientes = true;
       const doc = new jsPDF.default();
@@ -189,8 +206,8 @@ export class RelatoriosComponent {
         startY += 10;
         doc.text(cliente.number.toString(), columns[0].x + 2, startY);
         doc.text(cliente.nome, columns[1].x + 2, startY);
-        doc.text(cliente.qtd, columns[2].x + 2, startY);
-        doc.text(cliente.receita, columns[3].x + 2, startY);
+        doc.text(cliente.qtd.toFixed(), columns[2].x + 2, startY);
+        doc.text(cliente.receita.toFixed(), columns[3].x + 2, startY);
       });
 
       // Salve o PDF
@@ -200,8 +217,12 @@ export class RelatoriosComponent {
     }
   }
 
+  private dataVazia(data: string) {
+    return data == "" || data == undefined || data == null || data.length == 0
+  }
 
   async gerarRelatorioReceita() {
+    let total = await this.relatorioService.getReceita(this.dateInput1.nativeElement.value, this.dateInput2.nativeElement.value);
     if (!this.mostrarReceita) {
       this.mostrarReceita = true;
       const doc = new jsPDF.default();
@@ -227,10 +248,16 @@ export class RelatoriosComponent {
 
       // Preencha os dados da tabela
       this.receita.forEach((row) => {
+
         startY += 10;
-        doc.text(new Date(this.dateInput1.nativeElement.value).toLocaleDateString('pt-br', { timeZone: 'UTC' }), columns[0].x + 2, startY);
-        doc.text(new Date(this.dateInput2.nativeElement.value).toLocaleDateString('pt-br', { timeZone: 'UTC' }), columns[1].x + 2, startY);
-        doc.text(row.valorTotal.toString(), columns[2].x + 2, startY);
+        let date1 = !this.dataVazia(this.dateInput1.nativeElement.value) ? new Date(this.dateInput1.nativeElement.value).toLocaleDateString('pt-br', { timeZone: 'UTC' })
+          : "Período completo";
+        let date2 = !this.dataVazia(this.dateInput2.nativeElement.value) ? new Date(this.dateInput2.nativeElement.value).toLocaleDateString('pt-br', { timeZone: 'UTC' })
+          : "Período completo";
+
+        doc.text(date1, columns[0].x + 2, startY);
+        doc.text(date2, columns[1].x + 2, startY);
+        doc.text(total.toString(), columns[2].x + 2, startY);
       });
 
       // Salve o PDF

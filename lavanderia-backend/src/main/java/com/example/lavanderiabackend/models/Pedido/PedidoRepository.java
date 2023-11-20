@@ -23,9 +23,11 @@ public interface PedidoRepository extends JpaRepository<Pedido, String> {
     @Query("SELECT p FROM Pedido p WHERE p.data >= :dataInicial ORDER BY p.data DESC")
     public List<Pedido> findAllByInitialDate(@Param("dataInicial") LocalDate dataInicial);
 
+    @Query("SELECT p FROM Pedido p WHERE p.data <= :dataFinal ORDER BY p.data DESC")
+    public List<Pedido> findAllByFinalDate(@Param("dataFinal") LocalDate dataFinal);
+
     @Query("SELECT p FROM Pedido p WHERE p.status >= :status ORDER BY p.data DESC")
     public List<Pedido> findAllByStatus(@Param("status") String status);
 
-    @Query("SELECT Cadastro c FROM Pedido p GROUP BY p.cadastro ORDER BY COUNT(pedido) ")
-    public List<Cadastro> findMax3Values();
+    public List<Pedido> findByCadastro(Cadastro cadastro);
 }

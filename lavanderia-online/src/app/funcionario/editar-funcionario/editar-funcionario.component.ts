@@ -12,6 +12,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class EditarFuncionarioComponent implements OnInit {
 
   @ViewChild("formFuncionario") formFuncionario!: NgForm;
+  cidade!: any;
+  cep!: any;
+  complemento!: any;
+  endereco!: any;
 
   funcionario!: Funcionario;
 
@@ -34,6 +38,18 @@ export class EditarFuncionarioComponent implements OnInit {
       this.funcService.atualizarFuncionario(this.funcionario);
       this.router.navigate(['/funcionario']);
     }
+  }
+
+  async requestCep() {
+    console.log(this.funcionario)
+    await this.funcService.getCep('83045100').then((response) => {
+      this.cidade = response.data.localidade;
+      this.endereco = response.data.logradouro;
+      this.complemento = response.data.complemento;
+
+    }).catch((error) => {
+      console.log(error.menssage);
+    })
   }
 
 }

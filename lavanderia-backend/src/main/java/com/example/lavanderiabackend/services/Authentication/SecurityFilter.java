@@ -44,9 +44,7 @@ public class SecurityFilter extends OncePerRequestFilter {
         if (token.isPresent()) {
             String subject = tokenService.validateToken(token.get());
             Optional<Cadastro> cadastro = cadastroRepository.findByEmail(subject);
-            System.out.println(cadastro.isEmpty());
             if (cadastro.isPresent()) {
-                System.out.println(cadastro.get().getNome());
                 UserDetails userDetails = cadastro.get();
                 // .orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado!"));
                 var authentication = new UsernamePasswordAuthenticationToken(userDetails, null,

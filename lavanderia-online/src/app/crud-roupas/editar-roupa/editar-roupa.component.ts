@@ -3,38 +3,51 @@ import { NgForm } from '@angular/forms';
 import { Roupa } from 'src/app/shared/models/roupa.model';
 import { CrudRoupasService } from '../services/crud-roupas.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Interface } from 'readline';
+import { Categoria } from 'src/app/shared/models/categoria.model';
+
+export interface roupaFormulario {
+  nome: string,
+  prazo: number,
+  preco: number
+}
+
 
 @Component({
   selector: 'app-editar-roupa',
   templateUrl: './editar-roupa.component.html',
   styleUrls: ['./editar-roupa.component.css']
 })
-export class EditarRoupaComponent implements OnInit{
+export class EditarRoupaComponent implements OnInit {
 
-  @ViewChild("formRoupa") formRoupa! : NgForm;
-  roupa! : Roupa;
-
+  @ViewChild("formRoupa") formRoupa!: NgForm;
+  roupa!: Roupa;
+  categorias!: Categoria[];
   constructor(
-    private roupaService : CrudRoupasService,
+    private roupaService: CrudRoupasService,
     private route: ActivatedRoute,
     private router: Router
-  ) {}
+  ) { }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
+    this.categorias = await this.roupaService.getCategorias();
     let id = +this.route.snapshot.params['id'];
-    const res = this.roupaService.buscarPorId(id);
-    if(res !== undefined){
-      this.roupa = res;
+    const roupa = await this.roupaService.buscarPorId(id);
+    if (roupa !== null) {
+      this.roupa = roupa;
     }
-    else{
-      throw new Error ("Roupa não encontrada: id = " + id);
+    else {
+      throw new Error("Roupa não encontrada: id = " + id);
     }
   }
 
-  atualizar() : void {
-    if(this.formRoupa.form.valid){
-      this.roupaService.atualizar(this.roupa);
-      this.router.navigate(['/roupas']);
-    }
+
+  atualizar(formulario: NgForm): void {
+
+    let roupa: roupaFormulario = this.formRoupa.value as roupaFormulario;
+
+    //this.roupaService.atualizar(roupa);
+    //this.router.navigate(['/roupas']);
+
   }
 }

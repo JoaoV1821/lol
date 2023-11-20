@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -50,7 +51,7 @@
                                 <td>{{pedido.data}}</td>
                                 <td>{{pedido.prazo}}</td>
                                 <td class="td-button" [ngSwitch]="pedido.status">
-                                <!-- <td class="td-button"> -->
+                                    <!-- <td class="td-button"> -->
                                     <button *ngSwitchCase="'EM ABERTO'"
                                         class="btn btn-aberto">{{pedido.status}}</button>
                                     <button *ngSwitchCase="'RECOLHIDO'"
@@ -64,10 +65,13 @@
                                         class="btn btn-finalizado">{{pedido.status}}</button>
                                 </td>
                                 <td class="td-button">
-                                    <button *ngIf="pedido.status == 'RECOLHIDO'"
-                                        class="btn btn-success">Confirmar Lavagem</button>
+                                    <button *ngIf="pedido.status == 'RECOLHIDO'" class="btn btn-primary">Confirmar
+                                        Lavagem</button>
+                                    <button *ngIf="pedido.status == 'EM ABERTO'" class="btn btn-primary">Confirmar
+                                        Recolhimento</button>
                                     <button *ngIf="pedido.status == 'EM ABERTO'"
                                         class="btn btn-danger">Cancelar</button>
+                                    <button *ngIf="pedido.status == 'PAGO'" class="btn btn-success">Finalizar</button>
                                 </td>
                             </tr>
                         </ng-container>

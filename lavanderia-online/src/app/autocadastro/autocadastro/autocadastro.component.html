@@ -24,13 +24,13 @@
                                         <div>
                                             <label class="form-label mt-2" for="nome">Nome:</label>
                                             <input type="text" class="form-control inputlol text-left" id="nome"
-                                                #nome="ngModel" minlength="5" maxlength="60" name="nome" required
+                                                #nome="ngModel" minlength="2" maxlength="60" name="nome" required
                                                 ngModel>
                                             <div *ngIf="nome.errors && (nome.dirty || nome.touched)"
                                                 class="alert alert-danger">
                                                 <div [hidden]="!nome.errors['required']">Nome completo obrigatório.
                                                 </div>
-                                                <div [hidden]="!nome.errors['minlength']">O nome deve conter no mínimo 5
+                                                <div [hidden]="!nome.errors['minlength']">O nome deve conter no mínimo 2
                                                     caracteres.</div>
                                             </div>
                                         </div>

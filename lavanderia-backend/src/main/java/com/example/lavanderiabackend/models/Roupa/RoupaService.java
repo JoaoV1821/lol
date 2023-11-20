@@ -10,6 +10,7 @@ import com.example.lavanderiabackend.Exceptions.StandardNotFoundException;
 import com.example.lavanderiabackend.models.Carrinho.Carrinho;
 import com.example.lavanderiabackend.models.Categoria.Categoria;
 import com.example.lavanderiabackend.models.Categoria.CategoriaService;
+import com.example.lavanderiabackend.models.Roupa.DTO.AddRoupaDTO;
 import com.example.lavanderiabackend.models.Roupa.DTO.RoupaDTO;
 
 @Service
@@ -58,6 +59,37 @@ public class RoupaService {
         roupa.setCategoria(categoria);
         roupa.setId(id);
         roupaRepository.save(roupa);
+    }
+
+    public void addOrUpdateRoupa(AddRoupaDTO modelo) {
+        Roupa roupa = roupaRepository.findByDescricao(modelo.getDescricao()).orElse(null);
+        if (roupa == null) {
+            roupa = new Roupa();
+            Categoria categoria = categoriaService.getCategoria(modelo.getNumeroCategoria());
+            roupa.setCarrinhos(null);
+            roupa.setCategoria(categoria);
+            roupa.setDescricao(modelo.getDescricao());
+            roupa.setTempoDeLavagem(modelo.getTempoDeLavagem());
+            roupa.setValor(modelo.getValor());
+            Roupa ultimaRoupa = roupaRepository.findTopByOrderByNumeroDesc().orElse(null);
+            int numero;
+            if (ultimaRoupa == null) {
+                numero = 1;
+            } else {
+                numero = Integer.parseInt(ultimaRoupa.getNumero()) + 1;
+            }
+            String numero2 = addPadding(numero);
+            roupa.setNumero(numero2);
+            roupaRepository.save(roupa);
+        }
+    }
+
+    private String addPadding(Integer numero) {
+        String numeroString = numero.toString();
+        while (numeroString.length() < 4) {
+            numeroString = "0" + numeroString;
+        }
+        return numeroString;
     }
 
     public void updateCategoria(String numeroRoupa, String numeroCategoria) {

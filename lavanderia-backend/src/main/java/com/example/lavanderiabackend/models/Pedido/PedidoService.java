@@ -10,8 +10,6 @@ import org.springframework.stereotype.Service;
 
 import com.example.lavanderiabackend.Exceptions.StandardNotFoundException;
 import com.example.lavanderiabackend.models.Cadastro.Cadastro;
-import com.example.lavanderiabackend.models.Cadastro.DTO.CadastroDTO;
-import com.example.lavanderiabackend.models.Cadastro.DTO.TopCadastroDTO;
 import com.example.lavanderiabackend.models.Carrinho.Carrinho;
 import com.example.lavanderiabackend.models.Carrinho.CarrinhoRepository;
 import com.example.lavanderiabackend.models.Carrinho.DTOS.CarrinhoDTO;
@@ -45,6 +43,18 @@ public class PedidoService {
         return new PedidoBody(pedido);
     }
 
+    public PedidoBody getPedido(Cadastro cadastro, String numeroPedido) {
+        List<Pedido> pedidos = pedidoRepository.findByCadastro(cadastro);
+
+        for (Pedido pedido : pedidos) {
+            if (pedido.getNumero() == Long.parseLong(numeroPedido)) {
+                PedidoBody pedidoBody = new PedidoBody(pedido);
+                return pedidoBody;
+            }
+        }
+        throw new StandardNotFoundException("Pedido de numero" + numeroPedido + " não encontrado!");
+    }
+
     public List<PedidoBody> getPedidoList(String dataInicial, String dataPrazo, String status) {
         List<PedidoBody> pedidos = new ArrayList<PedidoBody>();
         if (dataInicial == null && dataPrazo == null && status == null) {
@@ -71,19 +81,32 @@ public class PedidoService {
         return pedidos;
     }
 
-    public List<TopCadastroDTO> getTopCadastros() {
-        List<Cadastro> cadastros = pedidoRepository.findMax3Values();
-        List<TopCadastroDTO> topCadastros = new ArrayList<>();
-        int contador = 1;
-        for (Cadastro cadastro : cadastros) {
-            TopCadastroDTO topCadastro = new TopCadastroDTO();
-            topCadastro.setNome(cadastro.getNome());
-            topCadastro.setNumber(contador);
-            topCadastro.setQtd(cadastro.getNumberOfPedidos());
-            topCadastro.setReceita(cadastro.getReceita());
-            contador++;
+    public Double getReceita(String data1, String data2) {
+        List<Pedido> pedidos = new ArrayList<>();
+        if (checkNull(data1) && checkNull(data2)) {
+            pedidos = pedidoRepository.findAll();
+        } else if (checkNull(data1)) {
+            pedidos = pedidoRepository.findAllByFinalDate(LocalDate.parse(data2));
+        } else if (checkNull(data2)) {
+            pedidos = pedidoRepository.findAllByInitialDate(LocalDate.parse(data1));
+        } else {
+            pedidos = pedidoRepository.findAllByDate(LocalDate.parse(data1), LocalDate.parse(data2));
         }
-        return topCadastros;
+        return this.calculaReceita(pedidos);
+    }
+
+    private Boolean checkNull(String value) {
+
+        return value == " " || value == null || value == "" || value == "''" ||
+                value.isEmpty() || value.isBlank();
+    }
+
+    private Double calculaReceita(List<Pedido> pedidos) {
+        Double total = 0.0;
+        for (Pedido pedido : pedidos) {
+            total += pedido.getTotal();
+        }
+        return total;
     }
 
     public List<PedidoInfo> getPedidoInfoList(String dataInicial, String dataPrazo) {

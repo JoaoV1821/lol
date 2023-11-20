@@ -66,8 +66,10 @@
 
             <div>
                 <label for="cep">CEP:</label>
+                <button class="btn btn-outline-secondary" (click)="requestCep()" type="button" id="button-addon1"><img
+                        src="../../../assets/search.svg" alt=""></button>
                 <input type="text" class="form-control" ngModel name="cep" id="cep" #cep="ngModel" minlength="8"
-                    mask="00.000-000" required>
+                    mask="00000-000" required>
                 <div *ngIf="cep.errors && (cep.dirty || cep.touched)" class="alert alert-danger">
                     <div [hidden]="!cep.errors['required']">CEP obrigatório.</div>
                     <div [hidden]="!cep.errors['minlength']">O cep deve conter ao menos 8 digitos</div>
@@ -90,8 +92,7 @@
                 </div>
 
                 <label for="numero">Número:</label>
-                <input type="text" class="form-control" ngModel name="numero" id="numero" #numero="ngModel"
-                    minlength="8" required>
+                <input type="text" class="form-control" ngModel name="numero" id="numero" #numero="ngModel" required>
                 <div *ngIf="numero.errors && (numero.dirty || numero.touched)" class="alert alert-danger">
                     <div [hidden]="!numero.errors['required']">Número do endereço obrigatório.</div>
                 </div>

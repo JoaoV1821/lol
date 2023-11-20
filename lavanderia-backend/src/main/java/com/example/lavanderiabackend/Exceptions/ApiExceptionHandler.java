@@ -34,6 +34,18 @@ public class ApiExceptionHandler {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(body);
     }
 
+    @ExceptionHandler(StandardNotFoundException.class)
+    public ResponseEntity<ExceptionBody> notFound(StandardNotFoundException exception, WebRequest request) {
+
+        InvalidFieldExceptionBody body = new InvalidFieldExceptionBody(
+                Instant.now(),
+                HttpStatus.BAD_REQUEST.value(), "Campo inválido",
+                exception.getMessage(),
+                request.getContextPath(),
+                exception.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(body);
+    }
+
     @ExceptionHandler(InvalidFieldException.class)
     public ResponseEntity<ExceptionBody> fieldNotValid(InvalidFieldException exception, WebRequest request) {
 

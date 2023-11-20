@@ -2,6 +2,7 @@ package com.example.lavanderiabackend.models.Cadastro;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,6 @@ import com.example.lavanderiabackend.models.Carrinho.DTOS.CarrinhoDTO;
 import com.example.lavanderiabackend.models.Endereco.EnderecoService;
 import com.example.lavanderiabackend.models.Pedido.PedidoService;
 import com.example.lavanderiabackend.models.Pedido.DTO.PedidoBody;
-import com.example.lavanderiabackend.models.Pedido.DTO.PedidoDTO;
 import com.example.lavanderiabackend.services.Validation.CPFValidator;
 import com.example.lavanderiabackend.services.Validation.EmailValidator;
 import com.example.lavanderiabackend.services.Validation.Validator;
@@ -61,6 +61,12 @@ public class CadastroService {
         return cadastroDTOs;
     }
 
+    public PedidoBody getPedido(String numeroPedido) {
+        Cadastro cadastro = getLoggedUser();
+        PedidoBody pedidoBody = pedidoService.getPedido(cadastro, numeroPedido);
+        return pedidoBody;
+    }
+
     public void saveCadastro(CadastroDTO modelo) {
         if (cadastroRepository.findByCpf(modelo.getCpf()).isPresent()) {
             // updateCadastro(modelo);
@@ -77,7 +83,19 @@ public class CadastroService {
     }
 
     public List<TopCadastroDTO> getTopCadastros() {
-        List<TopCadastroDTO> topCadastroDTOs = pedidoService.getTopCadastros();
+        List<Cadastro> cadastros = cadastroRepository.findByPerfil(Papel.USER);
+        List<TopCadastroDTO> topCadastroDTOs = new ArrayList<>();
+        int index = 1;
+        Collections.sort(cadastros);
+        for (Cadastro cadastro : cadastros) {
+            TopCadastroDTO cadastroDTO = new TopCadastroDTO();
+            cadastroDTO.setNome(cadastro.getNome());
+            cadastroDTO.setNumber(index);
+            cadastroDTO.setQtd(cadastro.getNumberOfPedidos());
+            cadastroDTO.setReceita(cadastro.getReceita());
+            topCadastroDTOs.add(cadastroDTO);
+            index++;
+        }
         return topCadastroDTOs;
     }
 
@@ -183,10 +201,14 @@ public class CadastroService {
 
     private Cadastro getCadastroFromToken() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        Cadastro cadastro = cadastroRepository.findByEmail(userDetails.getUsername())
-                .orElseThrow(() -> new UserNotFoundException("Usuario não existe!"));
-        return cadastro;
+        try {
+            UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+            Cadastro cadastro = cadastroRepository.findByEmail(userDetails.getUsername())
+                    .orElseThrow(() -> new UserNotFoundException("Usuario não existe!"));
+            return cadastro;
+        } catch (Exception e) {
+            throw new UserNotFoundException("Usuario não existe!");
+        }
     }
 
 }

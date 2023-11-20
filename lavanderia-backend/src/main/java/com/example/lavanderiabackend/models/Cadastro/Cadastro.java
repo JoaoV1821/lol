@@ -35,7 +35,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Cadastro implements UserDetails {
+public class Cadastro implements UserDetails, Comparable<Cadastro> {
     @Id
     @SequenceGenerator(name = "cadastro_sequence", sequenceName = "cadastro_sequence", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "cadastro_sequence")
@@ -148,5 +148,16 @@ public class Cadastro implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    @Override
+    public int compareTo(Cadastro o) {
+        Cadastro cadastro = (Cadastro) o;
+        if (this.getNumberOfPedidos() == cadastro.getNumberOfPedidos()) {
+            return 0;
+        } else if (this.getNumberOfPedidos() > cadastro.getNumberOfPedidos()) {
+            return 1;
+        }
+        return -1;
     }
 }

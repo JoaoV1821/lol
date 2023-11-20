@@ -40,6 +40,8 @@
                             <th>Data</th>
                             <th>Prazo</th>
                             <th>Status</th>
+                            <th></th>
+                            <th></th>
                             <!--<th>Ação</th>-->
                         </tr>
                     </thead>
@@ -68,23 +70,33 @@
                                 </td>
                             </ng-container> -->
                             <td class="td-button">
-                                <button class="btn btn-success"
-                                    [disabled]="pedido.status != 'AGUARDANDO PAGAMENTO' || 'EM ABERTO'">Pagar</button>
-                                <!-- <button *ngIf="pedido.status == 'AGUARDANDO PAGAMENTO' || 'EM ABERTO'"
-                                    class="btn btn-success">Pagar</button>
-                                 <button *ngIf="pedido.status != 'AGUARDANDO PAGAMENTO' || 'EM ABERTO'"
-                                    class="btn disabled">Pagar</button> -->
+                                <a [routerLink]="['/pagamento', pedido.numero]" class="btn btn-success"
+                                    *ngIf="pedido.status === 'AGUARDANDO PAGAMENTO' || pedido.status === 'EM ABERTO'">
+                                    Pagar
+                                </a>
+                                <button class="btn disabled"
+                                    *ngIf="pedido.status !== 'AGUARDANDO PAGAMENTO' && pedido.status !== 'EM ABERTO'">
+                                    Pagar
+                                </button>
                             </td>
+
                             <td class="td-button">
-                                <button *ngIf="pedido.status == 'EM ABERTO'" class="btn btn-danger">Cancelar</button>
-                                <button *ngIf="pedido.status != 'EM ABERTO'" class="btn disabled">Cancelar</button>
+                                <button class="btn btn-danger" *ngIf="pedido.status === 'EM ABERTO'"
+                                    (click)="alterarStatus(pedido)">
+                                    Cancelar
+                                </button>
+                                <button class="btn disabled" *ngIf="pedido.status !== 'EM ABERTO'">
+                                    Cancelar
+                                </button>
                             </td>
+
                         </tr>
                         <!--  </ng-container> -->
                     </tbody>
                 </table>
             </div>
         </div>
+        <p *ngIf="dados.length == 0">Não foram encontrados pedidos</p>
     </div>
 </body>
 

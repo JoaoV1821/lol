@@ -1,4 +1,4 @@
-<h1>LISTA DE FUNCIONARIOS</h1>
+<h1>Lista de Funcionário</h1>
 
 <div class="container">
 
@@ -23,7 +23,7 @@
 
             <tr *ngFor="let funcionario of funcionarios">
                 <td>{{funcionario.nome}}</td>
-                <td>{{funcionario.cpf}}</td>
+                <td>{{funcionario.cpf | mask:'000.000.000-00'}}</td>
                 <td>{{funcionario.email}}</td>
                 <td>{{funcionario.telefone}}</td>
                 <td>{{funcionario.dataNasc}}</td>

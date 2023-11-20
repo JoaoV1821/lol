@@ -11,22 +11,19 @@ import { Roupa } from 'src/app/shared/models/roupa.model';
 
 export class ListarRoupasComponent implements OnInit {
 
-  roupas : Roupa[] = [];
+  roupas: Roupa[] = [];
 
-  constructor(private roupaService : CrudRoupasService){ }
-  ngOnInit(): void {
-    this.roupas = this.listarTodos();
+  constructor(private roupaService: CrudRoupasService) { }
+  async ngOnInit(): Promise<void> {
+    this.roupas = await this.roupaService.getRoupas();
   }
 
-  listarTodos() : Roupa[]{
-    return this.roupaService.listarTodos();
-  }
 
-  remover($event : any, roupa : Roupa) : void{
+  async remover($event: any, roupa: Roupa): Promise<void> {
     $event.preventDefault();
-    if(confirm(`Deseja remover a roupa ${roupa.nome}?`)){
-      this.roupaService.remover(roupa.id!);
-      this.roupas = this.listarTodos();
+    if (confirm(`Deseja remover a roupa ${roupa.descricao}?`)) {
+      await this.roupaService.remover(Roupa.getNumberAsString(roupa.numero));
+      this.roupas = await this.roupaService.getRoupas();
     }
   }
 }

@@ -16,6 +16,7 @@ public class RoupaDTO {
     public String descricao;
     public Double valor;
     public String numeroCategoria;
+    public String categoria;
     public Long tempoDeLavagem;
 
     public RoupaDTO(Roupa roupa) {
@@ -24,6 +25,15 @@ public class RoupaDTO {
         this.valor = roupa.valor;
         this.numeroCategoria = roupa.categoria.getNumero();
         this.tempoDeLavagem = roupa.getTempoDeLavagem();
+        this.categoria = roupa.getCategoria().getDescricao();
+    }
+
+    public RoupaDTO(String string, String string2, double d, String string3, long l) {
+        this.numero = string;
+        this.descricao = string2;
+        this.valor = d;
+        this.numeroCategoria = string3;
+        this.tempoDeLavagem = l;
     }
 
 }

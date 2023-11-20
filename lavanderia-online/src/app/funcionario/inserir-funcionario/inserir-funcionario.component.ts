@@ -14,8 +14,12 @@ import { Endereco } from 'src/app/shared';
 export class InserirFuncionarioComponent implements OnInit {
 
   @ViewChild('formFuncionario') formFuncionario!: NgForm;
-
+  cep!: any;
+  complemento!: any;
+  endereco!: any;
+  cidade: any;
   funcionario!: Funcionario;
+
   constructor(
     private funcService: FuncionarioService,
     private router: Router
@@ -46,5 +50,14 @@ export class InserirFuncionarioComponent implements OnInit {
     if (this.formFuncionario.form.valid) {
       this.funcService.inserirFuncionario(funcionario);
     }
+  }
+
+  requestCep() {
+    let value = this.cep as string
+    value.replace('-', '')
+    this.funcService.getCep(this.cep).then((response) => {
+      this.cidade = response.data.cidade;
+      this.endereco = response.data.endereco;
+    })
   }
 }

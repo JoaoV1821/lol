@@ -18,7 +18,7 @@ export class PaginaInicialComponent implements OnInit {
   }
 
   async ngOnInit(): Promise<void> {
-    let response = await RequestMaker.getData<Pedido[]>("/usuario/get/pedidos");
+    let response = await RequestMaker.getData<Pedido[]>("/usuario/get/pedidos?status=em%20aberto");
     if (response.ok(response.data)) {
       this.pedidos = response.data;
     } else {
@@ -28,7 +28,7 @@ export class PaginaInicialComponent implements OnInit {
 
   async alterarStatus(pedido: Pedido) {
 
-    if (confirm(`Deseja realmente remover o pedido ${pedido.numero}?`)) {
+    if (confirm(`Deseja realmente cancelar o pedido ${pedido.numero}?`)) {
 
       RequestMaker.postData<void>("/usuario/update/pedido/status", {
         numeroPedido: pedido.numero,

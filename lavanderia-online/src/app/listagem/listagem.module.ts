@@ -4,6 +4,8 @@ import { NgSwitch } from '@angular/common';
 import { ListagemComponent } from './listagem/listagem.component';
 import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
 import { Format } from '../shared/pipes/format';
+import { RouterModule } from '@angular/router';
+
 @NgModule({
   declarations: [
     ListagemComponent,
@@ -15,7 +17,7 @@ import { Format } from '../shared/pipes/format';
     NgxMaskDirective,
     NgxMaskPipe,
     NgSwitch,
-
+    RouterModule
   ],
   exports: [
     ListagemComponent

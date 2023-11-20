@@ -3,7 +3,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { PedidoService } from '../services';
 
 interface itemList {
-  tipo: string,
+  descricao: string,
   valor_un: number,
   categoria: string,
   prazo: number

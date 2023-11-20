@@ -48,21 +48,9 @@ export class AutocadastroComponent implements OnInit {
   }
 
   async realizarCadastro(formulario: NgForm) {
-    console.log("Dados:");
-    console.log(formulario.value);
     let dados: FormularioData = formulario.value;
     dados = this.autoCadastroService.validadeFormulario(dados);
     this.autoCadastroService.postUser(dados);
-    let endereco = new Endereco(dados.cep, dados.cidade, dados.endereco, dados.numero, dados.complemento);
-    let cadastro = new Cadastro(dados.nome, dados.cpf, dados.telefone, dados.email, "cliente", "1234", dados.dataNasc, endereco);
-    //let result = await RequestMaker.postData<string>("/auth/register", cadastro);
-    return
-
-    /*if (result.error) {
-      console.log(result.error);
-    } else if (result.data) {
-      alert("Cadastro realizado! Sua senha é : " + result.data);
-    }*/
   }
 
 }

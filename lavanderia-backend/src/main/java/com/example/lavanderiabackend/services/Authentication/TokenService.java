@@ -15,30 +15,29 @@ public class TokenService {
     @Value("${api.security.token.secret}")
     private String secret;
 
-    public String generateToken(Cadastro cadastro){
-        try{
+    public String generateToken(Cadastro cadastro) {
+        try {
             Algorithm algorithm = Algorithm.HMAC256(secret);
             String token = JWT.create().withIssuer("lavanderia")
-            .withSubject(cadastro.getEmail())
-            .withExpiresAt(getExpirationDate())
-            .sign(algorithm);
+                    .withSubject(cadastro.getEmail())
+                    .withExpiresAt(getExpirationDate())
+                    .sign(algorithm);
             return token;
-        }catch(Exception e){
+        } catch (Exception e) {
             throw new RuntimeException("Erro ao criar token!");
         }
     }
 
-    public String validateToken(String token){
-        try{
+    public String validateToken(String token) {
+        try {
             Algorithm algorithm = Algorithm.HMAC256(secret);
             return JWT.require(algorithm).withIssuer("lavanderia").build().verify(token).getSubject();
-        }catch(Exception e){
-            System.out.println(e);
+        } catch (Exception e) {
             return "";
         }
     }
 
-    public Instant getExpirationDate(){
+    public Instant getExpirationDate() {
         return LocalDateTime.now().plusHours(2).toInstant(ZoneOffset.of("-03:00"));
     }
 }

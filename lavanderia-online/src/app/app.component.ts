@@ -1,7 +1,8 @@
-import { Component, ElementRef, OnInit, ViewChild, ɵɵtrustConstantResourceUrl } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoginService } from './auth';
 import { Usuario } from './shared/models';
+import { timeout } from 'rxjs';
 
 
 @Component({
@@ -13,14 +14,16 @@ import { Usuario } from './shared/models';
 
 export class AppComponent implements OnInit {
   isChecked: boolean = false;
-  usuario!: Usuario | null;
+  user: Usuario | null = this.loginService.getUsuario();
   sh: any;
   title = 'lavanderia-online';
-  constructor(public router: Router, public loginService: LoginService) {
-    this.usuario = null;
+  constructor(public router: Router, public loginService: LoginService, private ref: ChangeDetectorRef) {
+
   }
   ngOnInit(): void {
-    this.usuario = this.loginService.getUsuario();
+    this.user = this.loginService.getUsuario();
+    console.log(this.user);
+    this.recarregarPagina();
   }
 
   logout() {
@@ -31,6 +34,11 @@ export class AppComponent implements OnInit {
     return this.loginService.checkIfLogged();
   }
 
+  recarregarPagina() {
+    if (this.user == null) {
+      location.reload();
+    }
+  }
 }
 
 export class AppModule { }

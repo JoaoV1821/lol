@@ -4,7 +4,8 @@ import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
 import { PaginaInicialComponent } from './pagina-inicial';
 import { PaginaInicialService } from './services';
 import { Format } from '../shared/pipes/format';
-
+import { Router } from '@angular/router';
+import { RouterModule } from '@angular/router';
 @NgModule({
   declarations: [
     PaginaInicialComponent,
@@ -13,7 +14,8 @@ import { Format } from '../shared/pipes/format';
     CommonModule,
     NgxMaskDirective,
     NgxMaskPipe,
-    Format
+    Format,
+    RouterModule
   ],
   providers: [
     provideNgxMask()

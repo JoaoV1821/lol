@@ -29,9 +29,6 @@ public class DelegatedAuthenticationEntryPoint implements AuthenticationEntryPoi
     public void commence(HttpServletRequest request, HttpServletResponse response,
             org.springframework.security.core.AuthenticationException authException)
             throws IOException, ServletException {
-        System.out.println(authException.getMessage());
-        System.out.println(authException.getCause());
-        // response.addHeader("WWW-Authenticate", "Basic realm=\"Realm\"");
         resolver.resolveException(request, response, null, authException);
     }
 }
