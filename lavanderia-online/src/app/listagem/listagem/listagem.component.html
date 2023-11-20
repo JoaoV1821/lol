@@ -36,9 +36,10 @@
                             <td>R$ {{pedido.total?.toFixed(2)?.replace('.',',')}}</td>
                             <td>{{pedido.data! | format}}</td>
                             <td>{{pedido.prazo! | format}}</td>
-                            <!-- <td>{{pedido.status}}</td> -->
-                            <td class="td-button">
+                            <td class="td-button" [ngSwitch]="pedido.status?.toUpperCase()">
                                 <button *ngSwitchCase="'EM ABERTO'" class="btn btn-aberto">{{pedido.status}}</button>
+                                <button *ngSwitchCase="'APROVADO'" class="btn btn-aberto">{{pedido.status}}</button>
+                                <button *ngSwitchCase="'REJEITADO'" class="btn btn-cancelado">{{pedido.status}}</button>
                                 <button *ngSwitchCase="'RECOLHIDO'" class="btn btn-recolhido">{{pedido.status}}</button>
                                 <button *ngSwitchCase="'AGUARDANDO PAGAMENTO'"
                                     class="btn btn-aguardando">{{pedido.status}}</button>

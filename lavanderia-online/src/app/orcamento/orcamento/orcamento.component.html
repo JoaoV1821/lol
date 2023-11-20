@@ -19,11 +19,11 @@
                 <h4>Filtrar:</h4>
             </div>
             <div class="col mx-0 px-0 mx-0">
-                <input type="date" class="form-control pesquisar px-0">
+                <input #data type="date" class="form-control pesquisar px-0">
             </div>
             <div class="col">
-                <button class="btn btn-primary" style="background-color: white"><img
-                        src="../../../assets/search.svg"></button>
+                <button class="btn btn-primary" style="background-color: white"><img src="../../../assets/search.svg"
+                        (click)="filtrar(data)"></button>
             </div>
         </div>
         <div class="row ml-4">
@@ -37,11 +37,13 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let pedido of pedidos">
-                        <td>{{pedido.data}}</td>
-                        <td>{{pedido.total}}</td>
+                        <td>{{pedido.data | format}} </td>
+                        <td>R$ {{pedido.total?.toFixed(2)?.replace('.',',')}}</td>
                         <td>
-                            <button class="btn btn-success mx-2">Aprovar</button>
-                            <button class="btn btn-danger mx-2">Rejeitar</button>
+                            <button [disabled]="pedido.status?.toUpperCase() != 'EM ABERTO'" (click)="aprovar(pedido)"
+                                class="btn btn-success mx-2">Aprovar</button>
+                            <button [disabled]="pedido.status?.toUpperCase() != 'EM ABERTO'" (click)="rejeitar(pedido)"
+                                class="btn btn-danger mx-2">Rejeitar</button>
                         </td>
                     </tr>
                 </tbody>

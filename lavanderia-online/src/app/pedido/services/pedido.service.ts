@@ -9,7 +9,7 @@ export class PedidoService {
   constructor() { }
 
   async postPedido(object: any) {
-    console.log(object.carrinhos)
+    //console.log(object.carrinhos)
     await axios.post('/api/usuario/add/pedido',
       {
 

@@ -205,29 +205,37 @@ public class PedidoService {
         return bodies;
     }
 
-    /*
-     * public void addPedido(PedidoBody modelo) {
-     * Pedido pedido = new Pedido();
-     * pedido = modelMapper.map(modelo, pedido.getClass());
-     * pedido = pedidoRepository.save(pedido);
-     * for (RoupaCarrinho roupaModelo : modelo.roupas) {
-     * Roupa resultado = roupaService.getRoupa(roupaModelo.numero);
-     * if (resultado != null) {
-     * Carrinho carrinho = new Carrinho();
-     * carrinho.setPedido(pedido);
-     * carrinho.setQuantidade(roupaModelo.quantidade);
-     * carrinho.setRoupa(resultado);
-     * carrinhoRepository.save(carrinho);
-     * }
-     * }
-     * }
-     */
-
     public Cadastro addPedido(Cadastro cadastro, List<CarrinhoDTO> carrinhosDTO) {
         Long numeroPedido = cadastro.getLastestPedido() + 1;
         LocalDate data = LocalDate.now();
         long prazo = 0;
         String status = "EM ABERTO";
+        Double total = 0.0;
+        Pedido pedido = new Pedido(null, numeroPedido, data, null, 0.0, status, new ArrayList<>(), cadastro);
+        if (cadastro.getPedidos() != null)
+            cadastro.getPedidos().add(pedido);
+        else
+            cadastro.setPedidos(new ArrayList<Pedido>());
+        for (CarrinhoDTO carrinhoDTO : carrinhosDTO) {
+            Roupa roupa = roupaService.getRoupa(carrinhoDTO.getNumeroRoupa());
+            Carrinho carrinho = new Carrinho(pedido, roupa, carrinhoDTO.getQuantidade());
+            pedido.addCarrinho(carrinho);
+            total += (roupa.getValor() * carrinhoDTO.getQuantidade());
+            prazo = roupa.getTempoDeLavagem() > prazo ? roupa.getTempoDeLavagem() : prazo;
+        }
+        pedido.setTotal(total);
+        pedido.setPrazo(data.plusDays(prazo));
+        pedido = pedidoRepository.save(pedido);
+        for (Carrinho carrinho : pedido.getCarrinhos()) {
+            carrinhoRepository.save(carrinho);
+        }
+        return cadastro;
+    }
+
+    public Cadastro addPedidoWithStatus(Cadastro cadastro, List<CarrinhoDTO> carrinhosDTO, String status) {
+        Long numeroPedido = cadastro.getLastestPedido() + 1;
+        LocalDate data = LocalDate.now();
+        long prazo = 0;
         Double total = 0.0;
         Pedido pedido = new Pedido(null, numeroPedido, data, null, 0.0, status, new ArrayList<>(), cadastro);
         if (cadastro.getPedidos() != null)

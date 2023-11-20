@@ -19,14 +19,27 @@ export class OrcamentoComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     this.pedidos = await this.orcamentoService.getPedidos();
+    console.log(this.pedidos);
   }
 
 
-  aprovar() {
-
+  async aprovar(pedido: Pedido) {
+    await this.orcamentoService.aprovar(pedido);
+    this.pedidos = await this.orcamentoService.getPedidos();
   }
 
-  rejeitar() {
+  async rejeitar(pedido: Pedido) {
+    await this.orcamentoService.rejeitar(pedido);
+
+    this.pedidos = await this.orcamentoService.getPedidos();
+  }
+
+  async filtrar(data: HTMLInputElement) {
+    let value = data.value;
+    if (value != null && value != undefined && value != '') {
+      this.pedidos = await this.orcamentoService.filtrar(value);
+      // this.pedidos = await this.orcamentoService.getPedidos();
+    }
 
   }
 

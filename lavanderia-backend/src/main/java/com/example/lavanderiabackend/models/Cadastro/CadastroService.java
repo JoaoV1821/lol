@@ -51,6 +51,11 @@ public class CadastroService {
         return cadastroDTOs;
     }
 
+    public List<PedidoBody> getListPedidosWithData(String data) {
+        List<PedidoBody> pedidos = pedidoService.getPedidoList(data, data, null);
+        return pedidos;
+    }
+
     public List<CadastroDTO> getClientes() {
         List<Cadastro> cadastros = cadastroRepository.findByPerfil(Papel.USER);
         List<CadastroDTO> cadastroDTOs = new ArrayList<>();
@@ -185,6 +190,12 @@ public class CadastroService {
 
     public void addPedido(List<CarrinhoDTO> carrinhos) {
         Cadastro cadastro = getCadastroFromToken();
+        cadastro = this.pedidoService.addPedido(cadastro, carrinhos);
+        cadastroRepository.save(cadastro);
+    }
+
+    public void addPedidoWithStatus(Cadastro cadastro, List<CarrinhoDTO> carrinhos, String status) {
+
         cadastro = this.pedidoService.addPedido(cadastro, carrinhos);
         cadastroRepository.save(cadastro);
     }

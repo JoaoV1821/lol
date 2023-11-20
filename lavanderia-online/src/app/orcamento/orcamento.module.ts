@@ -3,13 +3,14 @@ import { CommonModule } from '@angular/common';
 
 import { OrcamentoComponent } from './orcamento';
 import { OrcamentoService } from './services';
-
+import { Format } from '../shared/pipes/format';
 @NgModule({
   declarations: [
     OrcamentoComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    Format
   ],
   exports: [
     OrcamentoComponent

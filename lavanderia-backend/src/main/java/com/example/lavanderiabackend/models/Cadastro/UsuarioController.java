@@ -60,8 +60,11 @@ public class UsuarioController {
      * }
      */
     @GetMapping("/get/pedidos")
-    public ResponseEntity<Object> getPedidos(@RequestParam(required = false) String status) {
-        if (status != null) {
+    public ResponseEntity<Object> getPedidos(@RequestParam(required = false) String status,
+            @RequestParam(required = false) String data) {
+        if (data != null) {
+            return ResponseEntity.ok().body(cadastroService.getListPedidosWithData(data));
+        } else if (status != null) {
             return ResponseEntity.ok().body(cadastroService.getListaPedidosWithStatus(status));
         } else {
             return ResponseEntity.ok().body(cadastroService.getListaPedidos());

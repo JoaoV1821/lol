@@ -150,8 +150,7 @@ export class PedidoComponent implements OnInit {
     const pedido = {
       "carrinhos": this.carrinho
     }
-
-    console.log(pedido)
+    //console.log(pedido)
     await this.PedidoService.postPedido(pedido).then((response: any) => {
       alert("Pedido Cadastrado com sucesso!")
     }).catch((error) => {
